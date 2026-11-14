@@ -4,6 +4,8 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BlueDotAtlas — Separate short logo intro/outro</title>
 <style>
+@font-face{font-family:Inter;src:url('/fonts/inter-regular.woff2') format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:Inter;src:url('/fonts/inter-semibold.woff2') format('woff2');font-weight:600 900;font-display:block}
 *{box-sizing:border-box}
 html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#071522}
 #stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;background:radial-gradient(ellipse at 77% 46%,#0c3552 0%,#071b2d 45%,#061522 78%,#04101d 100%)}
@@ -13,6 +15,7 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#071522}
 #pulse{position:absolute;left:572px;top:532px;width:330px;height:330px;transform:translate(-50%,-50%);border:2px solid rgba(25,183,244,.35);border-radius:50%;box-shadow:0 0 45px rgba(16,170,236,.1);opacity:0}
 #pulse2{position:absolute;left:572px;top:532px;width:225px;height:225px;transform:translate(-50%,-50%);border:1px solid rgba(55,214,196,.45);border-radius:50%;opacity:0}
 #brand{position:absolute;left:300px;top:379px;width:1320px;height:auto;opacity:0;display:block;will-change:transform,opacity,clip-path}
+#brand svg{display:block;width:100%;height:auto}
 </style></head>
 <body>
 <div id="stage" role="img" aria-label="BlueDotAtlas original logo animated on an abstract dark-blue contour background. Original illustration; not Earth observational data.">
@@ -29,10 +32,23 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#071522}
  </g>
 </svg>
 <div id="tint"></div><div id="pulse"></div><div id="pulse2"></div>
-<img id="brand" src="/assets/brand/logo/logo-dark.svg" alt="BlueDotAtlas — The Planet Has a Story.">
+<div id="brand" aria-label="BlueDotAtlas — The Planet Has a Story."></div>
 </div>
 <script>
 (function(){
+ window.logoReady=(async()=>{
+   const result=await fetch('/assets/brand/logo/logo-dark.svg');
+   if(!result.ok)throw new Error('Canonical logo HTTP '+result.status);
+   const source=await result.text();
+   if(!source.includes('blue-dot-atlas-contour-v1'))throw new Error('Wrong logo source');
+   const parsed=new DOMParser().parseFromString(source,'image/svg+xml');
+   if(parsed.querySelector('parsererror'))throw new Error('SVG parse failure');
+   const svg=document.importNode(parsed.documentElement,true);
+   document.getElementById('brand').replaceChildren(svg);
+   await Promise.all([document.fonts.load('800 178px Inter'),document.fonts.load('400 74px Inter')]);
+   await document.fonts.ready;
+   return true;
+ })();
  const stage=document.getElementById('stage');
  const logo=document.getElementById('brand');
  const pulse=document.getElementById('pulse'),pulse2=document.getElementById('pulse2'),lines=document.getElementById('lines');
