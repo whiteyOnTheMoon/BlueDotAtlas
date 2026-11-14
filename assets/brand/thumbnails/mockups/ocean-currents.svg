@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="title desc">
+<title id="title">BlueDotAtlas thumbnail concept — ocean</title>
+<desc id="desc">Fictional geometric illustration, not a real satellite or observational data image. Graphic depiction of currents and circular flow; it does not show a scientifically calculated real ocean gyre.</desc>
+<defs>
+  <linearGradient id="back" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#021934"/><stop offset=".65" stop-color="#064366"/><stop offset="1" stop-color="#071522"/></linearGradient>
+  <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#021934" stop-opacity=".96"/><stop offset=".47" stop-color="#021934" stop-opacity=".78"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></linearGradient>
+  <radialGradient id="halo"><stop stop-color="#13B6EF" stop-opacity=".24"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></radialGradient>
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>
+  <clipPath id="clip"><rect width="1280" height="720"/></clipPath>
+</defs>
+<g clip-path="url(#clip)">
+ <rect width="1280" height="720" fill="url(#back)"/>
+ <rect x="510" y="0" width="770" height="720" fill="#003B67"/><ellipse cx="924" cy="352" rx="520" ry="360" fill="url(#halo)"/>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-19 934 354)">
+ <ellipse cx="934" cy="354" rx="380" ry="221" stroke="#16B9DD" stroke-opacity=".55" stroke-width="21"/>
+ <ellipse cx="934" cy="354" rx="310" ry="175" stroke="#81EAF9" stroke-opacity=".6" stroke-width="14"/>
+ <ellipse cx="934" cy="354" rx="238" ry="129" stroke="#19B7F4" stroke-opacity=".9" stroke-width="17"/>
+ <ellipse cx="934" cy="354" rx="171" ry="88" stroke="#CBFAFF" stroke-opacity=".85" stroke-width="13"/>
+ <ellipse cx="934" cy="354" rx="98" ry="47" stroke="#37D6C4" stroke-width="10"/>
+ <path d="M555 351 C 659 134 1050 63 1193 240" stroke="#B7EFFF" stroke-opacity=".28" stroke-width="14"/>
+ <path d="M572 523 C 754 659 1117 590 1250 418" stroke="#A3EEFF" stroke-opacity=".32" stroke-width="17"/>
+</g><ellipse cx="951" cy="357" rx="86" ry="55" fill="#001E37"/><path d="M977 350 C 1015 348 1033 374 1001 397" fill="none" stroke="#77E9F7" stroke-width="15" stroke-linecap="round"/>
+ <rect width="1280" height="720" fill="url(#fade)" opacity="0.83"/>
+ <rect x="0" y="0" width="1280" height="720" fill="none" stroke="#19B7F4" stroke-opacity=".38" stroke-width="3"/>
+</g>
+<!-- Text-only brand mark in these editable layout studies, not an alteration of the approved SVG logo -->
+<circle cx="71" cy="74" r="11" fill="#10AAEC"/>
+<text x="97" y="86" font-family="'Space Grotesk',Arial,sans-serif" font-size="32" font-weight="700" fill="#F2F9FF">BlueDotAtlas</text>
+<text x="67" y="261" font-family="'Inter',Arial,sans-serif" font-size="20" letter-spacing="5" font-weight="700" fill="#B4CCDC">OCEAN SYSTEMS</text>
+<text x="67" y="377" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#F2F9FF" paint-order="stroke fill">OCEAN'S</text>
+<text x="67" y="483" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#19B7F4" paint-order="stroke fill">HIDDEN ENGINE</text>
+<rect x="69" y="522" width="145" height="11" rx="5" fill="#19B7F4"/>
+<text x="70" y="681" font-family="'Inter',Arial,sans-serif" font-size="15" fill="#C9DCEB" letter-spacing="2">ILLUSTRATIVE DESIGN MOCKUP  ·  NOT OBSERVATIONAL DATA</text>
+</svg>
