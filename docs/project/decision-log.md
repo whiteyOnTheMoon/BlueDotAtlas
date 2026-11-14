@@ -28,11 +28,13 @@
 
 | DEC-017 | **Nur EIN verbindliches BlueDotAtlas-Thumbnail-Template** nach dem ersten ausgewählten Ozean-Entwurf: echtes freigegebenes Logo + Claim **oben links**, große Space-Grotesk-Headline **links**, dominantes Motiv **rechts**, Deep-Sea-Verlauf, feiner türkisfarbener Rahmen und kurzer türkisfarbener Unterstrich. Die Motive/Titel wechseln, der Aufbau niemals. Andere bereits gezeichnete Textpositionen sind als Varianten verworfen. | Entschieden | Nutzer: „Der erste Entwurf gefällt mir am besten. Ich will nur ein Template. Aufbau soll immer so sein wie beim ersten Vorschlag.“ und anschließend „Ja, das nehmen wir, bitte auf GitHub dokumentieren bzw Dokumentation ausbessern“, 14.11.2026 | `assets/brand/thumbnails/template.svg` ist der einzige Master. Drei SVG-Mockups sind nur unterschiedliche Inhaltsbeispiele **desselben Layouts**. `docs/brand/visual-language.md` und `docs/brand/thumbnail-qa.md` angepasst; aktueller Chromium-Test **12/12 PASS** ([Run #43606211530](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43606211530)). Wissenschaftliche Bildrechte bleiben je Veröffentlichung zu prüfen. |
 
+| DEC-018 | Die ursprünglich vorgeschlagene **kombinierte 10-Sekunden-Motion-Präsentation ist als Intro/Outro nicht akzeptiert**. Stattdessen werden **zwei unabhängige, kurze Logo-Clips** gewünscht: ein ca. 2–3-sekündiges Intro mit Animation des unveränderten Logos und ein ca. 2–3-sekündiges Outro; keine Lower Third, Marker oder Quellenleiste in den Logo-Clips. | Entschieden (Anforderung, **finale Animationsabnahme noch offen**) | Nutzer: „Nicht ganz zufrieden. Wir sollten einen kurzen 2,3 Sekunden Clip fürs Intro machen, animiertes Logo zb, und ein 2, e Sekunden Clip für das outro.“, 14.11.2026 | Aufgabe 007: neue eigenständige Intro-/Outro-Videos mit Arbeitslängen **2,3s und 2,2s**. Frühere 10s-Demo bleibt nur als technischer Lower-Third-/Marker-Test, nicht als offizieller Markenclip. Der Nutzer muss beide neuen MP4s noch freigeben. |
+
 ## Offene Entscheidungen
 
 | ID | Frage | Aufgabe | Status |
 | --- | --- | --- | --- |
-| OPEN-003 | Farbwelt, freies Schriftpaar und EIN Thumbnail-Template sind entschieden; Motion, UI-Kit und Brand-Gate folgen | 007–009 | Teilweise offen |
+| OPEN-003 | Farbwelt, freies Schriftpaar und EIN Thumbnail-Template sind entschieden; zwei kurze Motion-Logo-Clips zur finalen Freigabe, UI-Kit und Brand-Gate folgen | 007–009 | Teilweise offen |
 
 ## Erledigte Entscheidungspunkte
 
