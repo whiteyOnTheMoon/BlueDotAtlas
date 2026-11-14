@@ -24,6 +24,11 @@ BlueDotAtlas entwickelt ein redaktionell kontrolliertes Webstudio zur Recherche,
 
 Die exakte Claim-/Tagline-Formulierung und die vollständige Markenfreigabe sind **noch offen**; das ist nicht mit der Festlegung des Namens zu verwechseln.
 
+## Projektdokumentation
+
+- [Brand Brief V0.1](docs/brand/brand-brief.md) — Aufgabe 001, redaktioneller Entwurf und Abnahmecheckliste
+- [Entscheidungsprotokoll](docs/project/decision-log.md) — fortlaufend versionierte verbindliche Beschlüsse und offene Fragen
+
 ## Roadmap und Arbeitsregeln
 
 Grundlage: *BlueDotAtlas Master Roadmap V0.1* (13. November 2026), 14 Meilensteine, 158 fortlaufende Aufgaben und verbindliche Abnahmetore.
@@ -44,6 +49,6 @@ Grundlage: *BlueDotAtlas Master Roadmap V0.1* (13. November 2026), 14 Meilenstei
 - Datenhaltung: PostgreSQL
 - Rendering: Remotion, FFmpeg/ffprobe und separater Worker
 - Betrieb: eigener VPS, Docker Compose und HTTPS
-- Inhalt: geprüfte wissenschaftliche Quellen, lizensiertes Original-Footage, TTS und redaktionelle Prüfungen
+- Inhalt: geprüfte wissenschaftliche Quellen, lizenziertes Original-Footage, TTS und redaktionelle Prüfungen
 
 **Hinweis:** Diese README wurde als einmalige initiale Repository-Datei angelegt, da das GitHub-Repository zuvor leer war. Die weiteren Aufgabenänderungen laufen regulär über Issue und Pull Request.
