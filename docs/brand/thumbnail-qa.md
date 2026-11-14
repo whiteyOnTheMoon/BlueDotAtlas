@@ -55,4 +55,4 @@ SUMMARY 12/12 thumbnail render/bounds checks PASS
 
 The sample ocean swirl, glacier and storm are **illustrations, NOT real measurements or satellite photos**. They may not be published as visual evidence. A production thumbnail must replace or properly label the imagery and verify rights, scientific truthfulness, timeframe and copyright case by case.
 
-**Task 006 gate:** owner's selected visual arrangement is binding and real-font thumbnail layout tests passed; remaining formal step is PR review/merge + issue close.
+**Task 006 gate: COMPLETED.** Owner selected exactly one Ocean-style visual arrangement (DEC-017); real-font browser layout tests passed; [PR #14](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/14) merged; [Issue #13](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/13) closed. Science/media rights are still checked individually for actual released episodes.
