@@ -7,6 +7,7 @@ This directory is the common home for reusable **brand artwork and font document
 | [logo/](logo/) | Four approved transparent, crop-optimized Earth Contour SVG logos and icon-only variants | Actual SVG assets in this folder — do not modify geometry or undo the owner's two cleanup commits |
 | [colors/](colors/) | Deep Ocean / Glacial Light palette illustration and usage notes | [`packages/ui/tokens/colors.ts`](../../packages/ui/tokens/colors.ts) |
 | [fonts/](fonts/) | Space Grotesk and Inter reference preview and verified open-font license text | [`docs/brand/typography.md`](../../docs/brand/typography.md); deployment integration in Next.js later |
+| [thumbnails/](thumbnails/) | **ONE official thumbnail template** (ocean-style layout) + three topic examples using exactly that composition | [\`docs/brand/visual-language.md\`](../../docs/brand/visual-language.md) (DEC-017) |
 
 ## Project rules
 - Name: **BlueDotAtlas**. Claim: **The Planet Has a Story.**
@@ -17,5 +18,6 @@ This directory is the common home for reusable **brand artwork and font document
 - Font binaries are **not** checked into the brand kit at this early stage. When application integration begins, pin/font-host the correct versions and ship original SIL OFL license notices alongside any redistributed font files.
 - Keep palettes and specimens here, but keep `packages/ui/tokens/colors.ts` as the sole runtime source for color semantics.
 - The user deliberately removed `assets/brand/concepts/` and the redundant `assets/brand/logo.svg`; do not restore either.
+- **One thumbnail master only:** `assets/brand/thumbnails/template.svg`, with fixed top-left approved logo, left text block, right subject, teal border and underline. Ocean/ice/storm SVGs are content-only examples — **not competing design layouts** (DEC-017).
 
 **Approval/status:** colors and font **design choices** approved 14 Nov 2026. Task 005 representative real-font browser tests passed at 375px, 768px and 1920×1080. Later production-app loading and physical TV-device testing remain explicit follow-up work; see [Typography QA](../../docs/brand/typography-qa.md).
