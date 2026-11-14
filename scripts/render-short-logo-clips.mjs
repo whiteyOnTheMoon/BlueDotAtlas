@@ -13,6 +13,8 @@ mkdirSync(out,{recursive:true});
 const paths={
  "/motion":{path:"assets/brand/motion/logo-intro-outro.html",type:"text/html; charset=utf-8"},
  "/assets/brand/logo/logo-dark.svg":{path:"assets/brand/logo/logo-dark.svg",type:"image/svg+xml"},
+ "/fonts/inter-regular.woff2":{path:".tmp-fonts/Inter-Regular.woff2",type:"font/woff2"},
+ "/fonts/inter-semibold.woff2":{path:".tmp-fonts/Inter-SemiBold.woff2",type:"font/woff2"},
 };
 const logoSource=readFileSync(resolve(root,paths["/assets/brand/logo/logo-dark.svg"].path),"utf8");
 if(!logoSource.includes('blue-dot-atlas-contour-v1')||
@@ -38,16 +40,19 @@ try {
   page.on("response",r=>{if(!r.ok())errors.push("HTTP "+r.status()+" "+r.url());});
   await page.goto("http://127.0.0.1:"+port+"/motion?clip="+clip.id,{waitUntil:"load"});
   const check=await page.evaluate(async()=>{
-   const image=document.querySelector("#brand");
-   await image.decode();
-   return {imageLoaded:image.complete&&image.naturalWidth>0,
-     source:new URL(image.currentSrc).pathname,
+   await window.logoReady;
+   const svg=document.querySelector("#brand svg");
+   const families=[...document.fonts].filter(x=>x.status==="loaded").map(x=>({name:x.family,weight:x.weight}));
+   return {logoLoaded:!!svg&&svg.querySelectorAll("path").length===3&&
+       svg.querySelector("g#blue-dot-atlas-contour-v1")!==null &&
+       [...svg.querySelectorAll("text")].some(x=>x.textContent==="BlueDotAtlas"),
+     fontsLoaded:families.some(x=>x.name==="Inter"&&x.weight==="400")&&families.some(x=>x.name==="Inter"&&x.weight==="600 900"),
      data:window.logoClipSpec,
-     actualBounds:(()=>{const r=image.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};})(),
+     actualBounds:(()=>{const r=svg.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};})(),
      hasExtraOverlays:!!document.querySelector("#lowerThird, #mapMarker, #source")};
   });
-  if(!check.imageLoaded||check.source!=="/assets/brand/logo/logo-dark.svg")
-   throw new Error("Original SVG logo did not load for "+clip.id);
+  if(!check.logoLoaded||!check.fontsLoaded)
+   throw new Error("Original SVG and licensed Inter fonts did not load for "+clip.id+": "+JSON.stringify(check));
   if(check.hasExtraOverlays)throw new Error("Short logo clips must not contain lower thirds/maps/source cards");
   const mid=await page.evaluate(x=>window.setLogoTime(x.time,x.id),{time:clip.id==="intro"?1.50:.80,id:clip.id});
   const tail=await page.evaluate(x=>window.setLogoTime(x.time,x.id),
@@ -85,9 +90,9 @@ try {
   if(errors.length)throw new Error("Browser response errors: "+errors.join(" | "));
   qa.clips.push({name:clip.name,duration:Number(probe.format.duration),frames:clip.frames,
     codec:stream.codec_name,dimensions:"1920x1080",logoLoaded:true,visualState:{mid,tail},
-    fileBytes:Number(probe.format.size),qa:"PASS"});
+    fileBytes:Number(probe.format.size),approvedInterFontsLoaded:check.fontsLoaded,qa:"PASS"});
   console.log("PASS "+clip.id+" "+probe.format.duration+"s "+clip.frames+
-    " frames H264 1920x1080, original logo, separate MP4, no overlays.");
+    " frames H264 1920x1080, exact official inline SVG and real Inter fonts, no overlays.");
   await page.close();
  }
 }finally{
