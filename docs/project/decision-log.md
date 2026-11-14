@@ -21,11 +21,14 @@
 | DEC-012 | **Logo-003 freigegeben** und Übergang zu Farbe/Typografie beschlossen. Das Artboard-Crop ändert nur `viewBox`/`width`/`height` und lässt Zeichen, Farben, Text unverändert. | Entschieden | Nutzer „Ok, dann geht's mit Farben und Typografie weiter“, 14.11.2026 | 003 nach dokumentiertem 48px-Icon-Check und PR-Merge abschließen; später lizenzierte freie Fonts verwenden. |
 | DEC-013 | **Nur freie, rechtlich nutzbare Fonts** für BlueDotAtlas verwenden. | Entschieden | Nutzeranweisung „Sollen frei Fonts sein“, 14.11.2026 | Für 005 Schriftlizenzen der konkreten Font-Version prüfen und Lizenzbedingungen in GitHub dokumentieren. |
 
+| DEC-014 | Die **Deep Ocean / Glacial Light**-Palette mit Deep Sea `#021934`, Ice White `#F2F9FF`, Blue Dot `#10AAEC`, Glacier `#37D6C4` und Deep Night `#071522` ist ausgewählt und genehmigt. | Entschieden | Nutzer „Ok, einverstanden“ zur gemeinsamen Farben-/Font-Vorschau, 14.11.2026 | Farben in `packages/ui/tokens/colors.ts`, visuelle Palette unter `assets/brand/colors/`; Logo-SVGs unverändert; Kontraste gesondert geprüft. |
+| DEC-015 | **Space Grotesk** als Display-Schrift und **Inter** als Screen-/UI-/Untertitel-Schrift sind ausgewählt; beide müssen legal frei nutzbar sein. | Entschieden (Auswahl) | Nutzer „Ok, einverstanden“, 14.11.2026 | Der Entwurf für 005 kann entsprechend festgelegt werden; Einbindung, exakte Version, Fontlizenzen und Mobil-/TV-Nachweise werden noch geprüft. |
+
 ## Offene Entscheidungen
 
 | ID | Frage | Aufgabe | Status |
 | --- | --- | --- | --- |
-| OPEN-003 | Farbwelt, Typografie und weitere Brand-Elemente final auswählen; Logo-003 ist freigegeben | 004–009 | Teilweise offen |
+| OPEN-003 | **Farbwelt und Font-Paar sind entschieden**, konkrete Font-Einbindung/Lesbarkeit und übrige Brand-Elemente werden noch getestet | 005–009 | Teilweise offen |
 
 ## Erledigte Entscheidungspunkte
 
