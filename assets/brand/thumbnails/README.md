@@ -35,6 +35,6 @@ These files are **not** ready-to-upload documentary thumbnails: the image conten
 
 - [x] Three distinct visual subjects and headline placements drafted.
 - [x] All use shared BlueDotAtlas brand colors and free-font stack.
-- [ ] Browser tests at 1280/320/160 completed and reviewed.
+- [x] Chromium real-font browser bounds checks at 1280/320/160 passed (9/9), with [QA report](../../../docs/brand/thumbnail-qa.md); creative review still pending.
 - [ ] User approves stylistic rules and representative designs (or requests changes).
 - [ ] PR merged and Issue #13 closed.
