@@ -1,9 +1,11 @@
 # BlueDotAtlas — Color System V0.1 (proposal)
 
 **Roadmap:** M00 / 004 — Farbwelt und Kontrastregeln  
-**Status:** DRAFT — approval pending ([Issue #7](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/7))  
+**Status:** DESIGN APPROVED — owner approved Deep Ocean / Glacial Light in project chat (14 Nov 2026); merge evidence tracked in [Issue #7](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/7)  
 **Source of truth:** [`packages/ui/tokens/colors.ts`](../../packages/ui/tokens/colors.ts)  
 **Review date:** 2026-11-14
+
+**Brand asset:** [`assets/brand/colors/palette.svg`](../../assets/brand/colors/palette.svg) (visual color board). The source of semantic color values remains `packages/ui/tokens/colors.ts`.
 
 ## Design intent
 
@@ -80,8 +82,9 @@ Using sRGB relative luminance, evaluated on the exact hex values in `colors.ts`:
 - [x] Exact colors proposed with existing SVG-logo inks preserved.
 - [x] Light/dark semantic UI + chart/map/motion tokens authored.
 - [x] 18 source-derived WCAG color-contrast pairings computed and passing.
-- [ ] Visual review in representative UI and 1080p title-card/mockup.
-- [ ] Final palette approved by the user.
+- [x] Owner reviewed a representative dark UI/documentary title preview alongside the colors and type pairing.
+- [ ] Actual 1080p video rendering with footage remains a separate Motion/Brand-Gate check (tasks 007–009).
+- [x] Deep Ocean / Glacial Light approved by the user with “Ok, einverstanden” (14 Nov 2026; DEC-014).
 - [ ] PR reviewed / merged; Issue #7 closed.
 
-**Decision requested:** Approve the Deep Ocean / Glacial Light palette as-is, or request specific color changes. Typography selection follows as Roadmap task 005.
+**Decision:** Palette approved. Fonts Space Grotesk + Inter are also selected; typography licensing and actual display tests remain part of task 005.
