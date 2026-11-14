@@ -26,11 +26,13 @@
 
 | DEC-016 | **Typografie-005 nach Nutzerlesbarkeitsbestätigung und tatsächlichem Browser-Test freigegeben.** Pinned WOFF2-Builds von Inter und Space Grotesk bestehen alle drei Prüfgrößen: 375px, 768px und 1920×1080. | Abnahme-/Testnachweis | Nutzer „Ist lesbar“ / „Ich finde es lesbar, kannst du auch einen Test machen und abschließen?“ und [GitHub Actions Run #43563814550](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43563814550), 14.11.2026 | Aufgabe 005 kann mit PR-Merge/Issue-Gate geschlossen werden. Produktionseinbindung in Next.js/Remotion sowie physischer TV-Test erst in späteren Aufgaben, nicht als bereits erfolgt dokumentieren. |
 
+| DEC-017 | **Nur EIN verbindliches BlueDotAtlas-Thumbnail-Template** nach dem ersten ausgewählten Ozean-Entwurf: echtes freigegebenes Logo + Claim **oben links**, große Space-Grotesk-Headline **links**, dominantes Motiv **rechts**, Deep-Sea-Verlauf, feiner türkisfarbener Rahmen und kurzer türkisfarbener Unterstrich. Die Motive/Titel wechseln, der Aufbau niemals. Andere bereits gezeichnete Textpositionen sind als Varianten verworfen. | Entschieden | Nutzer: „Der erste Entwurf gefällt mir am besten. Ich will nur ein Template. Aufbau soll immer so sein wie beim ersten Vorschlag.“ und anschließend „Ja, das nehmen wir, bitte auf GitHub dokumentieren bzw Dokumentation ausbessern“, 14.11.2026 | `assets/brand/thumbnails/template.svg` ist der einzige Master. Drei SVG-Mockups sind nur unterschiedliche Inhaltsbeispiele **desselben Layouts**. `docs/brand/visual-language.md` und `docs/brand/thumbnail-qa.md` angepasst; aktueller Chromium-Test **12/12 PASS** ([Run #43606211530](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43606211530)). Wissenschaftliche Bildrechte bleiben je Veröffentlichung zu prüfen. |
+
 ## Offene Entscheidungen
 
 | ID | Frage | Aufgabe | Status |
 | --- | --- | --- | --- |
-| OPEN-003 | **Farbwelt und Font-Paar sind entschieden**, konkrete Font-Einbindung/Lesbarkeit und übrige Brand-Elemente werden noch getestet | 005–009 | Teilweise offen |
+| OPEN-003 | Farbwelt, freies Schriftpaar und EIN Thumbnail-Template sind entschieden; Motion, UI-Kit und Brand-Gate folgen | 007–009 | Teilweise offen |
 
 ## Erledigte Entscheidungspunkte
 
