@@ -1,40 +1,50 @@
-# BlueDotAtlas — Thumbnail Layout Concepts
+# BlueDotAtlas — The ONE Official Thumbnail Template
 
-**Task:** [006 – Bildsprache und Thumbnail-Regeln](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/13)  
-**Status:** DRAFT — user review pending
+**Roadmap:** M00 / 006.  
+**Decision:** **APPROVED** — one fixed thumbnail composition based on the very first ocean concept shown to the owner on 2026-11-14 (DEC-017).  
+**Status:** Creative layout approved; revised automated 1280/320/160 tests and PR merge are tracked under [Issue #13](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/13).
 
-## Files
+## Only one template
 
-- [overview.svg](overview.svg) — one contact sheet of all three layout studies.
-- [mockups/ocean-currents.svg](mockups/ocean-currents.svg) — Ocean's Hidden Engine.
-- [mockups/changing-ice.svg](mockups/changing-ice.svg) — Why Ice Is Changing.
-- [mockups/storm-from-space.svg](mockups/storm-from-space.svg) — Storms From Space.
-- [Visual language rules](../../../docs/brand/visual-language.md) — scientific integrity, licensing checks, typography grid, camera treatment and launch requirements.
+**[`template.svg`](template.svg)** is the **single master** for BlueDotAtlas thumbnails. It encodes the visual composition chosen from the original ocean image:
 
-All three vectors are **1280×720** (16:9) editable SVG concept thumbnails. Their scenes are **illustrations, not real NASA/NOAA satellite imagery**. Their scientific headlines are early creative examples, to be researched before they become live video titles.
+- Actual approved **BlueDotAtlas logo and tagline at top left**, same geometry/text as [`../logo/logo-dark.svg`](../logo/logo-dark.svg).
+- **Large white-and-one-blue-accent headline, always on the LEFT**.
+- **Main photographic/illustrative science motif, always on the RIGHT**.
+- **Deep-navy gradient/scrim behind headline**, revealing the hero image to the right.
+- **Thin cyan/teal rounded outline border** and **short teal underline** beneath the title.
+- Same 1280×720 16:9 canvas and consistent dimensions across episodes.
 
-## Brand constraints
+The media and words are **slots**, not alternative template layouts. **Do not move** the logo, headline or accent line to suit a subject. Instead choose/crop the background image and shorten the headline.
 
-The existing exact SVG logos in `assets/brand/logo/` remain **untouched**. Our working thumbnail mockups use a small typographic brand identifier, not a replacement logo; final published uses must reference the approved logo assets.
+## Topic demos — NOT additional templates
 
-Colors derive from [the approved color tokens](../../../packages/ui/tokens/colors.ts); display typography assumes **Space Grotesk 700**, with **Inter** for minor labels. SVG fonts can vary in GitHub preview/browser depending on installed font availability. The separate 006 browser test explicitly loads approved real font WOFF2 sources to check bounding boxes.
+| File | Different content | Unchanged layout |
+| --- | --- | --- |
+| [`mockups/ocean-currents.svg`](mockups/ocean-currents.svg) | Ocean swirl illustration + ocean headline | Logo upper left, title left, image right |
+| [`mockups/changing-ice.svg`](mockups/changing-ice.svg) | Ice illustration + ice headline | **Same** positions, colors and frame |
+| [`mockups/storm-from-space.svg`](mockups/storm-from-space.svg) | Storm illustration + storm headline | **Same** positions, colors and frame |
 
-## Reviewing
+[Compare all three as a single sheet](overview.svg).
 
-- Open **overview.svg** to see the three layouts as a single sheet.
-- Open each file individually for a native 16:9 editable version.
-- Look at **320px and 160px** widths, not only on a desktop.
-- Check whether the focal image and short text are clear; optional small brand label and metadata are not intended to remain readable at 160px.
-- Select or refine the concept pattern: right-side ocean subject, lower-left ice title, right-side storm title. They need not all use the same headline position.
+These are **conceptual editable SVG illustrations**, not actual observational data and not pixel-for-pixel replications of the original generated image in the chat. The user approved **the composition and style**; the photorealistic reference background is not a verified NASA scene.
 
-## Publishing limitations
+## SVG slots
 
-These files are **not** ready-to-upload documentary thumbnails: the image content is invented by design. Replace abstract scenes with rights-checked actual imagery when the episode concerns a real location or observation; track source/license/attribution and do not imply NASA endorsement. No video/published claims have been verified in this task.
+Master and example SVGs annotate elements as `data-slot="background-image"`, `data-slot="approved-logo"`, `data-slot="left-title-block"`, `data-slot="headline-line-N"`, `data-slot="underline"` and `data-slot="border"`. All are designed around **1280×720**.
 
-## Acceptance status
+For new topics: replace the underlying sample illustration with properly rights-cleared real footage stills (or transparently labeled science artwork), and change the headline lines. Keep the remaining artwork exactly aligned.
 
-- [x] Three distinct visual subjects and headline placements drafted.
-- [x] All use shared BlueDotAtlas brand colors and free-font stack.
-- [x] Chromium real-font browser bounds checks at 1280/320/160 passed (9/9), with [QA report](../../../docs/brand/thumbnail-qa.md); creative review still pending.
-- [ ] User approves stylistic rules and representative designs (or requests changes).
-- [ ] PR merged and Issue #13 closed.
+**Existing logo originals are unchanged.** The header in the template embeds the same approved SVG path/text markup as `assets/brand/logo/logo-dark.svg`; copying it into each standalone thumbnail SVG is deliberate so previews/export do not depend on an external relative asset URL. If the official logo is later updated by a separately approved decision, the embedded header must be regenerated from it.
+
+The approved fonts are **Space Grotesk 700** (headlines) and **Inter** where screen text is required; font previews require a renderer with those fonts available. The GitHub Actions thumbnail test downloads exact known OFL font versions into temporary storage.
+
+## Important release limits
+
+- **No multiple official templates.** All future topics use this single composition.
+- The concept ocean/ice/storm vector backgrounds are **not real satellite images**. Any production claim must be supported by the film research and individually licensed sourced media.
+- The original thumbnail preview (shown by the owner in chat) remains the *creative reference*. The SVG copies the layout but not the exact pixels of the generated background.
+- A YouTube export must pass manual checks at 320/160px, document rights, and respect the timestamp zone.
+- The illustrations deliberately omit a large "Concept Mockup" label on the artwork. The status disclaimer lives in SVG description, this README and project documentation — publishing controls must still prevent their use as real observational footage.
+
+For full rules and factual-image policies see [Visual Language V0.1](../../../docs/brand/visual-language.md).
