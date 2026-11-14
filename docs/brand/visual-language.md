@@ -91,7 +91,7 @@ Nützliche Referenzen (geben **keine pauschale Freigabe zur Wiederverwendung**):
 - [x] Drei unterschiedliche Themen als Anwendungsbeispiele desselben Layouts angelegt.
 - [x] Vorhandene Brand-Farben und lizenziertes Schriftpaar übernommen; offizielle Logo-Dateien **nicht verändert**.
 - [x] Regeln für Satellitenbilder, Makro, Ozean, Karten und Datenvisualisierungen dokumentiert.
-- [ ] Aktuelle Master-/Beispiel-SVGs in Chromium bei 1280/320/160 auf Textpositionen, echte Fonts und Logoform geprüft; alter 9/9-Test bezog sich noch auf die inzwischen verworfenen Mehrlayout-Entwürfe.
-- [ ] PR-Review/Merge mit QA-Nachweis; danach Issue #13 schließen.
+- [x] Aktuelle Master-/Beispiel-SVGs in Chromium bei 1280/320/160 geprüft: **12/12 bestanden**, mit real geladenem Inter/Space Grotesk, unveränderten Logoformen und korrekt positionierten Headline-Bereichen. [Aktueller QA-Bericht](thumbnail-qa.md) · [GitHub Actions #43606211530](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43606211530). Der alte 9/9-Test ist ausdrücklich überholt.
+- [ ] Inhaltlich freigegeben; PR #14 reviewen/mergen und Issue #13 mit diesem QA-Nachweis schließen.
 
 **Ein einziger Master, konsistent für alle künftigen BlueDotAtlas-Thumbnails.**
