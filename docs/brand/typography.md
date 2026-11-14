@@ -1,11 +1,11 @@
 # BlueDotAtlas — Typography V0.1 (free-font proposal)
 
 **Roadmap:** M00 / 005 — Typografie und Schriftlizenzen  
-**Status:** PREPARATORY DRAFT; blocked by color task [004 / Issue #7](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/7). Final font selection and TV/mobile checks are **not yet approved**.  
+**Status:** FONT PAIR APPROVED by owner („Ok, einverstanden“, 14 Nov 2026, DEC-015). Color task [004 / Issue #7](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/7) is completed. Device/TV legibility and version-pinned font loading remain open.  
 **Issue:** [#9](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/9)  
 **Requirement:** Only freely licensed fonts fit for commercial websites, videos and branding (user decision DEC-013).
 
-## Proposed free font pair
+## Approved free font pair
 
 ### Screen / UI / subtitles: Inter
 - **Type:** legible variable sans serif optimized for screens.
@@ -25,9 +25,9 @@
 
 Both fonts can be used in commercial branding/web/video applications subject to the OFL. **When distributing the font files**, include their original copyright and license text. Do **not** sell the font files standalone, violate Reserved Font Name requirements, or claim trademark exclusivity.
 
-**No font binaries are bundled in this draft**. When implementing the website, pin font versions, self-host or use `next/font` where supported, and retain the matching `OFL.txt` and copyright notices in the repository. Check the exact files obtained, rather than relying only on the font-family name.
+**Font assets stored in [`assets/brand/fonts/`](../../assets/brand/fonts/):** Responsive specimen HTML, verified official Inter and Space Grotesk `OFL.txt` license snapshots (14 Nov 2026), and licensing/deployment notes. **No font binaries are bundled in the repository yet**. When implementing the website, pin font versions, self-host or use `next/font` where supported, and retain the matching `OFL.txt` and copyright notices in the repository. Check the exact files obtained, rather than relying only on the font-family name.
 
-## Proposed type scale — Website
+## Type scale — Website (provisional sizes pending responsive device test)
 
 | Usage | Font / Weight | Size (first proposal) |
 | --- | --- | --- |
@@ -41,7 +41,7 @@ Both fonts can be used in commercial branding/web/video applications subject to 
 
 Use responsive line lengths (roughly 55–75 characters for reading surfaces) and allow zoom/text scaling without overflow. No unnecessary letter-spacing on small body text.
 
-## Proposed type scale — Full HD 1920 × 1080
+## Type scale — Full HD 1920 × 1080 (provisional sizes pending TV test)
 
 | Usage | Font / Weight | Starting range (px) | Rules |
 | --- | --- | ---: | --- |
@@ -79,14 +79,14 @@ When implemented with bundled font files, preserve exact OFL copyright/notice an
 
 ## Abnahme-Checkliste
 
-- [x] Two free/open-licensed candidate font families named.
-- [x] Official license documents linked (Google Fonts OFL repository).
+- [x] Both free/open-licensed font families selected by the user: Space Grotesk (display) and Inter (screen).
+- [x] Official license documents fetched and checked for SIL OFL 1.1; copies saved under `assets/brand/fonts/licenses/`.
 - [x] Initial responsive website/1080p/thumbnail type scales documented.
-- [ ] Color task 004 approved and merged.
-- [ ] Final font family pair explicitly approved.
+- [x] Color task 004 approved and merged in PR #8.
+- [x] Font family pair explicitly approved by user (DEC-015).
 - [ ] Actual font files and version-pinned redistribution licenses reviewed.
 - [ ] Mobile website and thumbnail legibility tested with the chosen fonts.
 - [ ] 1080p rendering and TV-distance legibility tested with the chosen fonts.
 - [ ] PR reviewed and merged; Issue #9 completed with evidence.
 
-**Never copy downloaded fonts into customer-facing deliverables without checking the file license and permitted redistribution obligations.**
+**Documentation note:** Font family choices and license check are approved and versioned. The technical acceptance of 005 remains open until the exact font deployment and mobile/TV-size tests are demonstrated. Never copy fonts into customer-facing deliverables without checking permitted redistribution obligations.
