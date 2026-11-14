@@ -13,7 +13,6 @@
 | DEC-005 | **Wissenschaftliche Genauigkeit, Quellen-/Rechteprüfung und manuelle Freigabe** bleiben verpflichtend. | Verbindliche Roadmap-Leitplanke | Master Roadmap V0.1 | Reichweitenoptimierung darf nicht zu Irreführung oder unbelegten Aussagen führen. |
 | DEC-006 | Ein **„Ok“ im Projektchat bedeutet eine ausdrückliche Freigabe** des jeweils zur Abnahme vorgelegten Ergebnisses. | Entschieden | Nutzer, 13.11.2026 | Gilt nur für den konkret vorgelegten Prüfschritt; niemals als pauschale Freigabe für neue, nicht gezeigte Änderungen oder kostenpflichtige Aktionen. |
 | DEC-007 | Das **Markenversprechen und der gesamte Brand Brief V0.1 (Aufgabe 001)** sind freigegeben. | Entschieden | Nutzerantwort „Ok“, 13.11.2026 | Aufgabe 001 kann nach PR-Merge und Abnahmeprotokoll geschlossen werden. |
-
 | DEC-008 | Der öffentliche englische Claim lautet **„The Planet Has a Story.“** (Schreibweise für die Markenanwendung mit Großbuchstaben und Schluss-Punkt). | Ausgewählt | Nutzer: „Bin für 'the planet has a story'“, 13.11.2026 | In `docs/brand/naming.md` übernommen; diese Wahl ist **keine** Freigabe der noch offenen Kurzform oder aller Naming-Regeln. |
 
 ## Offene Entscheidungen
