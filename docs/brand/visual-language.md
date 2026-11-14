@@ -88,7 +88,7 @@ All three are **original vector illustrations**, **not** NASA/NOAA satellite ima
 - [x] Visual rules for satellite, macro, ocean, maps and charts drafted.
 - [x] Brand, type and color use tied to previously approved gates.
 - [x] Three thematically different **1280×720 vector** layout sketches authored and filed in `assets/brand/thumbnails/mockups/`.
-- [ ] At 320px and 160px, render and inspect the three final SVGs including typography before approval.
+- [x] **Automated browser check:** all 3 concepts at 1280/320/160 passed in Chromium with loaded Inter/Space Grotesk (9/9) and no text overflow. See [Thumbnail QA](thumbnail-qa.md) and [GitHub run #43565047653](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43565047653). Owner's aesthetic/mobile readability sign-off still pending.
 - [ ] Owner signs off on the style or requests changes.
 - [ ] PR merged and Issue #13 completed with QA evidence.
 
