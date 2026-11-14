@@ -2,7 +2,7 @@
 
 **Roadmap:** M00 · Aufgabe 002 – Wortmarke und Schreibweise normieren  
 **Stand:** 13. November 2026  
-**Status:** ENTWURF — Claim, Kurzform und vollständige Naming-Regeln noch **nicht** freigegeben  
+**Status:** Öffentlicher Claim durch Nutzer ausgewählt (DEC-008); Kurzform und vollständige Naming-Regeln noch **nicht** freigegeben  
 **Voraussetzung:** [Aufgabe 001](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1) ist abgeschlossen  
 **Arbeitsissue:** [Aufgabe 002](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/3)
 
@@ -24,19 +24,17 @@ Begründung: BlueDotAtlas ist ausreichend kompakt, wiedererkennbar und markiert 
 
 **Entscheidungsstatus:** offen; mit Aufgabe 002 durch den Auftraggeber zu bestätigen.
 
-## 3. Englischer Claim / Tagline (Auswahl erforderlich)
+## 3. Englischer Claim / Tagline (ausgewählt)
 
-> **Empfehlung A: „See Earth Differently.“**
->
-> Kurze, einprägsame Einladung mit Neugiercharakter; passt zum cineastischen Filmanspruch, ohne unbelegte Behauptungen.
+> **The Planet Has a Story.**
 
-**Alternative B: „The Planet Has a Story.“**  
-Stärker erzählerisch, eignet sich für einen dokumentarischen Markenton.
+**Entscheidung DEC-008:** Der Auftraggeber hat den Claim im Projektchat mit „Bin für 'the planet has a story'“ explizit ausgewählt. Für die öffentliche Wortmarke gilt die Schreibweise **„The Planet Has a Story.“** einschließlich Groß-/Kleinschreibung und Punkt.
 
-**Alternative C: „Earth, Explained.“**  
-Sachlicher und maximal knapp, aber weniger eigenständig und stärker erklärformat-orientiert.
+**Begründung:** Der Satz rückt die erzählerische Dimension der Earth-&-Climate-Dokumentationen in den Vordergrund. Er unterstützt die hochwertigen, cineastischen Filme und verspricht keine bestimmten unbelegten Tatsachen.
 
-Die Formulierungen sind **kreative Kandidaten, keine freigegebenen Claims**. Markenrecht, Namensgleichheiten und kommerzielle Verwendung werden im späteren Rechteprozess geprüft; es wird keine rechtliche Exklusivität behauptet.
+**Verwendung:** Als kurzer Claim unter/neben der Wortmarke auf der Website oder in ausgewählten Brand-Motiven. Nicht als Pflicht-Overlay jedes Thumbnails oder permanent in jeder Szene.
+
+**Rechtlicher Vorbehalt:** Eine Prüfung auf mögliche bestehende Marken- und Nutzungsrechte steht noch aus; mit der kreativen Auswahl wird keine markenrechtliche Exklusivität behauptet.
 
 **Wichtige Trennung:** Das in Aufgabe 001 freigegebene **Markenversprechen** lautet „BlueDotAtlas turns Earth's changing systems into compelling, evidence-based visual stories.“; es ist ein interner Positionierungssatz und **nicht** automatisch der öffentliche Kurzclaim.
 
@@ -75,7 +73,7 @@ Diese Text-Mockups prüfen **nur die Schreibweise**. Finales Aussehen und Logo-L
 - [x] Verbindliche Schreibweise aus DEC-001 dokumentiert.
 - [x] Drei konkrete Text-Mockups verwenden denselben Namen.
 - [ ] Öffentliche Kurzform entscheiden (Empfehlung: keine).
-- [ ] Öffentlichen englischen Claim auswählen (Empfehlung A oder Alternative).
+- [x] Öffentlichen englischen Claim ausgewählt: **The Planet Has a Story.** (DEC-008).
 - [ ] Website-/Thumbnail-/Intro-Regeln freigeben.
 - [ ] PR reviewen, mergen, Issue #3 mit Abnahme-Nachweis schließen.
 
