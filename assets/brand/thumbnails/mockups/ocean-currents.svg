@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="thumbnail-title thumbnail-description" data-template="bluedotatlas-left-text-v1" data-example="ocean">
+<title id="thumbnail-title">BlueDotAtlas — THE OCEAN’S HIDDEN ENGINE</title>
+<desc id="thumbnail-description">Approved fixed left-title thumbnail layout. The background here is an original illustrative SVG sample and is NOT real satellite data. This vector swirl is an illustration of ocean circulation, not a measured current map.</desc>
+<defs>
+ <linearGradient id="left-scrim" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#021934" stop-opacity=".96"/><stop offset=".36" stop-color="#021934" stop-opacity=".87"/><stop offset=".57" stop-color="#021934" stop-opacity=".36"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></linearGradient>
+ <radialGradient id="glowTint"><stop stop-color="#16BCEB" stop-opacity=".24"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></radialGradient>
+ <clipPath id="thumb-clip"><rect x="32" y="32" width="1216" height="656" rx="22"/></clipPath>
+</defs>
+<rect width="1280" height="720" fill="#071522"/>
+<g data-slot="background-image" clip-path="url(#thumb-clip)">
+ <rect width="1280" height="720" fill="#04375B"/><ellipse cx="978" cy="377" rx="470" ry="320" fill="url(#glowTint)"/>
+<g fill="none" stroke-linecap="round" transform="rotate(-15 971 361)">
+  <ellipse cx="970" cy="359" rx="403" ry="241" stroke="#0BB2DC" stroke-opacity=".42" stroke-width="31"/>
+  <ellipse cx="970" cy="359" rx="339" ry="205" stroke="#8ADDF0" stroke-opacity=".56" stroke-width="22"/>
+  <ellipse cx="970" cy="359" rx="265" ry="153" stroke="#0EC4ED" stroke-opacity=".87" stroke-width="16"/>
+  <ellipse cx="970" cy="359" rx="187" ry="106" stroke="#C1F5FF" stroke-opacity=".73" stroke-width="15"/>
+  <ellipse cx="970" cy="359" rx="113" ry="60" stroke="#37D6C4" stroke-opacity=".9" stroke-width="14"/>
+  <path d="M556 411 C 665 134 1064 74 1274 258" stroke="#C1F5FF" stroke-opacity=".28" stroke-width="13"/>
+  <path d="M608 564 C 804 686 1112 574 1249 447" stroke="#63DEEF" stroke-opacity=".41" stroke-width="17"/>
+</g><ellipse cx="986" cy="364" rx="86" ry="49" fill="#03243F"/><path d="M990 350 C 1033 338 1048 384 1007 399" fill="none" stroke="#9DEDF9" stroke-linecap="round" stroke-width="12"/>
+ <rect x="32" y="32" width="1216" height="656" fill="url(#left-scrim)"/>
+</g>
+<rect data-slot="border" x="32" y="32" width="1216" height="656" rx="22" fill="none" stroke="#37D6C4" stroke-width="2.6"/>
+<svg data-slot="approved-logo" x="79" y="72" width="395" height="96" viewBox="93 133 1892 460" aria-label="The approved BlueDotAtlas logo with The Planet Has a Story.">
+ <g id="blue-dot-atlas-contour-v1" fill="none" stroke="#F2F9FF" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+<path d="M 106 458 C 102 404 140 360 212 329 C 286 297 301 243 357 189 C 404 145 468 137 522 154 C 606 174 642 231 646 322 C 649 372 653 411 657 454 C 662 505 639 548 601 567 C 560 589 516 582 465 562 C 407 538 364 525 316 532 C 272 539 235 548 186 544 C 139 541 103 514 106 458 Z"/>
+<path d="M 207 434 C 212 390 250 365 299 337 C 354 305 378 265 419 235 C 468 201 518 204 560 230 C 618 268 629 336 628 405 C 627 448 619 491 588 513 C 553 536 503 522 454 506 C 401 485 371 479 322 480 C 282 482 255 495 232 476 C 215 462 203 450 207 434 Z"/>
+<path d="M 328 401 C 329 380 362 356 384 337 C 413 312 435 288 471 280 C 515 270 552 303 565 342 C 579 379 562 421 541 438 C 515 458 479 439 443 423 C 404 407 378 421 354 417 C 337 415 328 412 328 401 Z"/>
+</g>
+<circle cx="483" cy="354" r="38" fill="#19B7F4"/>
+<g fill="#F2F9FF">
+<text x="691" y="392" font-family="Inter Display, Inter, Arial, Helvetica, sans-serif" font-size="178" font-weight="800" letter-spacing="-5" textLength="1290" lengthAdjust="spacingAndGlyphs">BlueDotAtlas</text>
+<text x="707" y="493" font-family="Inter, Arial, Helvetica, sans-serif" font-size="74" font-weight="400" letter-spacing="8" textLength="1233" lengthAdjust="spacingAndGlyphs">The Planet Has a Story.</text>
+</g>
+</svg>
+<g data-slot="left-title-block">
+<text data-slot="headline-line-1" x="86" y="276" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">THE</text>
+<text data-slot="headline-line-2" x="86" y="379" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">OCEAN’S</text>
+<text data-slot="headline-line-3" x="86" y="482" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#10AAEC">HIDDEN</text>
+<text data-slot="headline-line-4" x="86" y="585" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">ENGINE</text>
+<rect data-slot="underline" x="87" y="622" width="134" height="10" rx="0" fill="#37D6C4"/>
+</g>
+</svg>

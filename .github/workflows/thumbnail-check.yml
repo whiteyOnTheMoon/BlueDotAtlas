@@ -1,0 +1,49 @@
+name: Thumbnail 006 visual gate
+
+on:
+  push:
+    branches:
+      - design/006-visual-language
+    paths:
+      - '.github/workflows/thumbnail-check.yml'
+      - 'scripts/check-thumbnails.mjs'
+      - 'assets/brand/thumbnails/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  thumbnail:
+    name: 1280 / 320 / 160 px thumbnail checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright and Chromium
+        run: |
+          npm install --no-save --ignore-scripts playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Fetch pinned OFL-licensed display fonts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .tmp-fonts
+          curl --fail --location --silent --show-error --retry 3 'https://raw.githubusercontent.com/rsms/inter/353b61b9f4430d5f420d56605a6e7993e0941470/docs/font-files/Inter-Regular.woff2' -o .tmp-fonts/Inter-Regular.woff2
+          curl --fail --location --silent --show-error --retry 3 'https://raw.githubusercontent.com/rsms/inter/353b61b9f4430d5f420d56605a6e7993e0941470/docs/font-files/Inter-SemiBold.woff2' -o .tmp-fonts/Inter-SemiBold.woff2
+          curl --fail --location --silent --show-error --retry 3 'https://raw.githubusercontent.com/floriankarsten/space-grotesk/03507d024a01282884232081fc6011c09ff4e849/fonts/woff2/SpaceGrotesk%5Bwght%5D.woff2' -o .tmp-fonts/SpaceGrotesk-variable.woff2
+      - name: Render and check thumbnails with actual fonts at 1280/320/160
+        run: node scripts/check-thumbnails.mjs
+      - name: Archive previews and measurements
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: thumbnails-006-render-evidence
+          path: .tmp-thumbnail-results/
+          if-no-files-found: warn
+          retention-days: 14

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="thumbnail-title thumbnail-description" data-template="bluedotatlas-left-text-v1" data-example="storm">
+<title id="thumbnail-title">BlueDotAtlas — STORMS FROM SPACE</title>
+<desc id="thumbnail-description">Approved fixed left-title thumbnail layout. The background here is an original illustrative SVG sample and is NOT real satellite data. This fictional cyclonic pattern is not a satellite photograph of an actual storm.</desc>
+<defs>
+ <linearGradient id="left-scrim" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#021934" stop-opacity=".96"/><stop offset=".36" stop-color="#021934" stop-opacity=".87"/><stop offset=".57" stop-color="#021934" stop-opacity=".36"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></linearGradient>
+ <radialGradient id="glowTint"><stop stop-color="#16BCEB" stop-opacity=".24"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></radialGradient>
+ <clipPath id="thumb-clip"><rect x="32" y="32" width="1216" height="656" rx="22"/></clipPath>
+</defs>
+<rect width="1280" height="720" fill="#071522"/>
+<g data-slot="background-image" clip-path="url(#thumb-clip)">
+ <rect width="1280" height="720" fill="#03172C"/><circle cx="1100" cy="651" r="710" fill="#0A385B" stroke="#19B7F4" stroke-opacity=".53" stroke-width="17"/>
+<ellipse cx="1031" cy="397" rx="450" ry="230" fill="#0A4E70" opacity=".55"/>
+<g fill="none" stroke-linecap="round" transform="rotate(-18 991 385)">
+ <ellipse cx="990" cy="390" rx="382" ry="203" stroke="#B9DCE9" stroke-opacity=".55" stroke-width="39"/>
+ <ellipse cx="990" cy="390" rx="304" ry="163" stroke="#EAF8FF" stroke-opacity=".87" stroke-width="28"/>
+ <ellipse cx="990" cy="390" rx="226" ry="117" stroke="#92C9DE" stroke-opacity=".7" stroke-width="26"/>
+ <ellipse cx="990" cy="390" rx="154" ry="78" stroke="#F2F9FF" stroke-opacity=".93" stroke-width="20"/>
+ <ellipse cx="990" cy="390" rx="80" ry="36" stroke="#19B7F4" stroke-width="14"/>
+</g><ellipse cx="992" cy="391" rx="44" ry="29" fill="#06233A"/><path d="M565 127 C 770 62 1038 99 1255 261" stroke="#31ACE4" stroke-opacity=".55" stroke-width="22" fill="none"/>
+ <rect x="32" y="32" width="1216" height="656" fill="url(#left-scrim)"/>
+</g>
+<rect data-slot="border" x="32" y="32" width="1216" height="656" rx="22" fill="none" stroke="#37D6C4" stroke-width="2.6"/>
+<svg data-slot="approved-logo" x="79" y="72" width="395" height="96" viewBox="93 133 1892 460" aria-label="The approved BlueDotAtlas logo with The Planet Has a Story.">
+ <g id="blue-dot-atlas-contour-v1" fill="none" stroke="#F2F9FF" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+<path d="M 106 458 C 102 404 140 360 212 329 C 286 297 301 243 357 189 C 404 145 468 137 522 154 C 606 174 642 231 646 322 C 649 372 653 411 657 454 C 662 505 639 548 601 567 C 560 589 516 582 465 562 C 407 538 364 525 316 532 C 272 539 235 548 186 544 C 139 541 103 514 106 458 Z"/>
+<path d="M 207 434 C 212 390 250 365 299 337 C 354 305 378 265 419 235 C 468 201 518 204 560 230 C 618 268 629 336 628 405 C 627 448 619 491 588 513 C 553 536 503 522 454 506 C 401 485 371 479 322 480 C 282 482 255 495 232 476 C 215 462 203 450 207 434 Z"/>
+<path d="M 328 401 C 329 380 362 356 384 337 C 413 312 435 288 471 280 C 515 270 552 303 565 342 C 579 379 562 421 541 438 C 515 458 479 439 443 423 C 404 407 378 421 354 417 C 337 415 328 412 328 401 Z"/>
+</g>
+<circle cx="483" cy="354" r="38" fill="#19B7F4"/>
+<g fill="#F2F9FF">
+<text x="691" y="392" font-family="Inter Display, Inter, Arial, Helvetica, sans-serif" font-size="178" font-weight="800" letter-spacing="-5" textLength="1290" lengthAdjust="spacingAndGlyphs">BlueDotAtlas</text>
+<text x="707" y="493" font-family="Inter, Arial, Helvetica, sans-serif" font-size="74" font-weight="400" letter-spacing="8" textLength="1233" lengthAdjust="spacingAndGlyphs">The Planet Has a Story.</text>
+</g>
+</svg>
+<g data-slot="left-title-block">
+<text data-slot="headline-line-1" x="86" y="310" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">STORMS</text>
+<text data-slot="headline-line-2" x="86" y="413" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">FROM</text>
+<text data-slot="headline-line-3" x="86" y="516" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#10AAEC">SPACE</text>
+<rect data-slot="underline" x="87" y="553" width="134" height="10" rx="0" fill="#37D6C4"/>
+</g>
+</svg>
