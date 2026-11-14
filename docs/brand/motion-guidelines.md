@@ -1,100 +1,86 @@
-# BlueDotAtlas — Motion Design Guidelines V0.1 (PROPOSAL)
+# BlueDotAtlas — Motion Design Guidelines V0.2 (SHORT LOGO CLIPS)
 
 **Roadmap:** M00 / 007 — Motion-Design-Basics gestalten  
-**Status:** **Technical test PASS**, real [10-second MP4 with four keyframes](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43608120656/artifacts/14118684177) available for user review. **Motion style NOT YET APPROVED.**  
-**Issue:** [#16](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/16)  
-**Dependency:** 004–006 complete.  
-**Roadmap acceptance:** Short test clip with **logo motion and lower third**, but **no persistent full-frame text overlays**.
+**Status:** REVISED DESIGN PROPOSAL — user rejected the original combined 10-second intro/outro presentation; new short clips **await viewing and explicit approval**.  
+**Issue:** [#16](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/16) · [Draft PR #17](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/17)  
+**Dependencies:** 004–006 completed.
 
-## 1. Intent
+## 1. Mandatory direction: two independent short logo videos
 
-**Scientific motion without a corporate intro wall.** Movement should direct attention to a real explanatory subject, not compete with it. The BlueDotAtlas Earth-Contour mark suggests **topographic contours, seismic waves, Earth measurement and observation**. Motion must feel cinematic, precise and restrained rather than glitchy or loud.
+The owner requested: “Nicht ganz zufrieden. Wir sollten einen kurzen 2,3 Sekunden Clip fürs Intro machen, animiertes Logo zb, und ein 2, e Sekunden Clip für das outro.”
 
-The voice/camera/video hook gets screen time first. Motion branding is secondary, brief and never a mandatory long splash-screen. The exact logo art, colors and tagline must stay unchanged.
+**Working durations:** Intro **2.3 seconds**, Outro **2.2 seconds** (both within the requested approximately 2–3-second range). These are **two separate playable MP4s**, not one 10-second montage.
 
-## 2. Canonical references
+The intro and outro use only the **existing approved** transparent `assets/brand/logo/logo-dark.svg` (including “BlueDotAtlas” and “The Planet Has a Story.”) on a subtle Deep-Night abstract contour background. We may animate opacity, timing, position, reveal mask and small abstract halo lines **around** the logo, but **never change the logo's own Bézier paths, blue dot, color inks, spelling or proportions**.
 
-- [Logo SVGs](../../assets/brand/logo/) — especially **logo-dark.svg** on deep-sea footage; existing geometry and text are *not* changed.
-- [Colors](../../packages/ui/tokens/colors.ts) — Deep Night #071522, Deep Sea #021934, Ice White #F2F9FF, Blue Dot #19B7F4 on dark, Glacier #37D6C4 and muted #B4CCDC.
-- [Typography](typography.md) — **Space Grotesk 600/700** for title-like graphics, **Inter 400/600** for all location/source/caption labels; only freely licensed SIL OFL families.
-- [One Thumbnail Template](../../assets/brand/thumbnails/template.svg) — top-left signature and limited accent. Motion uses the same identity but keeps the footage visible.
-- [Deterministic 10-second preview HTML](../../assets/brand/motion/preview.html) + [render script](../../scripts/render-motion-test.mjs) — proposed reproducible animation implementation.
+No map labels, source panels, subtitles, distracting call-to-actions, cinematic footage claims or permanent overlays belong **inside these two logo-only clips**.
 
-## 3. Motion primitives
+## 2. Intro (2.3 seconds, silent, Full HD 30fps)
 
-| Graphic | Entrance / behavior | Exit / purpose | Limits |
-| --- | --- | --- | --- |
-| **Logo reveal / intro** | Short fade + approximately 22px upward ease over **0.58 s**; optional subtle Blue Dot pulse from the original art (do not reshape it) | Fade away after identity is established | May follow the opening hook; do not replace footage with a long black/full-color title slide |
-| **Location Lower Third** | Compact deep-sea translucent panel, cyan vertical rail; **0.55 s** fade and ~32px rise | Fade after roughly 3.4 seconds visible | Lower-left, no opaque full-frame backing, one location line and one explanatory subtitle |
-| **Map marker** | Light cyan pulse circle around a small fixed marker, short lead line | Disappears together with geographic context | Must be geographically accurate in real films; present sample uses **conceptual location only** |
-| **Source note** | Fade-in compact source/caption bar (agency / instrument / date) | Fade away after its reading purpose | No source is invented for real observational footage; template placeholders must be replaced |
-| **Caption / imagery label** | Brief text aligned with lower third/source box; Inter 400/600 | Fades when no longer needed | No permanent full-screen label; readable against the *actual* background |
-| **Outro** | Short return of the unchanged official logo + tagline, opacity/very small displacement | Ends with film; background remains present | No prolonged brand credits over full-color panel; avoid eating into film's explanation |
-
-**Easing:** smooth cubic \`3u² − 2u³\` for position and opacity, no bounce/overshoot, no rotations of the actual logo. Accent marker pulses are small and do not imply a scientific measurement.
-
-**Durations:** default entrance/exit ~0.35–0.6s; normally avoid holding informational overlays beyond ~4s unless needed for reading/translation. Scene director must adapt duration to voice and factual data.
-
-## 4. Proposed timing / test clip (10s; 1920×1080 / 30fps)
-
-This test is **silent** and uses only original illustrated contour graphics. It does *not* depict an observed weather event or satellite data; it is a design proof rather than the master 60-second scientific pilot.
-
-| Time in sample | Visual | Main purpose |
+| Segment | Timing | Purpose |
 | --- | --- | --- |
-| 0.00–0.65 | Abstract ocean/contour background only | Visual hook before the brand mark |
-| 0.65–2.65 | Approved BlueDotAtlas logo at upper left, fade + small upward move | **Logo motion** |
-| 2.65–6.60 | Inter-based Lower Third: *North Atlantic* with clearly labeled **illustrative demo** context | **Lower Third / Ortslabel** |
-| 3.10–6.40 | Cyan pulse + lead line and **MAP MARKER / DEMONSTRATION ONLY** | **Map-marker behavior** |
-| 6.50–8.45 | Source bar **AGENCY / SENSOR / DATE** and explanatory caption placeholder | **Sources + simple image caption** |
-| 8.45–10.00 | Short approved logo return and compact descriptor | **Outro**, without a new opaque full-frame card |
+| Establish | 0.00–0.12s | Deep-Night (#071522) moving abstract topographic contours, no text |
+| Icon-first reveal | 0.12–0.58s | Existing Earth-Contour symbol becomes visible through a soft left-to-right wipe |
+| Wordmark + tagline reveal | 0.48–1.37s | Full **unmodified** logo and claim progressively visible |
+| Hold | ~1.37–1.84s | Complete brand identity readable |
+| Exit | 1.84–2.30s | Soft fade for a clean transition into documentary footage |
 
-Source placeholders deliberately communicate the **visual format**, not a citation or a measurement. In real production, the media library and research brief must populate verifiable content. The scientific image never disappears behind a permanent full-screen overlay.
+A restrained turquoise halo can gently pulse behind the existing blue observation point; it is **not** a new logo variant. No separate intro narration or music included in the proof. In actual videos the factual opening hook can precede the intro, to avoid losing viewers to a long brand splash.
 
-## 5. Composition & safe zones
+## 3. Outro (2.2 seconds, silent, Full HD 30fps)
 
-**Test frame:** 1920×1080 at 30fps; distribution encodes MP4/H.264 4:2:0, silent proof.
+| Segment | Timing | Purpose |
+| --- | --- | --- |
+| Arrival | 0.02–0.53s | Complete official logo/claim fades in, with tiny vertical movement and 98.5%→100% display-scale adjustment |
+| Hold | ~0.53–1.69s | Full logo and tagline clearly visible; subtle background contour motion |
+| Exit | 1.69–2.20s | Soft fade out for a quiet finished-video ending |
 
-- **5% safe area** nominally ~96px horizontal / 54px vertical. In this demo, the header logo starts at x112 / y105.
-- **Lower Third:** x118 / y752 / 865×215 (under 10% of screen area), against a localized dark translucent backing.
-- **Marker:** right-side x1343 / y403; avoid chart labels / major subject.
-- **Source note:** x118 / y845 / 1190×125 (about 7% area).
-- **Outro:** x350 / y385 / 1130×292 (about 16% area); only brief, underlying scene always visible.
-- **No persistent full-frame overlays**: the underlying scene continuously fills the image. Fully opaque title panels/cards do not fill the frame.
-- Ensure no informational UI overlaps captions, player controls or bottom-right YouTube timestamp when content is distributed into other formats.
-- The video uses **original procedural illustration and no external footage**; changing the background for production requires specific rights and science checks.
+There is **no reused intro wipe**, no longer credits page, no URL/call-to-action, and no invented scientific imagery.
 
-## 6. Accessibility and viewing rhythm
+## 4. Separate film-overlay motion components (not part of short clips)
 
-- Keep Inter source/location text clear, with enough contrast over whatever footage is visible (UI rules were contrast-audited in 004).
-- Do not animate fonts by rapid letter-spacing, flashing, glitch, seizure-like strobing or aggressive parallax. The strongest blue accents should be reserved for a single data point.
-- For web replays, respect **\`prefers-reduced-motion\`**: replace translation/pulse with brief fades or static labels; maintain read time.
-- Don't burn sample English labels into actual science film unless research/script/citation approves them.
-- Show captions and citations only during their meaningful context; no permanent "science data wallpaper".
-- Reassess footage + voice pacing together in Roadmap 038–042 and the 60-second pilot.
+Task 007 also requires definitions for **Lower Third, map marker, geographic label, source note and simple caption**. They remain independently designed components **inside the documentary**, not joined to the intro or outro. Their *previous combined 10-second proof* passed a technical test and is kept for **overlay-component reference only**, **not approved as the Intro/Outro design**.
 
-## 7. Testing / gate
+- **Location/Lower Third:** localized translucent Deep-Sea background, cyan vertical rail, Inter location/source labels, Space Grotesk for a short location title. Typical entrance ~0.4–0.6s, visible around 3–4s as appropriate to speech, then disappears.
+- **Map marker:** small fixed data point with subtle non-flashing pulse, short leader line, map coordinates / claim must be geographically verified for real footage.
+- **Sources:** brief agency / instrument / date where evidence matters, tied to actual scientific citations, clear credits in description.
+- **Captions:** Inter, readable contrast on actual imagery; no sustained full-frame cards, no invented numeric/map data.
+- **Optional reduced motion:** on websites or production contexts with `prefers-reduced-motion`, replace positional movement/pulses with short fades/static graphic while preserving reading time.
 
-### Automated evidence — completed in GitHub Actions
+The original proof remains reproducible through [`assets/brand/motion/preview.html`](../../assets/brand/motion/preview.html) and [`scripts/render-motion-test.mjs`](../../scripts/render-motion-test.mjs). Its earlier [successful 10s workflow](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43608120656) is **not user-approved intro/outro motion**.
 
-The [Motion 007 workflow](../../.github/workflows/motion-check.yml) uses Chromium, pinned WOFF2 Inter/Space Grotesk (SIL OFL 1.1) and FFmpeg to generate a **real 10-second 1920×1080 H.264 MP4**.
+## 5. Visual identity and scientific integrity
 
-It verifies:
-- The canonical approved SVG logo file actually loads for intro and outro.
-- Real Inter and Space Grotesk fonts load; screenshot engine cannot silently fall back.
-- Five deterministic timeline checkpoints place logo, Lower Third, marker, source and outro at expected times.
-- No text-overlay element occupies more than 16% of the frame or sits outside the frame.
-- MP4 codec, resolution, 30fps, duration are checked using ffprobe.
-- Output includes the clip, keyframe PNG previews and machine-readable QA JSON in a GitHub Actions artifact.
+- Preserve **Deep Ocean / Glacial Light** (#021934, #071522, #F2F9FF, #19B7F4, #37D6C4).
+- Preserve **free OFL fonts** Inter / Space Grotesk; logo typography renders from the **exact approved SVG**. Font files are never copied into the repository without rights/notice checks.
+- No artificial satellites, false storms or invented data as though observed. The demo's contour field is explicitly **original abstract illustration**, unrelated to a measured location.
+- **No flashing, aggressive zoom, loud glitch, excessive neon or long moving title screens**.
+- Keep video content primary: short intro and outro, no permanent information overlay.
+- The short clips are mastered on a dark-blue background as normal H.264 MP4; they do not contain an alpha channel. Transparent-overlay versions would be a separately approved export format.
 
-### Checklist
+## 6. File/technical specification
 
-- [x] Motion grammar defined for intro/outro, Lower Third, geographic labels, map markers, sources/captions.
-- [x] Scene uses real approved SVG logo and the chosen palette and free font families.
-- [x] Test/demo animation source and reproducible 1080p MP4 generator written.
-- [x] **Actual 1920×1080 H.264 MP4 rendered and validated**, 30fps/10s, original SVG logo loaded and true Inter/Space Grotesk fonts loaded; [test report](motion-qa.md), [successful Action](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43608120656).
-- [ ] Owner reviews motion pacing, lower-third readability and tone, and approves/requests changes.
-- [ ] PR merged and Issue #16 closed only after test **and** human motion sign-off.
+| Deliverable | Role | Output |
+| --- | --- | --- |
+| [`logo-intro-outro.html`](../../assets/brand/motion/logo-intro-outro.html) | One deterministic HTML/SVG/CSS/JS animation source with two independent time modes | `window.setLogoTime(seconds, "intro"\|"outro")` |
+| [`render-short-logo-clips.mjs`](../../scripts/render-short-logo-clips.mjs) | Browser SVG rasterization and FFmpeg test exports | `BlueDotAtlas_Intro_2s.mp4` (2.30s / 69 frames) |
+| Same renderer | Separate outro video | `BlueDotAtlas_Outro_2s.mp4` (2.20s / 66 frames) |
+| [Motion workflow](../../.github/workflows/motion-check.yml) | Run browser/FFmpeg QA, archive outputs | 2 MP4s + keyframes + JSON report |
+| [Motion QA](motion-qa.md) | Distinguishes superseded combined clip from final candidate clips | Technical validation and review status |
 
-**QA proof:** [Motion Test Report](motion-qa.md) and [downloadable ZIP with MP4, screenshots and QA JSON](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43608120656/artifacts/14118684177). **Style approval pending**.
+**Codec:** H.264, `yuv420p`, 1920×1080, 30fps, MP4, silent.  
+**Animation:** deterministic easing, not a random video generator.  
+**Original logo:** imported from `assets/brand/logo/logo-dark.svg`, **unchanged path/text markup**, used as the source for the compositor.  
+**Allowed final implementation:** After user acceptance, convert same motion timing into the Remotion scene engine later (without creating longer intros).
 
-**Scope note:** This is M00 motion identity, not the eventual Remotion scene engine or the 60-second scientific proof. Production audiovisual integration follows M03/M04 tasks.
+## 7. Roadmap gate
+
+- [x] Owner requested two independent short logo clips instead of the combined 10-second intro/outro.
+- [x] Two standalone local MP4 previews generated and checked with ffprobe at 2.30/2.20s, 1920×1080 / H.264 / 30fps.
+- [x] GitHub source and automated separate-clip renderer created; actual official logo preserved.
+- [x] Lower Third / map marker / location / source / caption remain defined and previously tested as **separate design primitives**.
+- [ ] GitHub Actions renders both separate MP4s and archives the actual files (CI verification).
+- [ ] User watches **both new short clips** and approves motion/timing.
+- [ ] PR reviewed/merged and Issue #16 closed with evidence.
+
+**Important:** “Nicht ganz zufrieden” is **not approval** of the 10-second clip. Task 007 remains open until the user approves these **revised separate clips**.
