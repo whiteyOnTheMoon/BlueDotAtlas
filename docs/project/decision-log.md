@@ -16,11 +16,16 @@
 | DEC-008 | Der öffentliche englische Claim lautet **„The Planet Has a Story.“** (Schreibweise für die Markenanwendung mit Großbuchstaben und Schluss-Punkt). | Entschieden | Nutzer: „Bin für 'the planet has a story'“, 13.11.2026 | In `docs/brand/naming.md` übernommen; die restlichen Naming-Regeln wurden separat durch DEC-009 freigegeben. |
 | DEC-009 | **Keine öffentliche Kurzform in V0.1**, einheitliche Schreibweise BlueDotAtlas auf Website, Thumbnails und Intro sowie die dokumentierten Naming-Einsatzregeln sind freigegeben. | Entschieden | Nutzerantwort „Ok“ auf explizite Nachfrage zur Kurzform und Naming-Regeln, 13.11.2026 | Aufgabe 002 ist redaktionell abgenommen, PR-Merge/Issue-Abschluss separat nachzuweisen. |
 
+| DEC-010 | Logo-Richtung **C — Earth Contour** mit organischen Höhenlinien und einem blauen Datenpunkt ist ausgewählt. | Entschieden | Nutzerentscheidung im Projektchat, 13.–14.11.2026 | Vier Varianten derselben SVG-Geometrie: `logo-light.svg`, `logo-dark.svg`, `icon-light.svg`, `icon-dark.svg`. |
+| DEC-011 | **`assets/brand/logo/` ist der einzige aktive Logo-Ordner.** Die früheren `assets/brand/concepts/`-Dateien und `assets/brand/logo.svg` wurden vom Auftraggeber in zwei eigenen Commits gelöscht. | Entschieden | Nutzercommits `24a054988` und `ef41ca6c`, 14.11.2026 | Gelöschte Dubletten nicht wiederherstellen. |
+| DEC-012 | **Logo-003 freigegeben** und Übergang zu Farbe/Typografie beschlossen. Das Artboard-Crop ändert nur `viewBox`/`width`/`height` und lässt Zeichen, Farben, Text unverändert. | Entschieden | Nutzer „Ok, dann geht's mit Farben und Typografie weiter“, 14.11.2026 | 003 nach dokumentiertem 48px-Icon-Check und PR-Merge abschließen; später lizenzierte freie Fonts verwenden. |
+| DEC-013 | **Nur freie, rechtlich nutzbare Fonts** für BlueDotAtlas verwenden. | Entschieden | Nutzeranweisung „Sollen frei Fonts sein“, 14.11.2026 | Für 005 Schriftlizenzen der konkreten Font-Version prüfen und Lizenzbedingungen in GitHub dokumentieren. |
+
 ## Offene Entscheidungen
 
 | ID | Frage | Aufgabe | Status |
 | --- | --- | --- | --- |
-| OPEN-003 | Logo-Richtung, Farbe, Schrift, Bild- und Motion-Sprache festlegen | 003–009 | Offen |
+| OPEN-003 | Farbwelt, Typografie und weitere Brand-Elemente final auswählen; Logo-003 ist freigegeben | 004–009 | Teilweise offen |
 
 ## Erledigte Entscheidungspunkte
 
