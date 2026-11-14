@@ -11,20 +11,21 @@
 | DEC-003 | **Hohe Klickrate und lange Zuschauerbindung** sind zentrale Ziele für die Filmgestaltung. | Entschieden | Nutzer, 13.11.2026 | Schwerpunkt auf starken, ehrlichen Hooks, Titeln, Thumbnails, Dramaturgie und Bildrhythmus. Keine erfundenen CTR-Zielwerte. |
 | DEC-004 | Bevorzugter Look: **hochwertig, cineastisch, dokumentarisch**. | Entschieden | Nutzer, 13.11.2026 | Premium-Filmgestaltung statt generischer Folien-/Schnellformat-Ästhetik. |
 | DEC-005 | **Wissenschaftliche Genauigkeit, Quellen-/Rechteprüfung und manuelle Freigabe** bleiben verpflichtend. | Verbindliche Roadmap-Leitplanke | Master Roadmap V0.1 | Reichweitenoptimierung darf nicht zu Irreführung oder unbelegten Aussagen führen. |
-
 | DEC-006 | Ein **„Ok“ im Projektchat bedeutet eine ausdrückliche Freigabe** des jeweils zur Abnahme vorgelegten Ergebnisses. | Entschieden | Nutzer, 13.11.2026 | Gilt nur für den konkret vorgelegten Prüfschritt; niemals als pauschale Freigabe für neue, nicht gezeigte Änderungen oder kostenpflichtige Aktionen. |
 | DEC-007 | Das **Markenversprechen und der gesamte Brand Brief V0.1 (Aufgabe 001)** sind freigegeben. | Entschieden | Nutzerantwort „Ok“, 13.11.2026 | Aufgabe 001 kann nach PR-Merge und Abnahmeprotokoll geschlossen werden. |
+
+| DEC-008 | Der öffentliche englische Claim lautet **„The Planet Has a Story.“** (Schreibweise für die Markenanwendung mit Großbuchstaben und Schluss-Punkt). | Ausgewählt | Nutzer: „Bin für 'the planet has a story'“, 13.11.2026 | In `docs/brand/naming.md` übernommen; diese Wahl ist **keine** Freigabe der noch offenen Kurzform oder aller Naming-Regeln. |
 
 ## Offene Entscheidungen
 
 | ID | Frage | Aufgabe | Status |
 | --- | --- | --- | --- |
-| OPEN-002 | Englische Tagline, Kurzform und Naming-Regeln finalisieren | 002 | Offen |
+| OPEN-002 | **Kurzform und Naming-Regeln** freigeben (Tagline ausgewählt: DEC-008) | 002 | Teilweise offen |
 | OPEN-003 | Logo-Richtung, Farbe, Schrift, Bild- und Motion-Sprache festlegen | 003–009 | Offen |
 
 ## Erledigte Entscheidungspunkte
 
-- **OPEN-001:** Freigabe des Brand Briefs durch „Ok“, dokumentiert unter DEC-007. Die Tagline ist **nicht** Teil dieser Freigabe und bleibt Aufgabe 002.
+- **OPEN-001:** Freigabe des Brand Briefs durch „Ok“, dokumentiert unter DEC-007. Die Tagline wurde anschließend separat unter DEC-008 ausgewählt.
 
 ## Dokumentationsregel
 
