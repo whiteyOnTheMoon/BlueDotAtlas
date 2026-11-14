@@ -1,7 +1,7 @@
 # BlueDotAtlas — Logo Directions V0.1
 
 **Roadmap:** M00 · Aufgabe 003  
-**Status:** 3 Entwurfsrichtungen — **keine** ausgewählt oder freigegeben  
+**Status:** **C — Earth Contour ausgewählt** durch Nutzer; vier transparente SVG-Vektorvarianten erstellt. Finale visuelle 48px-/PNG-Vergleichsabnahme noch offen.  
 **GitHub:** [Issue #5](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/5)  
 **Abhängigkeiten:** Aufgaben 001 und 002 freigegeben.
 
@@ -27,12 +27,28 @@
 **Risiko:** Globuslogos können austauschbar wirken; Reduktion auf 48px sorgfältig prüfen.  
 **Entwürfe:** [hell](../../assets/brand/concepts/atlas-meridian-light.svg) · [dunkel](../../assets/brand/concepts/atlas-meridian-dark.svg)
 
-## Entwurf C — Earth Contour
+## Entwurf C — Earth Contour (ausgewählt)
 **Idee:** Ein abstraktes, topografisches Linienzeichen mit einem markierten Datenpunkt.  
 **Eindruck:** Forschend, origineller, kartografisch.  
 **Stärke:** Deutlicher Bezug zu Erdsystemen und wissenschaftlichen Karten.  
 **Risiko:** Feinere Linien können im kleinen Icon oder bei Video-Kompression verschwinden.  
 **Entwürfe:** [hell](../../assets/brand/concepts/earth-contour-light.svg) · [dunkel](../../assets/brand/concepts/earth-contour-dark.svg)
+
+## Gewählte Richtung und neue SVG-Assets
+
+Der Auftraggeber hat **C — Earth Contour** gewählt, da die organischen Linien gleichzeitig Höhenschichten, Erdbebenwellen oder andere Erdsystem-Muster vermitteln. Danach wurden die bereits als PNG ausgearbeiteten Logo-/Wortmarkenansichten für helle und dunkle Hintergründe als Vektorversion neu konstruiert, inklusive zwei Icon-only-Versionen.
+
+**Ablage:** [`assets/brand/logo/`](../../assets/brand/logo/)
+
+- [`logo-light.svg`](../../assets/brand/logo/logo-light.svg) — komplettes Logo für helle Hintergründe, transparent.
+- [`logo-dark.svg`](../../assets/brand/logo/logo-dark.svg) — komplettes Logo für dunkle Hintergründe, transparent.
+- [`icon-light.svg`](../../assets/brand/logo/icon-light.svg) — nur das Zeichen für helle Hintergründe, transparent.
+- [`icon-dark.svg`](../../assets/brand/logo/icon-dark.svg) — nur das Zeichen für dunkle Hintergründe, transparent.
+- [`assets/brand/logo.svg`](../../assets/brand/logo.svg) — kanonischer Pfad laut Roadmap, entspricht `logo-light.svg`.
+
+**Parität:** Die drei Konturpfade sind in allen vier SVG-Dateien exakt identisch; nur Tintenfarbe und Layout (`viewBox`) unterscheiden sich. Damit ist das Icon in den Wortmarken-SVGs und den Icon-only-SVGs konstruktiv dasselbe. Die neuen SVGs sind eine manuelle Vektorrekonstruktion der gewählten Bildvorlage, keine Pixel-für-Pixel-Nachzeichnung.
+
+**QA:** Statisch wurde SVG-Struktur/transparentes Asset ohne Rasterobjekte geprüft; finale Rasterdarstellung und 48px-Prüfung für die neuen finalen SVGs stehen noch aus. Die bereits durchgeführte 48px-Prüfung weiter unten bezog sich auf die **frühen Entwurfssymbole**, nicht auf diese neue Rekonstruktion.
 
 ## Entwurfsfarben (nur zur Konzeptdarstellung)
 - Heller Hintergrund: #F5FAFF; dunkelblaue Linien #09283F, Akzentblau #1588CF.
@@ -64,8 +80,8 @@
 ## Aktueller Status
 - [x] Drei eigenständige Designrichtungen konzipiert.
 - [x] Drei Hell-/Dunkel-SVG-Paare angelegt, XML geprüft und bei 48px gerendert.
-- [ ] Ein Favorit durch Auftraggeber ausgewählt.
-- [ ] Finale Vektorversion und Varianten gebaut.
-- [ ] Technische/visuelle Abnahme und PR-Merge durchgeführt.
+- [x] Entwurf C vom Auftraggeber ausgewählt.
+- [x] SVG-Vektorfassung der gewählten Richtung als Wortmarken- und Icon-only-Set in hell/dunkel erstellt.
+- [ ] Neue finale SVGs in 48px geprüft und Bildvergleich durchgeführt; anschließend finale visuelle Abnahme und PR-Merge.
 
 **Rechtehinweis:** Eigenständige geometrische Entwürfe ohne bewusste Übernahme fremder Bestandteile; eine formelle Zeichen-/Markenrecherche steht aus.
