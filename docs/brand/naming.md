@@ -2,7 +2,7 @@
 
 **Roadmap:** M00 · Aufgabe 002 – Wortmarke und Schreibweise normieren  
 **Stand:** 13. November 2026  
-**Status:** Öffentlicher Claim durch Nutzer ausgewählt (DEC-008); Kurzform und vollständige Naming-Regeln noch **nicht** freigegeben  
+**Status:** INHALTLICH FREIGEGEBEN — Nutzerfreigabe „Ok“ (DEC-009); Merge-/Issue-Abnahme wird separat protokolliert  
 **Voraussetzung:** [Aufgabe 001](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1) ist abgeschlossen  
 **Arbeitsissue:** [Aufgabe 002](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/3)
 
@@ -16,13 +16,13 @@
 - Technische Kennungen (Ordner, Domain/URL-Slugs, Paketnamen) dürfen aus Kompatibilitätsgründen in Kleinbuchstaben geführt werden; sichtbare Wortmarke bleibt **BlueDotAtlas**.
 - Das finale grafische Logo ist Gegenstand von Aufgabe 003. Diese Regeln ersetzen kein Logo-Design.
 
-## 2. Kurzform (Vorschlag zur Abnahme)
+## 2. Kurzform (freigegeben)
 
-**Empfehlung:** Im öffentlichen Auftritt in V0.1 **keine eigenständige Kurzform** einführen.
+**Beschluss:** Im öffentlichen Auftritt in V0.1 **keine eigenständige Kurzform** einführen.
 
 Begründung: BlueDotAtlas ist ausreichend kompakt, wiedererkennbar und markiert alle Berührungspunkte eindeutig. Ein Monogramm oder ein Icon wird erst zusammen mit der Logo-Entwicklung in Aufgabe 003 getestet. Interne technische Abkürzungen dürfen benutzt werden, sind aber keine eigene öffentliche Marke.
 
-**Entscheidungsstatus:** offen; mit Aufgabe 002 durch den Auftraggeber zu bestätigen.
+**Entscheidungsstatus:** freigegeben durch „Ok“ zu Kurzform und Naming-Regeln (DEC-009).
 
 ## 3. Englischer Claim / Tagline (ausgewählt)
 
@@ -38,11 +38,11 @@ Begründung: BlueDotAtlas ist ausreichend kompakt, wiedererkennbar und markiert 
 
 **Wichtige Trennung:** Das in Aufgabe 001 freigegebene **Markenversprechen** lautet „BlueDotAtlas turns Earth's changing systems into compelling, evidence-based visual stories.“; es ist ein interner Positionierungssatz und **nicht** automatisch der öffentliche Kurzclaim.
 
-## 4. Einsatzregeln (redaktioneller Entwurf)
+## 4. Einsatzregeln (freigegeben)
 
 ### Website
 - Wortmarke im Header: `BlueDotAtlas`.
-- Ein öffentlicher Claim steht nur in der Hero-Zone und nur nach Freigabe.
+- Der freigegebene Claim „The Planet Has a Story.“ kann in der Hero-Zone stehen; keine Pflicht für jede Seite.
 - Projekt-/Filmüberschriften behalten eigene filmbezogene Titel; der Markenname ersetzt keinen Filmtitel.
 - Lesbarkeit bei kleinen Displaygrößen und Mobilansicht beachten.
 
@@ -72,9 +72,10 @@ Diese Text-Mockups prüfen **nur die Schreibweise**. Finales Aussehen und Logo-L
 
 - [x] Verbindliche Schreibweise aus DEC-001 dokumentiert.
 - [x] Drei konkrete Text-Mockups verwenden denselben Namen.
-- [ ] Öffentliche Kurzform entscheiden (Empfehlung: keine).
+- [x] Keine öffentliche Kurzform in V0.1 (DEC-009).
 - [x] Öffentlichen englischen Claim ausgewählt: **The Planet Has a Story.** (DEC-008).
-- [ ] Website-/Thumbnail-/Intro-Regeln freigeben.
-- [ ] PR reviewen, mergen, Issue #3 mit Abnahme-Nachweis schließen.
+- [x] Website-/Thumbnail-/Intro-Regeln durch „Ok“ freigegeben (DEC-009).
+- [x] Redaktionelle Abnahme durch Nutzer („Ok“) dokumentiert.
+- [ ] PR gemergt und Issue #3 mit Merge-Nachweis geschlossen.
 
-**Bis zur Freigabe bleibt Aufgabe 002 offen.**
+**Inhaltliche Freigabe erteilt; formaler Abschluss nach PR-Merge und Issue-Nachweis.**
