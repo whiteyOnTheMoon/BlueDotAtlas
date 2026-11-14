@@ -18,7 +18,13 @@
 - [`.github/workflows/motion-check.yml`](../../.github/workflows/motion-check.yml) — new two-clip CI gate and artifact upload.
 - [`docs/brand/motion-guidelines.md`](motion-guidelines.md) — final *proposed* timings/roles.
 
-**CI verification:** Pending completion of the latest workflow. When it is green, paste its run ID/artifact link here. **Human approval:** NOT YET GRANTED. The two short clips must be reviewed by the owner before PR #17 can merge.
+**CI verification: PASS** — [GitHub Actions #43610518751](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43610518751) completed successfully; **[the two MP4s, four PNG stills and JSON report are downloadable as an artifact](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43610518751/artifacts/14120296356)** (Artifact #14120296356; temporary 14-day retention). Exact logfile confirms:
+```text
+PASS intro 2.300000s 69 frames H264 1920x1080, exact official inline SVG and real Inter fonts, no overlays.
+PASS outro 2.200000s 66 frames H264 1920x1080, exact official inline SVG and real Inter fonts, no overlays.
+SUMMARY 2/2 separated logo clips PASS
+```
+**Human approval: NOT YET GRANTED.** Owner must review both new short videos before PR #17 can merge.
 
 ## Earlier combined 10-second integration proof (NOT the approved brand intro/outro)
 
