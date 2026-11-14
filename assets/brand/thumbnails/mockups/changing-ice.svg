@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="title desc">
+<title id="title">BlueDotAtlas thumbnail concept — ice</title>
+<desc id="desc">Fictional geometric illustration, not a real satellite or observational data image. Conceptual glacier landscape, not a specific named Antarctic glacier.</desc>
+<defs>
+  <linearGradient id="back" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#021934"/><stop offset=".65" stop-color="#064366"/><stop offset="1" stop-color="#071522"/></linearGradient>
+  <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#021934" stop-opacity=".96"/><stop offset=".47" stop-color="#021934" stop-opacity=".78"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></linearGradient>
+  <radialGradient id="halo"><stop stop-color="#13B6EF" stop-opacity=".24"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></radialGradient>
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>
+  <clipPath id="clip"><rect width="1280" height="720"/></clipPath>
+</defs>
+<g clip-path="url(#clip)">
+ <rect width="1280" height="720" fill="url(#back)"/>
+ <rect y="435" width="1280" height="285" fill="#063452"/><path d="M0 462 L120 320 230 395 340 284 510 370 618 185 762 300 854 212 958 320 1069 176 1280 372 1280 554 0 554Z" fill="#A7E4F5" opacity=".65"/><path d="M0 488 L128 380 228 410 392 321 523 410 653 258 773 338 885 289 997 398 1113 280 1280 434 1280 615 0 615Z" fill="#E4F9FF"/><path d="M0 488 L128 380 228 410 392 321 523 410 653 258 773 338 885 289 997 398 1113 280 1280 434 1280 615 0 615Z" fill="none" stroke="#FFFFFF" stroke-opacity=".6" stroke-width="8"/><g stroke="#3E9EC1" stroke-width="5" opacity=".55" fill="none"><path d="M653 261 L699 436 681 606"/><path d="M885 291 L910 453 875 594"/><path d="M1113 282 L1178 446 1134 610"/><path d="M512 411 L538 506 522 604"/></g><path d="M0 594 C 256 548 428 625 606 594 S 1080 530 1280 591 L1280 720 0 720Z" fill="#002B48" opacity=".95"/><g fill="#C3F4FF" opacity=".75"><path d="M914 644 972 630 996 653 952 674Z"/><path d="M1170 670 1225 656 1250 678 1209 699Z"/></g>
+ <rect width="1280" height="720" fill="url(#fade)" opacity="0.83"/>
+ <rect x="0" y="0" width="1280" height="720" fill="none" stroke="#19B7F4" stroke-opacity=".38" stroke-width="3"/>
+</g>
+<!-- Text-only brand mark in these editable layout studies, not an alteration of the approved SVG logo -->
+<circle cx="71" cy="74" r="11" fill="#10AAEC"/>
+<text x="97" y="86" font-family="'Space Grotesk',Arial,sans-serif" font-size="32" font-weight="700" fill="#F2F9FF">BlueDotAtlas</text>
+<text x="67" y="373" font-family="'Inter',Arial,sans-serif" font-size="20" letter-spacing="5" font-weight="700" fill="#B4CCDC">CRYOSPHERE</text>
+<text x="67" y="489" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#F2F9FF" paint-order="stroke fill">WHY ICE</text>
+<text x="67" y="595" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#37D6C4" paint-order="stroke fill">IS CHANGING</text>
+<rect x="69" y="634" width="145" height="11" rx="5" fill="#37D6C4"/>
+<text x="70" y="681" font-family="'Inter',Arial,sans-serif" font-size="15" fill="#C9DCEB" letter-spacing="2">ILLUSTRATIVE DESIGN MOCKUP  ·  NOT OBSERVATIONAL DATA</text>
+</svg>
