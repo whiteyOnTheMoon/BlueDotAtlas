@@ -1,0 +1,51 @@
+name: Motion 007 1080p proof
+
+on:
+  push:
+    branches:
+      - design/007-motion-basics
+    paths:
+      - ".github/workflows/motion-check.yml"
+      - "scripts/render-motion-test.mjs"
+      - "assets/brand/motion/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  motion-test:
+    name: Original logo + lower-third + map-marker in a 10s MP4
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Chromium renderer and FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          npm install --no-save --ignore-scripts playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Download pinned OFL fonts for temporary QA only
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .tmp-fonts
+          curl --fail --location --silent --show-error --retry 3 'https://raw.githubusercontent.com/rsms/inter/353b61b9f4430d5f420d56605a6e7993e0941470/docs/font-files/Inter-Regular.woff2' -o .tmp-fonts/Inter-Regular.woff2
+          curl --fail --location --silent --show-error --retry 3 'https://raw.githubusercontent.com/rsms/inter/353b61b9f4430d5f420d56605a6e7993e0941470/docs/font-files/Inter-SemiBold.woff2' -o .tmp-fonts/Inter-SemiBold.woff2
+          curl --fail --location --silent --show-error --retry 3 'https://raw.githubusercontent.com/floriankarsten/space-grotesk/03507d024a01282884232081fc6011c09ff4e849/fonts/woff2/SpaceGrotesk%5Bwght%5D.woff2' -o .tmp-fonts/SpaceGrotesk-variable.woff2
+      - name: Render and validate video, motion timing, overlay dimensions and real fonts
+        run: node scripts/render-motion-test.mjs
+      - name: Archive 10-second MP4 and keyframe previews for human approval
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bluedotatlas-motion-007-testclip
+          path: .tmp-motion-results/
+          if-no-files-found: warn
+          retention-days: 14
