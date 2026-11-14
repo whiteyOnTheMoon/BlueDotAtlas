@@ -2,7 +2,7 @@
 
 **Earth & Climate Video Studio** — hochwertige, englischsprachige Wissenschaftsdokumentationen über unseren Planeten.
 
-> Projektphase: **M00 – Brand & Identity** · Aufgabe **001**: Brand Brief inhaltlich freigegeben, formaler PR-Abschluss in Bearbeitung · nächste Aufgabe: **002 – Wortmarke und Schreibweise**
+> Projektphase: **M00 – Brand & Identity** · Aufgaben **001–002** redaktionell abgenommen · nächste Aufgabe **003 – Logorichtungen**
 
 ## Projektziel
 
@@ -22,12 +22,13 @@ BlueDotAtlas entwickelt ein redaktionell kontrolliertes Webstudio zur Recherche,
 
 **Abgrenzung:** Ziel sind starke, wahrheitsgemäße Titel, Thumbnails, Hooks und Spannungsbögen; keine irreführenden Versprechen, künstlich aufgeblähten Filme oder Sensationsbehauptungen.
 
-Der Brand Brief und das englische Markenversprechen sind am **13.11.2026 freigegeben** worden. Der finale **Claim / die Tagline** und Regeln für die Wortmarke folgen in Aufgabe 002.
+Der Brand Brief und das englische Markenversprechen sind am **13.11.2026 freigegeben** worden. Für Aufgabe 002 wurde die öffentliche englische Tagline **„The Planet Has a Story.“** ausgewählt. Es gibt in V0.1 **keine öffentliche Kurzform**; die Naming-/Einsatzregeln wurden am **13.11.2026 per „Ok“ freigegeben**.
 
 ## Projektdokumentation
 
 - [Brand Brief V0.1](docs/brand/brand-brief.md) — Aufgabe 001, inhaltlich freigegeben und mit Abnahmecheckliste
 - [Entscheidungsprotokoll](docs/project/decision-log.md) — fortlaufend versionierte verbindliche Beschlüsse und offene Fragen
+- [Naming & Wordmark Guidelines](docs/brand/naming.md) — Aufgabe 002; Claim, Verzicht auf Kurzform und Naming-Regeln freigegeben
 
 ## Roadmap und Arbeitsregeln
 
@@ -41,7 +42,7 @@ Grundlage: *BlueDotAtlas Master Roadmap V0.1* (13. November 2026), 14 Meilenstei
 - **Freigaberegel:** Ein „Ok“ im Projektchat bedeutet die ausdrückliche Freigabe des jeweils zur Entscheidung vorgelegten Ergebnisses, nicht zukünftiger oder anderer Aufgaben.
 - Die ursprüngliche Roadmap-Schreibweise des Produktnamens wurde ausdrücklich durch **BlueDotAtlas** ersetzt; Aufgabennummern und Meilensteine bleiben unverändert.
 
-**Abnahme Aufgabe 001:** [Issue #1](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1) und [PR #2](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/2). **Nächste Aufgabe:** 002 – Wortmarke und Schreibweise.
+**Abgeschlossen:** [001 – Markenversprechen und Tonalität](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1) über [PR #2](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/2). **Inhaltlich freigegeben:** [002 – Wortmarke und Schreibweise](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/3) über [PR #4](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/4). **Nächste Aufgabe:** 003 – Logorichtungen.
 
 ## Geplante technische Basis (noch nicht implementiert)
 
