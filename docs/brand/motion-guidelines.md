@@ -1,7 +1,7 @@
 # BlueDotAtlas — Motion Design Guidelines V0.1 (PROPOSAL)
 
 **Roadmap:** M00 / 007 — Motion-Design-Basics gestalten  
-**Status:** **Design proposal under review**, not approved or complete.  
+**Status:** **Technical test PASS**, real [10-second MP4 with four keyframes](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43608120656/artifacts/14118684177) available for user review. **Motion style NOT YET APPROVED.**  
 **Issue:** [#16](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/16)  
 **Dependency:** 004–006 complete.  
 **Roadmap acceptance:** Short test clip with **logo motion and lower third**, but **no persistent full-frame text overlays**.
@@ -74,7 +74,7 @@ Source placeholders deliberately communicate the **visual format**, not a citati
 
 ## 7. Testing / gate
 
-### Automated evidence (to run via GitHub Actions)
+### Automated evidence — completed in GitHub Actions
 
 The [Motion 007 workflow](../../.github/workflows/motion-check.yml) uses Chromium, pinned WOFF2 Inter/Space Grotesk (SIL OFL 1.1) and FFmpeg to generate a **real 10-second 1920×1080 H.264 MP4**.
 
@@ -91,8 +91,10 @@ It verifies:
 - [x] Motion grammar defined for intro/outro, Lower Third, geographic labels, map markers, sources/captions.
 - [x] Scene uses real approved SVG logo and the chosen palette and free font families.
 - [x] Test/demo animation source and reproducible 1080p MP4 generator written.
-- [ ] **Actual video rendering completed and logged as PASS**.
+- [x] **Actual 1920×1080 H.264 MP4 rendered and validated**, 30fps/10s, original SVG logo loaded and true Inter/Space Grotesk fonts loaded; [test report](motion-qa.md), [successful Action](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43608120656).
 - [ ] Owner reviews motion pacing, lower-third readability and tone, and approves/requests changes.
 - [ ] PR merged and Issue #16 closed only after test **and** human motion sign-off.
+
+**QA proof:** [Motion Test Report](motion-qa.md) and [downloadable ZIP with MP4, screenshots and QA JSON](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43608120656/artifacts/14118684177). **Style approval pending**.
 
 **Scope note:** This is M00 motion identity, not the eventual Remotion scene engine or the 60-second scientific proof. Production audiovisual integration follows M03/M04 tasks.
