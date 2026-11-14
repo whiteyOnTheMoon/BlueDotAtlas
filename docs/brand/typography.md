@@ -1,0 +1,92 @@
+# BlueDotAtlas — Typography V0.1 (free-font proposal)
+
+**Roadmap:** M00 / 005 — Typografie und Schriftlizenzen  
+**Status:** PREPARATORY DRAFT; blocked by color task [004 / Issue #7](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/7). Final font selection and TV/mobile checks are **not yet approved**.  
+**Issue:** [#9](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/9)  
+**Requirement:** Only freely licensed fonts fit for commercial websites, videos and branding (user decision DEC-013).
+
+## Proposed free font pair
+
+### Screen / UI / subtitles: Inter
+- **Type:** legible variable sans serif optimized for screens.
+- **Proposed weights:** 400 (body), 500 (controls), 600 (subtitles), 700 (strong text).
+- **Usage:** website, admin UI, captions, lower thirds, source notes, charts.
+- **License:** SIL Open Font License 1.1, as distributed in Google Fonts.
+- **Author / provenance:** The Inter Project Authors (Rasmus Andersson et al.); original project https://github.com/rsms/inter
+- **Verified OFL file:** https://github.com/google/fonts/blob/main/ofl/inter/OFL.txt
+
+### Display / cinematic titles: Space Grotesk
+- **Type:** expressive geometric sans, suitable for documentary titles and hero headings.
+- **Proposed weights:** 600 and 700 for titles, 500 for shorter display headings.
+- **Usage:** film chapter cards, hero typography, thumbnail headlines and selected page headings.
+- **License:** SIL Open Font License 1.1, as distributed in Google Fonts.
+- **Author / provenance:** The Space Grotesk Project Authors, design by Florian Karsten; original project https://github.com/floriankarsten/space-grotesk
+- **Verified OFL file:** https://github.com/google/fonts/blob/main/ofl/spacegrotesk/OFL.txt
+
+Both fonts can be used in commercial branding/web/video applications subject to the OFL. **When distributing the font files**, include their original copyright and license text. Do **not** sell the font files standalone, violate Reserved Font Name requirements, or claim trademark exclusivity.
+
+**No font binaries are bundled in this draft**. When implementing the website, pin font versions, self-host or use `next/font` where supported, and retain the matching `OFL.txt` and copyright notices in the repository. Check the exact files obtained, rather than relying only on the font-family name.
+
+## Proposed type scale — Website
+
+| Usage | Font / Weight | Size (first proposal) |
+| --- | --- | --- |
+| Hero headline | Space Grotesk 700 | `clamp(2.5rem, 5vw, 5rem)` |
+| Section title | Space Grotesk 600 | `clamp(1.75rem, 3vw, 3rem)` |
+| Card heading | Space Grotesk 600 | `1.25rem` |
+| Body | Inter 400 | `1rem` (16px base), 1.55 line-height |
+| Article/Research summary | Inter 400 | `1.125rem` (18px), 1.6 line-height |
+| UI controls and labels | Inter 500–600 | `0.875–1rem` (14–16px) |
+| Metadata | Inter 500 | `0.875rem` (14px) |
+
+Use responsive line lengths (roughly 55–75 characters for reading surfaces) and allow zoom/text scaling without overflow. No unnecessary letter-spacing on small body text.
+
+## Proposed type scale — Full HD 1920 × 1080
+
+| Usage | Font / Weight | Starting range (px) | Rules |
+| --- | --- | ---: | --- |
+| Documentary chapter title | Space Grotesk 700 | 100–140 | Max 2 lines; prioritize image |
+| Thumbnail headline | Space Grotesk 700 | 130–190 | Usually 3–6 concise words |
+| On-screen location heading | Space Grotesk 600 | 55–72 | Only when context needs it |
+| Narration subtitles | Inter 600 | 52–60 | Max 2 lines, safe area, contrast scrim if needed |
+| Lower third | Inter 500/600 | 44–52 | Name and place/fact only |
+| Source note | Inter 500 | 28–36 | When essential, provide longer source details elsewhere |
+
+These are **proposals, not validated universal accessibility thresholds**. Real 1080p playback on a TV/viewer, mobile thumbnail previews and high-motion footage must be tested; adjust lengths and sizes based on the actual sample.
+
+## Example text for later screen/TV review
+
+**Display example:** `The Planet Has a Story.`  
+**Thumbnail example:** `The Ocean Is Changing`  
+**Subtitle example:** `Satellites show how water and heat move around our planet.`  
+**Scientific note example:** `Source: NOAA / Observation period: 2015–2025`
+
+The above are typography samples, not verified documentary claims.
+
+## Approved logo relationship
+
+Keep the owner's existing `assets/brand/logo/` SVG geometry, colors and artboard untouched. The full wordmark SVG currently uses an Inter/Arial font fallback in `<text>`; the final logo font display may differ across renderers. After choosing free typefaces, test it with the selected versions. **Do not silently change the approved logo path or lettering.** If the design must be font-independent, propose a separately reviewed outlined-text variant.
+
+## Web integration concept (not executed)
+
+```css
+:root { --font-screen: "Inter", system-ui, sans-serif; --font-display: "Space Grotesk", "Inter", sans-serif; }
+body { font-family: var(--font-screen); }
+h1, h2, .display-title { font-family: var(--font-display); }
+```
+
+When implemented with bundled font files, preserve exact OFL copyright/notice and test WOFF2 loading, weight range and fallback behavior in the actual Next.js application.
+
+## Abnahme-Checkliste
+
+- [x] Two free/open-licensed candidate font families named.
+- [x] Official license documents linked (Google Fonts OFL repository).
+- [x] Initial responsive website/1080p/thumbnail type scales documented.
+- [ ] Color task 004 approved and merged.
+- [ ] Final font family pair explicitly approved.
+- [ ] Actual font files and version-pinned redistribution licenses reviewed.
+- [ ] Mobile website and thumbnail legibility tested with the chosen fonts.
+- [ ] 1080p rendering and TV-distance legibility tested with the chosen fonts.
+- [ ] PR reviewed and merged; Issue #9 completed with evidence.
+
+**Never copy downloaded fonts into customer-facing deliverables without checking the file license and permitted redistribution obligations.**
