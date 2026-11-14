@@ -1,7 +1,7 @@
 # BlueDotAtlas — Logo Directions V0.1
 
 **Roadmap:** M00 · Aufgabe 003  
-**Status:** **C — Earth Contour ausgewählt** durch Nutzer; vier transparente SVG-Vektorvarianten erstellt. Finale visuelle 48px-/PNG-Vergleichsabnahme noch offen.  
+**Status:** **C — Earth Contour ausgewählt** durch Nutzer; vier transparente SVG-Vektorvarianten erstellt. 48px-Icon-Test mit exakt den SVG-Konturpfaden bestanden; Wortmarken-Schrift-Fallback wird mit Aufgabe 005 geprüft.  
 **GitHub:** [Issue #5](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/5)  
 **Abhängigkeiten:** Aufgaben 001 und 002 freigegeben.
 
@@ -84,6 +84,8 @@ Der Auftraggeber hat **C — Earth Contour** gewählt, da die organischen Linien
 - [x] Drei historische Hell-/Dunkel-Konzeptpaare angelegt, XML geprüft und bei 48px gerendert; anschließend auf Wunsch des Auftraggebers entfernt.
 - [x] Entwurf C vom Auftraggeber ausgewählt.
 - [x] SVG-Vektorfassung der gewählten Richtung als Wortmarken- und Icon-only-Set in hell/dunkel erstellt; auf etwa 4 Einheiten Artboard-Rand reduziert, ohne das Motiv zu verändern.
-- [ ] Neue finale SVGs in 48px geprüft und Bildvergleich durchgeführt; anschließend finale visuelle Abnahme und PR-Merge.
+- [x] Finale Konturpfade im 48px-Render geprüft: aus dem nichtquadratischen Icon ergibt sich ein 48×38-PNG; die markierten Höhenschichten und der blaue Punkt bleiben erkennbar.
+- [x] Nutzer hat die Variante C, die SVG-Ausführung und die randarmen Artboards akzeptiert und mit „Ok, dann geht's mit Farben und Typografie weiter“ den Übergang freigegeben.
+- [ ] Nach PR-Merge den Abschluss in Issue #5 verifizieren; Fonts/Schrift-Fallback in Aufgabe 005 prüfen.
 
 **Rechtehinweis:** Eigenständige geometrische Entwürfe ohne bewusste Übernahme fremder Bestandteile; eine formelle Zeichen-/Markenrecherche steht aus.
