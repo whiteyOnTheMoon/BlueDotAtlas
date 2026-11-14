@@ -2,7 +2,7 @@
 
 **Roadmap:** M00 · Aufgabe 001 — Markenversprechen und Tonalität festlegen  
 **Stand:** 13.11.2026  
-**Status:** ENTWURF MIT FESTGELEGTEN GRUNDENTSCHEIDUNGEN — redaktionelle Endabnahme offen  
+**Status:** INHALTLICH FREIGEGEBEN am 13.11.2026 durch explizites „Ok“ des Auftraggebers; Merge-/Issue-Abnahme separat  
 **Nachweis:** [GitHub Issue #1](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1)
 
 > **Wichtig:** In der ursprünglichen Master Roadmap steht `blueDotAtlas`. Der Auftraggeber hat am 13.11.2026 ausdrücklich die verbindliche Schreibweise **BlueDotAtlas** entschieden. Alle neuen Projektartefakte verwenden diese Schreibweise.
@@ -19,7 +19,7 @@
 
 Diese Tabelle hält explizite Nutzerentscheidungen fest. Nachfolgende Ausarbeitungen sind **redaktionelle Vorschläge**, soweit sie nicht durch die Roadmap bereits verbindlich sind.
 
-## 2. Markenversprechen (redaktioneller Entwurf)
+## 2. Markenversprechen (freigegeben)
 
 **Englische Kernbotschaft:**
 
@@ -31,13 +31,13 @@ Diese Tabelle hält explizite Nutzerentscheidungen fest. Nachfolgende Ausarbeitu
 
 **Claim / Tagline:** **noch nicht entschieden**. Die finale Formulierung wird in Aufgabe 002 geprüft und freigegeben. Keine vorläufige Tagline darf als beschlossene Markenregel erscheinen.
 
-## 3. Zielgruppe und Reichweite (Arbeitsvorschlag)
+## 3. Zielgruppe und Reichweite (freigegeben)
 
 Primär: international orientierte, englischsprachige Zuschauer, die Natur, Erde, Klima, Ozeane, Wetter, Geologie und Satellitenbeobachtung spannend finden. Die Filme setzen kein naturwissenschaftliches Studium voraus, bleiben aber auch für fachkundige Zuschauer überprüfbar.
 
 **Geografische Reichweite:** global. Einzelne Orte und Ereignisse dienen als anschauliche Beispiele für größere Erdsysteme. Die Themenwahl richtet sich an Relevanz, Beleglage und filmische Erzählbarkeit, nicht an künstliche Regionalpräferenzen.
 
-## 4. Fünf Markenwerte (Arbeitsvorschlag)
+## 4. Fünf Markenwerte (freigegeben)
 
 1. **Evidence first:** Wissenschaftliche Belege sind nicht verhandelbar.
 2. **Compelling clarity:** Schwierige Zusammenhänge werden klar und spannend erklärt.
@@ -92,7 +92,6 @@ Die konkrete Richtigkeit jeder zukünftigen Titelbehauptung muss zum dazugehöri
 ## 9. Noch offen / ausdrücklich nicht entschieden
 
 - Finale englische Tagline und offizielle Kurzform (Aufgabe 002).
-- Konkretisiertes Markenversprechen und finale Tonalität: Freigabe des gesamten Brand Briefs durch Auftraggeber.
 - Zielgruppenfeinsegmentierung, messbare CTR-/Retention-Ziele und endgültige Verteilungskanäle (nach Tests statt Schätzung).
 - Logo, Farben, Typografie und Motion-System (Aufgaben 003–009).
 
@@ -101,8 +100,9 @@ Die konkrete Richtigkeit jeder zukünftigen Titelbehauptung muss zum dazugehöri
 - [x] Name, Sprache, Qualitätsrichtung und Wachstumsziel als Entscheidungen festgehalten.
 - [x] Markenversprechen, Zielgruppe, geografische Reichweite und Wissenschaftsstandard als Entwurf beschrieben.
 - [x] Fünf Werte, englische Beispieltitel und No-Gos dokumentiert.
-- [ ] Auftraggeber hat Markenversprechen und Tonalität als Ganzes abgenommen.
-- [ ] PR ist reviewed und gemergt; Gate-Nachweis dokumentiert.
+- [x] Auftraggeber hat Markenversprechen und Tonalität als Ganzes am 13.11.2026 mit „Ok“ abgenommen.
+- [x] Inhaltlicher Review durch Auftraggeber („Ok“) abgeschlossen.
+- [ ] PR ist gemergt; Merge-/Gate-Nachweis wird im Issue #1 festgehalten.
 
 **Ergebnis:** `docs/brand/brand-brief.md`  
-**Aktueller Aufgabenstatus:** IN REVIEW / NOCH NICHT DONE.
+**Aktueller Aufgabenstatus:** INHALTLICH FREIGEGEBEN; formaler Abschluss nach PR-Merge und Nachweis in Issue #1.
