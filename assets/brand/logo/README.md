@@ -3,7 +3,7 @@
 **Selected direction:** C — Earth Contour  
 **Brand:** BlueDotAtlas  
 **Tagline:** The Planet Has a Story.  
-**Status:** Vector reconstruction created; visual acceptance and 48px render review of the final SVG set are pending.  
+**Status:** Direction C and final contour geometry accepted by the owner; 48px icon review completed; final display typography and colors follow tasks 004–005.  
 **Roadmap:** [Task 003](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/5)
 
 ## Transparent SVG assets
@@ -76,7 +76,8 @@ The dot represents a location, measurement, or observation.
 - [x] Tight-crop changes limited to root viewBox and dimensions; geometry/text markup identical across the before/after versions.
 - [x] All four rasterized with CairoSVG; light variants also inspected via Chromium. Measured transparent margin above and below = 4 px.
 - [ ] Full visual comparison against the PNG reference and cross-platform font fallback review.
-- [ ] Visually verify 48×48 and 64×64 icon readability.
+- [x] Rendered the exact shared contour SVG path/circle data at 48px width in CairoSVG (output 48×38) and 64px width (64×51); contours and blue dot remain recognizable. The SVG itself stays non-square and must not be stretched.
+- [ ] Cross-browser font fallback for full wordmark and exact PNG-reference parity are deferred until the typography decision in task 005; geometry remains unchanged.
 - [ ] Finalize typeface/convert typography to outlines when task 005 is approved.
 - [ ] Complete editorial acceptance and PR merge for task 003.
 
