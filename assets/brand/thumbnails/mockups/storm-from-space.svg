@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="title desc">
+<title id="title">BlueDotAtlas thumbnail concept — storms</title>
+<desc id="desc">Fictional geometric illustration, not a real satellite or observational data image. Abstract orbit-level cyclone illustration; not a photograph of a real storm.</desc>
+<defs>
+  <linearGradient id="back" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#021934"/><stop offset=".65" stop-color="#064366"/><stop offset="1" stop-color="#071522"/></linearGradient>
+  <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#021934" stop-opacity=".96"/><stop offset=".47" stop-color="#021934" stop-opacity=".78"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></linearGradient>
+  <radialGradient id="halo"><stop stop-color="#13B6EF" stop-opacity=".24"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></radialGradient>
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>
+  <clipPath id="clip"><rect width="1280" height="720"/></clipPath>
+</defs>
+<g clip-path="url(#clip)">
+ <rect width="1280" height="720" fill="url(#back)"/>
+ <rect width="1280" height="720" fill="#061B32"/><circle cx="265" cy="670" r="735" fill="#073F66" stroke="#19B7F4" stroke-opacity=".55" stroke-width="30"/><circle cx="265" cy="670" r="705" fill="#0D3554"/><g fill="none" stroke-linecap="round" transform="rotate(-21 380 405)">
+  <ellipse cx="388" cy="402" rx="355" ry="178" stroke="#B4DDE9" stroke-width="51" opacity=".63"/>
+  <ellipse cx="388" cy="402" rx="278" ry="143" stroke="#F2F9FF" stroke-width="35" opacity=".85"/>
+  <ellipse cx="388" cy="402" rx="200" ry="107" stroke="#8BC2D8" stroke-width="28" opacity=".7"/>
+  <ellipse cx="388" cy="402" rx="126" ry="71" stroke="#FFFFFF" stroke-width="30" opacity=".95"/>
+</g><ellipse cx="390" cy="405" rx="55" ry="39" fill="#0C314F"/><path d="M137 82 C 387 28 661 120 787 260" fill="none" stroke="#1C9EDE" stroke-opacity=".65" stroke-width="24"/><circle cx="388" cy="402" r="5" fill="#19B7F4"/><rect x="695" width="585" height="720" fill="url(#fade)" opacity=".55"/>
+ <rect width="1280" height="720" fill="url(#fade)" opacity="0.20"/>
+ <rect x="0" y="0" width="1280" height="720" fill="none" stroke="#19B7F4" stroke-opacity=".38" stroke-width="3"/>
+</g>
+<!-- Text-only brand mark in these editable layout studies, not an alteration of the approved SVG logo -->
+<circle cx="71" cy="74" r="11" fill="#10AAEC"/>
+<text x="97" y="86" font-family="'Space Grotesk',Arial,sans-serif" font-size="32" font-weight="700" fill="#F2F9FF">BlueDotAtlas</text>
+<text x="769" y="256" font-family="'Inter',Arial,sans-serif" font-size="20" letter-spacing="5" font-weight="700" fill="#B4CCDC">EARTH OBSERVATION</text>
+<text x="769" y="372" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#F2F9FF" paint-order="stroke fill">STORMS</text>
+<text x="769" y="478" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#19B7F4" paint-order="stroke fill">FROM SPACE</text>
+<rect x="771" y="517" width="145" height="11" rx="5" fill="#19B7F4"/>
+<text x="70" y="681" font-family="'Inter',Arial,sans-serif" font-size="15" fill="#C9DCEB" letter-spacing="2">ILLUSTRATIVE DESIGN MOCKUP  ·  NOT OBSERVATIONAL DATA</text>
+</svg>
