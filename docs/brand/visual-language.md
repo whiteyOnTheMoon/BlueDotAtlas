@@ -2,7 +2,7 @@
 
 **Roadmap:** M00 · Aufgabe 006 — Bildsprache und Thumbnail-Regeln  
 **Entscheidung:** **Freigegeben: EIN verbindliches Thumbnail-Layout** (DEC-017, Nutzerwahl 14.11.2026).  
-**Status:** Gestalterische Richtung freigegeben; Review, aktualisierte Layouttests und PR-Merge separat nachweisen.  
+**Status:** **ABGESCHLOSSEN** — verbindliche Ein-Template-Entscheidung DEC-017, [12/12 Chromium-Checks](thumbnail-qa.md) erfolgreich; [PR #14](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/14) gemergt und [Issue #13](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/13) geschlossen.  
 **Vorher:** Aufgaben 001–005 abgeschlossen.
 
 ## 1. Freigegebene Referenz und verbindliche Entscheidung
@@ -92,6 +92,6 @@ Nützliche Referenzen (geben **keine pauschale Freigabe zur Wiederverwendung**):
 - [x] Vorhandene Brand-Farben und lizenziertes Schriftpaar übernommen; offizielle Logo-Dateien **nicht verändert**.
 - [x] Regeln für Satellitenbilder, Makro, Ozean, Karten und Datenvisualisierungen dokumentiert.
 - [x] Aktuelle Master-/Beispiel-SVGs in Chromium bei 1280/320/160 geprüft: **12/12 bestanden**, mit real geladenem Inter/Space Grotesk, unveränderten Logoformen und korrekt positionierten Headline-Bereichen. [Aktueller QA-Bericht](thumbnail-qa.md) · [GitHub Actions #43606211530](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43606211530). Der alte 9/9-Test ist ausdrücklich überholt.
-- [ ] Inhaltlich freigegeben; PR #14 reviewen/mergen und Issue #13 mit diesem QA-Nachweis schließen.
+- [x] Abnahme und Testnachweise in [PR #14](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/14) auf `main` gemergt; [Issue #13](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/13) geschlossen.
 
 **Ein einziger Master, konsistent für alle künftigen BlueDotAtlas-Thumbnails.**
