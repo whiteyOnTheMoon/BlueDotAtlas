@@ -18,4 +18,4 @@ This directory is the common home for reusable **brand artwork and font document
 - Keep palettes and specimens here, but keep `packages/ui/tokens/colors.ts` as the sole runtime source for color semantics.
 - The user deliberately removed `assets/brand/concepts/` and the redundant `assets/brand/logo.svg`; do not restore either.
 
-**Approval/status:** colors and font **design choices** approved 14 Nov 2026. Typography device/TV-readability and actual font loading remain task 005's technical acceptance work.
+**Approval/status:** colors and font **design choices** approved 14 Nov 2026. Task 005 representative real-font browser tests passed at 375px, 768px and 1920×1080. Later production-app loading and physical TV-device testing remain explicit follow-up work; see [Typography QA](../../docs/brand/typography-qa.md).

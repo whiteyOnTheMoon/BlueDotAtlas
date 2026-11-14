@@ -24,6 +24,8 @@
 | DEC-014 | Die **Deep Ocean / Glacial Light**-Palette mit Deep Sea `#021934`, Ice White `#F2F9FF`, Blue Dot `#10AAEC`, Glacier `#37D6C4` und Deep Night `#071522` ist ausgewählt und genehmigt. | Entschieden | Nutzer „Ok, einverstanden“ zur gemeinsamen Farben-/Font-Vorschau, 14.11.2026 | Farben in `packages/ui/tokens/colors.ts`, visuelle Palette unter `assets/brand/colors/`; Logo-SVGs unverändert; Kontraste gesondert geprüft. |
 | DEC-015 | **Space Grotesk** als Display-Schrift und **Inter** als Screen-/UI-/Untertitel-Schrift sind ausgewählt; beide müssen legal frei nutzbar sein. | Entschieden (Auswahl) | Nutzer „Ok, einverstanden“, 14.11.2026 | Der Entwurf für 005 kann entsprechend festgelegt werden; Einbindung, exakte Version, Fontlizenzen und Mobil-/TV-Nachweise werden noch geprüft. |
 
+| DEC-016 | **Typografie-005 nach Nutzerlesbarkeitsbestätigung und tatsächlichem Browser-Test freigegeben.** Pinned WOFF2-Builds von Inter und Space Grotesk bestehen alle drei Prüfgrößen: 375px, 768px und 1920×1080. | Abnahme-/Testnachweis | Nutzer „Ist lesbar“ / „Ich finde es lesbar, kannst du auch einen Test machen und abschließen?“ und [GitHub Actions Run #43563814550](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43563814550), 14.11.2026 | Aufgabe 005 kann mit PR-Merge/Issue-Gate geschlossen werden. Produktionseinbindung in Next.js/Remotion sowie physischer TV-Test erst in späteren Aufgaben, nicht als bereits erfolgt dokumentieren. |
+
 ## Offene Entscheidungen
 
 | ID | Frage | Aufgabe | Status |

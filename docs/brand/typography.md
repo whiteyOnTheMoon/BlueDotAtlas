@@ -1,7 +1,7 @@
-# BlueDotAtlas — Typography V0.1 (free-font proposal)
+# BlueDotAtlas — Typography V0.1 (approved and tested)
 
 **Roadmap:** M00 / 005 — Typografie und Schriftlizenzen  
-**Status:** FONT PAIR APPROVED by owner („Ok, einverstanden“, 14 Nov 2026, DEC-015). Color task [004 / Issue #7](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/7) is completed. Device/TV legibility and version-pinned font loading remain open.  
+**Status:** Brand typography APPROVED by owner (DEC-015) and representative real-font browser tests passed at 375px, 768px and 1920×1080; [QA evidence](typography-qa.md). Production-app/TV-device validation remains follow-up work for later roadmap tasks.  
 **Issue:** [#9](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/9)  
 **Requirement:** Only freely licensed fonts fit for commercial websites, videos and branding (user decision DEC-013).
 
@@ -77,6 +77,10 @@ h1, h2, .display-title { font-family: var(--font-display); }
 
 When implemented with bundled font files, preserve exact OFL copyright/notice and test WOFF2 loading, weight range and fallback behavior in the actual Next.js application.
 
+## Browser QA / evidence
+
+[Typography acceptance report](typography-qa.md) documents the successful pinned-font Chromium test (3/3 representative viewport sizes), licensing and explicit limits of the evidence. The owner confirmed the design sample was readable before the test. This validates the **brand design stage**, not the not-yet-built production app.
+
 ## Abnahme-Checkliste
 
 - [x] Both free/open-licensed font families selected by the user: Space Grotesk (display) and Inter (screen).
@@ -84,9 +88,10 @@ When implemented with bundled font files, preserve exact OFL copyright/notice an
 - [x] Initial responsive website/1080p/thumbnail type scales documented.
 - [x] Color task 004 approved and merged in PR #8.
 - [x] Font family pair explicitly approved by user (DEC-015).
-- [ ] Actual font files and version-pinned redistribution licenses reviewed.
-- [ ] Mobile website and thumbnail legibility tested with the chosen fonts.
-- [ ] 1080p rendering and TV-distance legibility tested with the chosen fonts.
-- [ ] PR reviewed and merged; Issue #9 completed with evidence.
+- [x] Pinned upstream WOFF2 test builds used: Inter commit `353b61b9` and Space Grotesk commit `03507d0`; WOFF2 validity/font loading checked. Official SIL OFL 1.1 license notices stored in the brand assets.
+- [x] Representative mobile/tablet title and body typography tested in Chromium at 375px and 768px; no overflows, both families really loaded. Actual future published thumbnail imagery is tested in task 006.
+- [x] 1920×1080 representative typographic film frame tested in Chromium: Space Grotesk title and Inter subtitle in safe area, no overlap/overflow.
+- [ ] Physical TV-distance check with rendered film footage belongs to the later Motion/Film gates; no production film exists yet.
+- [x] Font selection approved by user and original PR #10 merged; final browser QA is linked from the follow-up test PR and Issue #9.
 
-**Documentation note:** Font family choices and license check are approved and versioned. The technical acceptance of 005 remains open until the exact font deployment and mobile/TV-size tests are demonstrated. Never copy fonts into customer-facing deliverables without checking permitted redistribution obligations.
+**Documentation note:** Font selection, license checks and representative real-font browser tests are complete for the design-stage task 005. Production Next.js/Remotion and actual-device tests must be rerun in the later relevant tasks; do not claim those systems exist. Never copy fonts into customer-facing deliverables without checking permitted redistribution obligations.

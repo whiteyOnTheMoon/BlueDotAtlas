@@ -1,0 +1,51 @@
+name: Typography 005 readability gate
+
+on:
+  push:
+    branches:
+      - test/005-typography-readability
+    paths:
+      - '.github/workflows/typography-check.yml'
+      - 'scripts/check-typography.mjs'
+      - 'scripts/fixtures/type-readability.html'
+      - 'assets/brand/fonts/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  typography:
+    name: Inter + Space Grotesk / mobile and 1080p
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned Playwright and Chromium
+        run: |
+          npm install --no-save --ignore-scripts playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Fetch exact free-font test builds from upstream (not redistributed)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .tmp-fonts
+          curl --fail --location --silent --show-error --retry 3 'https://raw.githubusercontent.com/rsms/inter/353b61b9f4430d5f420d56605a6e7993e0941470/docs/font-files/Inter-Regular.woff2' -o .tmp-fonts/Inter-Regular.woff2
+          curl --fail --location --silent --show-error --retry 3 'https://raw.githubusercontent.com/rsms/inter/353b61b9f4430d5f420d56605a6e7993e0941470/docs/font-files/Inter-SemiBold.woff2' -o .tmp-fonts/Inter-SemiBold.woff2
+          curl --fail --location --silent --show-error --retry 3 'https://raw.githubusercontent.com/floriankarsten/space-grotesk/03507d024a01282884232081fc6011c09ff4e849/fonts/woff2/SpaceGrotesk%5Bwght%5D.woff2' -o .tmp-fonts/SpaceGrotesk-variable.woff2
+          file .tmp-fonts/*.woff2
+      - name: Check font loading and clipping at 375px, 768px, 1920x1080
+        run: node scripts/check-typography.mjs
+      - name: Archive evidence (screenshots + machine-readable report)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: typography-005-browser-evidence
+          path: .tmp-typography-results/
+          if-no-files-found: warn
+          retention-days: 14

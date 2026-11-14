@@ -11,6 +11,7 @@ Both are released under the **SIL Open Font License 1.1**, checked against the o
 - [licenses/INTER-OFL.txt](licenses/INTER-OFL.txt) — official Inter license and copyright notice.
 - [licenses/SPACE-GROTESK-OFL.txt](licenses/SPACE-GROTESK-OFL.txt) — official Space Grotesk license and copyright notice.
 - [specimen.html](specimen.html) — responsive **font comparison** with Google Fonts CSS loading, for visual review.
+- [Browser QA report](../../../docs/brand/typography-qa.md) — completed test with pinned upstream WOFF2 builds, results 3/3 PASS.
 - [Typography guidelines](../../../docs/brand/typography.md) — font roles, suggested weights and website/1080p scales.
 
 ## Sources (verify when updating font versions)
@@ -46,4 +47,4 @@ assets/brand/
         └── SPACE-GROTESK-OFL.txt
 ```
 
-**Roadmap:** [Task 005 / Issue #9](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/9). Font pair is approved; end-to-end loading and device legibility acceptance remain to be checked when app and film test scenes exist.
+**Roadmap:** [Task 005 / Issue #9](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/9). Brand font pair is approved and its layout tested with real WOFF2 fonts at 375px, 768px and 1920×1080 in Chromium ([test evidence](../../../docs/brand/typography-qa.md)). Next.js/Remotion and actual viewing-distance validation are tracked for their later implementation milestones.
