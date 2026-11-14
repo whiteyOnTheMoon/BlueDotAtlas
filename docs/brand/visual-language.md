@@ -1,95 +1,97 @@
 # BlueDotAtlas — Visual Language & Thumbnail Rules V0.1
 
-**Roadmap:** M00 / 006 — Bildsprache und Thumbnail-Regeln  
-**Status:** DESIGN DRAFT — **not yet approved by the owner**; [Issue #13](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/13).  
-**Previous gates:** 001–005 complete.  
-**Output:** coherent visual language across three Earth-system topics, editable 1280×720 vector thumbnail layout sketches, safe publication rules.
+**Roadmap:** M00 · Aufgabe 006 — Bildsprache und Thumbnail-Regeln  
+**Entscheidung:** **Freigegeben: EIN verbindliches Thumbnail-Layout** (DEC-017, Nutzerwahl 14.11.2026).  
+**Status:** Gestalterische Richtung freigegeben; Review, aktualisierte Layouttests und PR-Merge separat nachweisen.  
+**Vorher:** Aufgaben 001–005 abgeschlossen.
 
-## Design principle
+## 1. Freigegebene Referenz und verbindliche Entscheidung
 
-**Cinematic Earth science, not sensational science fiction.** One arresting observation, an immediate visual story, an authentic reason to click. Keep video title, thumbnail and documentary opening aligned: compelling but never deceptive. Primary goals are genuine click-through and engaged viewing **without sacrificing science, evidence or media rights**.
+Der Auftraggeber hat den **allerersten Ozean-Entwurf („THE OCEAN’S HIDDEN ENGINE“) ausdrücklich ausgewählt**, danach anhand eines eigenen Screenshots bestätigt: „Der erste Entwurf gefällt mir am besten. Ich will nur ein Template. Aufbau soll immer so sein wie beim ersten Vorschlag.“ Anschließende Abnahme: „Ja, das nehmen wir, bitte auf GitHub dokumentieren bzw Dokumentation ausbessern.“
 
-The public identity is **BlueDotAtlas** / **The Planet Has a Story.** The approved **C — Earth Contour** logo remains untouched under `assets/brand/logo/`. For early mockup comps the brand is represented by a tiny typographic identifier; final published branding must reuse the genuine approved SVG, **never a manually redrawn alternate mark**.
+**Damit gibt es nur EIN offizielles Template, unabhängig vom Filmthema.** Ozean, Gletscher, Wetter, Satellitenbilder usw. dürfen Motive und Überschrift austauschen, **aber nicht das Grundlayout, die Logo-Position oder die Titelspalte**. Andere Layouts (Titelfeld rechts, Text unten links, abweichender Logo-Bereich) sind ausdrücklich **nicht mehr als Alternative gültig**.
 
-## Image treatment by source/type
+Die im Chat gezeigte fotorealistisch wirkende Ozean-Illustration dient als **gestalterische Leitvorlage**. Die neuen Repository-SVGs sind technisch editierbare Rekonstruktionen **dieses Layouts**, keine pixelidentische Kopie des generierten Hintergrundbildes und keine echten wissenschaftlichen Satellitenaufnahmen.
 
-| Input | Visual vocabulary | Avoid |
+## 2. Master-Template (verbindlich)
+
+**EIN Template:** [`assets/brand/thumbnails/template.svg`](../../assets/brand/thumbnails/template.svg)  
+**Artboard:** **1280 × 720 px, 16:9** für YouTube.  
+**Dateiabgrenzung:** Die SVGs unter [`mockups/`](../../assets/brand/thumbnails/mockups/) sind drei **Inhaltsbeispiele mit demselben Template**, keine weiteren Templates.
+
+| Element | Verbindliche Anordnung |
+| --- | --- |
+| **Logo + Claim** | Immer **oben links**, einmalig, klein; das bestehende offizielle `logo-dark.svg` aus `assets/brand/logo/` unverändert in der Form übernommen, einschließlich „The Planet Has a Story.“ |
+| **Titelblock** | Immer **links**, groß, bevorzugt 2–4 kurze Zeilen (bei längeren Titeln kürzen); Display-Schrift **Space Grotesk Bold 700** |
+| **Typofarbe** | Hauptwörter in **Ice White `#F2F9FF`**; **genau ein** Schlüsselwort optional im bestehenden **Blue Dot `#10AAEC`** hervorheben |
+| **Titel-Akzent** | Eine **kurze türkise Linie** direkt unter der linken Headline (`#37D6C4`), durchgehend gleiche Gestaltungslogik |
+| **Hauptmotiv** | Immer **rechts**, dominant; darf für verschiedene Wissenschaftsthemen ersetzt werden. Der linke Bereich bleibt lesbar |
+| **Lesbarkeit** | **Dunkler Deep-Sea-Verlauf** von links Richtung Bildmitte, mit Erhalt des rechten Motivkontrasts; keinen künstlichen Text-Kasten über das ganze Motiv setzen |
+| **Rahmen** | Feiner **türkisfarbener**, leicht abgerundeter Rand (`#37D6C4`), etwa 32 px Abstand zum 1280×720-Artboard |
+| **Außenabstand** | Innerhalb des Rahmens Sicherheitsraum; alle Headlines und das Logo bleiben deutlich innerhalb der Bildränder |
+| **Bildsprache** | Cineastisch, hochwertig, klarer Eye-Catcher, dunkle Blau-/Ozeantöne, kontrollierte Eisweiß-Highlights |
+| **Verzicht** | **Keine weiteren Layoutvarianten**, kein großer Claim auf der Bildfläche, keine zusätzlichen Ausrufe-/Schock-Badges und kein erfundenes Agentursiegel |
+
+**Titelbehandlung:** Der einzelne Titel wechselt je Film, **Position, Weiß/Blau-Betonung und Unterstrich bleiben als System konstant**. YouTube-Video-Titel und Thumbnail-Text sollen sich ergänzen und die tatsächliche dokumentarische Aussage ehrlich abbilden.
+
+## 3. Ein Template, drei Themenbeispiele (Roadmap-006-Nachweis)
+
+| Beispielthema | Beispiel-Datei | Gleichbleibende Struktur |
 | --- | --- | --- |
-| **Satellite / Earth observation** | High-altitude patterns, coastlines, swirls, large-scale textures; real capture only with verifiable satellite/instrument/date/source | Showing fabricated storms as though photographed by satellite; mismatched location/date labels; agency seals |
-| **Macro / field observation** | Sharp detail within environmental context: ice crystal, volcanic mineral, sediment, mangrove root, water surface | Unlabelled scale illusions; using microscopic imagery for macroscopic claims |
-| **Oceans / cryosphere / land** | Deep navy, selective ice cyan, natural highlights; one dominant texture/phenomenon | Artificially flooding all images with electric blue; impossible colors presented as natural-color imagery |
-| **Maps** | Correct projection/extents, scale, clear location markers and minimal overlays in approved blue and turquoise | Invented boundaries, misleading zoom, unlabeled algorithmic hotspots |
-| **Scientific charts / datasets** | Axes, units, date range and legend when numerical claims appear; qualitative motion graphics clearly labeled | Decorative lines that look like validated time series, fake trend lines, unlabeled color heatmaps |
+| **Ozeanströmungen** | [`ocean-currents.svg`](../../assets/brand/thumbnails/mockups/ocean-currents.svg) | Logo oben links, Headline links, Motiv rechts, Verlauf + Rahmen + Unterstrich |
+| **Eis / Kryosphäre** | [`changing-ice.svg`](../../assets/brand/thumbnails/mockups/changing-ice.svg) | **Exakt derselbe Aufbau**, nur Motiv und Headline ausgetauscht |
+| **Stürme / Erdsicht** | [`storm-from-space.svg`](../../assets/brand/thumbnails/mockups/storm-from-space.svg) | **Exakt derselbe Aufbau**, nur Motiv und Headline ausgetauscht |
 
-Choose real, licensed media for final videos and thumbnails whenever evidence depends on the actual scene. Use original abstract graphics only as **illustrations**, clearly distinguished in credits/metadata and never as observational proof.
+[**Alle drei als Übersicht**](../../assets/brand/thumbnails/overview.svg).
 
-### Photography / footage grading
+Die Muster enthalten eigenständige **Illustrationen**, keine echten Aufnahmen von Ozeandaten, Gletschern oder Wirbelstürmen. Die SVGs sind Prototypen **für die Layoutabnahme**. Kein Motiv behauptet bereits eine verifizierte Beobachtung. Bei Veröffentlichung werden reale, zur Episode passende Bilder mit verifizierter Nutzungsberechtigung eingesetzt oder wissenschaftliche Visualisierungen eindeutig als solche gekennzeichnet.
 
-- Deep Ocean / Glacial Light brand palette, **not** a mandate to recolor natural science images.
-- Preserve real-landscape credibility: no giant fake eyes, faces, impossible waves or invented catastrophes.
-- One deliberate accent in a focused area; gradients/scrims only to maintain typography contrast.
-- Avoid excessive glow, bloom, high-frequency sharpening or misleading temperature/ice tint.
-- For map/chart footage, use approved visual styles and truthful legends/units.
+## 4. Bildsprache für reale Produktions-Assets
 
-## Thumbnail format & composition
+| Eingabe | Gewünschte Bildsprache | Nicht zulässig |
+| --- | --- | --- |
+| Satellit / Earth Observation | Echte, visuell eindrucksvolle Strömungen, Küsten, Wolken, großflächige Muster; Metadaten zur Quelle | Künstliche Wirbel als reale Satellitenaufnahme, falsche Zeit-/Ortsangaben oder NASA-/ESA-Markennachahmung |
+| Ozean, Eis, Landschaft | Charakteristische Details, echte Texturen, natürliche Farben mit sanfter markenkonformer Gradation | Durchgehend neonblau umgefärbte Naturbilder, erfundene Krisenmotive |
+| Makro-Aufnahmen | Maßstab und Kontext, klare Schärfeebene, strukturelle Details | Unmarkierte Maßstabstäuschungen |
+| Karten / GIS | Korrekte Projektionen und Geografie, deutlich beschriftete Marker | Erfundenes Grenz-/Ortswissen, irreführende Farbflächen |
+| Datencharts | Achsen, Einheiten, Zeitachsen und Quellen direkt beim Datenbezug | Dekorative Wellenlinien als vermeintlich gemessene Zeitreihen |
 
-**Canvas:** 1280×720 px (16:9). Draft layouts are SVGs at that exact viewBox, so they scale.
+**Grundregel:** Hohe CTR und längere authentische Wiedergabedauer durch Neugier und filmische Qualität, **nicht** durch Täuschung, erfundene Daten oder falsche Gefahr.
 
-**Grid:** 64px outer safe border; content-critical text and main subject stay inside a ~64px inset. Allow the platform timestamp badge in the **bottom-right** area by not placing title or key details there.
+## 5. Technische Erstellung eines Thumbnails
 
-**Hierarchy:**
-1. Single recognizable subject occupies **45–65%** of the frame. Silhouette legible at small size.
-2. Optional small topical kicker (documentary category), secondary to the image.
-3. Headline ideally **2–5 words**, maximum 2 short lines when it remains clear. For challenging subjects, 3 lines are allowed as in the storm prototype if that avoids clipping; final rule prioritizes readability.
-4. Use Space Grotesk 700 (free, OFL), Ice White against a dark scrim, one word optionally in `#19B7F4` or `#37D6C4`; no more than one bright color per headline.
-5. Brand identifier **optional**, small and separated from the content. Full claim is not mandatory on thumbnails; approved SVG logo used when it helps rather than as a large competing element.
+1. **Ausgangspunkt:** ausschließlich `assets/brand/thumbnails/template.svg`. Das Layout ist die verbindliche Ebene; das Motiv rechts und die Textzeilen sind Austauschfelder.
+2. **Bild einsetzen:** Originalaufnahme oder transparent gekennzeichnete Illustration, immer nach Prüfung der konkreten Datei: Lizenz, Urheber, Änderungs- und Distributionsbedingungen, Quelle, Aufnahmedatum, Ort, bei Satelliten Instrument.
+3. **Titel formulieren:** knapp und klickstark, aber sachlich gedeckt. Text **links** positionieren; bei Längenproblemen umformulieren, nicht den Titel auf die rechte Seite verlagern.
+4. **Logo:** aus `assets/brand/logo/logo-dark.svg`; **Originalpfade nicht verändern**. Das Template übernimmt diese Form im Brand-Header. Keine neu erfundenen Mini-Logos.
+5. **Export:** 1280×720 Thumbnail, nötigenfalls separate rasterisierte Web-Ausgabe; Schriftdateien nur nach OFL-Lizenzerfüllung und mit den genehmigten Fontfamilien.
+6. **Test:** auf 320px und 160px betrachten, Titel und Motiv prüfen; hellen/dunklen Bildkontrast, YouTube-Timestamp unten rechts, keine abgeschnittenen Inhalte.
+7. **Publishing:** Manuelle Freigabe und wissenschaftliche Wahrheits-/Rechtekontrolle für **jede** Folge.
 
-**Title rule:** thumbnail text should **complement, not repeat** the full YouTube title, and must faithfully foreshadow what the film actually answers. Proposed sample headlines remain **working creative examples**, not statements that a finished film or validated research exists.
+Die Grafikbeispiele enthalten bewusst keinen „CONCEPT MOCKUP“-Fußtext auf der Thumbnail-Bildfläche. Ihr Illustrationsstatus ist im SVG-`<desc>`, in der Dokumentation und im Asset-Manifest zu führen; die produktive Version erhält keine überlagernden Produktionshinweise.
 
-**Safety & legibility:** compare at **320px** and **160px** wide; if words become unclear, reduce text rather than adding outlines/overlays. Content must not sit beneath the timestamp. Thumbnail text should be accessible at 3:1 large-text contrast where applicable, but actual photos require per-image examination.
+## 6. Rechte-/Authentizitäts-Checkliste
 
-## Three approved-palette mockup topics (drafts for visual review)
+- [ ] Ein reales Motiv belegt das tatsächlich thematisierte Ereignis oder Phänomen; keine Bildbehauptung ohne Quelle.
+- [ ] Autor, Lizenz, ggf. Attribution, Aufnahme-/Entstehungsdatum, Dateiversion und Quelle im Medienregister.
+- [ ] Satellitenbild: Quelle, Instrument, Ort, Datum, natürlicher oder falscher Farbmodus; Visualisierung entsprechend gekennzeichnet.
+- [ ] Drittanbieter-/Bildrechte bei NASA/NOAA/ESA-Inhalten und eingebetteten Drittmaterialien individuell prüfen; keine institutionelle Unterstützung suggerieren.
+- [ ] Thumbnail-Headline wird vom tatsächlichen Film ehrlich beantwortet.
+- [ ] Tatsächlicher Export 1280×720, Kurzlesbarkeit bei 320px/160px geprüft.
+- [ ] Nur das freigegebene Layout mit Logo oben links, Text links und Motiv rechts verwendet.
 
-All three are **original vector illustrations**, **not** NASA/NOAA satellite imagery or a depiction of real measurements. They use editable 16:9 SVGs rather than third-party images.
+Nützliche Referenzen (geben **keine pauschale Freigabe zur Wiederverwendung**):
+- [NASA Media Usage Guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/)
+- [NASA Brand Guidelines](https://www.nasa.gov/nasa-brand-center/brand-guidelines/)
+- [NASA Earth Observatory](https://science.nasa.gov/earth/earth-observatory/)
 
-| Topic | SVG mockup | Visual hook / suggested meaning | Headline placement |
-| --- | --- | --- | --- |
-| Ocean circulation | [ocean-currents.svg](../../assets/brand/thumbnails/mockups/ocean-currents.svg) | A large bright current vortex on the right against deep navy; metaphor for heat transport and circulation, not a real gyre. | Left |
-| Glaciers / ice | [changing-ice.svg](../../assets/brand/thumbnails/mockups/changing-ice.svg) | Large ice shelf / mountain shapes and dark water; not a specific location. | Lower left |
-| Cyclones / Earth observation | [storm-from-space.svg](../../assets/brand/thumbnails/mockups/storm-from-space.svg) | Graphic storm-pattern spiral and planetary horizon; intentionally stylized. | Right |
+## 7. Abnahme Aufgabe 006
 
-**Important:** A conceptual blue vortex is not evidence of a hidden physical ocean engine; the final title and thumbnail must be grounded in the selected research brief and actual licensed visuals. Similarly, a general statement that ice is changing needs a specific time/place/source in the documentary.
+- [x] Gestalterische Richtung verbindlich durch Auftraggeber gewählt: **nur das erste Ozean-Layout** als Mastertemplate.
+- [x] Drei unterschiedliche Themen als Anwendungsbeispiele desselben Layouts angelegt.
+- [x] Vorhandene Brand-Farben und lizenziertes Schriftpaar übernommen; offizielle Logo-Dateien **nicht verändert**.
+- [x] Regeln für Satellitenbilder, Makro, Ozean, Karten und Datenvisualisierungen dokumentiert.
+- [ ] Aktuelle Master-/Beispiel-SVGs in Chromium bei 1280/320/160 auf Textpositionen, echte Fonts und Logoform geprüft; alter 9/9-Test bezog sich noch auf die inzwischen verworfenen Mehrlayout-Entwürfe.
+- [ ] PR-Review/Merge mit QA-Nachweis; danach Issue #13 schließen.
 
-## Candidate thumbnails: anti-clickbait QA
-
-- [ ] A specific research question in the script is matched by image + headline.
-- [ ] The focal phenomenon is real if the thumbnail asserts it is a real event or location.
-- [ ] For scientifically meaningful colors, the label states `natural color`, `false color`, `model` or `illustration` as appropriate in accompanying metadata.
-- [ ] Source/instrument, date and location captured in an asset manifest; author/license/attribution where required.
-- [ ] No agency emblem or NASA logo used as our own brand mark; no NASA endorsement implied.
-- [ ] No identifiable individuals without required permissions.
-- [ ] Title and image are genuinely answered/relevant within the video; no fake "shocking" claims.
-- [ ] At 320px/160px, one hero subject and short headline remain recognizable.
-- [ ] Thumbnail has no more than one visual CTA / one idea; avoid clutter and oversized text.
-- [ ] Subject not obscured by bottom-right duration label.
-
-## Source / usage research — reference only
-
-**NASA Earth Observatory** visual studies for real-world atmospheric or glacial textures:
-- [A Trio of Tropical Cyclones in the Pacific (2026)](https://science.nasa.gov/earth/earth-observatory/a-trio-of-tropical-cyclones-in-the-pacific/) — visual inspiration only.
-- [Mackenzie Bay, Antarctica](https://science.nasa.gov/earth/earth-observatory/mackenzie-bay-antarctica-77207/) — natural-color glacier/ocean boundary inspiration only.
-- [NASA Media Use Guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/) — NASA content is generally available for factual editorial uses, but permissions can differ for promotional use, NASA logos, employees and third-party copyright; NASA should be credited as source; no implied endorsement.
-- [NASA Brand Guidelines](https://www.nasa.gov/nasa-brand-center/brand-guidelines/) — NASA insignia/logotype protected, not usable as the BlueDotAtlas brand.
-
-**Licensing rule:** No user-facing final asset may depend on a web-search result alone. Always verify the **specific file** metadata, image author/source, third-party rights, license restrictions, and commercial vs. editorial/promotion context first. These reference links do **not** confer blanket reuse rights.
-
-## 006 acceptance gate
-
-- [x] Visual rules for satellite, macro, ocean, maps and charts drafted.
-- [x] Brand, type and color use tied to previously approved gates.
-- [x] Three thematically different **1280×720 vector** layout sketches authored and filed in `assets/brand/thumbnails/mockups/`.
-- [x] **Automated browser check:** all 3 concepts at 1280/320/160 passed in Chromium with loaded Inter/Space Grotesk (9/9) and no text overflow. See [Thumbnail QA](thumbnail-qa.md) and [GitHub run #43565047653](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43565047653). Owner's aesthetic/mobile readability sign-off still pending.
-- [ ] Owner signs off on the style or requests changes.
-- [ ] PR merged and Issue #13 completed with QA evidence.
-
-The illustrations here are **layout test vectors only**; replace their graphics with properly sourced, factual media when producing actual documentary thumbnails.
+**Ein einziger Master, konsistent für alle künftigen BlueDotAtlas-Thumbnails.**
