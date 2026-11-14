@@ -25,7 +25,8 @@
 <text x="97" y="86" font-family="'Space Grotesk',Arial,sans-serif" font-size="32" font-weight="700" fill="#F2F9FF">BlueDotAtlas</text>
 <text x="769" y="256" font-family="'Inter',Arial,sans-serif" font-size="20" letter-spacing="5" font-weight="700" fill="#B4CCDC">EARTH OBSERVATION</text>
 <text x="769" y="372" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#F2F9FF" paint-order="stroke fill">STORMS</text>
-<text x="769" y="478" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#19B7F4" paint-order="stroke fill">FROM SPACE</text>
-<rect x="771" y="517" width="145" height="11" rx="5" fill="#19B7F4"/>
+<text x="769" y="478" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#19B7F4" paint-order="stroke fill">FROM</text>
+<text x="769" y="584" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#19B7F4" paint-order="stroke fill">SPACE</text>
+<rect x="771" y="623" width="145" height="11" rx="5" fill="#19B7F4"/>
 <text x="70" y="681" font-family="'Inter',Arial,sans-serif" font-size="15" fill="#C9DCEB" letter-spacing="2">ILLUSTRATIVE DESIGN MOCKUP  ·  NOT OBSERVATIONAL DATA</text>
 </svg>
