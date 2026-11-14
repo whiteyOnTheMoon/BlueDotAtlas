@@ -1,8 +1,36 @@
-# BlueDotAtlas — Motion 007: 10-second 1080p QA
+# BlueDotAtlas — Motion QA V0.2: Two Short Intro/Outro Clips
+
+**Scope now under review:** **2.3-second intro + 2.2-second outro as two separate MP4 files**. The owner did **not** approve the previous combined 10-second motion presentation. The previous report is retained below **only as evidence for the separately reusable Lower Third, map marker and source/caption motion**.
+
+## Candidate clips and local checks (2026-11-14)
+
+- `BlueDotAtlas_Intro_2s.mp4` — **2.300 seconds**, **69 frames**, **1920×1080**, H.264, 30fps, silent.
+- `BlueDotAtlas_Outro_2s.mp4` — **2.200 seconds**, **66 frames**, **1920×1080**, H.264, 30fps, silent.
+- Each clip uses a PNG rendering of the existing approved full BlueDotAtlas logo as a single visual asset; only reveal, opacity and minor position/scale changes are applied. No font edits or geometry changes.
+- The background is an original abstract topographic contour pattern, **not measured Earth observation**.
+- Both were actually rendered locally with FFmpeg and verified with ffprobe; the user has been given direct playable MP4 previews.
+- Local clips and the GitHub browser renderer follow the same **durations, visual staging and visual intent**. GitHub's canonical rendition uses the exact approved SVG and loaded Inter OFL fonts; small rendering differences between local Pillow and browser output are possible.
+
+## GitHub source and acceptance checks
+
+- [`assets/brand/motion/logo-intro-outro.html`](../../assets/brand/motion/logo-intro-outro.html) — **two time modes** and the exact imported official logo SVG without modifications.
+- [`scripts/render-short-logo-clips.mjs`](../../scripts/render-short-logo-clips.mjs) — Chromium → FFmpeg render, separate MP4 exports; checks font loading, logo paths, timings, frame dimensions, lengths, no Lower Third in short clips.
+- [`.github/workflows/motion-check.yml`](../../.github/workflows/motion-check.yml) — new two-clip CI gate and artifact upload.
+- [`docs/brand/motion-guidelines.md`](motion-guidelines.md) — final *proposed* timings/roles.
+
+**CI verification:** Pending completion of the latest workflow. When it is green, paste its run ID/artifact link here. **Human approval:** NOT YET GRANTED. The two short clips must be reviewed by the owner before PR #17 can merge.
+
+## Earlier combined 10-second integration proof (NOT the approved brand intro/outro)
+
+The technical test below proves that the team can animate an independently timed **Lower Third, geographical marker, source and captions** without a permanent full-screen text overlay. It does **not** constitute creative approval or adoption of the 10-second combined sequence.
+
+---
+
+## Historical: 10-second 1080p integration QA
 
 **Test date:** 2026-11-14  
 **Result:** **PASS** — rendered real MP4 and completed programmatic logo/lower-third test.  
-**Human motion approval:** **PENDING** — design remains Draft until the user has watched the clip.  
+**Human motion approval:** **NOT APPROVED** for standalone Intro/Outro; owner requested a separate 2–3-second intro and outro. Lower-third/component technical checks remain valid.  
 **GitHub Actions:** [Run #43608120656](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43608120656), completed **success**.  
 **Direct artifact:** [Download \`bluedotatlas-motion-007-testclip.zip\`](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43608120656/artifacts/14118684177), artifact ID **14118684177**, retention until **2026-11-28**.
 
@@ -77,4 +105,4 @@ Artifact bluedotatlas-motion-007-testclip has been successfully uploaded!
 - [ ] Owner watches and **approves the motion style and timing**; a simple “Ok” after watching approves this specific design only.
 - [ ] PR #17 reviewed/merged and Issue #16 closed with evidence.
 
-**Decision:** Technical gate passed; human brand-motion gate is intentionally **OPEN**.
+**Decision:** This earlier *component integration* technical gate passed, but the combined clip was rejected as the intended branded intro/outro. Separate short-clips gate (above) remains open.
