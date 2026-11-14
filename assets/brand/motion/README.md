@@ -45,6 +45,6 @@ The title logo, tagline, path geometry, two-tone palette and transparent SVG ori
 - [x] Owner requested **two distinct 2–3s animations** rather than a single long 10s brand clip.
 - [x] Intro 2.30s and Outro 2.20s locally rendered and verified at 1080p / 30fps / H.264.
 - [x] GitHub source and reproducible paired-clip renderer documented.
-- [ ] New GitHub Actions paired-clip test completed, screenshots and separate MP4s available.
+- [x] **Both MP4s rendered and archived** on GitHub: [successful workflow #43610518751](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43610518751), [download two MP4s + 4 screenshots + QA JSON](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43610518751/artifacts/14120296356). 2/2 PASS with exact SVG + Inter fonts.
 - [ ] Owner watches **both new videos** and explicitly approves them.
 - [ ] PR #17 merges and Issue #16 closes with approval and test evidence.
