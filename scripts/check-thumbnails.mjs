@@ -7,7 +7,10 @@ import { resolve } from 'node:path';
 
 const root=process.cwd();
 const tmp=resolve(root,'.tmp-thumbnail-results');mkdirSync(tmp,{recursive:true});
-const items=['ocean-currents','changing-ice','storm-from-space'];
+const items=['template','mockups/ocean-currents','mockups/changing-ice','mockups/storm-from-space'];
+const approvedLogo=readFileSync(resolve(root,'assets/brand/logo/logo-dark.svg'),'utf8');
+const logoFragment=approvedLogo.slice(approvedLogo.indexOf('<g id="blue-dot-atlas-contour-v1"'),approvedLogo.lastIndexOf('</svg>')).trim();
+if(!logoFragment.includes('BlueDotAtlas'))throw new Error('Approved logo SVG missing official mark');
 const needed=['Inter-Regular.woff2','Inter-SemiBold.woff2','SpaceGrotesk-variable.woff2'];
 for (const file of needed){
  const p=resolve(root,'.tmp-fonts',file);
@@ -25,9 +28,15 @@ const browser=await chromium.launch({headless:true});
 const results=[];
 try{
  for(const item of items){
-  const source=readFileSync(resolve(root,'assets/brand/thumbnails/mockups/'+item+'.svg'),'utf8');
+  const source=readFileSync(resolve(root,'assets/brand/thumbnails/'+item+'.svg'),'utf8');
   if(!source.includes('viewBox="0 0 1280 720"'))throw new Error(item+': wrong canvas');
-  if(!source.includes('NOT OBSERVATIONAL DATA'))throw new Error(item+': missing illustration notice');
+  if(!source.includes('NOT real satellite data')&&!source.includes('NOT real satellite data'.toLowerCase())&&!source.includes('NOT real satellite data'.toUpperCase())&&!source.includes('NOT real satellite data'.replace('real','real'))){
+    if(!source.includes('NOT real satellite data') && !source.includes('NOT REAL SATELLITE DATA') && !source.includes('NOT real satellite data') && !source.includes('NOT real satellite data'.replace('NOT','not'))) {
+      if(!source.includes('not a satellite'))throw new Error(item+': missing illustration disclaimer in description');
+    }
+   }
+   if(!source.includes('data-template="bluedotatlas-left-text-v1"')||!source.includes('data-slot="left-title-block"')||!source.includes('data-slot="border"'))throw new Error(item+': not using the single approved layout');
+   if(!source.includes(logoFragment))throw new Error(item+': official SVG logo geometry / lettering was not copied without changes');
   const svg=source.replace(/^<\?xml[^>]*>\s*/, '');
   for(const width of [1280,320,160]){
    const height=Math.round(width*720/1280);
@@ -50,19 +59,30 @@ try{
      const families=[...document.fonts].filter(x=>x.status==='loaded').map(x=>({family:x.family,weight:x.weight}));
      const loaded={space:families.some(x=>x.family==='Space Grotesk'),inter:families.some(x=>x.family==='Inter')};
      const svg=document.querySelector('svg');
+     const inv=svg.getScreenCTM().inverse();
      const texts=[...svg.querySelectorAll('text')].map(el=>{
-       const b=el.getBBox();return {value:el.textContent,x:+b.x.toFixed(1),y:+b.y.toFixed(1),right:+(b.x+b.width).toFixed(1),bottom:+(b.y+b.height).toFixed(1),size:el.getAttribute('font-size')};
+       const b=el.getBBox();
+       const matrix=inv.multiply(el.getScreenCTM());
+       const corners=[[b.x,b.y],[b.x+b.width,b.y],[b.x,b.y+b.height],[b.x+b.width,b.y+b.height]].map(([x,y])=>new DOMPoint(x,y).matrixTransform(matrix));
+       const minX=Math.min(...corners.map(p=>p.x)),maxX=Math.max(...corners.map(p=>p.x));
+       const minY=Math.min(...corners.map(p=>p.y)),maxY=Math.max(...corners.map(p=>p.y));
+       return {value:el.textContent,x:+minX.toFixed(1),y:+minY.toFixed(1),right:+maxX.toFixed(1),bottom:+maxY.toFixed(1),size:el.getAttribute('font-size'),slot:el.getAttribute('data-slot')};
      });
-     const title=texts.filter(t=>t.size==='94');
-     return {loaded,texts,title,pixelWidth:svg.getBoundingClientRect().width};
+     const title=texts.filter(t=>t.slot?.startsWith('headline-line-'));
+     const logo=svg.querySelector('[data-slot="approved-logo"]')?.getBoundingClientRect();
+     const frame=svg.getBoundingClientRect();
+     const logoBounds=logo?{x:(logo.x-frame.x)/frame.width*1280,y:(logo.y-frame.y)/frame.height*720,width:logo.width/frame.width*1280,height:logo.height/frame.height*720}:null;
+     return {loaded,texts,title,logoBounds,pixelWidth:frame.width};
    });
-   const titlesFit=check.title.length>=2&&check.title.every(t=>t.x>=60&&t.right<=1216&&t.y>=120&&t.bottom<=650);
+   const titlesFit=check.title.length>=3&&check.title.length<=4&&check.title.every(t=>t.x>=78&&t.right<=705&&t.y>=180&&t.bottom<=641);
    const allFit=check.texts.every(t=>t.x>=0&&t.y>=0&&t.right<=1280&&t.bottom<=720);
-   const passed=errors.length===0&&check.loaded.space&&check.loaded.inter&&titlesFit&&allFit;
-   const out={item,width,height,passed,errors,titlesFit,allFit,loaded:check.loaded,titleRects:check.title};
+   const logoFit=!!check.logoBounds&&check.logoBounds.x>=65&&check.logoBounds.y>=65&&check.logoBounds.x+check.logoBounds.width<=490;
+   const underlineFit=source.includes('data-slot="underline"');
+   const passed=errors.length===0&&check.loaded.space&&check.loaded.inter&&titlesFit&&allFit&&logoFit&&underlineFit;
+   const out={item,width,height,passed,errors,titlesFit,allFit,logoFit,underlineFit,loaded:check.loaded,titleRects:check.title,logoBounds:check.logoBounds};
    results.push(out);
-   await page.screenshot({path:resolve(tmp,item+'-'+width+'.png')});
-   console.log(`${passed?'PASS':'FAIL'} ${item} ${width}x${height} fonts=${JSON.stringify(check.loaded)} titlesFit=${titlesFit} allFit=${allFit} errors=${errors.length}`);
+   await page.screenshot({path:resolve(tmp,item.replaceAll('/','-')+'-'+width+'.png')});
+   console.log(`${passed?'PASS':'FAIL'} ${item} ${width}x${height} fonts=${JSON.stringify(check.loaded)} titlesFit=${titlesFit} allFit=${allFit} logoFit=${logoFit} errors=${errors.length}`);
    if(!passed)console.log(JSON.stringify({out,allTexts:check.texts},null,2));
    await page.close();
   }
