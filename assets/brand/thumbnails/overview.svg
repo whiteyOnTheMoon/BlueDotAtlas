@@ -37,11 +37,11 @@
 </g>
 </svg>
 <g data-slot="left-title-block">
-<text data-slot="headline-line-1" x="86" y="262" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">THE</text>
-<text data-slot="headline-line-2" x="86" y="365" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">OCEAN’S</text>
-<text data-slot="headline-line-3" x="86" y="468" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#10AAEC">HIDDEN</text>
-<text data-slot="headline-line-4" x="86" y="571" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">ENGINE</text>
-<rect data-slot="underline" x="87" y="608" width="134" height="10" rx="0" fill="#37D6C4"/>
+<text data-slot="headline-line-1" x="86" y="276" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">THE</text>
+<text data-slot="headline-line-2" x="86" y="379" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">OCEAN’S</text>
+<text data-slot="headline-line-3" x="86" y="482" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#10AAEC">HIDDEN</text>
+<text data-slot="headline-line-4" x="86" y="585" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">ENGINE</text>
+<rect data-slot="underline" x="87" y="622" width="134" height="10" rx="0" fill="#37D6C4"/>
 </g>
 </svg>
 
