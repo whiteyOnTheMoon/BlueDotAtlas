@@ -2,7 +2,7 @@
 
 **Earth & Climate Video Studio** — hochwertige, englischsprachige Wissenschaftsdokumentationen über unseren Planeten.
 
-> Projektphase: **M00 – Brand & Identity** · Aufgabe **001**: Brand Brief inhaltlich freigegeben, formaler PR-Abschluss in Bearbeitung · nächste Aufgabe: **002 – Wortmarke und Schreibweise**
+> Projektphase: **M00 – Brand & Identity** · Aufgabe **001**: abgeschlossen · Aufgabe **002**: Naming/Claim in Bearbeitung
 
 ## Projektziel
 
@@ -28,6 +28,7 @@ Der Brand Brief und das englische Markenversprechen sind am **13.11.2026 freigeg
 
 - [Brand Brief V0.1](docs/brand/brand-brief.md) — Aufgabe 001, inhaltlich freigegeben und mit Abnahmecheckliste
 - [Entscheidungsprotokoll](docs/project/decision-log.md) — fortlaufend versionierte verbindliche Beschlüsse und offene Fragen
+- [Naming & Wordmark Guidelines](docs/brand/naming.md) — Aufgabe 002; Claim/Kurzform bis zur Freigabe noch Entwurf
 
 ## Roadmap und Arbeitsregeln
 
@@ -41,7 +42,7 @@ Grundlage: *BlueDotAtlas Master Roadmap V0.1* (13. November 2026), 14 Meilenstei
 - **Freigaberegel:** Ein „Ok“ im Projektchat bedeutet die ausdrückliche Freigabe des jeweils zur Entscheidung vorgelegten Ergebnisses, nicht zukünftiger oder anderer Aufgaben.
 - Die ursprüngliche Roadmap-Schreibweise des Produktnamens wurde ausdrücklich durch **BlueDotAtlas** ersetzt; Aufgabennummern und Meilensteine bleiben unverändert.
 
-**Abnahme Aufgabe 001:** [Issue #1](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1) und [PR #2](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/2). **Nächste Aufgabe:** 002 – Wortmarke und Schreibweise.
+**Abgeschlossen:** [001 – Markenversprechen und Tonalität](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1) über [PR #2](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/2). **Aktuell:** [002 – Wortmarke und Schreibweise](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/3) (Entwurf, noch nicht abgenommen).
 
 ## Geplante technische Basis (noch nicht implementiert)
 
