@@ -2,7 +2,7 @@
 
 **Roadmap:** M00 / 006.  
 **Decision:** **APPROVED** — one fixed thumbnail composition based on the very first ocean concept shown to the owner on 2026-11-14 (DEC-017).  
-**Status:** Creative layout approved; revised automated 1280/320/160 tests and PR merge are tracked under [Issue #13](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/13).
+**Status:** **APPROVED + MERGED** — [Task 006 Issue #13](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/13) completed with [PR #14](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/14) and 12/12 tested browser layouts at 1280/320/160.
 
 ## Only one template
 
