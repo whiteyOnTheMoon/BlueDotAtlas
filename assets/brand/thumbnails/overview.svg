@@ -1,97 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 2300" width="1280" height="2300" role="img" aria-label="BlueDotAtlas three thumbnail concept mockups, oceans glaciers and storms">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 2300" width="1280" height="2300" role="img" aria-label="Three topics rendered with the one approved left-title BlueDotAtlas thumbnail template">
 <rect width="1280" height="2300" fill="#071522"/>
-<svg x="0" y="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="comp0-title comp0-desc">
-<title id="comp0-title">BlueDotAtlas thumbnail concept — ocean</title>
-<desc id="comp0-desc">Fictional geometric illustration, not a real satellite or observational data image. Graphic depiction of currents and circular flow; it does not show a scientifically calculated real ocean gyre.</desc>
+<svg x="0" y="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="sheet0-thumbnail-title sheet0-thumbnail-description" data-template="bluedotatlas-left-text-v1" data-example="ocean">
+<title id="sheet0-thumbnail-title">BlueDotAtlas — THE OCEAN’S HIDDEN ENGINE</title>
+<desc id="sheet0-thumbnail-description">Approved fixed left-title thumbnail layout. The background here is an original illustrative SVG sample and is NOT real satellite data. This vector swirl is an illustration of ocean circulation, not a measured current map.</desc>
 <defs>
-  <linearGradient id="comp0-back" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#021934"/><stop offset=".65" stop-color="#064366"/><stop offset="1" stop-color="#071522"/></linearGradient>
-  <linearGradient id="comp0-fade" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#021934" stop-opacity=".96"/><stop offset=".47" stop-color="#021934" stop-opacity=".78"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></linearGradient>
-  <radialGradient id="comp0-halo"><stop stop-color="#13B6EF" stop-opacity=".24"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></radialGradient>
-  <filter id="comp0-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>
-  <clipPath id="comp0-clip"><rect width="1280" height="720"/></clipPath>
+ <linearGradient id="sheet0-left-scrim" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#021934" stop-opacity=".96"/><stop offset=".36" stop-color="#021934" stop-opacity=".87"/><stop offset=".57" stop-color="#021934" stop-opacity=".36"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></linearGradient>
+ <radialGradient id="sheet0-glowTint"><stop stop-color="#16BCEB" stop-opacity=".24"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></radialGradient>
+ <clipPath id="sheet0-thumb-clip"><rect x="32" y="32" width="1216" height="656" rx="22"/></clipPath>
 </defs>
-<g clip-path="url(#comp0-clip)">
- <rect width="1280" height="720" fill="url(#comp0-back)"/>
- <rect x="510" y="0" width="770" height="720" fill="#003B67"/><ellipse cx="924" cy="352" rx="520" ry="360" fill="url(#comp0-halo)"/>
-<g fill="none" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-19 934 354)">
- <ellipse cx="934" cy="354" rx="380" ry="221" stroke="#16B9DD" stroke-opacity=".55" stroke-width="21"/>
- <ellipse cx="934" cy="354" rx="310" ry="175" stroke="#81EAF9" stroke-opacity=".6" stroke-width="14"/>
- <ellipse cx="934" cy="354" rx="238" ry="129" stroke="#19B7F4" stroke-opacity=".9" stroke-width="17"/>
- <ellipse cx="934" cy="354" rx="171" ry="88" stroke="#CBFAFF" stroke-opacity=".85" stroke-width="13"/>
- <ellipse cx="934" cy="354" rx="98" ry="47" stroke="#37D6C4" stroke-width="10"/>
- <path d="M555 351 C 659 134 1050 63 1193 240" stroke="#B7EFFF" stroke-opacity=".28" stroke-width="14"/>
- <path d="M572 523 C 754 659 1117 590 1250 418" stroke="#A3EEFF" stroke-opacity=".32" stroke-width="17"/>
-</g><ellipse cx="951" cy="357" rx="86" ry="55" fill="#001E37"/><path d="M977 350 C 1015 348 1033 374 1001 397" fill="none" stroke="#77E9F7" stroke-width="15" stroke-linecap="round"/>
- <rect width="1280" height="720" fill="url(#comp0-fade)" opacity="0.83"/>
- <rect x="0" y="0" width="1280" height="720" fill="none" stroke="#19B7F4" stroke-opacity=".38" stroke-width="3"/>
+<rect width="1280" height="720" fill="#071522"/>
+<g data-slot="background-image" clip-path="url(#sheet0-thumb-clip)">
+ <rect width="1280" height="720" fill="#04375B"/><ellipse cx="978" cy="377" rx="470" ry="320" fill="url(#sheet0-glowTint)"/>
+<g fill="none" stroke-linecap="round" transform="rotate(-15 971 361)">
+  <ellipse cx="970" cy="359" rx="403" ry="241" stroke="#0BB2DC" stroke-opacity=".42" stroke-width="31"/>
+  <ellipse cx="970" cy="359" rx="339" ry="205" stroke="#8ADDF0" stroke-opacity=".56" stroke-width="22"/>
+  <ellipse cx="970" cy="359" rx="265" ry="153" stroke="#0EC4ED" stroke-opacity=".87" stroke-width="16"/>
+  <ellipse cx="970" cy="359" rx="187" ry="106" stroke="#C1F5FF" stroke-opacity=".73" stroke-width="15"/>
+  <ellipse cx="970" cy="359" rx="113" ry="60" stroke="#37D6C4" stroke-opacity=".9" stroke-width="14"/>
+  <path d="M556 411 C 665 134 1064 74 1274 258" stroke="#C1F5FF" stroke-opacity=".28" stroke-width="13"/>
+  <path d="M608 564 C 804 686 1112 574 1249 447" stroke="#63DEEF" stroke-opacity=".41" stroke-width="17"/>
+</g><ellipse cx="986" cy="364" rx="86" ry="49" fill="#03243F"/><path d="M990 350 C 1033 338 1048 384 1007 399" fill="none" stroke="#9DEDF9" stroke-linecap="round" stroke-width="12"/>
+ <rect x="32" y="32" width="1216" height="656" fill="url(#sheet0-left-scrim)"/>
 </g>
-<!-- Text-only brand mark in these editable layout studies, not an alteration of the approved SVG logo -->
-<circle cx="71" cy="74" r="11" fill="#10AAEC"/>
-<text x="97" y="86" font-family="'Space Grotesk',Arial,sans-serif" font-size="32" font-weight="700" fill="#F2F9FF">BlueDotAtlas</text>
-<text x="67" y="261" font-family="'Inter',Arial,sans-serif" font-size="20" letter-spacing="5" font-weight="700" fill="#B4CCDC">OCEAN SYSTEMS</text>
-<text x="67" y="377" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#F2F9FF" paint-order="stroke fill">OCEAN'S</text>
-<text x="67" y="483" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#19B7F4" paint-order="stroke fill">HIDDEN ENGINE</text>
-<rect x="69" y="522" width="145" height="11" rx="5" fill="#19B7F4"/>
-<text x="70" y="681" font-family="'Inter',Arial,sans-serif" font-size="15" fill="#C9DCEB" letter-spacing="2">ILLUSTRATIVE DESIGN MOCKUP  ·  NOT OBSERVATIONAL DATA</text>
+<rect data-slot="border" x="32" y="32" width="1216" height="656" rx="22" fill="none" stroke="#37D6C4" stroke-width="2.6"/>
+<svg data-slot="approved-logo" x="79" y="72" width="395" height="96" viewBox="93 133 1892 460" aria-label="The approved BlueDotAtlas logo with The Planet Has a Story.">
+ <g id="sheet0-blue-dot-atlas-contour-v1" fill="none" stroke="#F2F9FF" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+<path d="M 106 458 C 102 404 140 360 212 329 C 286 297 301 243 357 189 C 404 145 468 137 522 154 C 606 174 642 231 646 322 C 649 372 653 411 657 454 C 662 505 639 548 601 567 C 560 589 516 582 465 562 C 407 538 364 525 316 532 C 272 539 235 548 186 544 C 139 541 103 514 106 458 Z"/>
+<path d="M 207 434 C 212 390 250 365 299 337 C 354 305 378 265 419 235 C 468 201 518 204 560 230 C 618 268 629 336 628 405 C 627 448 619 491 588 513 C 553 536 503 522 454 506 C 401 485 371 479 322 480 C 282 482 255 495 232 476 C 215 462 203 450 207 434 Z"/>
+<path d="M 328 401 C 329 380 362 356 384 337 C 413 312 435 288 471 280 C 515 270 552 303 565 342 C 579 379 562 421 541 438 C 515 458 479 439 443 423 C 404 407 378 421 354 417 C 337 415 328 412 328 401 Z"/>
+</g>
+<circle cx="483" cy="354" r="38" fill="#19B7F4"/>
+<g fill="#F2F9FF">
+<text x="691" y="392" font-family="Inter Display, Inter, Arial, Helvetica, sans-serif" font-size="178" font-weight="800" letter-spacing="-5" textLength="1290" lengthAdjust="spacingAndGlyphs">BlueDotAtlas</text>
+<text x="707" y="493" font-family="Inter, Arial, Helvetica, sans-serif" font-size="74" font-weight="400" letter-spacing="8" textLength="1233" lengthAdjust="spacingAndGlyphs">The Planet Has a Story.</text>
+</g>
+</svg>
+<g data-slot="left-title-block">
+<text data-slot="headline-line-1" x="86" y="262" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">THE</text>
+<text data-slot="headline-line-2" x="86" y="365" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">OCEAN’S</text>
+<text data-slot="headline-line-3" x="86" y="468" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#10AAEC">HIDDEN</text>
+<text data-slot="headline-line-4" x="86" y="571" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">ENGINE</text>
+<rect data-slot="underline" x="87" y="608" width="134" height="10" rx="0" fill="#37D6C4"/>
+</g>
 </svg>
 
-<svg x="0" y="780" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="comp1-title comp1-desc">
-<title id="comp1-title">BlueDotAtlas thumbnail concept — ice</title>
-<desc id="comp1-desc">Fictional geometric illustration, not a real satellite or observational data image. Conceptual glacier landscape, not a specific named Antarctic glacier.</desc>
+<svg x="0" y="777" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="sheet1-thumbnail-title sheet1-thumbnail-description" data-template="bluedotatlas-left-text-v1" data-example="ice">
+<title id="sheet1-thumbnail-title">BlueDotAtlas — WHY ICE IS CHANGING</title>
+<desc id="sheet1-thumbnail-description">Approved fixed left-title thumbnail layout. The background here is an original illustrative SVG sample and is NOT real satellite data. This fictional ice landscape is for testing consistent layout only.</desc>
 <defs>
-  <linearGradient id="comp1-back" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#021934"/><stop offset=".65" stop-color="#064366"/><stop offset="1" stop-color="#071522"/></linearGradient>
-  <linearGradient id="comp1-fade" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#021934" stop-opacity=".96"/><stop offset=".47" stop-color="#021934" stop-opacity=".78"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></linearGradient>
-  <radialGradient id="comp1-halo"><stop stop-color="#13B6EF" stop-opacity=".24"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></radialGradient>
-  <filter id="comp1-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>
-  <clipPath id="comp1-clip"><rect width="1280" height="720"/></clipPath>
+ <linearGradient id="sheet1-left-scrim" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#021934" stop-opacity=".96"/><stop offset=".36" stop-color="#021934" stop-opacity=".87"/><stop offset=".57" stop-color="#021934" stop-opacity=".36"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></linearGradient>
+ <radialGradient id="sheet1-glowTint"><stop stop-color="#16BCEB" stop-opacity=".24"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></radialGradient>
+ <clipPath id="sheet1-thumb-clip"><rect x="32" y="32" width="1216" height="656" rx="22"/></clipPath>
 </defs>
-<g clip-path="url(#comp1-clip)">
- <rect width="1280" height="720" fill="url(#comp1-back)"/>
- <rect y="435" width="1280" height="285" fill="#063452"/><path d="M0 462 L120 320 230 395 340 284 510 370 618 185 762 300 854 212 958 320 1069 176 1280 372 1280 554 0 554Z" fill="#A7E4F5" opacity=".65"/><path d="M0 488 L128 380 228 410 392 321 523 410 653 258 773 338 885 289 997 398 1113 280 1280 434 1280 615 0 615Z" fill="#E4F9FF"/><path d="M0 488 L128 380 228 410 392 321 523 410 653 258 773 338 885 289 997 398 1113 280 1280 434 1280 615 0 615Z" fill="none" stroke="#FFFFFF" stroke-opacity=".6" stroke-width="8"/><g stroke="#3E9EC1" stroke-width="5" opacity=".55" fill="none"><path d="M653 261 L699 436 681 606"/><path d="M885 291 L910 453 875 594"/><path d="M1113 282 L1178 446 1134 610"/><path d="M512 411 L538 506 522 604"/></g><path d="M0 594 C 256 548 428 625 606 594 S 1080 530 1280 591 L1280 720 0 720Z" fill="#002B48" opacity=".95"/><g fill="#C3F4FF" opacity=".75"><path d="M914 644 972 630 996 653 952 674Z"/><path d="M1170 670 1225 656 1250 678 1209 699Z"/></g>
- <rect width="1280" height="720" fill="url(#comp1-fade)" opacity="0.83"/>
- <rect x="0" y="0" width="1280" height="720" fill="none" stroke="#19B7F4" stroke-opacity=".38" stroke-width="3"/>
+<rect width="1280" height="720" fill="#071522"/>
+<g data-slot="background-image" clip-path="url(#sheet1-thumb-clip)">
+ <rect width="1280" height="720" fill="#06435D"/><path d="M340 495L450 347 545 398 640 286 758 342 857 163 963 267 1068 191 1192 350 1280 282 1280 650 340 650Z" fill="#D6F5FF"/>
+<path d="M400 507L470 401 540 428 632 353 721 404 852 224 963 314 1055 241 1177 416 1280 369 1280 618 400 618Z" fill="#79B9D5" opacity=".75"/>
+<g fill="none" stroke="#F2F9FF" stroke-opacity=".55" stroke-width="8"><path d="M852 224L898 443 884 614"/><path d="M1055 241L1102 455 1074 612"/><path d="M632 355L660 474 644 610"/></g>
+<path d="M0 600Q300 545 570 617T1280 589V720H0Z" fill="#05253E"/><g fill="#B9F4FF" opacity=".55"><path d="M876 651l78-17 44 24-67 21Z"/><path d="M1178 662l51-15 46 27-66 19Z"/></g>
+ <rect x="32" y="32" width="1216" height="656" fill="url(#sheet1-left-scrim)"/>
 </g>
-<!-- Text-only brand mark in these editable layout studies, not an alteration of the approved SVG logo -->
-<circle cx="71" cy="74" r="11" fill="#10AAEC"/>
-<text x="97" y="86" font-family="'Space Grotesk',Arial,sans-serif" font-size="32" font-weight="700" fill="#F2F9FF">BlueDotAtlas</text>
-<text x="67" y="373" font-family="'Inter',Arial,sans-serif" font-size="20" letter-spacing="5" font-weight="700" fill="#B4CCDC">CRYOSPHERE</text>
-<text x="67" y="489" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#F2F9FF" paint-order="stroke fill">WHY ICE</text>
-<text x="67" y="595" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#37D6C4" paint-order="stroke fill">IS CHANGING</text>
-<rect x="69" y="634" width="145" height="11" rx="5" fill="#37D6C4"/>
-<text x="70" y="681" font-family="'Inter',Arial,sans-serif" font-size="15" fill="#C9DCEB" letter-spacing="2">ILLUSTRATIVE DESIGN MOCKUP  ·  NOT OBSERVATIONAL DATA</text>
+<rect data-slot="border" x="32" y="32" width="1216" height="656" rx="22" fill="none" stroke="#37D6C4" stroke-width="2.6"/>
+<svg data-slot="approved-logo" x="79" y="72" width="395" height="96" viewBox="93 133 1892 460" aria-label="The approved BlueDotAtlas logo with The Planet Has a Story.">
+ <g id="sheet1-blue-dot-atlas-contour-v1" fill="none" stroke="#F2F9FF" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+<path d="M 106 458 C 102 404 140 360 212 329 C 286 297 301 243 357 189 C 404 145 468 137 522 154 C 606 174 642 231 646 322 C 649 372 653 411 657 454 C 662 505 639 548 601 567 C 560 589 516 582 465 562 C 407 538 364 525 316 532 C 272 539 235 548 186 544 C 139 541 103 514 106 458 Z"/>
+<path d="M 207 434 C 212 390 250 365 299 337 C 354 305 378 265 419 235 C 468 201 518 204 560 230 C 618 268 629 336 628 405 C 627 448 619 491 588 513 C 553 536 503 522 454 506 C 401 485 371 479 322 480 C 282 482 255 495 232 476 C 215 462 203 450 207 434 Z"/>
+<path d="M 328 401 C 329 380 362 356 384 337 C 413 312 435 288 471 280 C 515 270 552 303 565 342 C 579 379 562 421 541 438 C 515 458 479 439 443 423 C 404 407 378 421 354 417 C 337 415 328 412 328 401 Z"/>
+</g>
+<circle cx="483" cy="354" r="38" fill="#19B7F4"/>
+<g fill="#F2F9FF">
+<text x="691" y="392" font-family="Inter Display, Inter, Arial, Helvetica, sans-serif" font-size="178" font-weight="800" letter-spacing="-5" textLength="1290" lengthAdjust="spacingAndGlyphs">BlueDotAtlas</text>
+<text x="707" y="493" font-family="Inter, Arial, Helvetica, sans-serif" font-size="74" font-weight="400" letter-spacing="8" textLength="1233" lengthAdjust="spacingAndGlyphs">The Planet Has a Story.</text>
+</g>
+</svg>
+<g data-slot="left-title-block">
+<text data-slot="headline-line-1" x="86" y="310" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">WHY ICE</text>
+<text data-slot="headline-line-2" x="86" y="413" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">IS</text>
+<text data-slot="headline-line-3" x="86" y="516" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#10AAEC">CHANGING</text>
+<rect data-slot="underline" x="87" y="553" width="134" height="10" rx="0" fill="#37D6C4"/>
+</g>
 </svg>
 
-<svg x="0" y="1540" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="comp2-title comp2-desc">
-<title id="comp2-title">BlueDotAtlas thumbnail concept — storms</title>
-<desc id="comp2-desc">Fictional geometric illustration, not a real satellite or observational data image. Abstract orbit-level cyclone illustration; not a photograph of a real storm.</desc>
+<svg x="0" y="1534" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="sheet2-thumbnail-title sheet2-thumbnail-description" data-template="bluedotatlas-left-text-v1" data-example="storm">
+<title id="sheet2-thumbnail-title">BlueDotAtlas — STORMS FROM SPACE</title>
+<desc id="sheet2-thumbnail-description">Approved fixed left-title thumbnail layout. The background here is an original illustrative SVG sample and is NOT real satellite data. This fictional cyclonic pattern is not a satellite photograph of an actual storm.</desc>
 <defs>
-  <linearGradient id="comp2-back" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#021934"/><stop offset=".65" stop-color="#064366"/><stop offset="1" stop-color="#071522"/></linearGradient>
-  <linearGradient id="comp2-fade" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#021934" stop-opacity=".96"/><stop offset=".47" stop-color="#021934" stop-opacity=".78"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></linearGradient>
-  <radialGradient id="comp2-halo"><stop stop-color="#13B6EF" stop-opacity=".24"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></radialGradient>
-  <filter id="comp2-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>
-  <clipPath id="comp2-clip"><rect width="1280" height="720"/></clipPath>
+ <linearGradient id="sheet2-left-scrim" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#021934" stop-opacity=".96"/><stop offset=".36" stop-color="#021934" stop-opacity=".87"/><stop offset=".57" stop-color="#021934" stop-opacity=".36"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></linearGradient>
+ <radialGradient id="sheet2-glowTint"><stop stop-color="#16BCEB" stop-opacity=".24"/><stop offset="1" stop-color="#021934" stop-opacity="0"/></radialGradient>
+ <clipPath id="sheet2-thumb-clip"><rect x="32" y="32" width="1216" height="656" rx="22"/></clipPath>
 </defs>
-<g clip-path="url(#comp2-clip)">
- <rect width="1280" height="720" fill="url(#comp2-back)"/>
- <rect width="1280" height="720" fill="#061B32"/><circle cx="265" cy="670" r="735" fill="#073F66" stroke="#19B7F4" stroke-opacity=".55" stroke-width="30"/><circle cx="265" cy="670" r="705" fill="#0D3554"/><g fill="none" stroke-linecap="round" transform="rotate(-21 380 405)">
-  <ellipse cx="388" cy="402" rx="355" ry="178" stroke="#B4DDE9" stroke-width="51" opacity=".63"/>
-  <ellipse cx="388" cy="402" rx="278" ry="143" stroke="#F2F9FF" stroke-width="35" opacity=".85"/>
-  <ellipse cx="388" cy="402" rx="200" ry="107" stroke="#8BC2D8" stroke-width="28" opacity=".7"/>
-  <ellipse cx="388" cy="402" rx="126" ry="71" stroke="#FFFFFF" stroke-width="30" opacity=".95"/>
-</g><ellipse cx="390" cy="405" rx="55" ry="39" fill="#0C314F"/><path d="M137 82 C 387 28 661 120 787 260" fill="none" stroke="#1C9EDE" stroke-opacity=".65" stroke-width="24"/><circle cx="388" cy="402" r="5" fill="#19B7F4"/><rect x="695" width="585" height="720" fill="url(#comp2-fade)" opacity=".55"/>
- <rect width="1280" height="720" fill="url(#comp2-fade)" opacity="0.20"/>
- <rect x="0" y="0" width="1280" height="720" fill="none" stroke="#19B7F4" stroke-opacity=".38" stroke-width="3"/>
+<rect width="1280" height="720" fill="#071522"/>
+<g data-slot="background-image" clip-path="url(#sheet2-thumb-clip)">
+ <rect width="1280" height="720" fill="#03172C"/><circle cx="1100" cy="651" r="710" fill="#0A385B" stroke="#19B7F4" stroke-opacity=".53" stroke-width="17"/>
+<ellipse cx="1031" cy="397" rx="450" ry="230" fill="#0A4E70" opacity=".55"/>
+<g fill="none" stroke-linecap="round" transform="rotate(-18 991 385)">
+ <ellipse cx="990" cy="390" rx="382" ry="203" stroke="#B9DCE9" stroke-opacity=".55" stroke-width="39"/>
+ <ellipse cx="990" cy="390" rx="304" ry="163" stroke="#EAF8FF" stroke-opacity=".87" stroke-width="28"/>
+ <ellipse cx="990" cy="390" rx="226" ry="117" stroke="#92C9DE" stroke-opacity=".7" stroke-width="26"/>
+ <ellipse cx="990" cy="390" rx="154" ry="78" stroke="#F2F9FF" stroke-opacity=".93" stroke-width="20"/>
+ <ellipse cx="990" cy="390" rx="80" ry="36" stroke="#19B7F4" stroke-width="14"/>
+</g><ellipse cx="992" cy="391" rx="44" ry="29" fill="#06233A"/><path d="M565 127 C 770 62 1038 99 1255 261" stroke="#31ACE4" stroke-opacity=".55" stroke-width="22" fill="none"/>
+ <rect x="32" y="32" width="1216" height="656" fill="url(#sheet2-left-scrim)"/>
 </g>
-<!-- Text-only brand mark in these editable layout studies, not an alteration of the approved SVG logo -->
-<circle cx="71" cy="74" r="11" fill="#10AAEC"/>
-<text x="97" y="86" font-family="'Space Grotesk',Arial,sans-serif" font-size="32" font-weight="700" fill="#F2F9FF">BlueDotAtlas</text>
-<text x="769" y="256" font-family="'Inter',Arial,sans-serif" font-size="20" letter-spacing="5" font-weight="700" fill="#B4CCDC">EARTH OBSERVATION</text>
-<text x="769" y="372" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#F2F9FF" paint-order="stroke fill">STORMS</text>
-<text x="769" y="478" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#19B7F4" paint-order="stroke fill">FROM</text>
-<text x="769" y="584" font-family="'Space Grotesk',Arial,sans-serif" font-size="94" font-weight="700" letter-spacing="-3" fill="#19B7F4" paint-order="stroke fill">SPACE</text>
-<rect x="771" y="623" width="145" height="11" rx="5" fill="#19B7F4"/>
-<text x="70" y="681" font-family="'Inter',Arial,sans-serif" font-size="15" fill="#C9DCEB" letter-spacing="2">ILLUSTRATIVE DESIGN MOCKUP  ·  NOT OBSERVATIONAL DATA</text>
+<rect data-slot="border" x="32" y="32" width="1216" height="656" rx="22" fill="none" stroke="#37D6C4" stroke-width="2.6"/>
+<svg data-slot="approved-logo" x="79" y="72" width="395" height="96" viewBox="93 133 1892 460" aria-label="The approved BlueDotAtlas logo with The Planet Has a Story.">
+ <g id="sheet2-blue-dot-atlas-contour-v1" fill="none" stroke="#F2F9FF" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+<path d="M 106 458 C 102 404 140 360 212 329 C 286 297 301 243 357 189 C 404 145 468 137 522 154 C 606 174 642 231 646 322 C 649 372 653 411 657 454 C 662 505 639 548 601 567 C 560 589 516 582 465 562 C 407 538 364 525 316 532 C 272 539 235 548 186 544 C 139 541 103 514 106 458 Z"/>
+<path d="M 207 434 C 212 390 250 365 299 337 C 354 305 378 265 419 235 C 468 201 518 204 560 230 C 618 268 629 336 628 405 C 627 448 619 491 588 513 C 553 536 503 522 454 506 C 401 485 371 479 322 480 C 282 482 255 495 232 476 C 215 462 203 450 207 434 Z"/>
+<path d="M 328 401 C 329 380 362 356 384 337 C 413 312 435 288 471 280 C 515 270 552 303 565 342 C 579 379 562 421 541 438 C 515 458 479 439 443 423 C 404 407 378 421 354 417 C 337 415 328 412 328 401 Z"/>
+</g>
+<circle cx="483" cy="354" r="38" fill="#19B7F4"/>
+<g fill="#F2F9FF">
+<text x="691" y="392" font-family="Inter Display, Inter, Arial, Helvetica, sans-serif" font-size="178" font-weight="800" letter-spacing="-5" textLength="1290" lengthAdjust="spacingAndGlyphs">BlueDotAtlas</text>
+<text x="707" y="493" font-family="Inter, Arial, Helvetica, sans-serif" font-size="74" font-weight="400" letter-spacing="8" textLength="1233" lengthAdjust="spacingAndGlyphs">The Planet Has a Story.</text>
+</g>
+</svg>
+<g data-slot="left-title-block">
+<text data-slot="headline-line-1" x="86" y="310" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">STORMS</text>
+<text data-slot="headline-line-2" x="86" y="413" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#F2F9FF">FROM</text>
+<text data-slot="headline-line-3" x="86" y="516" font-family="'Space Grotesk',Arial,sans-serif" font-size="91" font-weight="700" letter-spacing="-2.8" fill="#10AAEC">SPACE</text>
+<rect data-slot="underline" x="87" y="553" width="134" height="10" rx="0" fill="#37D6C4"/>
+</g>
 </svg>
 
 </svg>
