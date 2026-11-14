@@ -46,7 +46,7 @@ try{
      @font-face{font-family:'Inter';src:url('http://127.0.0.1:${port}/Inter-Regular.woff2') format('woff2');font-weight:400}
      @font-face{font-family:'Inter';src:url('http://127.0.0.1:${port}/Inter-SemiBold.woff2') format('woff2');font-weight:600 700}
      html,body{margin:0;background:#071522;width:${width}px;height:${height}px;overflow:hidden}
-     svg{display:block;width:${width}px!important;height:${height}px!important}
+     body > svg{display:block;width:${width}px!important;height:${height}px!important}
    </style></head><body>${svg}</body></html>`;
    await page.setContent(html,{waitUntil:'load'});
    const check=await page.evaluate(async()=>{
