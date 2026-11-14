@@ -2,7 +2,7 @@
 
 **Earth & Climate Video Studio** — hochwertige, englischsprachige Wissenschaftsdokumentationen über unseren Planeten.
 
-> Projektphase: **M00 – Brand & Identity** · Aktuelle Aufgabe: **001 – Markenversprechen und Tonalität** · Status: **in Arbeit**
+> Projektphase: **M00 – Brand & Identity** · Aufgabe **001**: Brand Brief inhaltlich freigegeben, formaler PR-Abschluss in Bearbeitung · nächste Aufgabe: **002 – Wortmarke und Schreibweise**
 
 ## Projektziel
 
@@ -22,7 +22,12 @@ BlueDotAtlas entwickelt ein redaktionell kontrolliertes Webstudio zur Recherche,
 
 **Abgrenzung:** Ziel sind starke, wahrheitsgemäße Titel, Thumbnails, Hooks und Spannungsbögen; keine irreführenden Versprechen, künstlich aufgeblähten Filme oder Sensationsbehauptungen.
 
-Die exakte Claim-/Tagline-Formulierung und die vollständige Markenfreigabe sind **noch offen**; das ist nicht mit der Festlegung des Namens zu verwechseln.
+Der Brand Brief und das englische Markenversprechen sind am **13.11.2026 freigegeben** worden. Der finale **Claim / die Tagline** und Regeln für die Wortmarke folgen in Aufgabe 002.
+
+## Projektdokumentation
+
+- [Brand Brief V0.1](docs/brand/brand-brief.md) — Aufgabe 001, inhaltlich freigegeben und mit Abnahmecheckliste
+- [Entscheidungsprotokoll](docs/project/decision-log.md) — fortlaufend versionierte verbindliche Beschlüsse und offene Fragen
 
 ## Roadmap und Arbeitsregeln
 
@@ -33,9 +38,10 @@ Grundlage: *BlueDotAtlas Master Roadmap V0.1* (13. November 2026), 14 Meilenstei
 - Ein Issue oder ein Entwurfsdokument allein bedeutet **nicht**, dass eine Aufgabe abgeschlossen ist.
 - Entscheidungen, Begründungen und offene Punkte werden versioniert dokumentiert, zunächst in dieser README und themenspezifisch unter `docs/`.
 - Filme werden **nur nach manueller Freigabe** veröffentlicht; YouTube-Autopublishing ist nicht Bestandteil von V0.1.
+- **Freigaberegel:** Ein „Ok“ im Projektchat bedeutet die ausdrückliche Freigabe des jeweils zur Entscheidung vorgelegten Ergebnisses, nicht zukünftiger oder anderer Aufgaben.
 - Die ursprüngliche Roadmap-Schreibweise des Produktnamens wurde ausdrücklich durch **BlueDotAtlas** ersetzt; Aufgabennummern und Meilensteine bleiben unverändert.
 
-**Aktuelle Aufgabe:** [Issue #1 – [001] Markenversprechen und Tonalität](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1).
+**Abnahme Aufgabe 001:** [Issue #1](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1) und [PR #2](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/2). **Nächste Aufgabe:** 002 – Wortmarke und Schreibweise.
 
 ## Geplante technische Basis (noch nicht implementiert)
 
@@ -44,6 +50,6 @@ Grundlage: *BlueDotAtlas Master Roadmap V0.1* (13. November 2026), 14 Meilenstei
 - Datenhaltung: PostgreSQL
 - Rendering: Remotion, FFmpeg/ffprobe und separater Worker
 - Betrieb: eigener VPS, Docker Compose und HTTPS
-- Inhalt: geprüfte wissenschaftliche Quellen, lizensiertes Original-Footage, TTS und redaktionelle Prüfungen
+- Inhalt: geprüfte wissenschaftliche Quellen, lizenziertes Original-Footage, TTS und redaktionelle Prüfungen
 
 **Hinweis:** Diese README wurde als einmalige initiale Repository-Datei angelegt, da das GitHub-Repository zuvor leer war. Die weiteren Aufgabenänderungen laufen regulär über Issue und Pull Request.
