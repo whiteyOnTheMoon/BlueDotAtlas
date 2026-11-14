@@ -1,52 +1,58 @@
-# BlueDotAtlas — Thumbnail Browser QA (task 006)
+# BlueDotAtlas — Thumbnail QA for the Single Approved Template (006)
 
 **Date:** 2026-11-14  
-**Status:** **9 / 9 automated layout tests PASSED.** This is a technical fit check only; approval of the creative direction is pending.  
-**Evidence:** [GitHub Actions run #43565047653](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43565047653) (completed / success), artifact `thumbnails-006-render-evidence` with three scaled renders per concept and machine-readable `report.json` (time-limited retention).  
-**Script:** [`scripts/check-thumbnails.mjs`](../../scripts/check-thumbnails.mjs)  
-**CI:** [`.github/workflows/thumbnail-check.yml`](../../.github/workflows/thumbnail-check.yml)
+**Approval:** User selected the **first ocean-style design as the sole recurring thumbnail template** (DEC-017).  
+**Test:** **12/12 PASS** at three viewing sizes; the earlier 9/9 test applies to the **superseded** three-layout proposal and must not be treated as evidence for the final decision.  
+**GitHub Actions evidence:** [Run #43606211530](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43606211530) — **completed / success**, artifacts include exported PNGs and `report.json`.  
+**Reproducible test:** [`scripts/check-thumbnails.mjs`](../../scripts/check-thumbnails.mjs) / [workflow](../../.github/workflows/thumbnail-check.yml).
 
-## Tested artifacts
+## Single-master rule
 
-- `assets/brand/thumbnails/mockups/ocean-currents.svg`
-- `assets/brand/thumbnails/mockups/changing-ice.svg`
-- `assets/brand/thumbnails/mockups/storm-from-space.svg`
+All active assets use `data-template="bluedotatlas-left-text-v1"`:
 
-Each SVG is **1280 × 720**, vector-based, an original illustration, and explicitly marked as **not observational data**.
+- [`assets/brand/thumbnails/template.svg`](../../assets/brand/thumbnails/template.svg) — **only master**.
+- [`mockups/ocean-currents.svg`](../../assets/brand/thumbnails/mockups/ocean-currents.svg) — ocean example from the same composition.
+- [`mockups/changing-ice.svg`](../../assets/brand/thumbnails/mockups/changing-ice.svg) — ice example from the same composition.
+- [`mockups/storm-from-space.svg`](../../assets/brand/thumbnails/mockups/storm-from-space.svg) — storm example from the same composition.
 
-## Automated results
+**No alternative layouts** exist in the active mockups. Each file fixes the same left-side title, top-left logo, colored underline, rounded teal frame, gradient, and right-side illustrative hero zone.
 
-| Topic | 1280×720 | 320×180 | 160×90 |
+The exact `<g>` path/text markup of the existing approved `assets/brand/logo/logo-dark.svg` is embedded within each standalone thumbnail for portability, without modifying the logo source files. It is also asserted by the test.
+
+## Result matrix
+
+| Asset | Native 1280×720 | Mobile preview 320×180 | Tiny preview 160×90 |
 | --- | --- | --- | --- |
-| Ocean currents | PASS | PASS | PASS |
-| Glacier / changing ice | PASS | PASS | PASS |
-| Space-view storm | PASS | PASS | PASS |
+| Canonical template | **PASS** | **PASS** | **PASS** |
+| Ocean example | **PASS** | **PASS** | **PASS** |
+| Ice example | **PASS** | **PASS** | **PASS** |
+| Storm example | **PASS** | **PASS** | **PASS** |
 
-**All tests verify:** both **Space Grotesk** and **Inter** load as actual WOFF2 fonts in Chromium; the main title bounding boxes remain within the predefined 64px design safe area; all SVG text is geometrically inside the artwork; and no browser errors occur.
+All 12 checks ran in **Chromium** with actually loaded licensed **Space Grotesk** and **Inter** WOFF2 test fonts (version pinned to the same upstream commits as task 005). For each check:
 
-The test ran with pinned upstream test fonts under existing SIL OFL 1.1 terms. The font binaries were temporary and are not copied to the repository.
+- SVG root canvas 1280×720 and single-layout ID are verified.
+- Official approved logo SVG fragment matches the canonical `logo-dark.svg` contents exactly.
+- Main title remains on the **left**, with 3–4 lines inside the fixed 1280×720 safe box.
+- The logo is within its defined top-left slot; no image background stretches its own nested SVG viewport.
+- All SVG text remains inside the image bounds and there are **no browser errors**.
+- PNG screenshots were saved at each scale, plus JSON measurements for reproducibility.
 
-### Log excerpt
+### Selected CI output
 
 ```text
-PASS ocean-currents 1280x720 fonts={"space":true,"inter":true} titlesFit=true allFit=true errors=0
-PASS ocean-currents 320x180 fonts={"space":true,"inter":true} titlesFit=true allFit=true errors=0
-PASS ocean-currents 160x90 fonts={"space":true,"inter":true} titlesFit=true allFit=true errors=0
-PASS changing-ice 1280x720 fonts={"space":true,"inter":true} titlesFit=true allFit=true errors=0
-PASS changing-ice 320x180 fonts={"space":true,"inter":true} titlesFit=true allFit=true errors=0
-PASS changing-ice 160x90 fonts={"space":true,"inter":true} titlesFit=true allFit=true errors=0
-PASS storm-from-space 1280x720 fonts={"space":true,"inter":true} titlesFit=true allFit=true errors=0
-PASS storm-from-space 320x180 fonts={"space":true,"inter":true} titlesFit=true allFit=true errors=0
-PASS storm-from-space 160x90 fonts={"space":true,"inter":true} titlesFit=true allFit=true errors=0
-SUMMARY 9/9 thumbnail render/bounds checks PASS
+PASS template 1280x720 fonts={"space":true,"inter":true} titlesFit=true allFit=true logoFit=true errors=0
+PASS template 320x180 fonts={"space":true,"inter":true} titlesFit=true allFit=true logoFit=true errors=0
+PASS template 160x90 fonts={"space":true,"inter":true} titlesFit=true allFit=true logoFit=true errors=0
+PASS mockups/ocean-currents 1280x720 fonts={"space":true,"inter":true} titlesFit=true allFit=true logoFit=true errors=0
+PASS mockups/changing-ice 160x90 fonts={"space":true,"inter":true} titlesFit=true allFit=true logoFit=true errors=0
+PASS mockups/storm-from-space 160x90 fonts={"space":true,"inter":true} titlesFit=true allFit=true logoFit=true errors=0
+SUMMARY 12/12 thumbnail render/bounds checks PASS
 ```
 
-## Interpretation and limitations
+## Limits of the QA / publication gate
 
-- **What passed:** technical font loading, bounds and clipping in these three sample layouts at three resolutions.
-- **Not proved by automation:** actual viewing comfort at 160px, scientific truthfulness of a future real video, real footage rights, or platform click-through rates. Final thumbnails require their own evaluation.
-- **Tiny disclaimers / optional brand text** are not expected to be readable at 160px; what must be legible is the primary headline and recognizable subject. The illustrative disclaimer is only for internal draft status.
-- **Review:** the three topics should feel recognizably BlueDotAtlas despite different compositions. User must accept this visual language before task 006 is closed.
-- **Publishing rule:** do not use these illustrations as factual real satellite photos. Replace with licensed authentic imagery as needed and retain actual rights/attribution records.
+**This is an automated rendering and bounding-box test**, not a measured click-through rate or a guarantee that every word is comfortable to read on all physical devices. The owner's visual approval applies to the **first reference layout**; the repository's vector concept backgrounds are editable technical reconstructions of that arrangement, **not pixel-identical copies** of the generated reference image.
 
-**Gate:** technical preview test passed; creative user sign-off, PR merge, and Issue #13 close are pending.
+The sample ocean swirl, glacier and storm are **illustrations, NOT real measurements or satellite photos**. They may not be published as visual evidence. A production thumbnail must replace or properly label the imagery and verify rights, scientific truthfulness, timeframe and copyright case by case.
+
+**Task 006 gate:** owner's selected visual arrangement is binding and real-font thumbnail layout tests passed; remaining formal step is PR review/merge + issue close.
