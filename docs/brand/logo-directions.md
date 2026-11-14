@@ -52,14 +52,18 @@
 
 ## Abnahmeplan
 1. Sechs Entwurfs-SVGs sind vorhanden: A/B/C jeweils hell/dunkel.
-2. SVGs technisch validieren, als 48px-Icons rendern, Detailverluste dokumentieren.
+2. **Technischer 48px-Test bestanden (13.11.2026):** Sechs SVG-Entwürfe wurden auf XML-Syntax geprüft und mit CairoSVG jeweils als 48×48-PNG gerendert. Die rasterisierten Motive wurden als Übersicht visuell verglichen. Alle sechs bleiben bei 48px erkennbar; A wirkt besonders reduziert, B klassischer, C etwas detailreicher. Technische Validierung ersetzt keine finale Design-/Markenfreigabe.
+   - A Orbit Dot: helle/dunkle Icons je 48×48; Akzent und Orbit erkennbar.
+   - B Atlas Meridian: helle/dunkle Icons je 48×48; Meridian- und Äquatorlinien erkennbar.
+   - C Earth Contour: helle/dunkle Icons je 48×48; konzentrische Konturen erkennbar, Detailreduktion für die finale Wahl denkbar.
+   - Test reproduzierbar durch SVG-Rasterisierung auf 48×48; ein Screenshot/PNG-Vergleich liegt als Review-Anhang im Projektchat vor.
 3. Favorit explizit durch Auftraggeber auswählen. **Ein „Ok“ ist nur eindeutig, wenn unmittelbar zuvor genau eine Auswahl zur Freigabe vorgelegt wurde; bei mehreren Optionen A/B/C wird eine Angabe benötigt.**
 4. Gewählte Richtung in einer Vektor-Endfassung `assets/brand/logo.svg` mit weiteren Varianten ausarbeiten. Bis dahin kein finales Markenzeichen behaupten.
 5. PR reviewen, mergen, Issue mit Nachweisen abschließen.
 
 ## Aktueller Status
 - [x] Drei eigenständige Designrichtungen konzipiert.
-- [ ] Hell-/Dunkel-SVGs erstellt und 48px geprüft.
+- [x] Drei Hell-/Dunkel-SVG-Paare angelegt, XML geprüft und bei 48px gerendert.
 - [ ] Ein Favorit durch Auftraggeber ausgewählt.
 - [ ] Finale Vektorversion und Varianten gebaut.
 - [ ] Technische/visuelle Abnahme und PR-Merge durchgeführt.
