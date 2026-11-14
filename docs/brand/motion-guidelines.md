@@ -79,7 +79,7 @@ The original proof remains reproducible through [`assets/brand/motion/preview.ht
 - [x] Two standalone local MP4 previews generated and checked with ffprobe at 2.30/2.20s, 1920×1080 / H.264 / 30fps.
 - [x] GitHub source and automated separate-clip renderer created; actual official logo preserved.
 - [x] Lower Third / map marker / location / source / caption remain defined and previously tested as **separate design primitives**.
-- [ ] GitHub Actions renders both separate MP4s and archives the actual files (CI verification).
+- [x] GitHub Actions [#43610518751](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43610518751) rendered and archived [both actual MP4s](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43610518751/artifacts/14120296356), 2/2 PASS: H.264, exact 2.3/2.2s duration, 30fps, original SVG and Inter WOFF2 fonts, no extra overlays.
 - [ ] User watches **both new short clips** and approves motion/timing.
 - [ ] PR reviewed/merged and Issue #16 closed with evidence.
 
