@@ -2,7 +2,7 @@
 
 **Earth & Climate Video Studio** — hochwertige, englischsprachige Wissenschaftsdokumentationen über unseren Planeten.
 
-> Projektphase: **M00 – Brand & Identity** · Aufgaben **001–002** abgeschlossen · **003 – Earth Contour als Logorichtung gewählt; finale SVG-Abnahme offen**
+> Projektphase: **M00 – Brand & Identity** · Aufgaben **001–003** abgeschlossen · **004 – Farbwelt in Review** · 005 – Typografie folgt
 
 ## Projektziel
 
@@ -29,7 +29,8 @@ Der Brand Brief und das englische Markenversprechen sind am **13.11.2026 freigeg
 - [Brand Brief V0.1](docs/brand/brand-brief.md) — Aufgabe 001, inhaltlich freigegeben und mit Abnahmecheckliste
 - [Entscheidungsprotokoll](docs/project/decision-log.md) — fortlaufend versionierte verbindliche Beschlüsse und offene Fragen
 - [Naming & Wordmark Guidelines](docs/brand/naming.md) — Aufgabe 002; Claim, Verzicht auf Kurzform und Naming-Regeln freigegeben
-- [Logo Directions V0.1](docs/brand/logo-directions.md) — Aufgabe 003; Richtung C (Earth Contour) ausgewählt und transparentes SVG-Set erstellt
+- [Logo Directions V0.1](docs/brand/logo-directions.md) — Aufgabe 003; Richtung C ausgewählt und SVG-Set auf `main` gemergt
+- [Color System V0.1](docs/brand/colors.md) — Aufgabe 004; Deep Ocean / Glacial Light als noch nicht freigegebener Entwurf und Kontrastnachweise
 
 ## Roadmap und Arbeitsregeln
 
@@ -41,9 +42,10 @@ Grundlage: *BlueDotAtlas Master Roadmap V0.1* (13. November 2026), 14 Meilenstei
 - Entscheidungen, Begründungen und offene Punkte werden versioniert dokumentiert, zunächst in dieser README und themenspezifisch unter `docs/`.
 - Filme werden **nur nach manueller Freigabe** veröffentlicht; YouTube-Autopublishing ist nicht Bestandteil von V0.1.
 - **Freigaberegel:** Ein „Ok“ im Projektchat bedeutet die ausdrückliche Freigabe des jeweils zur Entscheidung vorgelegten Ergebnisses, nicht zukünftiger oder anderer Aufgaben.
+- **Schrift-Vorgabe:** Nur kostenfrei nutzbare und für Branding, Website, Video geeignete Fonts mit nachprüfbarer Lizenz (Entscheidung DEC-013).
 - Die ursprüngliche Roadmap-Schreibweise des Produktnamens wurde ausdrücklich durch **BlueDotAtlas** ersetzt; Aufgabennummern und Meilensteine bleiben unverändert.
 
-**Abgeschlossen:** [001 – Markenversprechen und Tonalität](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1) über [PR #2](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/2). **Abgeschlossen:** [002 – Wortmarke und Schreibweise](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/3) über [PR #4](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/4). **Aktuelle Aufgabe:** [003 – Logorichtungen](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/5), Richtung C ausgewählt. [SVG-Logos (hell/dunkel, Voll- und Icon-Version)](assets/brand/logo/) zur finalen Sichtprüfung auf [PR #6](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/6).
+**Abgeschlossen:** [001 – Markenversprechen und Tonalität](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1) über [PR #2](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/2). **Abgeschlossen:** [002 – Wortmarke und Schreibweise](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/3) über [PR #4](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/4). **Abgeschlossen:** [003 – Logorichtungen](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/5) über [PR #6](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/6). **Aktuell:** [004 – Farbwelt und Kontraste](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/7), Entwurf zur Freigabe.
 
 ## Geplante technische Basis (noch nicht implementiert)
 
