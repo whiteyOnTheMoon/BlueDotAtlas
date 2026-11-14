@@ -43,7 +43,6 @@ try{
      html,body{margin:0;background:#071522;width:${width}px;height:${height}px;overflow:hidden}
      svg{display:block;width:${width}px!important;height:${height}px!important}
    </style></head><body>${svg}</body></html>`;
-   await page.goto('http://127.0.0.1:'+port+'/Inter-Regular.woff2').catch(()=>{}); // warm local font endpoint
    await page.setContent(html,{waitUntil:'load'});
    const check=await page.evaluate(async()=>{
      await Promise.all([document.fonts.load('700 94px "Space Grotesk"'),document.fonts.load('700 20px Inter'),document.fonts.load('400 15px Inter')]);
