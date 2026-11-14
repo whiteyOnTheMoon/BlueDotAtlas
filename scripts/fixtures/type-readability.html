@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BlueDotAtlas · Type Acceptance Fixture</title>
+<style>
+@font-face{font-family:'InterTest';src:url('../../.tmp-fonts/Inter-Regular.woff2') format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'InterTest';src:url('../../.tmp-fonts/Inter-SemiBold.woff2') format('woff2');font-weight:600;font-display:block}
+@font-face{font-family:'SpaceGroteskTest';src:url('../../.tmp-fonts/SpaceGrotesk-variable.woff2') format('woff2');font-weight:300 700;font-display:block}
+*{box-sizing:border-box}html,body{margin:0}body{background:#F7FBFF;color:#021934;font-family:'InterTest',sans-serif}
+#mobile{width:100%;max-width:100%;padding:20px 16px 40px;margin:auto}
+#mobile .meta{font-size:14px;font-weight:600;color:#40566D;line-height:1.5}
+#mobile .headline{font-family:'SpaceGroteskTest',sans-serif;font-size:clamp(38px,8.5vw,54px);line-height:1.09;letter-spacing:-0.03em;margin:22px 0;overflow-wrap:break-word}
+#mobile .body{font-size:16px;line-height:1.55;max-width:65ch}
+#mobile .card{border:1px solid #CADDEB;border-radius:12px;background:#FFF;padding:18px;margin-top:24px}
+#mobile .card h2{font-family:'SpaceGroteskTest',sans-serif;font-weight:600;font-size:25px;line-height:1.2;margin:0 0 12px}
+#mobile .card p{font-size:16px;line-height:1.55;margin:0}
+#mobile .button{display:inline-block;background:#026E9E;color:white;border-radius:8px;padding:12px 18px;font-weight:600;font-size:16px;margin-top:16px}
+#film{width:1920px;height:1080px;position:relative;background:linear-gradient(128deg,#071522,#0E2942);color:#F2F9FF;overflow:hidden}
+#film .film-meta{position:absolute;left:110px;top:92px;font-family:'InterTest',sans-serif;font-size:32px;font-weight:600;letter-spacing:0.1em;color:#19B7F4}
+#film .film-title{position:absolute;left:110px;top:248px;width:1550px;font-family:'SpaceGroteskTest',sans-serif;font-weight:700;font-size:126px;line-height:1.08;letter-spacing:-.025em;margin:0}
+#film .film-caption{position:absolute;left:118px;right:118px;bottom:124px;text-align:center;font-family:'InterTest',sans-serif;font-weight:600;font-size:56px;line-height:1.25;margin:0;color:#F2F9FF}
+</style></head><body>
+<main id="mobile">
+<div class="meta">BLUEDOTATLAS / DOCUMENTARIES</div>
+<h1 class="headline">The Planet Has a Story.</h1>
+<p class="body">Satellites reveal patterns in our oceans, atmosphere and glaciers. BlueDotAtlas explains the science behind a changing planet.</p>
+<div class="card"><h2>How the Ocean Moves Heat</h2><p>Measurements help us understand our planet. Clear text stays readable even on a small display.</p><span class="button">Explore documentary</span></div>
+</main>
+<section id="film" aria-label="1920×1080 documentary frame">
+<div class="film-meta">BLUEDOTATLAS / ORIGINAL DOCUMENTARY</div>
+<h2 class="film-title">Earth in Motion</h2>
+<p class="film-caption">Satellites reveal how our changing planet works.</p>
+</section>
+</body></html>
