@@ -2,7 +2,7 @@
 
 **Earth & Climate Video Studio** — hochwertige, englischsprachige Wissenschaftsdokumentationen über unseren Planeten.
 
-> Projektphase: **M00 – Brand & Identity** · Aufgaben **001–004** abgeschlossen · **005 – Typografie: Browser-Gate bestanden; PR-Abschluss läuft**
+> Projektphase: **M00 – Brand & Identity** · Aufgaben **001–005** abgeschlossen · Nächste Aufgabe **006 – Bildsprache und Thumbnail-Regeln**
 
 ## Projektziel
 
@@ -46,7 +46,7 @@ Grundlage: *BlueDotAtlas Master Roadmap V0.1* (13. November 2026), 14 Meilenstei
 - **Schrift-Vorgabe:** Nur kostenfrei nutzbare und für Branding, Website, Video geeignete Fonts mit nachprüfbarer Lizenz (Entscheidung DEC-013).
 - Die ursprüngliche Roadmap-Schreibweise des Produktnamens wurde ausdrücklich durch **BlueDotAtlas** ersetzt; Aufgabennummern und Meilensteine bleiben unverändert.
 
-**Abgeschlossen:** [001 – Markenversprechen und Tonalität](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1) über [PR #2](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/2). **Abgeschlossen:** [002 – Wortmarke und Schreibweise](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/3) über [PR #4](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/4). **Abgeschlossen:** [003 – Logorichtungen](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/5) über [PR #6](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/6). **Abgeschlossen:** [004 – Farbwelt und Kontraste](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/7) über [PR #8](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/8). **005 – Typografie:** Schriftpaar Space Grotesk + Inter freigegeben, mit [3/3 bestandenen Browser-Testgrößen](docs/brand/typography-qa.md); Repo-Review/Gate-Nachweis in Bearbeitung.
+**Abgeschlossen:** [001 – Markenversprechen und Tonalität](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1) über [PR #2](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/2). **Abgeschlossen:** [002 – Wortmarke und Schreibweise](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/3) über [PR #4](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/4). **Abgeschlossen:** [003 – Logorichtungen](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/5) über [PR #6](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/6). **Abgeschlossen:** [004 – Farbwelt und Kontraste](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/7) über [PR #8](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/8). **Abgeschlossen:** [005 – Typografie und Schriftlizenzen](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/9) über [PR #10](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/10) und [PR #11](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/11), mit [3/3 bestandenen Browser-Testgrößen](docs/brand/typography-qa.md). **Nächste Aufgabe:** 006 – Bildsprache und Thumbnail-Regeln.
 
 ## Geplante technische Basis (noch nicht implementiert)
 
