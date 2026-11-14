@@ -30,12 +30,8 @@ try{
  for(const item of items){
   const source=readFileSync(resolve(root,'assets/brand/thumbnails/'+item+'.svg'),'utf8');
   if(!source.includes('viewBox="0 0 1280 720"'))throw new Error(item+': wrong canvas');
-  if(!source.includes('NOT real satellite data')&&!source.includes('NOT real satellite data'.toLowerCase())&&!source.includes('NOT real satellite data'.toUpperCase())&&!source.includes('NOT real satellite data'.replace('real','real'))){
-    if(!source.includes('NOT real satellite data') && !source.includes('NOT REAL SATELLITE DATA') && !source.includes('NOT real satellite data') && !source.includes('NOT real satellite data'.replace('NOT','not'))) {
-      if(!source.includes('not a satellite'))throw new Error(item+': missing illustration disclaimer in description');
-    }
-   }
-   if(!source.includes('data-template="bluedotatlas-left-text-v1"')||!source.includes('data-slot="left-title-block"')||!source.includes('data-slot="border"'))throw new Error(item+': not using the single approved layout');
+  if(!/not (a )?(real )?(satellite|observational)/i.test(source))throw new Error(item+': missing illustration disclaimer in SVG metadata');
+      if(!source.includes('data-template="bluedotatlas-left-text-v1"')||!source.includes('data-slot="left-title-block"')||!source.includes('data-slot="border"'))throw new Error(item+': not using the single approved layout');
    if(!source.includes(logoFragment))throw new Error(item+': official SVG logo geometry / lettering was not copied without changes');
   const svg=source.replace(/^<\?xml[^>]*>\s*/, '');
   for(const width of [1280,320,160]){
