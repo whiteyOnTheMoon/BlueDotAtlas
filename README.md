@@ -22,13 +22,13 @@ BlueDotAtlas entwickelt ein redaktionell kontrolliertes Webstudio zur Recherche,
 
 **Abgrenzung:** Ziel sind starke, wahrheitsgemäße Titel, Thumbnails, Hooks und Spannungsbögen; keine irreführenden Versprechen, künstlich aufgeblähten Filme oder Sensationsbehauptungen.
 
-Der Brand Brief und das englische Markenversprechen sind am **13.11.2026 freigegeben** worden. Der finale **Claim / die Tagline** und Regeln für die Wortmarke folgen in Aufgabe 002.
+Der Brand Brief und das englische Markenversprechen sind am **13.11.2026 freigegeben** worden. Für Aufgabe 002 wurde die öffentliche englische Tagline **„The Planet Has a Story.“** ausgewählt; Kurzform und weitere Wortmarken-Regeln stehen noch zur Freigabe.
 
 ## Projektdokumentation
 
 - [Brand Brief V0.1](docs/brand/brand-brief.md) — Aufgabe 001, inhaltlich freigegeben und mit Abnahmecheckliste
 - [Entscheidungsprotokoll](docs/project/decision-log.md) — fortlaufend versionierte verbindliche Beschlüsse und offene Fragen
-- [Naming & Wordmark Guidelines](docs/brand/naming.md) — Aufgabe 002; Claim/Kurzform bis zur Freigabe noch Entwurf
+- [Naming & Wordmark Guidelines](docs/brand/naming.md) — Aufgabe 002; Claim ausgewählt, Kurzform und Naming-Regeln noch offen
 
 ## Roadmap und Arbeitsregeln
 
