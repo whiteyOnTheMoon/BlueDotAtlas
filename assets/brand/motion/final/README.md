@@ -40,7 +40,7 @@ Für das vollständige Render-/Audio-Konzept siehe [`docs/brand/motion-guideline
 
 ## Abnahme-/Repo-Stand
 
-- [x] Beide fertigen Nutzerdateien liegen unter **ihren echten Originalnamen** auf dem **Task-Branch**.
+- [x] Beide fertigen Nutzerdateien liegen unter **ihren echten Originalnamen** auf **`main`**.
 - [x] Video- und Audioströme sind mit ffprobe geprüft; beide Videos vollständig dekodiert.
 - [x] Unveränderte Dateien durch Git-SHA/Dateigröße verifiziert; SHA-256 archiviert.
 - [x] Der Benutzer hat Crossfade **an beiden Übergängen** und **fortlaufende Hintergrundmusik über das Outro** entschieden.
