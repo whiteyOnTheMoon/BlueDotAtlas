@@ -43,6 +43,8 @@
 
 | DEC-025 | **Brand-Kit V0.1 / Gesamt-Brand-Gate M00 (Aufgabe 009) ist ausdrücklich abgenommen:** Bestehende freigegebene Logo-, Farb-, Typografie-, Thumbnail-, Motion- und UI-Kit-Originale werden zusammen als einheitliche visuelle Identität bestätigt; das neue **1920×1080-Storyboard-Illustrationsframe** wird als Marken-Stilbeispiel angenommen. Der frühere **10-Sekunden-Clip gilt ausschließlich als technischer Motion-Musternachweis für das M00-Gate**, niemals als offizielles Intro/Outro oder angenommener finaler Film. Die vom Nutzer selbst gelieferten **Intro 2,5s** und **stummes Outro 6s** bleiben unverändert verbindlich; an beiden Filmanbindungen **0,3s Crossfade (9 Frames bei 30fps)**, Hintergrundmusik läuft über das Outro. | **Vom Nutzer ausdrücklich freigegeben; Aufgabe 009 und M00 inhaltlich abgenommen** | Nutzerantwort „ok, einverstanden“ vom 17.11.2026 auf die unmittelbar davor präsentierte Brand-Kit-009-Gesamtschau samt Storyboard-Frame und transparentem Hinweis zum nur technischen 10s-Motion-Test. | [Brand-Kit V0.1](../brand/brand-kit-v01.md), [Review-Board](../../design/brand-gate-v01/index.html), [Storyboard 1920×1080](../../design/brand-gate-v01/storyboard-1080p.svg), [Chromium-QA 4/4 PASS](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44128980711), [PR #22](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/22), [Issue #21](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/21). Historischer 10s-Motion-Test [Run #43608120656](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43608120656) ist **keine alternative Logo-Animation**. Noch **nicht** entschieden: konkreter TTS-Sprecher, TTS-Provider, Stimme und produktive Film-Anwendung; diese gehören nachfolgenden Aufgaben. |
 
+| DEC-026 | **PRD V0.1 / Roadmap 010 verbindlich freigegeben:** BlueDotAtlas V0.1 umfasst eine öffentliche Videothek ausschließlich manuell freigegebener Dokumentationen und einen geschützten Einzeladmin mit sieben Produktionsschritten (**New Video, News Sources, Discover Topics, Media Library, Script Studio, Voice Studio, Video Production**); zunächst technischer **60-Sekunden-Realfilm-Proof**, reguläre englische Filme mit **8–10-Minuten-Ziel nur bei ausreichend Substanz** und ausschließlich **manuelle redaktionelle Publikationsfreigabe**. Alle Features werden als **MVP / später / ausgeschlossen** kategorisiert. **Autopublish / YouTube-Autoupload, Multiuser/Mehrkanalbetrieb und grafischer Voll-Editor sind in V0.1 ausgeschlossen.** | **Vom Nutzer ausdrücklich freigegeben; Aufgabe 010 abgenommen** | Nutzerantwort „ok, einverstanden“ vom 17.11.2026 unmittelbar auf die explizite Frage nach den Produktgrenzen im präsentierten PRD-V0.1-Vorschlag. | [PRD V0.1](../product/prd-v01.md), [21/21 PRD-Dokumentationschecks PASS](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44131321849), [PR #24](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/24), [Issue #23](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/23). Das PRD ist ein **Produkt-Scope-Beschluss** und weder Nachweis implementierter Funktionen noch pauschale Freigabe kostenpflichtiger Provider. Nächster Roadmap-Schritt **011: messbare Video-Erfolgskriterien definieren**, eigenständige spätere Nutzerabnahme. |
+
 ## Offene Entscheidungen
 
 | ID | Frage | Aufgabe | Status |
@@ -53,7 +55,7 @@
 
 
 
-| OPEN-006 | **PRD 010 / Produktgrenzen V0.1 als MVP / später / ausgeschlossen abnehmen.** Entwurf beschreibt öffentliche Videothek, geschützten Einzeladmin, sieben Wizard-Schritte (New Video, News Sources, Discover Topics, Media Library, Script Studio, Voice Studio, Video Production), 60s-Realfilm-Proof vor begründetem 8–10-Minuten-Ziel und manuelle Freigabe. **Autopublish, Multiuser und grafischer Voll-Editor sind für V0.1 ausgeschlossen.** Technische MVP-Implementierung und Provider-/VPS-Details folgen später; der aktuelle Entwurf soll diese nicht vorentscheiden. | 010 | **[PRD V0.1 Entwurf](../product/prd-v01.md), [Issue #23](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/23); noch keine Nutzerabnahme** (009-„Ok“ galt nur DEC-025 / Brand-Gate). |
+
 
 ## Erledigte Entscheidungspunkte
 
@@ -61,6 +63,7 @@
 - **OPEN-002:** Keine Kurzform und Naming-Regeln durch „Ok“ freigegeben, dokumentiert unter DEC-009.
 - **OPEN-004:** Web-UI-Kit V0.1 nach 12/12-Browser-QA und Sichtvorlage ausdrücklich durch „Ok, einverstanden“ freigegeben (DEC-024).
 - **OPEN-005:** Gesamt-Brand-Kit V0.1 / M00-Gate einschließlich 1080p-Storyboard und historischer 10s-Techniknachweis-Eingrenzung ausdrücklich freigegeben (DEC-025).
+- **OPEN-006:** PRD V0.1 mit siebenstufigem Einzeladmin-Wizard, manueller Veröffentlichung und MVP-/Später-/Ausschlussmatrix ausdrücklich freigegeben (DEC-026).
 
 ## Dokumentationsregel
 
