@@ -1,86 +1,69 @@
-# BlueDotAtlas — Motion Design Guidelines V0.2 (SHORT LOGO CLIPS)
+# BlueDotAtlas — Motion Design und Filmübergänge (Aufgabe 007)
 
-**Roadmap:** M00 / 007 — Motion-Design-Basics gestalten  
-**Status:** REVISED DESIGN PROPOSAL — user rejected the original combined 10-second intro/outro presentation; new short clips **await viewing and explicit approval**.  
-**Issue:** [#16](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/16) · [Draft PR #17](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/17)  
-**Dependencies:** 004–006 completed.
+**Status:** **Intro und Outro vom Auftraggeber ausgewählt; Integrations-/Audiomix-Test im fertigen Film noch offen.**  
+**Dateistand:** 17.11.2026 · **Branch:** `design/007-motion-basics` · [Issue #16](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/16) · [Draft PR #17](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/17).
 
-## 1. Mandatory direction: two independent short logo videos
+## 1. Verbindliche Originalmedien (keine Neukreationen)
 
-The owner requested: “Nicht ganz zufrieden. Wir sollten einen kurzen 2,3 Sekunden Clip fürs Intro machen, animiertes Logo zb, und ein 2, e Sekunden Clip für das outro.”
+Der Eigentümer hat **zwei fertige MP4-Dateien** direkt auf GitHub unter `assets/brand/motion/final/` abgelegt. **Nur diese beiden sind die maßgeblichen Brand-Clips**; alle zuvor mit Browser, Firefly oder FFmpeg erstellten Varianten sind historische, nicht angenommene Vorschauen.
 
-**Working durations:** Intro **2.3 seconds**, Outro **2.2 seconds** (both within the requested approximately 2–3-second range). These are **two separate playable MP4s**, not one 10-second montage.
+| Verwendung | Verbindliche Datei | Dauer | Ton |
+| --- | --- | --- | --- |
+| **Intro** | [`BlueDotAtlas Intro.mp4`](../../assets/brand/motion/final/BlueDotAtlas%20Intro.mp4) | **2,5 Sekunden** | Originalton vorhanden (AAC 48kHz) |
+| **Outro** | [`BlueDotAtlas_Outro.mp4`](../../assets/brand/motion/final/BlueDotAtlas_Outro.mp4) | **6 Sekunden nach Nutzerangabe**, technisch durch CI zu prüfen | Laut Nutzer **ohne Ton**, Medienprüfung durch CI |
 
-The intro and outro use only the **existing approved** transparent `assets/brand/logo/logo-dark.svg` (including “BlueDotAtlas” and “The Planet Has a Story.”) on a subtle Deep-Night abstract contour background. We may animate opacity, timing, position, reveal mask and small abstract halo lines **around** the logo, but **never change the logo's own Bézier paths, blue dot, color inks, spelling or proportions**.
+Beide Dateien bleiben **bytegenau erhalten**. Kein Umbenennen, Trimmen, generatives Ändern, Entfernen einer Audiostream-Komponente oder Ersetzen durch generierte Probeclips ohne neue Einzelentscheidung. [Medienarchiv + Prüfnachweis](../../assets/brand/motion/final/README.md).
 
-No map labels, source panels, subtitles, distracting call-to-actions, cinematic footage claims or permanent overlays belong **inside these two logo-only clips**.
+## 2. Filmischer Schnitt: zwei Crossfades (verbindlicher Wunsch)
 
-## 2. Intro (2.3 seconds, silent, Full HD 30fps)
+**Gewählter Übergang:** Bei jedem späteren fertigen Film werden die **Videoübergänge** als weiche **Cross-Dissolves** realisiert:
 
-| Segment | Timing | Purpose |
-| --- | --- | --- |
-| Establish | 0.00–0.12s | Deep-Night (#071522) moving abstract topographic contours, no text |
-| Icon-first reveal | 0.12–0.58s | Existing Earth-Contour symbol becomes visible through a soft left-to-right wipe |
-| Wordmark + tagline reveal | 0.48–1.37s | Full **unmodified** logo and claim progressively visible |
-| Hold | ~1.37–1.84s | Complete brand identity readable |
-| Exit | 1.84–2.30s | Soft fade for a clean transition into documentary footage |
+```text
+[Intro, 2,5 s] == Video-Crossfade ==> [Dokumentationsinhalt / Hook / Hauptfilm]
+[Letzte Filmszene] == Video-Crossfade ==> [Outro, ca. 6 s]
+```
 
-A restrained turquoise halo can gently pulse behind the existing blue observation point; it is **not** a new logo variant. No separate intro narration or music included in the proof. In actual videos the factual opening hook can precede the intro, to avoid losing viewers to a long brand splash.
+- **Nicht** abruptes Schwarz-/Weißblenden oder harter Schnitt zwischen Intro/Content bzw. Content/Outro.
+- **Vorgeschlagener technischer Startwert:** ca. **0,4 Sekunden (= 12 Frames bei 30fps) pro Übergang**; **kein bereits vom Nutzer freigegebener Fixwert**. Bei der tatsächlichen Montage nach Bild und Ton feinjustieren und testen.
+- Als Video-Crossfade überlappen die zwei benachbarten Bildspuren zeitlich. Die Intro- und Outro-MP4s werden im Medienarchiv selbst **nicht** geändert.
+- **Fehlt** im aktuellen Projekt der Hauptfilm, ist die finale Crossfade-Wirkung noch **nicht testbar**. Ein Proof mit eigenständigen Dummy-Szenen darf die realen MP4-Assets niemals ersetzen.
+- **Quellraten** bei der Videoverarbeitung respektieren; nominelles Projektprofil **1920×1080 / 30 FPS / SDR**, endgültige Ausgabe erst im Renderer und echten Film abnehmen.
 
-## 3. Outro (2.2 seconds, silent, Full HD 30fps)
+## 3. Audio: Musik durch das gesamte Outro (verbindlich)
 
-| Segment | Timing | Purpose |
-| --- | --- | --- |
-| Arrival | 0.02–0.53s | Complete official logo/claim fades in, with tiny vertical movement and 98.5%→100% display-scale adjustment |
-| Hold | ~0.53–1.69s | Full logo and tagline clearly visible; subtle background contour motion |
-| Exit | 1.69–2.20s | Soft fade out for a quiet finished-video ending |
+- Der spätere Film erhält Hintergrundmusik. **Diese Musik bleibt während des gesamten stummen Outrovideos hörbar** und darf beim Wechsel **Content → Outro nicht abgeschnitten oder stummgeschaltet** werden.
+- Das Outro bringt **keine eigene Tonspur** mit. Für die finale Filmmontage wird die Hintergrundmusik als **durchgehende eigene Audiospur** vom Film bis in das Outro geführt.
+- Ein endgültiger **Musik-Fade-out darf erst zum Schluss des Outras** liegen; sein exaktes Timing und die Lautstärkekurve werden bei der Audioabnahme festgelegt. Nicht schon beim Bild-Crossfade auf Stille übergehen.
+- Das Intro enthält eine **eigene AAC-Tonspur**. Beim Übergang Intro → Inhalt wird diese mit der separaten Film-/Musik-Tonspur **kontrolliert gemischt**, um harte Pegelsprünge, Klicks, Dopplungen und Übersteuerung zu vermeiden. Die genaue Audio-Überblenddauer ist noch nicht entschieden.
+- Die Musik muss eigenständig zulässig lizenziert sein; sie wird **nicht** vorab in die bereitgestellten MP4-Originale gebrannt.
 
-There is **no reused intro wipe**, no longer credits page, no URL/call-to-action, and no invented scientific imagery.
+## 4. YouTube-Endscreen und Abonnieren
 
-## 4. Separate film-overlay motion components (not part of short clips)
+Das **6-Sekunden-Outro** dient als vorgesehene Fläche für einen späteren **interaktiven YouTube-Abonnieren-Endscreen**. Der **anklickbare** Subscribe-Baustein wird nach dem manuellen Upload in **YouTube Studio → Editor → Endscreen** eingerichtet, nicht als vermeintlich anklickbare Grafik in die Videodatei gemalt. Eine finale Überprüfung der Platzierung und Anzeigedauer erfolgt bei der Publikation; das tatsächliche Bildlayout des eigenen Outras darf nicht verdeckt werden.
 
-Task 007 also requires definitions for **Lower Third, map marker, geographic label, source note and simple caption**. They remain independently designed components **inside the documentary**, not joined to the intro or outro. Their *previous combined 10-second proof* passed a technical test and is kept for **overlay-component reference only**, **not approved as the Intro/Outro design**.
+Offizielle Dokumentation: https://support.google.com/youtube/answer/6388789?hl=de. YouTube-Endscreens können grundsätzlich im letzten **5–20-Sekunden**-Abschnitt bei geeigneten Videos ab **25 Sekunden** Länge verwendet werden. Die spätere reale YouTube-Konfiguration wird separat überprüft; **kein Auto-Publishing** in V0.1.
 
-- **Location/Lower Third:** localized translucent Deep-Sea background, cyan vertical rail, Inter location/source labels, Space Grotesk for a short location title. Typical entrance ~0.4–0.6s, visible around 3–4s as appropriate to speech, then disappears.
-- **Map marker:** small fixed data point with subtle non-flashing pulse, short leader line, map coordinates / claim must be geographically verified for real footage.
-- **Sources:** brief agency / instrument / date where evidence matters, tied to actual scientific citations, clear credits in description.
-- **Captions:** Inter, readable contrast on actual imagery; no sustained full-frame cards, no invented numeric/map data.
-- **Optional reduced motion:** on websites or production contexts with `prefers-reduced-motion`, replace positional movement/pulses with short fades/static graphic while preserving reading time.
+## 5. Weitere Roadmap-007-Bausteine — im Film, nicht in Intro/Outro
 
-The original proof remains reproducible through [`assets/brand/motion/preview.html`](../../assets/brand/motion/preview.html) and [`scripts/render-motion-test.mjs`](../../scripts/render-motion-test.mjs). Its earlier [successful 10s workflow](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43608120656) is **not user-approved intro/outro motion**.
+Die Bewegungsregeln für **Lower Third, Ortslabel, Kartenmarker, Quellenhinweis und Bildunterschrift** bleiben separate Filmgrafiken. Sie sind **nicht** Bestandteil der zwei bereits gelieferten Original-MP4s:
 
-## 5. Visual identity and scientific integrity
+| Baustein | Beabsichtigte Darstellung |
+| --- | --- |
+| Ortslabel / Lower Third | Kompakter örtlicher Informationsblock, temporäre Ein-/Ausblendung und klare Lesbarkeit; keine dauerhafte Vollbild-Textfolie |
+| Kartenmarker | Kleiner präziser Marker mit zurückhaltendem Puls; Geoposition nur aus realer Quellenlage |
+| Quellenhinweis | Knappe echte Quellen-/Messgeräte-/Datums-Angabe, nur während relevanter Filmszene sichtbar |
+| Bildunterschrift | Kurz, in Inter, mit gutem Kontrast; kein großflächiger dauerhaft eingeblendeter Erklärungstext |
 
-- Preserve **Deep Ocean / Glacial Light** (#021934, #071522, #F2F9FF, #19B7F4, #37D6C4).
-- Preserve **free OFL fonts** Inter / Space Grotesk; logo typography renders from the **exact approved SVG**. Font files are never copied into the repository without rights/notice checks.
-- No artificial satellites, false storms or invented data as though observed. The demo's contour field is explicitly **original abstract illustration**, unrelated to a measured location.
-- **No flashing, aggressive zoom, loud glitch, excessive neon or long moving title screens**.
-- Keep video content primary: short intro and outro, no permanent information overlay.
-- The short clips are mastered on a dark-blue background as normal H.264 MP4; they do not contain an alpha channel. Transparent-overlay versions would be a separately approved export format.
+Die frühere **10-Sekunden-Testmontage** und **2,3/2,2-Sekunden-Logodemos** bleiben reine Entwicklungs-/QA-Artefakte. Ihre erfolgreiche Technikprüfung ist **keine Freigabe dieser visuellen Entwürfe**.
 
-## 6. File/technical specification
+## 6. Qualitäts-/Rechte-Gate
 
-| Deliverable | Role | Output |
-| --- | --- | --- |
-| [`logo-intro-outro.html`](../../assets/brand/motion/logo-intro-outro.html) | One deterministic HTML/SVG/CSS/JS animation source with two independent time modes | `window.setLogoTime(seconds, "intro"\|"outro")` |
-| [`render-short-logo-clips.mjs`](../../scripts/render-short-logo-clips.mjs) | Browser SVG rasterization and FFmpeg test exports | `BlueDotAtlas_Intro_2s.mp4` (2.30s / 69 frames) |
-| Same renderer | Separate outro video | `BlueDotAtlas_Outro_2s.mp4` (2.20s / 66 frames) |
-| [Motion workflow](../../.github/workflows/motion-check.yml) | Run browser/FFmpeg QA, archive outputs | 2 MP4s + keyframes + JSON report |
-| [Motion QA](motion-qa.md) | Distinguishes superseded combined clip from final candidate clips | Technical validation and review status |
+- [x] Nutzer hat **Intro (2,5 s) und stummes Outro (6 s)** als Originalmedien auf GitHub geliefert.
+- [x] Die **Übergangsmethode Video-Crossfade an beiden Filmgrenzen** ist beschlossen.
+- [x] **Hintergrundmusik bis über das Outro** ist beschlossen; die endgültige Lautstärkekurve bleibt Teil des späteren Filmmixes.
+- [ ] Medien-Codecs/Dauer/Tonspuren durch echte `ffprobe`- und Dekodierungsprüfung bestätigen.
+- [ ] Crossfade-/Audiomix-Integration mit echtem Film-Szenenmaterial im Render-/Filmprojekt testen.
+- [ ] Freie/rechtssichere Nutzungsrechte an den in Intro/Outro verbauten externen Bildern und Audiobestandteilen vor Veröffentlichung dokumentieren.
+- [ ] Task-007-Review einschließlich des Motion-Gates und PR-Merge durchführen, danach Issue schließen.
 
-**Codec:** H.264, `yuv420p`, 1920×1080, 30fps, MP4, silent.  
-**Animation:** deterministic easing, not a random video generator.  
-**Original logo:** imported from `assets/brand/logo/logo-dark.svg`, **unchanged path/text markup**, used as the source for the compositor.  
-**Allowed final implementation:** After user acceptance, convert same motion timing into the Remotion scene engine later (without creating longer intros).
-
-## 7. Roadmap gate
-
-- [x] Owner requested two independent short logo clips instead of the combined 10-second intro/outro.
-- [x] Two standalone local MP4 previews generated and checked with ffprobe at 2.30/2.20s, 1920×1080 / H.264 / 30fps.
-- [x] GitHub source and automated separate-clip renderer created; actual official logo preserved.
-- [x] Lower Third / map marker / location / source / caption remain defined and previously tested as **separate design primitives**.
-- [x] GitHub Actions [#43610518751](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43610518751) rendered and archived [both actual MP4s](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43610518751/artifacts/14120296356), 2/2 PASS: H.264, exact 2.3/2.2s duration, 30fps, original SVG and Inter WOFF2 fonts, no extra overlays.
-- [ ] User watches **both new short clips** and approves motion/timing.
-- [ ] PR reviewed/merged and Issue #16 closed with evidence.
-
-**Important:** “Nicht ganz zufrieden” is **not approval** of the 10-second clip. Task 007 remains open until the user approves these **revised separate clips**.
+**Dokumentationsregel:** Bei jeder durch den Nutzer **beschlossenen** Änderung auch die **zentrale [Repository-README](../../README.md)** (kurzer aktueller Stand), das **[Decision Log](../project/decision-log.md)** (detaillierter Beschluss) und gegebenenfalls die betroffenen spezifischen Dateien **im selben Task-PR** aktualisieren. Historische Beschlüsse nicht kommentarlos überschreiben.
