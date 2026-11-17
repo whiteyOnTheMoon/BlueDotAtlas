@@ -64,6 +64,6 @@ Die frühere **10-Sekunden-Testmontage** und **2,3/2,2-Sekunden-Logodemos** blei
 - [x] Medien-Codecs/Dauer/Tonspuren per ffprobe und vollständiger Dekodierung geprüft: [GitHub Actions PASS](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44007341068).
 - [x] **Beide Crossfades auf 0,3 s / 9 Frames verbindlich festgelegt (DEC-023).**
 - [x] Der Auftraggeber hat den **Film-Integrationstest** und die **Medienrechteprüfung** ausdrücklich **aus dem Abnahme-Gate von Aufgabe 007 gestrichen**. Beides gehört nicht zur Definition/Abnahme der Branding-Basics. Allgemeine Rechtepflichten vor Veröffentlichung bleiben als projektweite Richtlinie bestehen.
-- [x] Nutzerfreigabe für den Abschluss von Aufgabe 007 liegt vor; PR #17 war bereits gemergt, Dokumentationsnachtrag folgt.
+- [x] Nutzerfreigabe für den Abschluss von Aufgabe 007 liegt vor; PR #17 war bereits gemergt; der abschließende Dokumentationsnachtrag ist [PR #18](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/18).
 
 **Dokumentationsregel:** Bei jeder durch den Nutzer **beschlossenen** Änderung auch die **zentrale [Repository-README](../../README.md)** (kurzer aktueller Stand), das **[Decision Log](../project/decision-log.md)** (detaillierter Beschluss) und gegebenenfalls die betroffenen spezifischen Dateien **im selben Task-PR** aktualisieren. Historische Beschlüsse nicht kommentarlos überschreiben.
