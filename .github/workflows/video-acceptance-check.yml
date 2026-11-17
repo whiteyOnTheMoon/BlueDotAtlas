@@ -1,0 +1,29 @@
+name: Video Acceptance 011 — Quality Matrix consistency QA
+
+on:
+  push:
+    branches:
+      - docs/011-video-acceptance
+    paths:
+      - 'docs/quality/video-acceptance.md'
+      - 'scripts/check-video-acceptance.mjs'
+      - '.github/workflows/video-acceptance-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  video-acceptance-docs:
+    name: 18 criteria, two profiles, unambiguous evidence and result
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate quality checklist V0.1 (no film renders)
+        run: node scripts/check-video-acceptance.mjs
