@@ -30,6 +30,8 @@
 
 | DEC-018 | Die ursprünglich vorgeschlagene **kombinierte 10-Sekunden-Motion-Präsentation ist als Intro/Outro nicht akzeptiert**. Stattdessen werden **zwei unabhängige, kurze Logo-Clips** gewünscht: ein ca. 2–3-sekündiges Intro mit Animation des unveränderten Logos und ein ca. 2–3-sekündiges Outro; keine Lower Third, Marker oder Quellenleiste in den Logo-Clips. | Entschieden (Anforderung, **finale Animationsabnahme noch offen**) | Nutzer: „Nicht ganz zufrieden. Wir sollten einen kurzen 2,3 Sekunden Clip fürs Intro machen, animiertes Logo zb, und ein 2, e Sekunden Clip für das outro.“, 14.11.2026 | Aufgabe 007: neue eigenständige Intro-/Outro-Videos mit Arbeitslängen **2,3s und 2,2s**. Frühere 10s-Demo bleibt nur als technischer Lower-Third-/Marker-Test, nicht als offizieller Markenclip. Der Nutzer muss beide neuen MP4s noch freigeben. |
 
+| DEC-019 | Der Nutzer hat das **fertige Intro-MP4 `BlueDotAtlas Intro.mp4` mit 2,5 Sekunden** als neues BlueDotAtlas-Intro bezeichnet und um dauerhafte GitHub-Ablage gebeten. Die zuvor erzeugten Logo-Animationen ersetzen diese Nutzerauswahl nicht. Ein Outro ist **noch nicht geliefert**. | **Intro-Auswahl entschieden; Binärdatei-Archivierung in GitHub noch ausstehend** | Original-MP4 vom Nutzer, 17.11.2026; Anfrage: „das ist das intro.. kannst du es auf github ablegen, damit wir es später verwenden können? outro kommt später“ | Originalclip 1920×1080, 30fps, H.264, AAC 48kHz, exakt 2,5s. Original SHA-256 `d2fc15c428434e76e14b2f371b3ed7d03afd605353c8b93ae59420b64bc38f47`. Zielpfad `assets/brand/motion/final/BlueDotAtlas_Intro_2p5s.mp4`, nach Upload zu verifizieren. Weitere Outro-Arbeiten und Gate 007 bleiben offen. |
+
 ## Offene Entscheidungen
 
 | ID | Frage | Aufgabe | Status |
