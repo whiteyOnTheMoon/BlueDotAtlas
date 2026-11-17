@@ -2,7 +2,7 @@
 
 **Earth & Climate Video Studio** — hochwertige, englischsprachige Wissenschaftsdokumentationen über unseren Planeten.
 
-> Projektphase: **M00 – Brand & Identity** · Aufgaben **001–006** abgeschlossen · **007 – Motion-Design-Basics in Bearbeitung**
+> Projektphase: **M00 – Brand & Identity** · Aufgaben **001–007** abgenommen · **007 – Motion-Design-Basics: Originalclips auf `main`, Nachtrag zum Abschluss**
 
 ## Projektziel
 
@@ -32,15 +32,15 @@ Der Brand Brief und das englische Markenversprechen sind am **13.11.2026 freigeg
 - [Logo Directions V0.1](docs/brand/logo-directions.md) — Aufgabe 003; Richtung C ausgewählt und SVG-Set auf `main` gemergt
 - [Visual Language & Thumbnail Rules](docs/brand/visual-language.md) — Aufgabe 006; **genau ein freigegebenes Ozean-Layout für alle Thumbnails** (DEC-017), Test 12/12 bestanden
 - [Official Thumbnail Template](assets/brand/thumbnails/template.svg) — **einziger 1280×720-Master**; [drei Inhaltsbeispiele](assets/brand/thumbnails/) mit identischer Anordnung
-- [Motion Design Guidelines](docs/brand/motion-guidelines.md) — Aufgabe 007; **beide Original-MP4s vom Nutzer ausgewählt**, Crossfade Intro → Inhalt und Inhalt → Outro; Hintergrundmusik läuft ins stumme Outro durch (DEC-020/021)
+- [Motion Design Guidelines](docs/brand/motion-guidelines.md) — Aufgabe 007; **beide Original-MP4s vom Nutzer ausgewählt**, **beide Crossfades fest auf 0,3 s (9 Frames/30 FPS)**, Hintergrundmusik läuft ins stumme Outro durch (DEC-020/021/023)
 - [Motion Clip QA](docs/brand/motion-qa.md) — **echte Nutzer-Originale** Intro **2,5s** mit AAC-Ton und Outro **6,0s ohne Ton**, beide 1080p/H.264/30fps; [GitHub-Medienprüfung erfolgreich](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44007341068)
-- [Finale Motion-Medien](assets/brand/motion/final/README.md) — [Intro · 2,5 s](assets/brand/motion/final/BlueDotAtlas%20Intro.mp4) und [Outro · 6,0 s](assets/brand/motion/final/BlueDotAtlas_Outro.mp4), beide Originale auf dem Task-Branch; frühere Assistenz-Demos sind nicht die gewählten Clips.
+- [Finale Motion-Medien](assets/brand/motion/final/README.md) — [Intro · 2,5 s](assets/brand/motion/final/BlueDotAtlas%20Intro.mp4) und [Outro · 6,0 s](assets/brand/motion/final/BlueDotAtlas_Outro.mp4), beide Originale auf **`main`** (PR #17); frühere Assistenz-Demos sind nicht die gewählten Clips.
 - [Color System V0.1](docs/brand/colors.md) — Aufgabe 004; freigegebene Deep Ocean / Glacial Light-Palette mit Kontrastnachweisen
 - [Brand Colors Assets](assets/brand/colors/) — SVG-Farbpalette; maschinenlesbare UI-Tokens unter `packages/ui/tokens/colors.ts`
 
 ## Verbindlicher Film-Intro-/Outro-Standard (Aufgabe 007)
 
-**Originalmedien des Auftraggebers** — unverändert im Task-Branch `design/007-motion-basics` archiviert:
+**Originalmedien des Auftraggebers** — seit Merge von PR #17 unverändert auf **`main`** archiviert:
 
 | Baustein | Datei / Länge | Audio |
 | --- | --- | --- |
@@ -49,11 +49,11 @@ Der Brand Brief und das englische Markenversprechen sind am **13.11.2026 freigeg
 
 Beide Videos sind **Full HD (1920 × 1080), H.264, 30 FPS**; [technisch auf GitHub verifiziert](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44007341068) mit exakten Blob-Prüfsummen und vollständiger Decodierung (**PASS**).
 
-**Schnittregel (DEC-021):** Intro **per Video-Crossfade in den Film**, letzte Filmszene **per Video-Crossfade ins Outro**. Die später lizenzierte **Hintergrundmusik läuft während des gesamten stummen Outros weiter**; erst am eigentlichen Filmende passend ausblenden. Das Originalintro hat eigenen Ton, der beim Übergang sachgerecht mit dem Filmmix verbunden wird. **0,4 s / 12 Frames** ist nur ein vorgeschlagener Startwert für die Crossfades, noch kein fest beschlossener Wert. Die technische Montage wird erst im späteren Film-Renderer getestet.
+**Schnittregel (DEC-021):** Intro **per Video-Crossfade in den Film**, letzte Filmszene **per Video-Crossfade ins Outro**. Die später lizenzierte **Hintergrundmusik läuft während des gesamten stummen Outros weiter**; erst am eigentlichen Filmende passend ausblenden. Das Originalintro hat eigenen Ton, der beim Übergang sachgerecht mit dem Filmmix verbunden wird. **Beide Crossfades dauern verbindlich 0,3 Sekunden = 9 Frames bei 30 FPS** (DEC-023). Die technische Montage in einem späteren echten Film ist **kein Gate von Aufgabe 007**.
 
 **YouTube:** Der echte klickbare Abonnieren-Endscreen wird **in YouTube Studio**, nicht im MP4, ergänzt. Der 6-s-Clip kann dafür genutzt werden. Die endgültige Platzierung ist beim Upload zu prüfen; V0.1 publiziert nicht automatisch.
 
-Die aktuellen Schnitt- und Audioregeln stehen in [Motion Guidelines](docs/brand/motion-guidelines.md), Byte-/Tonspur-Details im [Archiv](assets/brand/motion/final/README.md); **alte generierte Logo-Vorschauen gelten ausdrücklich als verworfen**. Noch offen: Integrationstests am echten Film und vollständige Roadmap-007-Abnahme/PR-Merge.
+Die aktuellen Schnitt- und Audioregeln stehen in [Motion Guidelines](docs/brand/motion-guidelines.md), Byte-/Tonspur-Details im [Archiv](assets/brand/motion/final/README.md); **alte generierte Logo-Vorschauen gelten ausdrücklich als verworfen**. **Aufgabe 007 inhaltlich freigegeben**: die zwei früher offenen Punkte zum späteren Film-Montagetest und zur Rechteprüfung zukünftiger Filme gehören **nicht** zum Gate von 007. **PR #17 ist bereits gemergt**; dieser Nachtrag und der formale Issue-Abschluss schließen Aufgabe 007 ab. Die allgemeinen Rechtepflichten für spätere Veröffentlichungen bleiben bestehen.
 
 ## Roadmap und Arbeitsregeln
 
@@ -68,7 +68,7 @@ Grundlage: *BlueDotAtlas Master Roadmap V0.1* (13. November 2026), 14 Meilenstei
 - **Schrift-Vorgabe:** Nur kostenfrei nutzbare und für Branding, Website, Video geeignete Fonts mit nachprüfbarer Lizenz (Entscheidung DEC-013).
 - Die ursprüngliche Roadmap-Schreibweise des Produktnamens wurde ausdrücklich durch **BlueDotAtlas** ersetzt; Aufgabennummern und Meilensteine bleiben unverändert.
 
-**Abgeschlossen:** [001 – Markenversprechen und Tonalität](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1) über [PR #2](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/2). **Abgeschlossen:** [002 – Wortmarke und Schreibweise](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/3) über [PR #4](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/4). **Abgeschlossen:** [003 – Logorichtungen](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/5) über [PR #6](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/6). **Abgeschlossen:** [004 – Farbwelt und Kontraste](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/7) über [PR #8](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/8). **Abgeschlossen:** [005 – Typografie und Schriftlizenzen](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/9) über [PR #10](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/10) und [PR #11](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/11), mit [3/3 bestandenen Browser-Testgrößen](docs/brand/typography-qa.md). **Aktuell:** [006 – Bildsprache und Thumbnail-Regeln](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/13) **abgeschlossen** mit einem einzigen Master; [12/12 Tests bestanden](docs/brand/thumbnail-qa.md), [PR #14](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/14) gemergt und Issue #13 geschlossen. **Aktuell:** [007 – Motion-Design-Basics](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/16) als Entwurf in Arbeit; **Beide originalen Nutzerclips auf dem Task-Branch archiviert**, [Video-/Audio-QA PASS](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44007341068); Crossfade und durchgehende Outro-Musik beschlossen (DEC-020/021), technische Gesamtfilmintegration noch nicht abgenommen. Review/Merge von 007 weiterhin offen.
+**Abgeschlossen:** [001 – Markenversprechen und Tonalität](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1) über [PR #2](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/2). **Abgeschlossen:** [002 – Wortmarke und Schreibweise](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/3) über [PR #4](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/4). **Abgeschlossen:** [003 – Logorichtungen](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/5) über [PR #6](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/6). **Abgeschlossen:** [004 – Farbwelt und Kontraste](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/7) über [PR #8](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/8). **Abgeschlossen:** [005 – Typografie und Schriftlizenzen](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/9) über [PR #10](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/10) und [PR #11](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/11), mit [3/3 bestandenen Browser-Testgrößen](docs/brand/typography-qa.md). **Aktuell:** [006 – Bildsprache und Thumbnail-Regeln](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/13) **abgeschlossen** mit einem einzigen Master; [12/12 Tests bestanden](docs/brand/thumbnail-qa.md), [PR #14](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/14) gemergt und Issue #13 geschlossen. **Abgenommen:** [007 – Motion-Design-Basics](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/16) mit [PR #17](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/17) auf `main`, den zwei originalen Nutzer-MP4s, [2/2 Medien-Checks PASS](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44007341068), festen 0,3s-Crossfades und durchgehender Musik über dem stummen Outro (DEC-023); formale Issue-Schließung nach dem Dokumentationsnachtrag.
 
 ## Geplante technische Basis (noch nicht implementiert)
 
