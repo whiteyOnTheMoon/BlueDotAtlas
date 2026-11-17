@@ -26,7 +26,7 @@ Der Brand Brief und das englische Markenversprechen sind am **13.11.2026 freigeg
 
 ## Projektdokumentation
 
-- [Produkt-PRD V0.1 – **Aufgabe 010 ENTWURF**](docs/product/prd-v01.md) — öffentliche Videothek, geschützter Einzeladmin mit sieben Wizard-Schritten, **8–10 Minuten nur mit ausreichender Storysubstanz**, vorher echter 60s-Film-Proof, **manuelle** Veröffentlichungsfreigabe; **Autopublish, Multiuser und grafischer Voll-Editor in V0.1 ausgeschlossen**. Featureklassifikation **MVP / später / ausgeschlossen**. [Issue #23](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/23), Arbeitsbranch `docs/010-prd-v01`; **Freigabe ausstehend**.
+- [Produkt-PRD V0.1 – **Aufgabe 010 ENTWURF**](docs/product/prd-v01.md) — öffentliche Videothek, geschützter Einzeladmin mit sieben Wizard-Schritten, **8–10 Minuten nur mit ausreichender Storysubstanz**, vorher echter 60s-Film-Proof, **manuelle** Veröffentlichungsfreigabe; **Autopublish, Multiuser und grafischer Voll-Editor in V0.1 ausgeschlossen**. Featureklassifikation **MVP / später / ausgeschlossen**; **[21/21 PRD-Dokumentationschecks PASS](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44131321849)**. [Issue #23](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/23), [Draft PR #24](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/24), Arbeitsbranch `docs/010-prd-v01`; **Nutzerfreigabe ausstehend**.
 - [Brand Brief V0.1](docs/brand/brand-brief.md) — Aufgabe 001, inhaltlich freigegeben und mit Abnahmecheckliste
 - [Entscheidungsprotokoll](docs/project/decision-log.md) — fortlaufend versionierte verbindliche Beschlüsse und offene Fragen
 - [Naming & Wordmark Guidelines](docs/brand/naming.md) — Aufgabe 002; Claim, Verzicht auf Kurzform und Naming-Regeln freigegeben
