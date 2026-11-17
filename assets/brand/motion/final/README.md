@@ -1,6 +1,6 @@
 # BlueDotAtlas — Original-Intro und Original-Outro (M00 / 007)
 
-**Status:** Beide vom Nutzer selbst bereitgestellten Videodateien sind tatsächlich auf dem GitHub-Task-Branch `design/007-motion-basics` abgelegt, bytegenau geprüft und **als maßgebliche Clips ausgewählt**. Der filmische Crossfade und finale Audiomix kommen bei der späteren Produktion hinzu. [Task #16](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/16) · [Draft PR #17](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/17).
+**Status:** Beide Original-MP4-Dateien liegen **unverändert auf `main`**, geprüft und vom Nutzer für Aufgabe 007 freigegeben. Film-Crossfades werden bei späterer Produktion auf exakt **0,3 s (9 Frames bei 30 FPS)** gesetzt. [Issue #16](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/16) · [gemergter PR #17](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/17).
 
 ## Originaldateien (unverändert erhalten)
 
@@ -31,10 +31,10 @@
 
 1. **Intro → Content:** weiche visuelle Überblendung (Cross-Dissolve) statt hartem Schnitt; das vorhandene Intro-Audio wird zum Beginn der Filmtonspur sorgfältig eingepegelt/überblendet.
 2. **Content → Outro:** weiche visuelle Überblendung; **der Soundtrack läuft unverändert über die Grenze und durch das komplette stumme Outro weiter**. Ein finaler Lautstärke-Fade ist allenfalls **am Ende** des Outros sinnvoll, abhängig vom finalen Schnitt und der Musik.
-3. **Dauer der beiden Video-Crossfades:** **noch nicht festgelegt**; 0,4s = 12 Frames bei 30fps ist ein Arbeitstestwert, der nach späterer Video-/Audio-Sichtprobe verändert werden darf.
+3. **Dauer der beiden Video-Crossfades: verbindlich 0,3 Sekunden = 9 Frames bei 30 FPS** (DEC-023).
 4. **Orignale nicht verändern:** Crossfade, Musikmischung und eventuelles Tail-Fade werden **im Filmrenderer/Timeline** hergestellt, nicht in den separaten MP4s gespeichert.
 5. **YouTube Subscribe:** Der interaktive Abonnieren-Baustein ist eine **Einstellung in YouTube Studio Endscreen**. Er ist kein im Video eingebranntes Bild. Endscreen-Platzierung nach finalem Layout/Schnitt prüfen.
-6. **Rechte:** Nutzungsrechte und Herkunft von im Videoclip enthaltenen Drittmaterialien sowie die Musiklizenz müssen vor der Veröffentlichung dokumentiert sein.
+6. **Separate Publikationsvorgaben:** Geltende Rechte-/Quellenvorgaben bleiben projektweit bestehen, sind aber auf Wunsch des Nutzers **kein Abnahme-Gate für Aufgabe 007**.
 
 Für das vollständige Render-/Audio-Konzept siehe [`docs/brand/motion-guidelines.md`](../../../docs/brand/motion-guidelines.md).
 
@@ -45,8 +45,8 @@ Für das vollständige Render-/Audio-Konzept siehe [`docs/brand/motion-guideline
 - [x] Unveränderte Dateien durch Git-SHA/Dateigröße verifiziert; SHA-256 archiviert.
 - [x] Der Benutzer hat Crossfade **an beiden Übergängen** und **fortlaufende Hintergrundmusik über das Outro** entschieden.
 - [x] [Repository-README](../../../README.md) und [Entscheidungslog](../../../docs/project/decision-log.md) werden für diese Entscheidung aktualisiert.
-- [ ] Im späteren echten Film **visuelle Crossfades, Pegelverlauf und Musikkontinuität** praktisch testen.
-- [ ] Vor Veröffentlichung: eventuelle Drittmaterial-Lizenzen und Musikrechte belegen.
-- [ ] Formaler Abschluss von Task #16 / PR #17 nach Review und Gate-Abnahme; **nicht nach bloßem Upload vorwegnehmen**.
+- [x] **0,3 Sekunden / 9 Frames** für **beide Video-Crossfades** fest beschlossen.
+- [x] Die **beiden bislang offenen Aufgabenpunkte** „Integrationstest am späteren Film“ und „Rechteklärung für Publikationen“ werden **aus dem Gate von Aufgabe 007 entfernt**, da sie erst den tatsächlichen Filmworkflow betreffen.
+- [x] Beide Originale geprüft und ausgewählt; **PR #17 am 17.11.2026 bereits gemergt**, 007 vom Nutzer für formalen Abschluss freigegeben.
 
-**Wichtig:** Die Videodateien sind im Branch gespeichert, aber bis zum Merge von PR #17 noch **nicht auf `main`**.
+**Wichtig:** Die Originaldateien sind seit dem Merge von [PR #17](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/17) bereits auf **`main`**. Die Dokumentationskorrektur und anschließende Issue-Schließung sind der letzte formale Schritt.
