@@ -1,4 +1,44 @@
-# BlueDotAtlas — Motion QA V0.2: Two Short Intro/Outro Clips
+# BlueDotAtlas — Motion QA: finale Nutzerdateien (007)
+
+**Stand:** 17.11.2026 · **Verbindlich:** vom Nutzer selbst bereitgestelltes Intro **2,5s** und Outro **6,0s**. Die vom Assistenten generierten kürzeren Tests (2,3s/2,2s, 10s-Komponentenprototyp) wurden **nicht** als finale MP4s angenommen.
+
+## Abnahme technischer Originaldateien: PASS
+
+**GitHub Workflow:** [`Verify owner-uploaded intro and outro` — Run #44007341068](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44007341068), abgeschlossen **SUCCESS**.
+
+| Technische Prüfung | Intro | Outro |
+| --- | --- | --- |
+| Datei | [`BlueDotAtlas Intro.mp4`](../../assets/brand/motion/final/BlueDotAtlas%20Intro.mp4) | [`BlueDotAtlas_Outro.mp4`](../../assets/brand/motion/final/BlueDotAtlas_Outro.mp4) |
+| Video | **H.264, Full HD 1920×1080, 30 FPS** | **H.264, Full HD 1920×1080, 30 FPS** |
+| Dauer | **2,500s** | **6,000s** |
+| Tonspur | **AAC, Stereo, 48 kHz** | **Keine Tonspur** |
+| Bytes | **4.745.495** | **471.807** |
+| Git-Blob SHA-1 | `06db66c147c06fc729b8a50917882ba3cb09e26f` | `b6f980d8a114c25803aeeef4dbe852c6ecbde38f` |
+| SHA-256 | `d2fc15c428434e76e14b2f371b3ed7d03afd605353c8b93ae59420b64bc38f47` | `aa70bd60286d7f101b3753aa331503a81a5c3d0672f5f51a640d762fd6b8ec99` |
+| Vollständige FFmpeg-Decodierung | **PASS** | **PASS** |
+
+**Originale nicht modifizieren:** Ton zum Intro stammt aus dem Original; das Outro ist tatsächlich ohne Audiospur. Die Originaldateien sind im Task-Branch gespeichert. Ihre Media-QA wurde über GitHub Actions direkt an den hochgeladenen Dateien ausgeführt.
+
+## Beschlossene Montage / noch nicht getestete Integration
+
+- [x] **Intro → Film:** Crossfade der Videospuren.
+- [x] **Film → Outro:** Crossfade der Videospuren.
+- [x] **Hintergrundmusik des Films läuft über die gesamte stumme Outro-Dauer weiter**.
+- [x] **Crossover-Audio:** Intro-Audio wird beim Eingang in die eigentliche Film-Tonspur kontrolliert gemischt; keine harte Unterbrechung beim Szenenwechsel.
+- [ ] Crossfade-Dauer (0,4s / 12 Frames nur erster Vorschlagswert) noch **nicht vom Nutzer als Fixdauer abgenommen**.
+- [ ] Finaler Film-Crossfade/Audiomix tatsächlich gerendert und mit Lautstärke-/Bildprüfung abgenommen (spätere Roadmap-/Renderaufgaben).
+- [ ] Rechte von Drittmaterial im Originalclip und künftiger Hintergrundmusik vor Veröffentlichungen nachgewiesen.
+- [ ] PR #17 Review/Gate/Merge und Task #16 Abschluss nach Abnahme.
+
+**Wichtig:** CI bestätigt Codecs, Längen, Tonspuren, Originalbyte-Integrität und Dekodierbarkeit; CI **bestätigt nicht** die ästhetische Qualität der Crossfades, denn die realen Hauptfilm-Szenen liegen noch nicht vor. [Motion-Richtlinien](motion-guidelines.md) · [Medienarchiv](../../assets/brand/motion/final/README.md) · [README-Projektstand](../../README.md).
+
+---
+
+## Historischer Technikanhang: Nicht ausgewählte Animationsdemos
+
+Der folgende Bericht dokumentiert die *alte* 2,3s/2,2s-Logoanimation und den 10s-Overlay-Prototyp. Er ist **kein aktuelles finales Intro-/Outro-QA-Gate**.
+
+### Historische Vorschau- und Prototyp-Tests
 
 **Scope now under review:** **2.3-second intro + 2.2-second outro as two separate MP4 files**. The owner did **not** approve the previous combined 10-second motion presentation. The previous report is retained below **only as evidence for the separately reusable Lower Third, map marker and source/caption motion**.
 
