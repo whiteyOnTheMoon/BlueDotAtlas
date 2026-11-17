@@ -1,0 +1,29 @@
+name: PRD 010 — MVP and non-goals consistency check
+
+on:
+  push:
+    branches:
+      - docs/010-prd-v01
+    paths:
+      - 'docs/product/prd-v01.md'
+      - 'scripts/check-prd.mjs'
+      - '.github/workflows/prd-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prd-scope:
+    name: Seven wizard steps / MVP-later-excluded / source links
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check PRD 010 required sections and no-goals
+        run: node scripts/check-prd.mjs
