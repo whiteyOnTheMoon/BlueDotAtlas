@@ -27,7 +27,7 @@
 - [x] **Crossover-Audio:** Intro-Audio wird beim Eingang in die eigentliche Film-Tonspur kontrolliert gemischt; keine harte Unterbrechung beim Szenenwechsel.
 - [x] **Beide Crossfades verbindlich 0,3 Sekunden (= 9 Frames bei 30 FPS), DEC-023.**
 - [x] Die vom Nutzer **gestrichenen zwei Punkte** (Test im erst späteren echten Film und Rechteklärung für spätere Veröffentlichungen) sind **keine Abnahmebedingungen von Aufgabe 007**; kein Schein-Nachweis für bereits durchgeführte Integration.
-- [x] **PR #17 gemergt**; nach Dokumentationsnachtrag und Task-Freigabe Issue #16 schließen.
+- [x] **PR #17 gemergt**; nach [Dokumentationsnachtrag PR #18](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/18) Issue #16 formal abschließen.
 
 **Wichtig:** CI bestätigt Codecs, Längen, Tonspuren, Originalbyte-Integrität und Dekodierbarkeit; CI **bestätigt nicht** die ästhetische Qualität der Crossfades, denn die realen Hauptfilm-Szenen liegen noch nicht vor. [Motion-Richtlinien](motion-guidelines.md) · [Medienarchiv](../../assets/brand/motion/final/README.md) · [README-Projektstand](../../README.md).
 
