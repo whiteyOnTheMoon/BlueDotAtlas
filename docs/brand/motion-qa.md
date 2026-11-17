@@ -1,6 +1,6 @@
 # BlueDotAtlas — Motion QA: finale Nutzerdateien (007)
 
-**Stand:** 17.11.2026 · **Verbindlich:** vom Nutzer selbst bereitgestelltes Intro **2,5s** und Outro **6,0s**. Die vom Assistenten generierten kürzeren Tests (2,3s/2,2s, 10s-Komponentenprototyp) wurden **nicht** als finale MP4s angenommen.
+**Stand:** 17.11.2026 · **Vom Auftraggeber für Aufgabe 007 abgenommen:** vom Nutzer selbst bereitgestelltes Intro **2,5s** und Outro **6,0s**. Die vom Assistenten generierten kürzeren Tests (2,3s/2,2s, 10s-Komponentenprototyp) wurden **nicht** als finale MP4s angenommen.
 
 ## Abnahme technischer Originaldateien: PASS
 
@@ -25,10 +25,9 @@
 - [x] **Film → Outro:** Crossfade der Videospuren.
 - [x] **Hintergrundmusik des Films läuft über die gesamte stumme Outro-Dauer weiter**.
 - [x] **Crossover-Audio:** Intro-Audio wird beim Eingang in die eigentliche Film-Tonspur kontrolliert gemischt; keine harte Unterbrechung beim Szenenwechsel.
-- [ ] Crossfade-Dauer (0,4s / 12 Frames nur erster Vorschlagswert) noch **nicht vom Nutzer als Fixdauer abgenommen**.
-- [ ] Finaler Film-Crossfade/Audiomix tatsächlich gerendert und mit Lautstärke-/Bildprüfung abgenommen (spätere Roadmap-/Renderaufgaben).
-- [ ] Rechte von Drittmaterial im Originalclip und künftiger Hintergrundmusik vor Veröffentlichungen nachgewiesen.
-- [ ] PR #17 Review/Gate/Merge und Task #16 Abschluss nach Abnahme.
+- [x] **Beide Crossfades verbindlich 0,3 Sekunden (= 9 Frames bei 30 FPS), DEC-023.**
+- [x] Die vom Nutzer **gestrichenen zwei Punkte** (Test im erst späteren echten Film und Rechteklärung für spätere Veröffentlichungen) sind **keine Abnahmebedingungen von Aufgabe 007**; kein Schein-Nachweis für bereits durchgeführte Integration.
+- [x] **PR #17 gemergt**; nach Dokumentationsnachtrag und Task-Freigabe Issue #16 schließen.
 
 **Wichtig:** CI bestätigt Codecs, Längen, Tonspuren, Originalbyte-Integrität und Dekodierbarkeit; CI **bestätigt nicht** die ästhetische Qualität der Crossfades, denn die realen Hauptfilm-Szenen liegen noch nicht vor. [Motion-Richtlinien](motion-guidelines.md) · [Medienarchiv](../../assets/brand/motion/final/README.md) · [README-Projektstand](../../README.md).
 
@@ -64,7 +63,7 @@ PASS intro 2.300000s 69 frames H264 1920x1080, exact official inline SVG and rea
 PASS outro 2.200000s 66 frames H264 1920x1080, exact official inline SVG and real Inter fonts, no overlays.
 SUMMARY 2/2 separated logo clips PASS
 ```
-**Human approval: NOT YET GRANTED.** Owner must review both new short videos before PR #17 can merge.
+**HISTORISCHER STAND vom 14.11.2026:** Damals waren diese generierten Kurzvideos nicht akzeptiert. Inzwischen hat der Nutzer **eigene Original-MP4s** hochgeladen, und PR #17 wurde am 17.11.2026 gemergt.
 
 ## Earlier combined 10-second integration proof (NOT the approved brand intro/outro)
 
@@ -149,6 +148,6 @@ Artifact bluedotatlas-motion-007-testclip has been successfully uploaded!
 - [x] Test confirms Lower Third and no permanent full-screen overlays.
 - [x] Actual file plus keyframes and report are available in GitHub Actions.
 - [ ] Owner watches and **approves the motion style and timing**; a simple “Ok” after watching approves this specific design only.
-- [ ] PR #17 reviewed/merged and Issue #16 closed with evidence.
+- [x] **Historischer PR-Check ersetzt:** PR #17 wurde am 17.11.2026 gemergt; die Issue-Schließung erfolgt nach dem Dokumentationsnachtrag.
 
 **Decision:** This earlier *component integration* technical gate passed, but the combined clip was rejected as the intended branded intro/outro. Separate short-clips gate (above) remains open.
