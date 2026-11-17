@@ -1,0 +1,43 @@
+name: UI Kit 008 — Public / Admin responsive browser QA
+
+on:
+  push:
+    branches:
+      - design/008-ui-kit-v01
+    paths:
+      - 'design/ui-kit-v01/**'
+      - 'packages/ui/tokens/**'
+      - 'scripts/check-ui-kit.mjs'
+      - '.github/workflows/ui-kit-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ui-kit-browser:
+    name: Responsive desktop / tablet / mobile UI component QA
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned Chromium and Playwright
+        run: |
+          npm install --no-save --ignore-scripts playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Check 3 viewports, 2 themes, public/admin and keyboard
+        run: node scripts/check-ui-kit.mjs
+      - name: Save screenshot comparisons and QA report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: UI-Kit-008-Review-Previews
+          path: .tmp-ui-kit-qa/
+          if-no-files-found: warn
+          include-hidden-files: true
+          retention-days: 14
