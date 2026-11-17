@@ -1,0 +1,43 @@
+name: Brand Gate 009 — review board and 1080p storyboard QA
+
+on:
+  push:
+    branches:
+      - design/009-brand-gate-v01
+    paths:
+      - 'design/brand-gate-v01/**'
+      - 'docs/brand/brand-kit-v01.md'
+      - 'scripts/check-brand-gate.mjs'
+      - '.github/workflows/brand-gate-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  brand-gate-review:
+    name: Original identity + responsive review board + 1920x1080 storyboard
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned Playwright and Chromium
+        run: |
+          npm install --no-save --ignore-scripts playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Verify approved original asset references, responsive review board and storyboard
+        run: node scripts/check-brand-gate.mjs
+      - name: Upload screenshots and report for owner review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: BlueDotAtlas-009-Brand-Gate-Review
+          path: .tmp-brand-gate-qa/
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 14

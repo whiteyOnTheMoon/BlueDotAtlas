@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" role="img" aria-labelledby="title desc">
+  <title id="title">BlueDotAtlas — M00 Brand Gate 009: 1080p conceptual storyboard frame</title>
+  <desc id="desc">Editable example frame, not a finished documentary, real Earth-observation image or measured ocean data. A Deep-Night-to-Deep-Sea gradient, an abstract decorative planet, one short lower-third title and a clear illustrative-source notice. The approved original logo assets are not modified.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071522"/><stop offset=".57" stop-color="#021934"/><stop offset="1" stop-color="#105078"/>
+    </linearGradient>
+    <radialGradient id="halo" cx=".6" cy=".45" r=".55">
+      <stop offset="0" stop-color="#19B7F4" stop-opacity=".29"/><stop offset="1" stop-color="#19B7F4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sphere" cx=".27" cy=".27" r=".89">
+      <stop offset="0" stop-color="#50D5E8"/><stop offset=".35" stop-color="#107B9B"/><stop offset=".73" stop-color="#0B3555"/><stop offset="1" stop-color="#071522"/>
+    </radialGradient>
+    <linearGradient id="scrim" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#071522" stop-opacity=".95"/>
+      <stop offset=".66" stop-color="#071522" stop-opacity=".72"/>
+      <stop offset="1" stop-color="#071522" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="disk"><circle cx="1340" cy="504" r="392"/></clipPath>
+  </defs>
+  <!-- Scene: all shapes original brand-style illustrative geometry, NOT an observed data layer. -->
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  <rect x="520" y="-80" width="1440" height="1160" fill="url(#halo)"/>
+  <g opacity=".18" stroke="#37D6C4" fill="none" stroke-width="2">
+    <path d="M 720 -100 C 1230 130 900 450 1760 630"/>
+    <path d="M 610 -90 C 1130 168 860 495 1810 680"/>
+    <path d="M 520 -85 C 1010 210 840 540 1840 740"/>
+    <path d="M 490 -75 C 910 247 780 610 1870 810"/>
+  </g>
+  <circle cx="1340" cy="504" r="401" fill="none" stroke="#37D6C4" stroke-opacity=".36" stroke-width="3"/>
+  <circle cx="1340" cy="504" r="392" fill="url(#sphere)"/>
+  <g clip-path="url(#disk)" fill="none">
+    <g stroke="#A6E8F1" stroke-width="11" stroke-linecap="round" opacity=".39">
+      <path d="M 998 328 C 1155 193 1367 204 1515 283 C 1610 339 1710 321 1790 281"/>
+      <path d="M 963 407 C 1180 316 1330 330 1444 415 C 1580 515 1689 480 1800 390"/>
+      <path d="M 930 525 C 1055 473 1211 472 1345 563 C 1505 668 1608 651 1810 551"/>
+      <path d="M 932 655 C 1085 596 1242 661 1382 734 C 1540 817 1640 780 1800 704"/>
+    </g>
+    <g stroke="#F2F9FF" stroke-width="4" opacity=".33" fill="none">
+      <path d="M 1050 197 C 1130 317 1090 490 980 630"/>
+      <path d="M 1250 132 C 1290 312 1240 535 1190 840"/>
+      <path d="M 1485 151 C 1462 330 1525 650 1450 879"/>
+      <path d="M 1680 262 C 1580 420 1650 631 1578 792"/>
+    </g>
+  </g>
+  <rect width="1200" height="1080" fill="url(#scrim)"/>
+  <circle cx="1492" cy="356" r="18" fill="#19B7F4"/>
+  <circle cx="1492" cy="356" r="42" fill="none" stroke="#19B7F4" stroke-width="2" stroke-opacity=".6"/>
+  <g font-family="'Inter', Arial, sans-serif">
+    <text x="104" y="110" font-size="25" font-weight="700" letter-spacing="5" fill="#37D6C4">BLUEDOTATLAS  /  CONCEPT STORYBOARD</text>
+    <text x="104" y="174" font-size="27" fill="#B4CCDC">Earth systems • Visual exploration</text>
+    <text x="105" y="698" font-family="'Space Grotesk', 'Inter', Arial, sans-serif" font-size="86" font-weight="700" letter-spacing="-2.2" fill="#F2F9FF">The ocean's</text>
+    <text x="105" y="792" font-family="'Space Grotesk', 'Inter', Arial, sans-serif" font-size="86" font-weight="700" letter-spacing="-2.2" fill="#F2F9FF">hidden engine</text>
+    <path d="M 107 832 H 314" stroke="#37D6C4" stroke-width="8" stroke-linecap="round"/>
+    <text x="105" y="894" font-size="34" fill="#B4CCDC">A visual story about Earth's connected systems.</text>
+    <rect x="102" y="964" width="785" height="52" rx="10" fill="#021934" stroke="#6D92A9" stroke-width="2"/>
+    <text x="121" y="1000" font-size="22" fill="#F2F9FF">ILLUSTRATION ONLY — NO MEASURED OR SATELLITE DATA</text>
+  </g>
+</svg>
