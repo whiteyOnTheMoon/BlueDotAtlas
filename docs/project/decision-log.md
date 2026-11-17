@@ -45,6 +45,8 @@
 | --- | --- | --- | --- |
 | OPEN-003 | Die Motion-Basics aus **007** sind mit zwei Original-MP4s, festgelegten Crossfades (0,3s) und Outro-Musikregel inhaltlich entschieden. **UI-Kit und übergeordnetes Brand-Gate** folgen in späteren Aufgaben. | 008–009 | Teilweise offen; 007 abgenommen |
 
+| OPEN-004 | **Visuellen UI-Kit-V0.1-Entwurf für öffentliche Videothek und Admin** mit gemeinsamen Button-, Formular-, Karten-, Badge-, Stepper- und Galerie-Komponenten durch den Nutzer prüfen und gegebenenfalls anpassen/freigeben. Bestehende Farb-, Logo-, Schrift- und Thumbnail-Vorgaben bleiben unverändert. | 008 | **Vorschlag auf Branch `design/008-ui-kit-v01`, [Draft PR #20](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/20); kreative Abnahme ausdrücklich offen** |
+
 ## Erledigte Entscheidungspunkte
 
 - **OPEN-001:** Freigabe des Brand Briefs durch „Ok“, dokumentiert unter DEC-007. Die Tagline wurde anschließend separat unter DEC-008 ausgewählt.
