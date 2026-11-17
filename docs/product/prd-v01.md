@@ -1,7 +1,7 @@
 # BlueDotAtlas — Product Requirements Document (PRD) V0.1
 
-**Status: DRAFT — Roadmap 010 / M01. Nutzerfreigabe steht aus.**  
-**Datum:** 17.11.2026 · [Issue #23](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/23) · Branch `docs/010-prd-v01`  
+**Status: PRD V0.1 vom Nutzer ausdrücklich freigegeben (DEC-026) — Roadmap 010 / M01.**  
+**Datum:** 17.11.2026 · [Issue #23](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/23) · [PR #24](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/24) · Freigabe DEC-026  
 **Voraussetzung:** Roadmap 009 / [Brand-Kit V0.1](../brand/brand-kit-v01.md) wurde als M00-Gate abgenommen (DEC-025).
 
 ## 1. Zweck und Produktziel
@@ -127,7 +127,7 @@ Das Produkt bietet **zwei klar getrennte Bereiche**:
 - [x] **Autopublish, Multiuser und grafischer Voll-Editor** aus V0.1 ausdrücklich ausgeschlossen.
 - [x] **MVP / später / ausgeschlossen** als Entscheidungsregel und Feature-Klassifikation formuliert.
 - [x] **Statischer Roadmap-/Scope-/Link-Check 21/21 PASS**, einschließlich aller sieben Wizard-Stufen, MVP-/Später-/Nicht-Ziele und Original-Asset-Referenzen: [GitHub Actions Run #44131321849](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44131321849). **Das ist eine Dokumentationsprüfung, kein technischer MVP-Implementierungstest.**
-- [ ] **PRD-V0.1-Vorschlag durch den Nutzer ausdrücklich abgenommen.** Das „ok, einverstanden“ vom 17.11.2026 galt ausschließlich Aufgabe 009 / M00, **nicht** diesem neuen PRD.
-- [ ] Nach Freigabe PR mergen und [Issue #23](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/23) schließen.
+- [x] **PRD V0.1 vom Nutzer ausdrücklich angenommen** („ok, einverstanden“ als unmittelbare Antwort auf die Vorstellung des PRD-010-Umfangs, 17.11.2026; DEC-026).
+- [x] PRD-Inhalt abgenommen; [PR #24](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/24) wird nach der dokumentierten Nutzerfreigabe gemergt und [Issue #23](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/23) geschlossen. Die Produktimplementierung folgt erst in nachgelagerten Roadmap-Aufgaben.
 
-**Versionierungsprinzip:** Neue Wünsche durch explizite Entscheidung, Änderung dieses PRD und der zentralen [README](../../README.md) im selben PR (DEC-022). Vor einer bestätigten Abnahme ist diese Datei **ein prüfbarer Entwurf**, keine bereits freigegebene Produkt-Spezifikation.
+**Versionierungsprinzip:** Neue Wünsche durch explizite Entscheidung, Änderung dieses PRD und der zentralen [README](../../README.md) im selben PR (DEC-022). **Mit DEC-026 ist dies die verbindliche PRD-V0.1-Spezifikation**; sie ist weiterhin eine Produktspezifikation, **kein Nachweis implementierter Software**.
