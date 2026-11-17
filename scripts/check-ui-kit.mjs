@@ -88,6 +88,8 @@ try{
    await page.click('[data-filter="all"]');
    const gallery=await page.locator('[data-topic]:visible').count();
    if(gallery!==3)errors.push('Filter reset failed, visible='+gallery);
+   // Use keyboard modality: :focus-visible intentionally does not light up after a mouse click.
+   await page.keyboard.press('Tab');
    await page.focus('#theme-toggle');
    if(!await page.evaluate(()=>getComputedStyle(document.querySelector('#theme-toggle')).outlineStyle!=='none'))
      errors.push('Focus ring not visible');
