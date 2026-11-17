@@ -126,6 +126,7 @@ Das Produkt bietet **zwei klar getrennte Bereiche**:
 - [x] **8–10-Minuten-Ziel mit Inhaltsvorbehalt** und technische **60-Sekunden-Erstprobe** abgegrenzt.
 - [x] **Autopublish, Multiuser und grafischer Voll-Editor** aus V0.1 ausdrücklich ausgeschlossen.
 - [x] **MVP / später / ausgeschlossen** als Entscheidungsregel und Feature-Klassifikation formuliert.
+- [x] **Statischer Roadmap-/Scope-/Link-Check 21/21 PASS**, einschließlich aller sieben Wizard-Stufen, MVP-/Später-/Nicht-Ziele und Original-Asset-Referenzen: [GitHub Actions Run #44131321849](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44131321849). **Das ist eine Dokumentationsprüfung, kein technischer MVP-Implementierungstest.**
 - [ ] **PRD-V0.1-Vorschlag durch den Nutzer ausdrücklich abgenommen.** Das „ok, einverstanden“ vom 17.11.2026 galt ausschließlich Aufgabe 009 / M00, **nicht** diesem neuen PRD.
 - [ ] Nach Freigabe PR mergen und [Issue #23](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/23) schließen.
 
