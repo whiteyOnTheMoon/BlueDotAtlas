@@ -1,6 +1,6 @@
 # BlueDotAtlas — VPS-Inventur und Ressourcenbudget (M01 / 012)
 
-**Status: ERSTER VPS-BETREIBER-SNAPSHOT VORHANDEN, Kapazitätsbudget und Nachmessung nach VideoNewsStudio-Bereinigung OFFEN. Aufgabe 012 ist noch NICHT abgenommen.**  
+**Status: ERSTER VPS-BETREIBER-SNAPSHOT + PROTOKOLLIERTE BEREINIGUNG VORHANDEN; tatsächlicher Freiraum nach Bereinigung, Providerwerte und Ressourcenbudget OFFEN. Aufgabe 012 ist noch NICHT abgenommen.**  
 **Roadmap-Ergebnis:** `docs/infra/vps-audit.md` · [Issue #27](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/27) · Branch `infra/012-vps-audit`.  
 **Roadmap-Quelle:** `BlueDotAtlas_Roadmap.pdf`, M01, Aufgabe 012, Seite 5: CPU-Kerne, RAM, SSD-Freiraum, I/O, OS, Docker-Version, Netzwerk, Bandbreite, vorhandene Dienste und Ressourcenpuffer dokumentieren. **Abnahme:** Messwerte sowie nutzbare Ressourcen für **Web, DB und Renderer** müssen nachvollziehbar sein. **Vorher: 010** (erfüllt, PRD DEC-026).
 
@@ -8,7 +8,7 @@
 
 **Bereits bekannt (nur Projektvorgabe):** BlueDotAtlas V0.1 soll auf **einem eigenen VPS** betrieben werden; eine öffentliche Videothek, ein geschützter Einzeladmin, eine Datenbank und ein separater Renderworker sind geplant. Die Render-Zielausgabe ist zunächst Full HD 1920×1080/H.264; ein echter VPS-Render-Test ist erst **Aufgabe 013**. Diese Projektvorgaben sind **kein gemessener VPS-Nachweis**.
 
-**Tatsächlich über den VPS bekannt:** Der Betreiber hat am **17.11.2026 um 18:40:28 UTC** die **bereinigte Ausgabe des read-only Skripts vom vorgesehenen Linux-VPS** im Projektchat bereitgestellt. Das sind **vom Betreiber mitgeteilte Host-Snapshot-Werte**, keine von dieser GitHub-Verbindung selbst verifizierten VPS-Metriken und kein Render-Benchmark. Eine **Nachmessung nach vollständiger Entfernung des nicht mehr benötigten VideoNewsStudio** sowie Provider- und Busy-Hour-Angaben stehen aus. GitHub Actions laufen in gehosteten Test-Runnern und dürfen **niemals** als VPS-Messung ausgegeben werden.
+**Tatsächlich über den VPS bekannt:** Der Betreiber hat am **17.11.2026 um 18:40:28 UTC** die **bereinigte Ausgabe des read-only Skripts vom vorgesehenen Linux-VPS** im Projektchat bereitgestellt. Das sind **vom Betreiber mitgeteilte Host-Snapshot-Werte**, keine von dieser GitHub-Verbindung selbst verifizierten VPS-Metriken und kein Render-Benchmark. Die **gezielte Betreiber-Bereinigung von VideoNewsStudio und GoldenOracle** ist anhand von Terminal-Rückmeldungen protokolliert; der **tatsächliche Gewinn an VPS-Kapazität muss noch nachgemessen werden**. Provider- und Busy-Hour-Angaben stehen aus. GitHub Actions laufen in gehosteten Test-Runnern und dürfen **niemals** als VPS-Messung ausgegeben werden.
 
 ## 2. VPS-Betreiber-Snapshot vom 17.11.2026 (noch vor Bereinigung)
 
@@ -34,10 +34,27 @@ Alle Werte gehören zum **tatsächlichen Ziel-VPS**, nicht zum eigenen Laptop/Cl
 - **CPU:** Planbare logische CPUs zunächst höchstens **4 verfügbar**; die angezeigten **128 konfigurierten CPUs** sind keine 128 nutzbaren VPS-Kerne. Spätere Cgroup-/Provider-Limits können enger sein.
 - **RAM:** **2409/7964 MiB (~30%)** zum Zeitpunkt verfügbar. **1059/2048 MiB Swap (~52%)** bereits belegt. Die verfügbare RAM-Menge ist **keine sichere, garantierte Renderreserve**.
 - **Massenspeicher: KRITISCH.** Lediglich **7,02 GiB** frei bei **94% Auslastung**; **keine 1080p-Renderjobs** starten, solange OS-/DB-Puffer und Render-Scratch nicht nachweisbar gesichert sind. Der vom Gast gemeldete Rotationsstatus bestätigt **weder physische HDD noch SSD**.
-- **Konkurrenzlast:** **51 laufende Container**, darunter ein vom Nutzer zur vollständigen Löschung bestimmter ehemaliger VideoNewsStudio-Stack. **Zusätzlich vom Nutzer zur vollständigen Löschung vorgesehen:** der Ordner `/home/ap/wordpress` mit ausschließlich `goldenoracle`, dessen eigenständiger WordPress-/MariaDB-Container samt benanntem DB-Volume und der gesonderte GoldenOracle-Tunnel-Container. **Wichtig:** `cloudflared_goldenoracle` gehört zum **gemeinsamen** Compose-Projekt `cloudflared`, daher darf das gesamte `cloudflared`-Projekt nicht gestoppt oder gelöscht werden. **AP Pixels**, **AP Pixels Dev**, **Kurvenfunk**, **FootballStudio** und weitere Anwendungen bleiben erhalten. **Noch wurde nichts entfernt.** Nach gezielter Bereinigung erneut messen.
+- **Konkurrenzlast:** **51 laufende Container**, darunter ein vom Nutzer zur vollständigen Löschung bestimmter ehemaliger VideoNewsStudio-Stack. **Zusätzlich vom Nutzer zur vollständigen Löschung vorgesehen:** das ausschließlich GoldenOracle enthaltende WordPress-Projektverzeichnis (private Hostpfade nicht veröffentlicht), dessen eigenständiger WordPress-/MariaDB-Container samt benanntem DB-Volume und der gesonderte GoldenOracle-Tunnel-Container. **Wichtig:** `cloudflared_goldenoracle` gehört zum **gemeinsamen** Compose-Projekt `cloudflared`, daher darf das gesamte `cloudflared`-Projekt nicht gestoppt oder gelöscht werden. **AP Pixels**, **AP Pixels Dev**, **Kurvenfunk**, **FootballStudio** und weitere Anwendungen bleiben erhalten. **Die gezielte Betreiberbereinigung wurde danach laut Terminalausgaben ausgeführt (siehe Abschnitt oben); Nachprüfung ausstehend.** Nach gezielter Bereinigung erneut messen.
 - **I/O/Netz:** Null-PSI in diesem kurzen Snapshot belegt **keinen** ausreichenden Disk-Durchsatz; RX/TX seit Boot sind **keine** Bandbreiten-/Provider-Tarifmessung.
 
 **Vorläufiges Urteil:** Der VPS ist für den geplanten Video-Renderer **noch nicht abnahmefähig** (kritisch knapper Speicher, RAM-/I/O-/Traffic-/Spitzenlast-Budget offen). Es ist **kein endgültiges Render-No-Go**, weil nach der gezielten Bereinigung und Task 013 neue Messwerte erforderlich sind. **Keine Hardware- oder Monatskosten-Grenzwerte erfinden.**
+
+### Betreiber-Bereinigung nach dem ersten Snapshot (Nachweis aus Terminalausgabe)
+
+**Status am 17.11.2026: vom Betreiber ausgeführte und als erfolgreich zurückgemeldete Teilschritte; hier keine unabhängige Serverprüfung.** Der Auftraggeber hat die gezielte Löschung von **VideoNewsStudio** und der **WordPress-Instanz GoldenOracle** einschließlich ihrer Daten ausdrücklich bestätigt. AP Pixels, AP Pixels Dev, Kurvenfunk, FootballStudio und sonstige Projekte sollen erhalten bleiben.
+
+| Teilschritt | Sichtbarer Nachweis | Stand |
+| --- | --- | --- |
+| Docker-Container des Compose-Projekts VideoNewsStudio stoppen und entfernen | `docker ps --filter label=com.docker.compose.project=videonews-studio` mit `docker stop` und `docker rm`: Container-IDs wurden als erfolgreich gestoppt/entfernt ausgegeben | **Vom Betreiber als durchgeführt gemeldet** |
+| Separat verwalteten VideoNewsStudio-Tunnel und GoldenOracle (Web, DB, Tunnel) entfernen | `docker stop` und `docker rm` meldeten die vier explizit bezeichneten Container erfolgreich | **Vom Betreiber als durchgeführt gemeldet** |
+| Zugeordnete Docker-Daten-Volumes entfernen | `docker volume rm` meldete erfolgreich: **2 GoldenOracle-Volumes** (DB und WordPress) und **3 VideoNewsStudio-Volumes** (PostgreSQL und zwei Redis-Volumes) | **5 von 5 angefragten Volumes erfolgreich entfernt** |
+| Zugehörige Host-Projektordner löschen | Vorher `du -sh`: **572 MiB** VideoNewsStudio, **80 MiB** GoldenOracle; anschließend `rm -rf` und `rmdir` ohne Fehlermeldung | **Vom Betreiber als durchgeführt gemeldet**, keine Nachprüfung der Pfadexistenz |
+| Verbleibende Images, Docker-Netze, gemeinsame Tunnel-/Cloudflare-Service-Einträge und außerhalb liegende Geheimnis-/Konfigurationsdateien | **Nicht geprüft oder belegt entfernt**; das Cloudflare-Compose-Projekt wird auch von anderen Apps genutzt und darf nicht pauschal entfernt werden | **Offen; nur gezielt und nach Zuordnung ändern** |
+| Tatsächlich gewonnener SSD-Freiraum und entlasteter RAM nach Bereinigung | **Noch keine zweite Messung**; aus früheren `du`-Werten und gelöschten Volumes lässt sich die reale Ersparnis nicht zuverlässig ableiten | **OFFEN: zwingend nachmessen** |
+
+**Sicherheitsgrenze:** Kein globales `docker system prune`, `docker volume prune` oder gemeinsames `cloudflared`-Compose-Down als Teil dieser Aufgabe. Die aktuelle Bereinigung stammt ausschließlich aus vom Betreiber im Chat geteilten Terminalresultaten; **dieses GitHub-Tool hat keinen Zugriff auf den Host**.
+
+**Für die nächste nachvollziehbare Messung:** Das bereits lokal gespeicherte `audit-vps.sh` erneut **auf dem VPS** ausführen und die Ausgabe vor dem Teilen prüfen. Zusätzlich die verbliebenen Docker-Container/-Volumes nur **auflisten**, nicht pauschal bereinigen. Vergleiche mit dem UTC-Snapshot **2026-11-17T18:40:28Z**: **7,02 GiB** Speicher verfügbar, **2409 MiB RAM verfügbar**, **51 aktive Container**.
 
 ### Sicheres Erfassungsskript
 
@@ -111,4 +128,4 @@ bash scripts/audit-vps.sh /vorhandenes/renderverzeichnis > vps-render-disk-outpu
 - [ ] **Nutzer hat die ausgefüllte 012-Inventur und das Budget ausdrücklich freigegeben.**
 - [ ] Erst dann PR mergen, Issue #27 schließen und die reale 1080p/H.264-Render-Erprobung in **013** starten.
 
-**Status: BLOCKED bis zur Nachmessung nach VideoNewsStudio-Bereinigung, Providerdaten und belastbarem Web/DB/Renderer-Budget.** Der Entwurf darf nicht als bestandenes M01-Architektur- oder Render-Go/No-Go-Gate missverstanden werden. Das **Monatskosten-/API-Freigabebudget** ist eine separate Entscheidung in **016**, kein Bestandteil dieser Hardware-Kapazitätsaufnahme.
+**Status: BLOCKED bis zur Nachmessung nach der vom Betreiber ausgeführten Bereinigung von VideoNewsStudio und GoldenOracle, Providerdaten und belastbarem Web/DB/Renderer-Budget.** Der Entwurf darf nicht als bestandenes M01-Architektur- oder Render-Go/No-Go-Gate missverstanden werden. Das **Monatskosten-/API-Freigabebudget** ist eine separate Entscheidung in **016**, kein Bestandteil dieser Hardware-Kapazitätsaufnahme.
