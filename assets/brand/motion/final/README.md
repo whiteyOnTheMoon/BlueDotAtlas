@@ -49,4 +49,4 @@ Für das vollständige Render-/Audio-Konzept siehe [`docs/brand/motion-guideline
 - [x] Die **beiden bislang offenen Aufgabenpunkte** „Integrationstest am späteren Film“ und „Rechteklärung für Publikationen“ werden **aus dem Gate von Aufgabe 007 entfernt**, da sie erst den tatsächlichen Filmworkflow betreffen.
 - [x] Beide Originale geprüft und ausgewählt; **PR #17 am 17.11.2026 bereits gemergt**, 007 vom Nutzer für formalen Abschluss freigegeben.
 
-**Wichtig:** Die Originaldateien sind seit dem Merge von [PR #17](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/17) bereits auf **`main`**. Die Dokumentationskorrektur und anschließende Issue-Schließung sind der letzte formale Schritt.
+**Wichtig:** Die Originaldateien sind seit dem Merge von [PR #17](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/17) bereits auf **`main`**. Der [Dokumentationsnachtrag PR #18](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/18) komplettiert den formalen Abschluss von Issue #16.
