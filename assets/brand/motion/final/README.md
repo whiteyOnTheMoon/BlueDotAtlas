@@ -1,50 +1,54 @@
-# BlueDotAtlas — Final Intro Media Asset (M00 / 007)
+# BlueDotAtlas — Intro Archive & Outro Review (M00 / 007)
 
-**Status:** Owner-supplied Intro **selected**, actual MP4 upload into this GitHub folder is **still pending**. Do not confuse this metadata record with the binary file.
+**Status:** **Owner's exact original Intro MP4 is now stored on GitHub and hash-verified** in the task branch. Two minimal Outro drafts have been rendered **locally**, but **not approved or committed as video binaries** yet. Task 007 and Draft PR #17 remain OPEN.
 
-## Authoritative user-supplied source
+## Canonical owner-supplied Intro
 
-The owner supplied a finished video file in the project conversation, **`BlueDotAtlas Intro.mp4`**, on **2026-11-17**, and expressly designated it: **“das ist das intro … outro kommt später”**. This user-delivered clip **replaces both earlier generated logo-only intro candidates and Firefly preview concepts** as the intended BlueDotAtlas Intro.
+The owner supplied `BlueDotAtlas Intro.mp4` and designated it as the final Intro. It is archived **with the original filename**:
 
-Expected version-controlled binary path after upload:
+**[View the actual Intro on GitHub](BlueDotAtlas%20Intro.mp4)**  
+`assets/brand/motion/final/BlueDotAtlas Intro.mp4` — branch `design/007-motion-basics`.
 
-```text
-assets/brand/motion/final/BlueDotAtlas_Intro_2p5s.mp4
-```
-
-### Exact verified properties of original user file
-
-| Property | Verified value |
+| Verification | Value |
 | --- | --- |
-| Filename in chat | `BlueDotAtlas Intro.mp4` |
-| Intended repo filename | `BlueDotAtlas_Intro_2p5s.mp4` |
 | Duration | **2.500000 seconds** |
-| Frame size | **1920×1080** |
-| Video codec | **H.264 / AVC** |
-| Frame rate | **30/1 (30 fps)** |
-| Decoded video frames | **75** |
-| Audio codec | **AAC**, 48 kHz |
-| Original size | **4,745,495 bytes** |
-| SHA-256 (original, without re-encoding) | `d2fc15c428434e76e14b2f371b3ed7d03afd605353c8b93ae59420b64bc38f47` |
-| Full decode with FFmpeg (`-xerror`) | **PASS** |
-| Rights/authorship | File was provided by the owner; retain an explicit source/rights declaration for any third-party imagery or audio used in production |
+| Resolution | **1920×1080** |
+| Frame rate | **30/1 fps** |
+| Video | H.264 |
+| Audio | AAC, 48kHz |
+| Bytes | **4,745,495** |
+| Original file SHA-256 | `d2fc15c428434e76e14b2f371b3ed7d03afd605353c8b93ae59420b64bc38f47` |
+| Git blob SHA-1 (original, checked against live GitHub file) | `06db66c147c06fc729b8a50917882ba3cb09e26f` |
+| Full local FFmpeg decode | **PASS** |
 
-**Integrity rule:** Copy the owner's MP4 bytes unchanged. No regeneration, edits, re-encoding or timing adjustment without a new explicit decision. Changing the filename alone does not affect the digest.
+Verification: a new GitHub contents listing under `design/007-motion-basics` reported the same **size and Git blob SHA** as the local original conversation upload. No re-encoding and no renaming are needed.
 
-### Upload / gate
+The video is still **only on the task branch**, not on `main` until PR review/merge. Rights/licensing evidence for any third-party footage/audio used in the owner-provided clip must be recorded for publication separately.
 
-**Important:** GitHub metadata and source documents are already in the task branch, but the binary video must be uploaded before claiming it is stored in the repo. When the repository upload is completed, verify its byte size, SHA-256, H.264 1080p 30fps and AAC 48 kHz; only then mark it as archived. The connector currently cannot stream this conversation-uploaded 4.7 MB binary directly into GitHub.
+## Outro — review candidates (NOT approved)
 
-Suggested manual one-time upload (GitHub web interface):
-1. Open the repository branch `design/007-motion-basics`.
-2. In folder `assets/brand/motion/final/`, select **Add file → Upload files**.
-3. Upload the user original renamed to `BlueDotAtlas_Intro_2p5s.mp4` (do not recompress) and commit to this branch.
-4. Confirm the GitHub file and checksum, then keep it as the canonical Intro.
+The owner proposed **a fade to black with the original logo** and YouTube's native **Subscribe end-screen element**. Two silent videos were generated for visual review without modifying `assets/brand/logo/logo-dark.svg`.
 
-### Outro
+- **Short:** `BlueDotAtlas_Outro_Kurz_2p5s.mp4` — **2.50 s**, 1920×1080, 30fps, 75 frames. Deep-sea fade to black; logo centered and fades in/out.
+- **YouTube end-screen:** `BlueDotAtlas_Outro_YouTube_6s.mp4` — **6.00 s**, 1920×1080, 30fps, 180 frames. Deep-sea fade to black; logo left; right side empty for the **interactive Subscribe end-screen element to be placed separately in YouTube Studio**.
+- **Original GitHub logo blob verified:** `assets/brand/logo/logo-dark.svg`, SHA `f471d8439ae0366fcc6624048e9aee95021eb434`. The SVG was rasterized unchanged, with installed OFL Inter fonts, for the video composite.
+- **Full local FFmpeg decode:** PASS for both clips.
+- **Reproducible source:** [`scripts/render-outro-fade.sh`](../../../scripts/render-outro-fade.sh) uses the official committed logo, Inkscape and FFmpeg. The MP4 binaries are **preview files shared with the owner in chat**; not yet stored as part of this PR.
+- **Film integration:** This generic outro opens with a dark-sea-to-black fade because the actual ending shot of the documentary is not yet available. A real **fade-out of the last film frame to black** must be placed on the final shot in the future video editor.
 
-**Not provided yet.** Do **not** invent, finalize, replace or commit an Outro video until the owner supplies it. Issue [#16](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/16) remains open, and [PR #17](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/17) stays a draft, unmerged.
+### YouTube end-screen caveat
 
-### Earlier drafts
+For a native clickable Subscribe element, add it in **YouTube Studio → Content → Video → Editor → End screen → Subscribe**. YouTube end screens are usable in the **last 5–20 seconds** of eligible videos and the complete video must be **at least 25 seconds**. Do not burn a fake clickable button into the MP4. With the 6-second clip appended to a longer film, schedule the Subscribe element for the **last five seconds** and position it on the right.
 
-`../logo-intro-outro.html`, `../preview.html`, and previous CI clips remain **superseded design drafts only**. They are not the final user-supplied Intro.
+Source: [YouTube Help: Add end screens to videos](https://support.google.com/youtube/answer/6388789?hl=en).
+
+## Remaining gate
+
+- [x] Owner's **actual original Intro archived and Git blob verified**.
+- [x] Two **playable Outro candidates rendered and technically tested** against original GitHub SVG.
+- [ ] Owner **reviews and approves one Outro**.
+- [ ] Approved Outro MP4 archived, checksum/codec verified and linked from docs.
+- [ ] Any remaining motion design gate/tests and PR review completed.
+- [ ] PR #17 merged and Issue #16 closed; not before explicit owner sign-off.
+
+Previous generated logo Intro clips and the old 10-second montage are **superseded experiments**, not the owner's actual uploaded Intro.
