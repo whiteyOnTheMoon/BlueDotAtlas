@@ -195,3 +195,9 @@ bash scripts/audit-vps.sh /vorhandenes/renderverzeichnis > vps-render-disk-outpu
 - **Grenze:** Keine vollständige Prüfung von Prozessen außerhalb Docker oder Verweisen außerhalb des geprüften Verzeichnisbaums. Die Ergebnisse erlauben eine gezielte, vom Nutzer zuvor freigegebene Bereinigung der bekannten Restpfade mit anschließender Kontrolle; tatsächliche Löschung ist **noch nicht durch Terminalausgabe belegt**.
 - Festplatte zuletzt nach Netzwerklöschung `df -h /`: **8.5G frei, 93% ausgelastet** (gerundet). Noch kein Kapazitäts- oder Render-Go; PR #28 bleibt Draft und Issue #27 offen.
 
+### Betreiber-Update: Vier Restpfade entfernt und Speicher nachgemessen (17.11.2026)
+- Betreiber führte die vorher autorisierte gezielte Entfernung mit `rm -r` für `$HOME/.config/videonews-studio`, `$HOME/videonews-pilot-481`, `$HOME/videonews-previews` sowie `rm` für `$HOME/tools/cloudflared/config/config-goldenoracle.yml` **ohne angezeigte Fehler** aus. Keine anderen Dateien, Tunnel oder Projekte gezielt gelöscht.
+- **Zwei anschließende Prüfungen:** `find "$HOME" -maxdepth 5` mit Namensfilter auf `*videonews*` / `*goldenoracle*` ergab **keine Treffer**. Diese Suche ist auf Home-Verzeichnis und Suchtiefe begrenzt, nicht VPS-weit.
+- `df -h /` danach zweimal identisch: **116G gesamt, 107G belegt, 9.1G frei, 93 % belegt**. Verglichen mit unmittelbar zuvor **8.5G frei** ist dies **~0.6G mehr freier Speicher, gerundet**, keine bytegenaue Kausal-/Differenzmessung.
+- **Noch offen:** Datenträger mit 93 % weiterhin kritisch; Zuordnung sicherer weiterer Bereinigung, Providerlimits (SSD/Traffic/Netz), I/O-/Busy-Hour-Baseline, Web/DB/Renderer-Ressourcenbudget, explizite Nutzerfreigabe. **Kein globales Docker-Prune, kein Render-Spike, PR #28 bleibt Draft, Issue #27 offen.**
+
