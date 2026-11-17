@@ -142,7 +142,7 @@ BlueDotAtlas Video Review V0.1
 - [x] **P60** und **LONG** als zwei klar unterscheidbare Prüfprofile mit **denselben 18 Kriterien-IDs** beschrieben.
 - [x] Wiederholbares **PASS / FAIL / BLOCKED / N/A**, Evidence-Anforderungen und Gesamtergebnis definiert.
 - [x] Für spätere echte Testfilme eine vollständige **Copy/Paste-Reviewvorlage** mit Versions-/Zeitcode-Nachweisen vorhanden.
-- [ ] Dokumentations-Test der vollständigen Matrix erfolgreich; keine Behauptung eines bereits getesteten Films.
+- [x] **Dokumentations-/Nachweistest 41/41 PASS**: alle 18 IDs eindeutig, beide Profile, alle sieben Roadmap-Qualitätsbereiche, Ergebnislogik, Originalasset-Pfade und Reviewer-Template geprüft. [GitHub Actions Run #44134380259](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44134380259). **Kein realer Film wurde damit geprüft.**
 - [ ] Nutzer hat **diese konkrete neue V0.1-Prüfmatrix** ausdrücklich freigegeben. Die vorherige Freigabe von PRD 010 (DEC-026) genehmigt **nicht** automatisch Zahlen/Qualitätskriterien aus 011.
 - [ ] Danach PR mergen und [Issue #25](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/25) schließen.
 
