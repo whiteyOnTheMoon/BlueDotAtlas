@@ -1,54 +1,52 @@
-# BlueDotAtlas — Intro Archive & Outro Review (M00 / 007)
+# BlueDotAtlas — Original-Intro und Original-Outro (M00 / 007)
 
-**Status:** **Owner's exact original Intro MP4 is now stored on GitHub and hash-verified** in the task branch. Two minimal Outro drafts have been rendered **locally**, but **not approved or committed as video binaries** yet. Task 007 and Draft PR #17 remain OPEN.
+**Status:** Beide vom Nutzer selbst bereitgestellten Videodateien sind tatsächlich auf dem GitHub-Task-Branch `design/007-motion-basics` abgelegt, bytegenau geprüft und **als maßgebliche Clips ausgewählt**. Der filmische Crossfade und finale Audiomix kommen bei der späteren Produktion hinzu. [Task #16](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/16) · [Draft PR #17](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/17).
 
-## Canonical owner-supplied Intro
+## Originaldateien (unverändert erhalten)
 
-The owner supplied `BlueDotAtlas Intro.mp4` and designated it as the final Intro. It is archived **with the original filename**:
+| Eigenschaft | Intro | Outro |
+| --- | --- | --- |
+| GitHub-Datei | [`BlueDotAtlas Intro.mp4`](BlueDotAtlas%20Intro.mp4) | [`BlueDotAtlas_Outro.mp4`](BlueDotAtlas_Outro.mp4) |
+| Filmfunktion | Einleitung / 2,5 Sekunden | Abschluss / 6,0 Sekunden |
+| Container / Videocodec | MP4 / **H.264** | MP4 / **H.264** |
+| Auflösung / Framerate | **1920×1080 / 30 FPS** | **1920×1080 / 30 FPS** |
+| Audio | **AAC, Stereo, 48 kHz** | **keine Audio-Streams** |
+| Dauer laut ffprobe | **2.500000 s** | **6.000000 s** |
+| Dateigröße | **4.745.495 Bytes** | **471.807 Bytes** |
+| Git-Blob-Hash (SHA-1) | `06db66c147c06fc729b8a50917882ba3cb09e26f` | `b6f980d8a114c25803aeeef4dbe852c6ecbde38f` |
+| Originaldatei SHA-256 | `d2fc15c428434e76e14b2f371b3ed7d03afd605353c8b93ae59420b64bc38f47` | `aa70bd60286d7f101b3753aa331503a81a5c3d0672f5f51a640d762fd6b8ec99` |
+| Vollständiger FFmpeg-Decode | **PASS** | **PASS** |
 
-**[View the actual Intro on GitHub](BlueDotAtlas%20Intro.mp4)**  
-`assets/brand/motion/final/BlueDotAtlas Intro.mp4` — branch `design/007-motion-basics`.
+**Nachweis:** [GitHub Actions #44007341068](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44007341068), **SUCCESS, 2/2**. Das CI-Skript [`scripts/check-final-motion-media.py`](../../../scripts/check-final-motion-media.py) prüft konkrete Originaldateigröße, SHA-1-Git-Blob, Videoauflösung, Codec, Bildrate, Dauer, Audio-Streams und dekodiert beide Dateien vollständig. **Keine Audio-Spur** beim Outro ist technisch bestätigt.
 
-| Verification | Value |
-| --- | --- |
-| Duration | **2.500000 seconds** |
-| Resolution | **1920×1080** |
-| Frame rate | **30/1 fps** |
-| Video | H.264 |
-| Audio | AAC, 48kHz |
-| Bytes | **4,745,495** |
-| Original file SHA-256 | `d2fc15c428434e76e14b2f371b3ed7d03afd605353c8b93ae59420b64bc38f47` |
-| Git blob SHA-1 (original, checked against live GitHub file) | `06db66c147c06fc729b8a50917882ba3cb09e26f` |
-| Full local FFmpeg decode | **PASS** |
+**Keine Ersetzung:** Frühere vom Assistenten generierte Entwürfe (2,3s/2,2s, 2,5s/6s oder 10s-Montage) wurden **nicht übernommen** und dürfen die beiden hochgeladenen Originalvideos nicht stillschweigend ersetzen. Bereits gebaute Preview-Generatoren dienen nur als technische/historische Beispiele.
 
-Verification: a new GitHub contents listing under `design/007-motion-basics` reported the same **size and Git blob SHA** as the local original conversation upload. No re-encoding and no renaming are needed.
+## Verbindliche Übergänge bei späteren Filmen
 
-The video is still **only on the task branch**, not on `main` until PR review/merge. Rights/licensing evidence for any third-party footage/audio used in the owner-provided clip must be recorded for publication separately.
+```text
+[Intro 2,5s inkl. eigenem Ton] ── Video-Crossfade ──► [Filminhalt]
+[Letztes Filmbild + laufende Hintergrundmusik] ── Video-Crossfade ──► [stummes Outro 6,0s]
+                                                                     └─ Hintergrundmusik spielt weiter
+```
 
-## Outro — review candidates (NOT approved)
+1. **Intro → Content:** weiche visuelle Überblendung (Cross-Dissolve) statt hartem Schnitt; das vorhandene Intro-Audio wird zum Beginn der Filmtonspur sorgfältig eingepegelt/überblendet.
+2. **Content → Outro:** weiche visuelle Überblendung; **der Soundtrack läuft unverändert über die Grenze und durch das komplette stumme Outro weiter**. Ein finaler Lautstärke-Fade ist allenfalls **am Ende** des Outros sinnvoll, abhängig vom finalen Schnitt und der Musik.
+3. **Dauer der beiden Video-Crossfades:** **noch nicht festgelegt**; 0,4s = 12 Frames bei 30fps ist ein Arbeitstestwert, der nach späterer Video-/Audio-Sichtprobe verändert werden darf.
+4. **Orignale nicht verändern:** Crossfade, Musikmischung und eventuelles Tail-Fade werden **im Filmrenderer/Timeline** hergestellt, nicht in den separaten MP4s gespeichert.
+5. **YouTube Subscribe:** Der interaktive Abonnieren-Baustein ist eine **Einstellung in YouTube Studio Endscreen**. Er ist kein im Video eingebranntes Bild. Endscreen-Platzierung nach finalem Layout/Schnitt prüfen.
+6. **Rechte:** Nutzungsrechte und Herkunft von im Videoclip enthaltenen Drittmaterialien sowie die Musiklizenz müssen vor der Veröffentlichung dokumentiert sein.
 
-The owner proposed **a fade to black with the original logo** and YouTube's native **Subscribe end-screen element**. Two silent videos were generated for visual review without modifying `assets/brand/logo/logo-dark.svg`.
+Für das vollständige Render-/Audio-Konzept siehe [`docs/brand/motion-guidelines.md`](../../../docs/brand/motion-guidelines.md).
 
-- **Short:** `BlueDotAtlas_Outro_Kurz_2p5s.mp4` — **2.50 s**, 1920×1080, 30fps, 75 frames. Deep-sea fade to black; logo centered and fades in/out.
-- **YouTube end-screen:** `BlueDotAtlas_Outro_YouTube_6s.mp4` — **6.00 s**, 1920×1080, 30fps, 180 frames. Deep-sea fade to black; logo left; right side empty for the **interactive Subscribe end-screen element to be placed separately in YouTube Studio**.
-- **Original GitHub logo blob verified:** `assets/brand/logo/logo-dark.svg`, SHA `f471d8439ae0366fcc6624048e9aee95021eb434`. The SVG was rasterized unchanged, with installed OFL Inter fonts, for the video composite.
-- **Full local FFmpeg decode:** PASS for both clips.
-- **Reproducible source:** [`scripts/render-outro-fade.sh`](../../../scripts/render-outro-fade.sh) uses the official committed logo, Inkscape and FFmpeg. The MP4 binaries are **preview files shared with the owner in chat**; not yet stored as part of this PR.
-- **Film integration:** This generic outro opens with a dark-sea-to-black fade because the actual ending shot of the documentary is not yet available. A real **fade-out of the last film frame to black** must be placed on the final shot in the future video editor.
+## Abnahme-/Repo-Stand
 
-### YouTube end-screen caveat
+- [x] Beide fertigen Nutzerdateien liegen unter **ihren echten Originalnamen** auf dem **Task-Branch**.
+- [x] Video- und Audioströme sind mit ffprobe geprüft; beide Videos vollständig dekodiert.
+- [x] Unveränderte Dateien durch Git-SHA/Dateigröße verifiziert; SHA-256 archiviert.
+- [x] Der Benutzer hat Crossfade **an beiden Übergängen** und **fortlaufende Hintergrundmusik über das Outro** entschieden.
+- [x] [Repository-README](../../../README.md) und [Entscheidungslog](../../../docs/project/decision-log.md) werden für diese Entscheidung aktualisiert.
+- [ ] Im späteren echten Film **visuelle Crossfades, Pegelverlauf und Musikkontinuität** praktisch testen.
+- [ ] Vor Veröffentlichung: eventuelle Drittmaterial-Lizenzen und Musikrechte belegen.
+- [ ] Formaler Abschluss von Task #16 / PR #17 nach Review und Gate-Abnahme; **nicht nach bloßem Upload vorwegnehmen**.
 
-For a native clickable Subscribe element, add it in **YouTube Studio → Content → Video → Editor → End screen → Subscribe**. YouTube end screens are usable in the **last 5–20 seconds** of eligible videos and the complete video must be **at least 25 seconds**. Do not burn a fake clickable button into the MP4. With the 6-second clip appended to a longer film, schedule the Subscribe element for the **last five seconds** and position it on the right.
-
-Source: [YouTube Help: Add end screens to videos](https://support.google.com/youtube/answer/6388789?hl=en).
-
-## Remaining gate
-
-- [x] Owner's **actual original Intro archived and Git blob verified**.
-- [x] Two **playable Outro candidates rendered and technically tested** against original GitHub SVG.
-- [ ] Owner **reviews and approves one Outro**.
-- [ ] Approved Outro MP4 archived, checksum/codec verified and linked from docs.
-- [ ] Any remaining motion design gate/tests and PR review completed.
-- [ ] PR #17 merged and Issue #16 closed; not before explicit owner sign-off.
-
-Previous generated logo Intro clips and the old 10-second montage are **superseded experiments**, not the owner's actual uploaded Intro.
+**Wichtig:** Die Videodateien sind im Branch gespeichert, aber bis zum Merge von PR #17 noch **nicht auf `main`**.
