@@ -27,7 +27,7 @@ if(!board.includes('../../assets/brand/logo/logo-dark.svg')||!board.includes('..
 for(const section of ['Logo','Colors','Typography','Thumbnail','Voice Character','Motion Assets','Storyboard']){
  if(!board.includes(section))throw new Error('Brand gate review section missing: '+section);
 }
-for(const evidence of ['DEC-024','0,3s','10-Sekunden','nicht als offiziell gewähltes Intro']) {
+for(const evidence of ['DEC-024','0,3s','10-Sekunden','nicht als offizielles Intro']) {
  if(!kit.includes(evidence))throw new Error('Missing document evidence: '+evidence);
 }
 const mime={'.html':'text/html; charset=utf-8','.svg':'image/svg+xml','.css':'text/css','.mp4':'video/mp4'};
