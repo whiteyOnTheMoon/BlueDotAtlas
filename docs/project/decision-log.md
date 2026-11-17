@@ -41,21 +41,24 @@
 
 | DEC-024 | Das **einheitliche Web-Designsystem UI-Kit V0.1** für die öffentliche BlueDotAtlas-Videothek und das Admin-Studio ist vom Auftraggeber freigegeben. Es nutzt die bestehenden Original-Logos, die freigegebene Deep-Ocean-/Glacial-Light-Palette, Inter/Space Grotesk sowie **ein einziges** Thumbnail-Masterlayout und enthält sechs Komponentenfamilien: Buttons, Eingabefelder, Karten, Status-Badges, Stepper und Galerie-Kacheln. | **Ausdrücklich freigegeben, Aufgabe 008 abgenommen** | Nutzerantwort „ok, einverstanden, wieter gehts“ auf den konkret präsentierten UI-Kit-V0.1-Entwurf einschließlich 12 Screenshot-Vorschauen, 17.11.2026 | Ergebnis: `design/ui-kit-v01` plus `packages/ui/tokens/ui.ts`; 12/12 reale Chromium-Ansichten (1440/960/375px × Hell/Dunkel × Public/Admin) **PASS**, [Run #44126245757](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44126245757), [Draft PR #20](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/20) zur formalen Merge-Abnahme. Nur ein Designprototyp, noch keine produktive Next.js-Anwendung; keine Änderung an bestehenden Logo-/Thumbnail-Originalen. Der nächstfolgende Roadmap-Schritt ist **009 Brand-Gate**. |
 
+| DEC-025 | **Brand-Kit V0.1 / Gesamt-Brand-Gate M00 (Aufgabe 009) ist ausdrücklich abgenommen:** Bestehende freigegebene Logo-, Farb-, Typografie-, Thumbnail-, Motion- und UI-Kit-Originale werden zusammen als einheitliche visuelle Identität bestätigt; das neue **1920×1080-Storyboard-Illustrationsframe** wird als Marken-Stilbeispiel angenommen. Der frühere **10-Sekunden-Clip gilt ausschließlich als technischer Motion-Musternachweis für das M00-Gate**, niemals als offizielles Intro/Outro oder angenommener finaler Film. Die vom Nutzer selbst gelieferten **Intro 2,5s** und **stummes Outro 6s** bleiben unverändert verbindlich; an beiden Filmanbindungen **0,3s Crossfade (9 Frames bei 30fps)**, Hintergrundmusik läuft über das Outro. | **Vom Nutzer ausdrücklich freigegeben; Aufgabe 009 und M00 inhaltlich abgenommen** | Nutzerantwort „ok, einverstanden“ vom 17.11.2026 auf die unmittelbar davor präsentierte Brand-Kit-009-Gesamtschau samt Storyboard-Frame und transparentem Hinweis zum nur technischen 10s-Motion-Test. | [Brand-Kit V0.1](../brand/brand-kit-v01.md), [Review-Board](../../design/brand-gate-v01/index.html), [Storyboard 1920×1080](../../design/brand-gate-v01/storyboard-1080p.svg), [Chromium-QA 4/4 PASS](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44128980711), [PR #22](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/22), [Issue #21](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/21). Historischer 10s-Motion-Test [Run #43608120656](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/43608120656) ist **keine alternative Logo-Animation**. Noch **nicht** entschieden: konkreter TTS-Sprecher, TTS-Provider, Stimme und produktive Film-Anwendung; diese gehören nachfolgenden Aufgaben. |
+
 ## Offene Entscheidungen
 
 | ID | Frage | Aufgabe | Status |
 | --- | --- | --- | --- |
-| OPEN-003 | Die Motion-Basics aus **007** sind mit zwei Original-MP4s, festgelegten Crossfades (0,3s) und Outro-Musikregel inhaltlich entschieden. **UI-Kit 008 inzwischen freigegeben** (DEC-024), übergeordnetes **Brand-Gate 009** folgt. | 009 | Nur Brand-Gate 009 offen |
+| OPEN-003 | Marken-/Motion-/UI-Abhängigkeiten aus 007–009 sind abgeschlossen; **Brand-Gate M00 V0.1 ist freigegeben** (DEC-025). | 009 | **Abgeschlossen** |
 
 
 
-| OPEN-005 | **Brand-Kit V0.1 als M00-Gesamt-Gate** prüfen: Zusammenstellung der bereits freigegebenen Brand-Originale, der redaktionellen Voice-Tonalität und eines neuen klar als illustrativ markierten **1920×1080-Storyboard-Frames**. Auch die Rolle des alten abgelehnten **10s-Intro/Outro-Prototyps** als rein technischer In-Film-Motion-Nachweis ist transparent zu klären; er darf nicht als offizieller Intro-/Outro-Clip gelten. | 009 | **Brand-Gate-Entwurf unter `design/009-brand-gate-v01`, [Issue #21](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/21). Noch keine Gesamtfreigabe von M00; späterer konkreter TTS-Voice-Preset nicht Teil dieses Entscheids.** |
+
 
 ## Erledigte Entscheidungspunkte
 
 - **OPEN-001:** Freigabe des Brand Briefs durch „Ok“, dokumentiert unter DEC-007. Die Tagline wurde anschließend separat unter DEC-008 ausgewählt.
 - **OPEN-002:** Keine Kurzform und Naming-Regeln durch „Ok“ freigegeben, dokumentiert unter DEC-009.
 - **OPEN-004:** Web-UI-Kit V0.1 nach 12/12-Browser-QA und Sichtvorlage ausdrücklich durch „Ok, einverstanden“ freigegeben (DEC-024).
+- **OPEN-005:** Gesamt-Brand-Kit V0.1 / M00-Gate einschließlich 1080p-Storyboard und historischer 10s-Techniknachweis-Eingrenzung ausdrücklich freigegeben (DEC-025).
 
 ## Dokumentationsregel
 
