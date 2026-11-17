@@ -9,7 +9,7 @@ const prd=readFileSync(resolve(root,path),'utf8');
 const checks=[];
 const test=(label,ok)=>{checks.push({label,ok:!!ok});console.log((ok?'PASS':'FAIL')+' '+label);};
 
-test('PRD is an explicitly unapproved DRAFT',/Status: DRAFT/.test(prd)&&/Nutzerfreigabe steht aus/.test(prd));
+test('PRD explicitly approved by owner as DEC-026',/Status: PRD V0\.1 vom Nutzer ausdrücklich freigegeben \(DEC-026\)/.test(prd)&&/vom Nutzer ausdrücklich angenommen/.test(prd));
 test('Public library is defined',/Öffentliche Videothek/.test(prd)&&/ausschließlich.*veröffentlichte/.test(prd));
 test('Protected single admin defined',/Einzeladmin/.test(prd)&&/Geschütztes Einzeladmin/.test(prd));
 const steps=['New Video','News Sources','Discover Topics','Media Library','Script Studio','Voice Studio','Video Production'];
@@ -33,7 +33,7 @@ test('Links to relevant repo docs actually exist',[
  '../../assets/brand/motion/final/BlueDotAtlas_Outro.mp4',
  '../../README.md'
 ].every(uri=>existsSync(resolve(root,dirname(path),decodeURIComponent(uri)))));
-test('Owner approval of 010 deliberately pending',/- \[ \] \*\*PRD-V0\.1-Vorschlag durch den Nutzer ausdrücklich abgenommen/.test(prd));
+test('Owner approval of 010 is recorded and scoped',/- \[x\] \*\*PRD V0\.1 vom Nutzer ausdrücklich angenommen/.test(prd)&&/DEC-026/.test(prd)&&!/Nutzerfreigabe steht aus/.test(prd));
 const passed=checks.filter(x=>x.ok).length;
 console.log('SUMMARY '+passed+'/'+checks.length+' PRD checks PASS');
 if(passed!==checks.length)process.exitCode=1;
