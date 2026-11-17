@@ -61,6 +61,8 @@
 
 
 
+| OPEN-008 | **Roadmap 012 – VPS-Inventur und Ressourcenbudget:** Tatsächliche **CPU-/vCPU-/Cgroup-Limits, RAM/Swap, SSD-Freiraum/Dateisystem, I/O-Basisdaten, OS, Docker-Version, Netz-/Providerbandbreite und vorhandene Dienste** auf dem echten VPS erheben. Danach **OS-/Betriebspuffer sowie nutzbares Ressourcenbudget für Web, DB und Renderworker** anhand von Ist-Werten dokumentieren und zur Abnahme vorlegen. **Bisher keinerlei echte VPS-Messungen/SSH-Verbindung im Projekt vorhanden; CI-Runner-Werte sind keine VPS-Werte.** | 012 | **Noch offen: Operator muss die nichtinvasive Inventur auf dem VPS selbst durchführen** und Provider-Tarif-/Trafficangaben bereinigt mitteilen; [Erfassungsvorlage](../infra/vps-audit.md), [read-only Skript](../../scripts/audit-vps.sh), [Issue #27](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/27). Keine Zuordnung oder Render-Go/No-Go beschlossen. |
+
 ## Erledigte Entscheidungspunkte
 
 - **OPEN-001:** Freigabe des Brand Briefs durch „Ok“, dokumentiert unter DEC-007. Die Tagline wurde anschließend separat unter DEC-008 ausgewählt.
