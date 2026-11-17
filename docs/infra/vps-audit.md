@@ -154,7 +154,7 @@ bash scripts/audit-vps.sh /vorhandenes/renderverzeichnis > vps-render-disk-outpu
 
 - [x] Roadmap-Vorgaben 012 vollständig in Messliste und Ressourcenbudget überführt.
 - [x] Ein **nichtinvasives, read-only** Inventur-Skript mit Datenschutz-Hinweisen vorbereitet.
-- [x] **Shell-Syntax und Inventurvorlage mit 24/24 statischen Prüfungen bestanden** ([GitHub Actions Run #44144004990](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44144004990)); **kein echter VPS wurde dabei kontaktiert**. [Draft PR #28](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/28) dokumentiert den Zwischenstand.
+- [x] **Shell-Syntax und Inventurvorlage einschließlich der zwei gemessenen VPS-Snapshots mit 28/28 statischen Prüfungen bestanden** ([GitHub Actions Run #44158710858](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44158710858)); **GitHub Actions hat keinen VPS kontaktiert oder unter Renderlast getestet**. [Draft PR #28](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/28) dokumentiert den Zwischenstand.
 - [x] **Erster vom VPS-Betreiber übermittelter Messlauf** mit UTC-Zeitpunkt (17.11.2026, 18:40:28Z) dokumentiert; unabhängiger Direktzugriff/Vertragsabgleich nicht verfügbar.
 - [x] **Nachmessung nach VideoNewsStudio-/GoldenOracle-Löschung am 17.11.2026 19:21:09Z dokumentiert**; keine zugehörigen Container-/Volume-Präfixe mehr sichtbar.
 - [ ] **Provider-Vertragsdaten, SSD-Typ, Busy-Hour-/I/O-/Netzlast und Render-Scratch-Kapazität** nachweisen sowie gegebenenfalls selektive Docker-Image-/Cache-Bereinigung prüfen.
