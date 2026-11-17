@@ -49,6 +49,8 @@
 
 
 
+| OPEN-005 | **Brand-Kit V0.1 als M00-Gesamt-Gate** prüfen: Zusammenstellung der bereits freigegebenen Brand-Originale, der redaktionellen Voice-Tonalität und eines neuen klar als illustrativ markierten **1920×1080-Storyboard-Frames**. Auch die Rolle des alten abgelehnten **10s-Intro/Outro-Prototyps** als rein technischer In-Film-Motion-Nachweis ist transparent zu klären; er darf nicht als offizieller Intro-/Outro-Clip gelten. | 009 | **Brand-Gate-Entwurf unter `design/009-brand-gate-v01`, [Issue #21](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/21). Noch keine Gesamtfreigabe von M00; späterer konkreter TTS-Voice-Preset nicht Teil dieses Entscheids.** |
+
 ## Erledigte Entscheidungspunkte
 
 - **OPEN-001:** Freigabe des Brand Briefs durch „Ok“, dokumentiert unter DEC-007. Die Tagline wurde anschließend separat unter DEC-008 ausgewählt.
