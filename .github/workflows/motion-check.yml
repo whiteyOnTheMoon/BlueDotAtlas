@@ -1,0 +1,51 @@
+name: Motion 007 - Separate 2s Logo Clips
+
+on:
+  push:
+    branches:
+      - design/007-motion-basics
+    paths:
+      - ".github/workflows/motion-check.yml"
+      - "scripts/render-short-logo-clips.mjs"
+      - "assets/brand/motion/logo-intro-outro.html"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  logo-clips:
+    name: Separate intro 2.3s and outro 2.2s, 1080p H264
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Playwright Chromium and FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          npm install --no-save --ignore-scripts playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Download pinned SIL OFL Inter font sources for temporary rendering
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .tmp-fonts
+          curl --fail --location --silent --show-error --retry 3 'https://raw.githubusercontent.com/rsms/inter/353b61b9f4430d5f420d56605a6e7993e0941470/docs/font-files/Inter-Regular.woff2' -o .tmp-fonts/Inter-Regular.woff2
+          curl --fail --location --silent --show-error --retry 3 'https://raw.githubusercontent.com/rsms/inter/353b61b9f4430d5f420d56605a6e7993e0941470/docs/font-files/Inter-SemiBold.woff2' -o .tmp-fonts/Inter-SemiBold.woff2
+      - name: Render and QA two independently usable logo-only MP4 clips
+        run: node scripts/render-short-logo-clips.mjs
+      - name: Archive both MP4 videos, four keyframe PNGs and QA JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: BlueDotAtlas-007-Intro-Outro-Short-Clips
+          path: .tmp-motion-logo-clips/
+          if-no-files-found: warn
+          include-hidden-files: true
+          retention-days: 14
