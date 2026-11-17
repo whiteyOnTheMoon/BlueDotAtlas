@@ -69,7 +69,7 @@ Für die finale M00-Gesamtfreigabe ist noch zu entscheiden, ob **der historische
 - [x] **Name, Claim, Original-Logo, Farben, Typografie, ein Thumbnail-Master, Motion und freigegebenes UI-Kit** mit maßgeblichen Dateien verlinkt.
 - [x] Redaktioneller **Voice-Charakter** aus dem freigegebenen Brand Brief nachgewiesen und von der zukünftigen konkreten Sprecherauswahl sauber getrennt.
 - [x] **1080p-Storyboard-Designmuster** als eigenständige editierbare SVG-Datei erstellt und als Illustration gekennzeichnet.
-- [ ] Technischer Board-/Storyboard-Check auf Original-Asset-Ladung, 1920×1080, Responsive-Overflow und Vorschau bestanden.
+- [x] **Chromium-QA 4/4 PASS**: Brand-Board auf 1440/960/375px ohne horizontalen Überlauf, alle **7 visuellen Original-Assets** geladen; eigenständiges SVG mit **exakt 1920×1080** inklusive Illustration-Hinweis. [Run #44128980711](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44128980711), [4 PNG-Screenshots + QA JSON](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44128980711/artifacts/14348153207).
 - [ ] Der Auftraggeber hat die **Gesamtschau, das einzelne Storyboard-Frame und den Status des historischen 10s-Motion-Tests** ausdrücklich geprüft und entschieden.
 - [ ] **Brand-Kit V0.1 als verbindliches M00-Gate** durch Nutzer bestätigt, Entscheidung im Decision Log erfasst.
 - [ ] [Issue #21](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/21) und PR nach Tests/Review/Merge schließen; danach in Roadmap M01 / Aufgabe 010 wechseln.
