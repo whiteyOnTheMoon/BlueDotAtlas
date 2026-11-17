@@ -16,7 +16,7 @@ for(const component of ['Web','DB','Renderer']){
 test('Doc requires true VPS measurements',doc.includes('echte VPS-Messwerte fehlen')&&doc.includes('NICHT ERHOBEN'));
 test('Doc clearly separates 013 render spike',doc.includes('Aufgabe 013')&&doc.includes('kein gemessener VPS-Nachweis'));
 test('No fictional capacity budgets prefilled',doc.includes('OFFEN')&&doc.includes('BLOCKED'));
-test('No raw passwords or IPs solicited',doc.includes('keine IPs, Hostnamen')&&doc.includes('keine')&&doc.includes('sensible'));
+test('No raw passwords or IPs solicited',doc.includes('keine IPs, Hostnamen')&&doc.includes('Schlüssel, Tokens')&&doc.includes('private Ports'));
 test('Collector is read-only',collector.includes('READ-ONLY')&&collector.includes('target="/"' )&&collector.includes('No sudo'));
 test('Collector uses standard Linux resource sources',
   ['/proc/meminfo','/proc/pressure/io','/proc/net/dev','cpu.max','memory.max','docker version','systemctl','df -P'].every(v=>collector.includes(v)));
