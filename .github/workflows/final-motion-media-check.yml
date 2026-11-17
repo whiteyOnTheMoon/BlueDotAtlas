@@ -1,0 +1,30 @@
+name: Verify owner-uploaded intro and outro
+
+on:
+  push:
+    branches:
+      - design/007-motion-basics
+    paths:
+      - "assets/brand/motion/final/**"
+      - "scripts/check-final-motion-media.py"
+      - ".github/workflows/final-motion-media-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-original-mp4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout original MP4s from GitHub
+        uses: actions/checkout@v4
+      - name: Ensure FFmpeg and FFprobe
+        run: |
+          if ! command -v ffprobe >/dev/null || ! command -v ffmpeg >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+      - name: Inspect H.264, 30fps, 1080p, durations, exact source hashes, audio streams
+        run: python3 scripts/check-final-motion-media.py
