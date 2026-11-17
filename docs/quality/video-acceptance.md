@@ -1,11 +1,11 @@
 # BlueDotAtlas — Video-Qualitäts- und Abnahmematrix V0.1
 
-**Status: ENTWURF / Roadmap 011 (M01). Von Nutzer noch NICHT abgenommen.**  
-**Datum:** 17.11.2026 · [Issue #25](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/25) · Branch `docs/011-video-acceptance`  
+**Status: VERBINDLICH FREIGEGEBEN – Roadmap 011 / M01. Nutzer hat die Qualitätsmatrix mit allen 18 Kriterien und die 55–65s-Pilot-Toleranz am 17.11.2026 ausdrücklich akzeptiert (DEC-027).**  
+**Datum:** 17.11.2026 · [Issue #25](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/25) · [PR #26](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/26) · Entscheidung DEC-027  
 **Vorher:** [Freigegebenes Produkt-PRD V0.1](../product/prd-v01.md) (DEC-026).  
 **Zweck:** Ein **identisches, reproduzierbares Prüfverfahren** entscheidet bei jedem späteren BlueDotAtlas-Testfilm eindeutig über **bestanden / nicht bestanden**, mit eigenem Profil für einen **echten 60-Sekunden-Piloten** und einen **substanziellen Langfilm**.
 
-> **Grenze von Aufgabe 011:** Wir **definieren** jetzt die Kriterien. **Wir führen noch keinen echten Filmtest, keine VPS-Render-Messung und keine Veröffentlichung durch.** Tests und technische Renderimplementation erfolgen in späteren Roadmap-Aufgaben (u. a. 013, 045, 048, 063). Die unten beschriebenen numerischen Grenzwerte sind ein **V0.1-Vorschlag zur Nutzerfreigabe**, keine angeblich bereits beschlossenen externen YouTube-Normen.
+> **Grenze von Aufgabe 011:** Wir **definieren** jetzt die Kriterien. **Wir führen noch keinen echten Filmtest, keine VPS-Render-Messung und keine Veröffentlichung durch.** Tests und technische Renderimplementation erfolgen in späteren Roadmap-Aufgaben (u. a. 013, 045, 048, 063). Die unten beschriebene **55–65s-Toleranz ist durch DEC-027 ausdrücklich für das V0.1-P60-Profil freigegeben**; andere noch nicht bestimmte numerische Grenzwerte wie Audio-LUFS bleiben offen. Dies sind **interne** Qualitätskriterien, keine behaupteten YouTube-Normen.
 
 ## 1. Ablauf und eindeutige Entscheidung
 
@@ -35,7 +35,7 @@ Die Spalten **P60** und **LONG** markieren das Profil. **Pflicht** = keine N/A-A
 | ID | Bereich | Prüfverfahren | P60: echter ca. 60s-Pilot | LONG: 8–10-Min.-Ziel bei Substanz | Gate |
 | --- | --- | --- | --- | --- | --- |
 | **V01** | Exportformat und Lesbarkeit | AUTO | 1920×1080, MP4/H.264, 30 FPS, progressiv, decodierbar | Dasselbe über **gesamte Laufzeit** | **Pflicht** |
-| **V02** | Laufzeit und komplette Timeline | BOTH | **55–65s** Testfenster als V0.1-Vorschlagsgrenze; kein abgeschnittenes Ende | **8–10 Min. Ziel, sofern inhaltlich begründet**; Abweichung redaktionell begründen, keine künstliche Streckung | **Pflicht** |
+| **V02** | Laufzeit und komplette Timeline | BOTH | **55–65s** als vom Nutzer freigegebene V0.1-Toleranz (DEC-027); kein abgeschnittenes Ende | **8–10 Min. Ziel, sofern inhaltlich begründet**; Abweichung redaktionell begründen, keine künstliche Streckung | **Pflicht** |
 | **V03** | Audioformat und technische Integrität | AUTO | AAC, Stereo, 48 kHz; keine kaputten/fehlenden Audioströme | Dasselbe, auf gesamter Datei | **Pflicht** |
 | **V04** | Bild/Ton-Synchronität | BOTH | Story/Voice/Lipsync sofern relevant; kein hörbarer Drift | Zusätzlich Anfang/Mitte/Ende gezielt prüfen | **Pflicht** |
 | **V05** | Filmische Bewegung statt Diashow | HUMAN | Mindestens begründeter Bildwechsel/Informationsgewinn je Szene; keine bloße Still-Show | Dasselbe für **jedes Kapitel**, nicht nur Einleitung | **Pflicht** |
@@ -57,7 +57,7 @@ Die Spalten **P60** und **LONG** markieren das Profil. **Pflicht** = keine N/A-A
 
 **V01 / V03:** Das aktuelle Produktprofil basiert auf freigegebenen **1920×1080 / 30fps / H.264/AAC / Stereo 48kHz**-Motion-Dateien. `ffprobe` prüft Container und Streams, `ffmpeg -xerror -i video.mp4 -f null -` prüft **alle** Frames/Streams auf Dekodierungsfehler. Ein Container-Header allein reicht nicht. Konkrete Bitrate, Ziel-GOP, Rec.709 und Export-Preset werden **erst in Aufgabe 045** technisch freigegeben. Keine VPS-Render-Dauer wird hier als erreicht behauptet.
 
-**V02:** Für den **60s-Test** ist das Fenster **55–65 Sekunden ein Vorschlag** für die Abnahme-Messbarkeit, keine vom Nutzer bereits beschlossene Toleranz. Für den **Langfilm** gilt das **inhaltlich begründete Ziel 8–10 Minuten (480–600s)** aus dem freigegebenen PRD – **nicht** als Pflicht, einen fundierten kürzeren oder sinnvoll längeren Film künstlich zu beschneiden oder zu dehnen. Bei Abweichungen wird der sachliche Grund schriftlich dokumentiert und durch den Reviewer freigegeben.
+**V02:** Für den **60s-Test** ist das Fenster von **55–65 Sekunden verbindlich vom Nutzer freigegeben** (DEC-027). Für den **Langfilm** gilt das **inhaltlich begründete Ziel 8–10 Minuten (480–600s)** aus dem freigegebenen PRD – **nicht** als Pflicht, einen fundierten kürzeren oder sinnvoll längeren Film künstlich zu beschneiden oder zu dehnen. Bei Abweichungen wird der sachliche Grund schriftlich dokumentiert und durch den Reviewer freigegeben.
 
 **V04 / V12:** `ffprobe`-PTS/DTS und Timeline-Metadaten helfen nur bei der technischen Diagnose. Der tatsächliche Eindruck von Voice, Hintergrundmusik, Übergängen und Synchronität wird **gehört und gesehen**. Ein optionaler Lautheits-Messwert kann mit `ebur128`/`loudnorm` protokolliert werden; **es ist noch kein verbindlicher LUFS-Schwellenwert beschlossen**. **Keine Übersteuerung** und **verständliche Narration** sind trotzdem klare Gate-Pflichten.
 
@@ -80,7 +80,7 @@ Die Spalten **P60** und **LONG** markieren das Profil. **Pflicht** = keine N/A-A
 | Prüfpunkt | P60: ca. 60s Realfilm (Roadmap M03) | LONG: längere Vollfilm-Probe (M04/M13) |
 | --- | --- | --- |
 | Prüfumfang | Alle Frames, alle Claims/Assets und komplette Tonspur | Alle Frames maschinell; **alle** Claims/Assets redaktionell; Bild-/Audio-Stichproben pro Kapitel plus kompletter Durchlauf |
-| Laufzeitziel | 55–65s **Entwurfstoleranz** | 8–10 Minuten nur **bei inhaltlicher Substanz**; Abweichung dokumentiert |
+| Laufzeitziel | 55–65s **verbindliche V0.1-Toleranz (DEC-027)** | 8–10 Minuten nur **bei inhaltlicher Substanz**; Abweichung dokumentiert |
 | Bild/Audio | 1080p/30fps, MP4 H264/AAC, 48kHz, visuell/akustisch geprüft | Identisch; längere Durchläufe, Drift, Speicher/Export besonders beobachten |
 | Rhythmus | Mindestens tatsächlicher filmischer Szenen-/Shot-Wechsel mit Informationswert | Dramaturgische Variation, Perspektivwechsel und keine Füll-Loops in allen Kapiteln |
 | Rechte/Quellen | Vollständige lückenlose Claim- und Asset-Liste | Gleiche 100% Anforderungen, nicht nur Stichproben |
@@ -132,7 +132,7 @@ BlueDotAtlas Video Review V0.1
 
 ## 5. Richtlinien / Versionierung
 
-- Qualitätsmatrix V0.1 ist ein **veränderbarer Beschlussentwurf bis zur expliziten Abnahme von 011**. Neue numerische Toleranzen (Pilotdauer 55–65s, Audio-Lautheit, Szenenlängen) brauchen separat dokumentierte Freigabe; keine stillschweigende externe Normbehauptung.
+- **Qualitätsmatrix V0.1 und die P60-Dauer 55–65s sind mit DEC-027 verbindlich abgenommen.** Spätere Änderungen dieser Schwelle sowie **andere** neue numerische Grenzwerte (z. B. Audio-Lautheit, Szenenlängen) erfordern eine eigene explizite Entscheidung. Die Matrix behauptet keine externe YouTube-Norm.
 - Offizielle Roadmap-Gates bleiben getrennt: **011 schreibt die Checkliste**, **013** misst den VPS, **045** finalisiert technische Exportprüfung, **048** prüft einen echten 60s-Pilotfilm, **063** beurteilt Scene Director/Langfilm und M12/M13 regeln die Veröffentlichung. Keine Doppelbeurteilung derselben Task.
 - Bei späteren Änderungen: Issue/Branch/QA/PR + Entscheidungseintrag und zentrale [Repository-README](../../README.md) im selben PR aktualisieren (DEC-022).
 
@@ -143,7 +143,7 @@ BlueDotAtlas Video Review V0.1
 - [x] Wiederholbares **PASS / FAIL / BLOCKED / N/A**, Evidence-Anforderungen und Gesamtergebnis definiert.
 - [x] Für spätere echte Testfilme eine vollständige **Copy/Paste-Reviewvorlage** mit Versions-/Zeitcode-Nachweisen vorhanden.
 - [x] **Dokumentations-/Nachweistest 41/41 PASS**: alle 18 IDs eindeutig, beide Profile, alle sieben Roadmap-Qualitätsbereiche, Ergebnislogik, Originalasset-Pfade und Reviewer-Template geprüft. [GitHub Actions Run #44134380259](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44134380259). **Kein realer Film wurde damit geprüft.**
-- [ ] Nutzer hat **diese konkrete neue V0.1-Prüfmatrix** ausdrücklich freigegeben. Die vorherige Freigabe von PRD 010 (DEC-026) genehmigt **nicht** automatisch Zahlen/Qualitätskriterien aus 011.
-- [ ] Danach PR mergen und [Issue #25](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/25) schließen.
+- [x] Nutzer hat **die 18 Qualitätskriterien sowie das P60-Toleranzfenster 55–65 Sekunden ausdrücklich freigegeben**, einschließlich Auftrag zum Merge von PR #26, zum Schließen von Issue #25 und zur anschließenden Branch-Bereinigung (DEC-027).
+- [x] Inhaltliche Abnahme abgeschlossen; [PR #26](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/26) wird entsprechend der ausdrücklichen Nutzerfreigabe gemergt und [Issue #25](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/25) geschlossen.
 
-**Status bis zur Freigabe: DRAFT; kein reales Video wurde in Aufgabe 011 getestet oder bewertet.**
+**Status:** Diese V0.1-Prüfmatrix ist vom Nutzer freigegeben (DEC-027); **kein reales Video wurde in Aufgabe 011 getestet oder bewertet**. Die Anwendung der Matrix auf reale Filmexporte erfolgt in den späteren Roadmap-Tasks.
