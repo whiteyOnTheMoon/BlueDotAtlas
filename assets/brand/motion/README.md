@@ -34,4 +34,4 @@ Die Dateien `logo-intro-outro.html` / `preview.html`, die Skripte `render-short-
 
 ## Repo-Workflow und Gate
 
-**Entscheidungen und Status** werden ab jetzt in jedem betreffenden Task-PR immer auch in der [zentralen README](../../../README.md) aktualisiert (DEC-022), plus im [Entscheidungsprotokoll](../../../docs/project/decision-log.md). **PR #17 ist bereits gemergt** und die Originalclips liegen auf **`main`**. Task #16 wird nach dem Dokumentationsnachtrag und der vom Nutzer erteilten Abnahme formal geschlossen.
+**Entscheidungen und Status** werden ab jetzt in jedem betreffenden Task-PR immer auch in der [zentralen README](../../../README.md) aktualisiert (DEC-022), plus im [Entscheidungsprotokoll](../../../docs/project/decision-log.md). **PR #17 ist bereits gemergt** und die Originalclips liegen auf **`main`**. [Dokumentationsnachtrag PR #18](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/18) komplettiert die vom Nutzer abgenommene Aufgabe 007 / Issue #16.
