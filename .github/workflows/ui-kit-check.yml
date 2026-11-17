@@ -39,4 +39,5 @@ jobs:
           name: UI-Kit-008-Review-Previews
           path: .tmp-ui-kit-qa/
           if-no-files-found: warn
+          include-hidden-files: true
           retention-days: 14
