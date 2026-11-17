@@ -1,7 +1,7 @@
 # BlueDotAtlas — Motion Design und Filmübergänge (Aufgabe 007)
 
-**Status:** **Intro und Outro vom Auftraggeber ausgewählt; Integrations-/Audiomix-Test im fertigen Film noch offen.**  
-**Dateistand:** 17.11.2026 · **Branch:** `design/007-motion-basics` · [Issue #16](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/16) · [Draft PR #17](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/17).
+**Status:** **Aufgabe 007 vom Auftraggeber für den Abschluss freigegeben; Original-Intro und -Outro befinden sich auf `main` und sind technisch geprüft.**  
+**Dateistand:** 17.11.2026 · [Issue #16](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/16) · [Gemergter PR #17](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/17).
 
 ## 1. Verbindliche Originalmedien (keine Neukreationen)
 
@@ -24,7 +24,7 @@ Beide Dateien bleiben **bytegenau erhalten**. Kein Umbenennen, Trimmen, generati
 ```
 
 - **Nicht** abruptes Schwarz-/Weißblenden oder harter Schnitt zwischen Intro/Content bzw. Content/Outro.
-- **Vorgeschlagener technischer Startwert:** ca. **0,4 Sekunden (= 12 Frames bei 30fps) pro Übergang**; **kein bereits vom Nutzer freigegebener Fixwert**. Bei der tatsächlichen Montage nach Bild und Ton feinjustieren und testen.
+- **Verbindlich: exakt 0,3 Sekunden (= 9 Frames bei 30 FPS) pro Video-Crossfade.** Gilt für Intro → Film und Film → Outro (DEC-023). Kein Vorschlagswert mehr.
 - Als Video-Crossfade überlappen die zwei benachbarten Bildspuren zeitlich. Die Intro- und Outro-MP4s werden im Medienarchiv selbst **nicht** geändert.
 - **Fehlt** im aktuellen Projekt der Hauptfilm, ist die finale Crossfade-Wirkung noch **nicht testbar**. Ein Proof mit eigenständigen Dummy-Szenen darf die realen MP4-Assets niemals ersetzen.
 - **Quellraten** bei der Videoverarbeitung respektieren; nominelles Projektprofil **1920×1080 / 30 FPS / SDR**, endgültige Ausgabe erst im Renderer und echten Film abnehmen.
@@ -56,14 +56,14 @@ Die Bewegungsregeln für **Lower Third, Ortslabel, Kartenmarker, Quellenhinweis 
 
 Die frühere **10-Sekunden-Testmontage** und **2,3/2,2-Sekunden-Logodemos** bleiben reine Entwicklungs-/QA-Artefakte. Ihre erfolgreiche Technikprüfung ist **keine Freigabe dieser visuellen Entwürfe**.
 
-## 6. Qualitäts-/Rechte-Gate
+## 6. Abnahme-Gate Aufgabe 007
 
 - [x] Nutzer hat **Intro (2,5 s) und stummes Outro (6 s)** als Originalmedien auf GitHub geliefert.
 - [x] Die **Übergangsmethode Video-Crossfade an beiden Filmgrenzen** ist beschlossen.
 - [x] **Hintergrundmusik bis über das Outro** ist beschlossen; die endgültige Lautstärkekurve bleibt Teil des späteren Filmmixes.
-- [ ] Medien-Codecs/Dauer/Tonspuren durch echte `ffprobe`- und Dekodierungsprüfung bestätigen.
-- [ ] Crossfade-/Audiomix-Integration mit echtem Film-Szenenmaterial im Render-/Filmprojekt testen.
-- [ ] Freie/rechtssichere Nutzungsrechte an den in Intro/Outro verbauten externen Bildern und Audiobestandteilen vor Veröffentlichung dokumentieren.
-- [ ] Task-007-Review einschließlich des Motion-Gates und PR-Merge durchführen, danach Issue schließen.
+- [x] Medien-Codecs/Dauer/Tonspuren per ffprobe und vollständiger Dekodierung geprüft: [GitHub Actions PASS](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44007341068).
+- [x] **Beide Crossfades auf 0,3 s / 9 Frames verbindlich festgelegt (DEC-023).**
+- [x] Der Auftraggeber hat den **Film-Integrationstest** und die **Medienrechteprüfung** ausdrücklich **aus dem Abnahme-Gate von Aufgabe 007 gestrichen**. Beides gehört nicht zur Definition/Abnahme der Branding-Basics. Allgemeine Rechtepflichten vor Veröffentlichung bleiben als projektweite Richtlinie bestehen.
+- [x] Nutzerfreigabe für den Abschluss von Aufgabe 007 liegt vor; PR #17 war bereits gemergt; der abschließende Dokumentationsnachtrag ist [PR #18](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/18).
 
 **Dokumentationsregel:** Bei jeder durch den Nutzer **beschlossenen** Änderung auch die **zentrale [Repository-README](../../README.md)** (kurzer aktueller Stand), das **[Decision Log](../project/decision-log.md)** (detaillierter Beschluss) und gegebenenfalls die betroffenen spezifischen Dateien **im selben Task-PR** aktualisieren. Historische Beschlüsse nicht kommentarlos überschreiben.
