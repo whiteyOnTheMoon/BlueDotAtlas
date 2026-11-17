@@ -91,6 +91,7 @@ bash scripts/audit-vps.sh /vorhandenes/renderverzeichnis > vps-render-disk-outpu
 
 - [x] Roadmap-Vorgaben 012 vollständig in Messliste und Ressourcenbudget überführt.
 - [x] Ein **nichtinvasives, read-only** Inventur-Skript mit Datenschutz-Hinweisen vorbereitet.
+- [x] **Shell-Syntax und Inventurvorlage mit 24/24 statischen Prüfungen bestanden** ([GitHub Actions Run #44144004990](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44144004990)); **kein echter VPS wurde dabei kontaktiert**. [Draft PR #28](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/28) dokumentiert den Zwischenstand.
 - [ ] **Messlauf auf dem echten VPS** samt UTC-Zeitpunkt und nachvollziehbarem Bereitsteller-/Systembezug durchgeführt.
 - [ ] **CPU, RAM, freier SSD-Platz, I/O-Basisdaten, OS, Docker, Netzwerk/Bandbreite und bestehende Dienste** ausreichend erfasst.
 - [ ] **Ressourcen für Web, DB, Renderer plus OS-/Betriebspuffer** anhand dieser Zahlen nachvollziehbar zugeteilt.
