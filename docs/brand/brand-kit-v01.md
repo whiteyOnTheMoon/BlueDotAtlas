@@ -1,7 +1,7 @@
 # BlueDotAtlas — Brand-Kit V0.1 · M00 / Aufgabe 009
 
-**Status: ZUSAMMENGESTELLTER BRAND-GATE-ENTWURF — die Gesamtfreigabe durch den Nutzer steht noch aus.**  
-**Stand:** 17.11.2026 · [Issue #21](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/21) · Branch `design/009-brand-gate-v01`  
+**Status: BRAND-KIT V0.1 und M00-GESAMT-BRAND-GATE vom Nutzer am 17.11.2026 ausdrücklich freigegeben (DEC-025).**  
+**Stand:** 17.11.2026 · [Issue #21](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/21) · [PR #22](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/22) · Freigabe DEC-025  
 **Roadmap-Ergebnis:** `docs/brand/brand-kit-v01.md` — eine verbindliche, versionierte V0.1-Auswahl nach expliziter Abnahme.
 
 Die Roadmap 009 verlangt die **gemeinsame Sichtprüfung** von Logo, Farbwerten, Typografie, Thumbnail, Voice-Charakter und einem **beispielhaften 1080p-Storyboard-Frame**. Die vorherigen Aufgaben 001–008 sind auf `main` abgeschlossen. **Nicht** weitere Brand-Alternativen erfinden; die freigegebenen Einzelergebnisse werden hier konsolidiert und auf Widersprüche geprüft.
@@ -20,7 +20,7 @@ Die Roadmap 009 verlangt die **gemeinsame Sichtprüfung** von Logo, Farbwerten, 
 | **Filmische Motion** | **Original-Intro 2,5s / AAC**, **Original-Outro 6,0s / stumm**; **zwei Video-Crossfades 0,3s (9 Frames bei 30fps)** und **durchlaufende Film-Hintergrundmusik über das Outro**. | [Finale Originalmedien](../../assets/brand/motion/final/README.md) / [Motion Guidelines](motion-guidelines.md) / DEC-019 bis DEC-023; Medienprüfung [2/2 PASS](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44007341068). | **Bereits freigegeben**; Originalclips unverändert; tatsächlicher Einbau in fertige Filme gehört nicht zum Branding-Gate. |
 | **Web UI** | **Ein** Designsystem für Public-Videothek und Admin, Dark/Light, sechs Komponentenfamilien; Desktop, Tablet und Mobil. | [Freigegebenes UI-Kit](../../design/ui-kit-v01/README.md) / [12/12 Browser-QA](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44126245757) / DEC-024. | **Bereits freigegeben** nach explizitem „ok, einverstanden“. |
 | **Voice-Charakter / Narration** | **Englisch, souverän, präzise, neugierig, zugänglich, bildstark, filmisch und seriös**, nicht monoton/schulbuchhaft oder alarmistisch. | **Bereits freigegebener Brand Brief** [Abschnitt 5](brand-brief.md), DEC-007. | **Redaktionelle Richtung bereits freigegeben.** **Kein** konkreter TTS-Anbieter, keine Sprecheridentität, kein Stimmklang oder synthetisches Voice-Preset ausgewählt; das folgt später. |
-| **Storyboard-Frame** | **Ein beispielhaftes 1920×1080 SVG-Frame** mit kurzen Texten, großzügiger Bildfläche, Deep-Sea/Ice-White-Palette, türkisfarbener Betonung und dezentem Beobachtungspunkt. | [`design/brand-gate-v01/storyboard-1080p.svg`](../../design/brand-gate-v01/storyboard-1080p.svg) | **Neu für Aufgabe 009**; ist ausdrücklich eine **illustrative, datenfreie Konzeptszene**, **keine echte Satellitenaufnahme**. **Noch zur Sichtabnahme offen.** |
+| **Storyboard-Frame** | **Ein beispielhaftes 1920×1080 SVG-Frame** mit kurzen Texten, großzügiger Bildfläche, Deep-Sea/Ice-White-Palette, türkisfarbener Betonung und dezentem Beobachtungspunkt. | [`design/brand-gate-v01/storyboard-1080p.svg`](../../design/brand-gate-v01/storyboard-1080p.svg) | **Neu für Aufgabe 009**; ist ausdrücklich eine **illustrative, datenfreie Konzeptszene**, **keine echte Satellitenaufnahme**. **Storyboard visuell als Beispiel des V0.1-Brand-Stils ausdrücklich abgenommen (DEC-025).** |
 
 ## 2. Narrations-/Voice-Charakter: vorhandene Freigabe vs. spätere Sprachentscheidung
 
@@ -53,7 +53,7 @@ Die ursprüngliche Roadmap nennt als **M00-Abnahmetor** ein „Brand-Kit V0.1“
 
 **Verbindlich und bereits gewählt:** [Intro 2,5 Sekunden](../../assets/brand/motion/final/BlueDotAtlas%20Intro.mp4), [Outro 6 Sekunden](../../assets/brand/motion/final/BlueDotAtlas_Outro.mp4); Crossfade je 0,3s. Die zwei originalen Filmmedien bleiben unverändert.
 
-Für die finale M00-Gesamtfreigabe ist noch zu entscheiden, ob **der historische 10s-Techniknachweis als reiner Motion-Test** das entsprechende ursprüngliche M00-Tor ausreichend belegt oder ob ein gesonderter aktualisierter Test **außerhalb** der Original-Intro-/Outro-Dateien gewünscht ist. **Keine stillschweigende Umdeutung der abgelehnten 10s-Brandpräsentation.**
+**Entscheidung zum M00-Gate (DEC-025):** Der historische 10-Sekunden-Clip wird **ausschließlich als technischer Nachweis** der Motion-Muster (Logo-Motion, Lower Third, Marker, Quellen-/Caption-Overlays) für das M00-Abnahmetor akzeptiert – **nicht** als Marken-Intro, Outro oder gestalterisch freigegebener finaler Film. Die einzigen verbindlichen Intro-/Outro-Originale bleiben 2,5s und 6,0s. Der Nutzer hat das so präsentierte Gesamt-Brand-Kit einschließlich Storyboard freigegeben; **kein neuer 10s-Brandclip in Task 009 nötig**.
 
 ## 5. Versions- und Änderungsregeln
 
@@ -70,8 +70,8 @@ Für die finale M00-Gesamtfreigabe ist noch zu entscheiden, ob **der historische
 - [x] Redaktioneller **Voice-Charakter** aus dem freigegebenen Brand Brief nachgewiesen und von der zukünftigen konkreten Sprecherauswahl sauber getrennt.
 - [x] **1080p-Storyboard-Designmuster** als eigenständige editierbare SVG-Datei erstellt und als Illustration gekennzeichnet.
 - [x] **Chromium-QA 4/4 PASS**: Brand-Board auf 1440/960/375px ohne horizontalen Überlauf, alle **7 visuellen Original-Assets** geladen; eigenständiges SVG mit **exakt 1920×1080** inklusive Illustration-Hinweis. [Run #44128980711](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44128980711), [4 PNG-Screenshots + QA JSON](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44128980711/artifacts/14348153207).
-- [ ] Der Auftraggeber hat die **Gesamtschau, das einzelne Storyboard-Frame und den Status des historischen 10s-Motion-Tests** ausdrücklich geprüft und entschieden.
-- [ ] **Brand-Kit V0.1 als verbindliches M00-Gate** durch Nutzer bestätigt, Entscheidung im Decision Log erfasst.
-- [ ] [Issue #21](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/21) und PR nach Tests/Review/Merge schließen; danach in Roadmap M01 / Aufgabe 010 wechseln.
+- [x] Der Nutzer hat die **Gesamtschau einschließlich Storyboard-Frame und die ausdrückliche Eingrenzung des historischen 10s-Motion-Tests als reinen Techniknachweis** freigegeben (DEC-025).
+- [x] **Brand-Kit V0.1 als verbindliches M00-Gate** vom Nutzer mit „ok, einverstanden“ freigegeben, Entscheidung **DEC-025** im Decision Log erfasst.
+- [x] Review und technische QA 4/4 bestanden; **[PR #22](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/22) wird nach dieser Nutzerfreigabe gemergt** und [Issue #21](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/21) formal geschlossen. Danach Roadmap M01 / Aufgabe 010.
 
-**Stand: vor finaler Nutzerprüfung, daher bewusst keine 009-Abnahme oder M00-Gate-Freigabe behauptet.**
+**Abnahme-Nachweis:** Nutzer „ok, einverstanden“ als Antwort auf die konkret präsentierte Brand-Kit-Gesamtschau mit storyboard-1080p.svg und der Abgrenzung des alten 10s-Technikclips, 17.11.2026 (DEC-025). Dies genehmigt **nicht** eine konkrete TTS-Stimme, spätere Produktionsmedien oder neue Markenvarianten.
