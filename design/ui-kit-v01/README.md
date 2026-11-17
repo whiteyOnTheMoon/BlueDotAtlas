@@ -62,7 +62,7 @@ Es sind **keine Accounts, Internetverbindungen, Datenbank und kein Backend nöti
 - [x] Sechs von der Roadmap verlangte Komponententypen als Designvorschlag vorhanden.
 - [x] Öffentliche und Admin-Vorschau verwenden **dieselben Tokens, Styles und Komponenten**.
 - [x] Bereits freigegebene Logos/Brandfarben/Typografieregeln als Quelle verknüpft, nicht neu erfunden.
-- [ ] Browser-QA an **1440 / 960 / 375 px** in zwei Themes und beiden Ansichten bestanden. [Ergebnisse siehe GitHub Action](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/workflows/ui-kit-check.yml).
+- [x] **Chromium-QA 12/12 PASS** an **1440 / 960 / 375 px** × **Dark/Light** × **Public/Admin**; keine horizontalen Überläufe, Originalbilder vollständig geladen; Tab-Tastatursteuerung, Filter und Focus erfolgreich. [GitHub Actions Run #44126245757](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44126245757) · [12 Screenshots und JSON als Artefakt](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44126245757/artifacts/14347681682).
 - [ ] Nutzer hat **visuellen Entwurf ausdrücklich freigegeben** oder Anpassungen benannt.
 - [ ] PR-Merge, Issue-Abschluss und Gate nach dem Review.
 
