@@ -1,8 +1,8 @@
 # BlueDotAtlas — Motion Assets (Aufgabe 007)
 
-**Verbindlich:** Die **Original-MP4-Dateien des Auftraggebers**, nicht die zuvor generierten Assistenz-Vorschauen. **Upload und technische QA beider Originale bestanden**: [Run #44007341068](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44007341068).
+**Verbindlich:** Die **Original-MP4-Dateien des Auftraggebers** auf **`main`**, nicht die zuvor generierten Assistenz-Vorschauen. **Upload und technische QA beider Originale bestanden**: [Run #44007341068](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44007341068).
 
-## Originale — im Task-Branch archiviert
+## Originale — auf `main` archiviert
 
 | Filmbaustein | Originalvideo | Länge und Audio |
 | --- | --- | --- |
@@ -17,16 +17,16 @@ Beide: **1920×1080, H.264, 30fps**. Die **exakten SHA-256- und Git-Blob-Prüfsu
 2. **Letzte Filmszene → Outro:** visueller **Crossfade**.
 3. Die zukünftige, rechtlich verwendbare **Film-Hintergrundmusik läuft bis durch das komplette stumme Outro weiter**. Das Finale der Musik (Abklingen/Ausblenden) erst am Filmende sauber mischen; beim Video-Crossfade nicht abrupt stummschalten.
 4. Das Intro bringt eine Tonspur mit; vor dem Hauptfilm ist diese mit dem Filmaudio kontrolliert ein- bzw. überzublenden.
-5. **0,4s / 12 Frames je Crossfade** ist lediglich ein technischer Vorschlagswert, **nicht verbindlich abgenommen**.
+5. **Beide Video-Crossfades verbindlich 0,3 Sekunden / 9 Frames bei 30 FPS (DEC-023).**
 6. Ein **anklickbarer YouTube-Subscribe-Button** wird später als echtes Endscreen-Element in **YouTube Studio** über das Outro gesetzt, **nicht** ins MP4 eingebrannt.
 
-Die beiden Crossfades und die kontinuierliche Musik werden beim tatsächlichen Film-Render integriert und erst dann audiovisuell abgenommen; die Originaldateien selbst bleiben unangetastet. Vollständige Regeln: [Motion Guidelines](../../../docs/brand/motion-guidelines.md); Prüfbericht: [Motion QA](../../../docs/brand/motion-qa.md).
+Die beiden Crossfades und die kontinuierliche Musik werden erst beim tatsächlichen Film-Render integriert; **diese spätere Integration ist kein Gate für Aufgabe 007**. Die Originaldateien selbst bleiben unangetastet. Vollständige Regeln: [Motion Guidelines](../../../docs/brand/motion-guidelines.md); Prüfbericht: [Motion QA](../../../docs/brand/motion-qa.md).
 
 ## Reproduzierbare Tests
 
 - [`scripts/check-final-motion-media.py`](../../../scripts/check-final-motion-media.py) und [GitHub Action](../../../.github/workflows/final-motion-media-check.yml) prüfen beide Original-MP4s auf Integrität, Dauer, Codec, Videoauflösung, 30fps, Intro-AAC und **stummes Outro**.
-- Die CI-Prüfung ist **PASS**; ein Film-Crossfade-Test benötigt noch echte Filmszenen.
-- Lizenz-/Quellnachweise für fremde Bilder oder Tonsamples im Intro/Outro sowie zukünftige Musik sind vor Veröffentlichung separat zu führen.
+- Die CI-Prüfung der **Originalmedien ist PASS**. Ein echter Film-Crossfade-Test und die Publikationsrechteklärung gehören **nicht zum Abschluss von Aufgabe 007**; die zwei entsprechenden offenen Gate-Punkte wurden auf ausdrücklichen Nutzerwunsch gestrichen.
+- Allgemeine Publikationsrechte-/Quellenvorgaben aus den Projektregeln werden dadurch nicht aufgehoben.
 
 ## Veraltete, nicht ausgewählte Prototypen
 
@@ -34,4 +34,4 @@ Die Dateien `logo-intro-outro.html` / `preview.html`, die Skripte `render-short-
 
 ## Repo-Workflow und Gate
 
-**Entscheidungen und Status** werden ab jetzt in jedem betreffenden Task-PR immer auch in der [zentralen README](../../../README.md) aktualisiert (DEC-022), plus im [Entscheidungsprotokoll](../../../docs/project/decision-log.md). **Task #16 / Draft PR #17** bleiben offen, bis Gesamtreview und Abnahme des einschlägigen Motion-Gates vollständig sind. Die Videos liegen bislang nur im Branch `design/007-motion-basics`, nicht in `main`.
+**Entscheidungen und Status** werden ab jetzt in jedem betreffenden Task-PR immer auch in der [zentralen README](../../../README.md) aktualisiert (DEC-022), plus im [Entscheidungsprotokoll](../../../docs/project/decision-log.md). **PR #17 ist bereits gemergt** und die Originalclips liegen auf **`main`**. Task #16 wird nach dem Dokumentationsnachtrag und der vom Nutzer erteilten Abnahme formal geschlossen.
