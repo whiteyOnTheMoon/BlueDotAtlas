@@ -53,6 +53,8 @@
 
 
 
+| OPEN-006 | **PRD 010 / Produktgrenzen V0.1 als MVP / später / ausgeschlossen abnehmen.** Entwurf beschreibt öffentliche Videothek, geschützten Einzeladmin, sieben Wizard-Schritte (New Video, News Sources, Discover Topics, Media Library, Script Studio, Voice Studio, Video Production), 60s-Realfilm-Proof vor begründetem 8–10-Minuten-Ziel und manuelle Freigabe. **Autopublish, Multiuser und grafischer Voll-Editor sind für V0.1 ausgeschlossen.** Technische MVP-Implementierung und Provider-/VPS-Details folgen später; der aktuelle Entwurf soll diese nicht vorentscheiden. | 010 | **[PRD V0.1 Entwurf](../product/prd-v01.md), [Issue #23](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/23); noch keine Nutzerabnahme** (009-„Ok“ galt nur DEC-025 / Brand-Gate). |
+
 ## Erledigte Entscheidungspunkte
 
 - **OPEN-001:** Freigabe des Brand Briefs durch „Ok“, dokumentiert unter DEC-007. Die Tagline wurde anschließend separat unter DEC-008 ausgewählt.
