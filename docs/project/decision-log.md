@@ -39,18 +39,21 @@
 
 | DEC-023 | **Aufgabe 007 ist inhaltlich zur Fertigstellung freigegeben:** Beide Video-Crossfades sind **exakt 0,3 Sekunden (= 9 Frames bei 30 FPS)** lang. Die bisherigen offenen Abnahmepunkte **„Crossfades und Musikkontinuität am späteren echten Film rendern/prüfen“** und **„Medien-/Musikrechte für später publizierte Filme klären“** werden **aus dem Gate von 007 gestrichen**, weil sie erst spätere Produktions-/Publikationsschritte betreffen. Der Nutzer sieht nur noch den formalen Merge/Abschluss als offen. | **Entschieden und für Task 007 abgenommen** | Nutzer: „ok, weiter gehts, crossfade machen wir 0,3 sekunden. die beiden punkte ... machen jetzt bei der aufgabe wenig sinn, deshalb werden sie gestrichen. ich bin der meinung dass nur noch der merge fehlt“, 17.11.2026 | Der zuvor in DEC-021 lediglich vorgeschlagene Wert **0,4s/12 Frames wird ersetzt** durch **fix 0,3s/9 Frames** an **beiden** Videoübergängen. `docs/brand/motion-guidelines.md`, `assets/brand/motion/final/README.md`, `docs/brand/motion-qa.md` und zentrale `README.md` angepasst. **PR #17 wurde auf GitHub bereits am 17.11.2026 gemergt**, obwohl Issue #16 noch offen war; Dokumentationsnachtrag und Issue-Schließung komplettieren den formalen Abschluss. Rechte- und Quellenpflichten bei späteren Filmveröffentlichungen bleiben als **allgemeine Projektregel** erhalten, nicht als 007-Gate. |
 
+| DEC-024 | Das **einheitliche Web-Designsystem UI-Kit V0.1** für die öffentliche BlueDotAtlas-Videothek und das Admin-Studio ist vom Auftraggeber freigegeben. Es nutzt die bestehenden Original-Logos, die freigegebene Deep-Ocean-/Glacial-Light-Palette, Inter/Space Grotesk sowie **ein einziges** Thumbnail-Masterlayout und enthält sechs Komponentenfamilien: Buttons, Eingabefelder, Karten, Status-Badges, Stepper und Galerie-Kacheln. | **Ausdrücklich freigegeben, Aufgabe 008 abgenommen** | Nutzerantwort „ok, einverstanden, wieter gehts“ auf den konkret präsentierten UI-Kit-V0.1-Entwurf einschließlich 12 Screenshot-Vorschauen, 17.11.2026 | Ergebnis: `design/ui-kit-v01` plus `packages/ui/tokens/ui.ts`; 12/12 reale Chromium-Ansichten (1440/960/375px × Hell/Dunkel × Public/Admin) **PASS**, [Run #44126245757](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44126245757), [Draft PR #20](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/20) zur formalen Merge-Abnahme. Nur ein Designprototyp, noch keine produktive Next.js-Anwendung; keine Änderung an bestehenden Logo-/Thumbnail-Originalen. Der nächstfolgende Roadmap-Schritt ist **009 Brand-Gate**. |
+
 ## Offene Entscheidungen
 
 | ID | Frage | Aufgabe | Status |
 | --- | --- | --- | --- |
-| OPEN-003 | Die Motion-Basics aus **007** sind mit zwei Original-MP4s, festgelegten Crossfades (0,3s) und Outro-Musikregel inhaltlich entschieden. **UI-Kit und übergeordnetes Brand-Gate** folgen in späteren Aufgaben. | 008–009 | Teilweise offen; 007 abgenommen |
+| OPEN-003 | Die Motion-Basics aus **007** sind mit zwei Original-MP4s, festgelegten Crossfades (0,3s) und Outro-Musikregel inhaltlich entschieden. **UI-Kit 008 inzwischen freigegeben** (DEC-024), übergeordnetes **Brand-Gate 009** folgt. | 009 | Nur Brand-Gate 009 offen |
 
-| OPEN-004 | **Visuellen UI-Kit-V0.1-Entwurf für öffentliche Videothek und Admin** mit gemeinsamen Button-, Formular-, Karten-, Badge-, Stepper- und Galerie-Komponenten durch den Nutzer prüfen und gegebenenfalls anpassen/freigeben. Bestehende Farb-, Logo-, Schrift- und Thumbnail-Vorgaben bleiben unverändert. | 008 | **Vorschlag auf Branch `design/008-ui-kit-v01`, [Draft PR #20](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/20); kreative Abnahme ausdrücklich offen** |
+
 
 ## Erledigte Entscheidungspunkte
 
 - **OPEN-001:** Freigabe des Brand Briefs durch „Ok“, dokumentiert unter DEC-007. Die Tagline wurde anschließend separat unter DEC-008 ausgewählt.
 - **OPEN-002:** Keine Kurzform und Naming-Regeln durch „Ok“ freigegeben, dokumentiert unter DEC-009.
+- **OPEN-004:** Web-UI-Kit V0.1 nach 12/12-Browser-QA und Sichtvorlage ausdrücklich durch „Ok, einverstanden“ freigegeben (DEC-024).
 
 ## Dokumentationsregel
 
