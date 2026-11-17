@@ -61,6 +61,12 @@ Alle Werte gehören zum **tatsächlichen Ziel-VPS**, nicht zum eigenen Laptop/Cl
 
 **Nicht addieren oder als garantiert freigebbaren Speicher verbuchen:** Docker-Images teilen Layer, Cache/Images können sich überschneiden. „Reclaimable“ berücksichtigt nicht alle Anforderungen anderer Projekte an Rollbacks/Builds. **Kein globales `docker system prune -a`, `docker volume prune` oder `docker builder prune -a`** ohne eigene Zuordnungsprüfung und gesonderte Entscheidung. Erst lesend verwaiste Image-/Buildcache-Kandidaten und betroffene Deployments identifizieren.
 
+#### Nachtrag – gezielte Bereinigung der alten VideoNewsStudio-Images
+
+Der Betreiber zeigte **16 eindeutig über ihre Repository-Namen zuordenbare alte VideoNewsStudio-Web-/API-Images** (unter `ghcr.io/whiteyonthemoon/videonews-studio-api` und `ghcr.io/whiteyonthemoon/videonews-studio-web`, jeweils mit Tag `<none>`) und hat die **Entfernung aller VideoNewsStudio-Reste ausdrücklich freigegeben**. **Diese Images sind noch NICHT als gelöscht nachgewiesen**. Empfohlene gezielte Vorgehensweise: Nur Images der zwei exakt benannten Repositories selektieren, `docker ps -aq --filter "ancestor=<ID>"` vor jedem Löschversuch prüfen, anschließend ggf. `docker image rm <ID>` **ohne `--force`**. Nachmessung mit `docker system df` und `df -h /` dokumentieren.
+
+**Nicht automatisch zuordnen:** **632 ungetaggte Images** und der Buildcache mit `docker buildx du`-Werten **Shared 42,29 GB, Private 11,67 GB, Reclaimable 53,96 GB** sind **nicht als VideoNewsStudio-Reste bewiesen**. Keine globale Image-, Cache- oder Volume-Prune-Aktion und keine Eingriffe in laufende bzw. wiederherstellbare andere Projekte. Gemeinsame Cloudflare-Tunnel-/Netzkonfigurationen separat überprüfen.
+
 **Fazit:** Vier verfügbare CPUs und 2691 MiB kurzfristig verfügbarer RAM stehen **nur 7,94 GiB freiem Festplattenplatz bei 94 % Belegung** gegenüber. Ohne verlässliche Reserven für OS, Web, DB, WAL/Backups, temporäre Medien und FFmpeg-Scratch **kein Render-Go**. Providerlimits, SSD-Typ und Busy-Hour-Baseline bleiben offen.
 
 ### Auswertung des ersten Betreiber-Snapshots
