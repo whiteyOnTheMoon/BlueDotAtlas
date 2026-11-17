@@ -17,7 +17,7 @@
 | SHA-256 | `d2fc15c428434e76e14b2f371b3ed7d03afd605353c8b93ae59420b64bc38f47` | `aa70bd60286d7f101b3753aa331503a81a5c3d0672f5f51a640d762fd6b8ec99` |
 | Vollständige FFmpeg-Decodierung | **PASS** | **PASS** |
 
-**Originale nicht modifizieren:** Ton zum Intro stammt aus dem Original; das Outro ist tatsächlich ohne Audiospur. Die Originaldateien sind im Task-Branch gespeichert. Ihre Media-QA wurde über GitHub Actions direkt an den hochgeladenen Dateien ausgeführt.
+**Originale nicht modifizieren:** Ton zum Intro stammt aus dem Original; das Outro ist tatsächlich ohne Audiospur. Die Originaldateien sind durch den Merge von PR #17 auf `main` gespeichert. Ihre Media-QA wurde über GitHub Actions direkt an den hochgeladenen Dateien ausgeführt.
 
 ## Beschlossene Montage / noch nicht getestete Integration
 
