@@ -7,7 +7,7 @@ function check(label,ok){
  total++;if(ok)passed++;
  console.log((ok?'PASS':'FAIL')+' '+label);
 }
-check('Draft status with no actual film test claimed',text.includes('ENTWURF / Roadmap 011')&&text.includes('Wir führen noch keinen echten Filmtest'));
+check('Owner-approved criteria DEC-027; no actual film tested',text.includes('VERBINDLICH FREIGEGEBEN')&&text.includes('DEC-027')&&text.includes('Wir führen noch keinen echten Filmtest'));
 for(const area of ['Technische Ausgabe','filmische Dynamik','Quellenbelege','Lizenzstatus','Sprache','Ton','Bedienbarkeit'])
  check('Roadmap area: '+area,text.toLowerCase().includes(area.toLowerCase()));
 check('P60 and LONG profiles distinct',text.includes('P60')&&text.includes('LONG')&&text.includes('55–65s'));
@@ -32,6 +32,6 @@ check('18 reviewer form placeholders',Array.from({length:18},(_,i)=>'- V'+String
 check('Only V18 P60 N/A explicitly allowed',text.includes('N/A nur bei P60 zulässig')&&text.includes('P60 optional / LONG Pflicht'));
 check('Pilot and long-film separated',text.includes('60s-Pilot')&&text.includes('Langfilm')&&text.includes('8–10 Minuten'));
 check('Does not claim a produced film',text.includes('kein reales Video')&&text.includes('keinen echten Filmtest'));
-check('Explicit 011 signoff pending',text.includes('- [ ] Nutzer hat **diese konkrete neue V0.1-Prüfmatrix** ausdrücklich freigegeben'));
+check('Owner explicitly approved 18 criteria and 55–65s P60',text.includes('- [x] Nutzer hat **die 18 Qualitätskriterien sowie das P60-Toleranzfenster 55–65 Sekunden ausdrücklich freigegeben**')&&text.includes('55–65 Sekunden verbindlich vom Nutzer freigegeben'));
 console.log('SUMMARY '+passed+'/'+total+' DOCUMENT TESTS PASS');
 if(passed!==total)process.exitCode=1;
