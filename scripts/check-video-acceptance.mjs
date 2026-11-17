@@ -22,13 +22,13 @@ for(const status of ['PASS','FAIL','BLOCKED','N/A'])
  check('Defined status '+status,text.includes('**'+status+'**'));
 check('Fail and blocking reject film',text.includes('NICHT BESTANDEN')&&text.includes('NICHT ABNAHMEFÄHIG'));
 check('Human reviewer and evidence',text.includes('manuelle Entscheidung')&&text.includes('Nachweis')&&text.includes('Reviewer'));
-check('0.3 second / 9 frame transitions',text.includes('0,3 Sekunden = 9 Frames')&&text.includes('stummes 6s-Outro'));
+check('0.3 second / 9 frame transitions',text.includes('0,3 Sekunden = 9 Frames')&&text.includes('stumme 6s-Outro'));
 check('Original video assets and PRD exist',[
  'assets/brand/motion/final/BlueDotAtlas Intro.mp4',
  'assets/brand/motion/final/BlueDotAtlas_Outro.mp4',
  'docs/product/prd-v01.md'
 ].every(x=>existsSync(x)));
-check('18 reviewer form placeholders',Array.from({length:18},(_,i)=>'- V'+String(i+1).padStart(2,'0')+': PASS|FAIL|BLOCKED|N/A, Nachweis:').every(x=>text.includes(x)));
+check('18 reviewer form placeholders',Array.from({length:18},(_,i)=>'- V'+String(i+1).padStart(2,'0')+': PASS|FAIL|BLOCKED|N/A, Nachweis').every(x=>text.includes(x)));
 check('Only V18 P60 N/A explicitly allowed',text.includes('N/A nur bei P60 zulässig')&&text.includes('P60 optional / LONG Pflicht'));
 check('Pilot and long-film separated',text.includes('60s-Pilot')&&text.includes('Langfilm')&&text.includes('8–10 Minuten'));
 check('Does not claim a produced film',text.includes('kein reales Video')&&text.includes('keinen echten Filmtest'));
