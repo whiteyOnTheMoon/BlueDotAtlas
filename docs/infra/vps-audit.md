@@ -1,6 +1,6 @@
 # BlueDotAtlas — VPS-Inventur und Ressourcenbudget (M01 / 012)
 
-**Status: ERSTER VPS-BETREIBER-SNAPSHOT + PROTOKOLLIERTE BEREINIGUNG VORHANDEN; tatsächlicher Freiraum nach Bereinigung, Providerwerte und Ressourcenbudget OFFEN. Aufgabe 012 ist noch NICHT abgenommen.**  
+**Status: ZWEI VPS-BETREIBER-SNAPSHOTS (vor und nach Bereinigung) VORHANDEN; 94 % Speicherauslastung weiterhin kritisch. Providerdaten, Ressourcenbudget und Nutzerfreigabe OFFEN. Aufgabe 012 ist noch NICHT abgenommen.**  
 **Roadmap-Ergebnis:** `docs/infra/vps-audit.md` · [Issue #27](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/27) · Branch `infra/012-vps-audit`.  
 **Roadmap-Quelle:** `BlueDotAtlas_Roadmap.pdf`, M01, Aufgabe 012, Seite 5: CPU-Kerne, RAM, SSD-Freiraum, I/O, OS, Docker-Version, Netzwerk, Bandbreite, vorhandene Dienste und Ressourcenpuffer dokumentieren. **Abnahme:** Messwerte sowie nutzbare Ressourcen für **Web, DB und Renderer** müssen nachvollziehbar sein. **Vorher: 010** (erfüllt, PRD DEC-026).
 
@@ -8,7 +8,7 @@
 
 **Bereits bekannt (nur Projektvorgabe):** BlueDotAtlas V0.1 soll auf **einem eigenen VPS** betrieben werden; eine öffentliche Videothek, ein geschützter Einzeladmin, eine Datenbank und ein separater Renderworker sind geplant. Die Render-Zielausgabe ist zunächst Full HD 1920×1080/H.264; ein echter VPS-Render-Test ist erst **Aufgabe 013**. Diese Projektvorgaben sind **kein gemessener VPS-Nachweis**.
 
-**Tatsächlich über den VPS bekannt:** Der Betreiber hat am **17.11.2026 um 18:40:28 UTC** die **bereinigte Ausgabe des read-only Skripts vom vorgesehenen Linux-VPS** im Projektchat bereitgestellt. Das sind **vom Betreiber mitgeteilte Host-Snapshot-Werte**, keine von dieser GitHub-Verbindung selbst verifizierten VPS-Metriken und kein Render-Benchmark. Die **gezielte Betreiber-Bereinigung von VideoNewsStudio und GoldenOracle** ist anhand von Terminal-Rückmeldungen protokolliert; der **tatsächliche Gewinn an VPS-Kapazität muss noch nachgemessen werden**. Provider- und Busy-Hour-Angaben stehen aus. GitHub Actions laufen in gehosteten Test-Runnern und dürfen **niemals** als VPS-Messung ausgegeben werden.
+**Tatsächlich über den VPS bekannt:** Der Betreiber hat am **17.11.2026 um 18:40:28 UTC** die **bereinigte Ausgabe des read-only Skripts vom vorgesehenen Linux-VPS** im Projektchat bereitgestellt. Das sind **vom Betreiber mitgeteilte Host-Snapshot-Werte**, keine von dieser GitHub-Verbindung selbst verifizierten VPS-Metriken und kein Render-Benchmark. Die **gezielte Betreiber-Bereinigung von VideoNewsStudio und GoldenOracle** ist anhand von Terminal-Rückmeldungen protokolliert; die **Nachmessung am 17.11.2026 19:21:09 UTC** belegt **+0,92 GiB freien Speicher, +282 MiB verfügbaren RAM, acht weniger aktive Container**. Der Datenträger ist trotzdem **94 % belegt**; Provider- und Busy-Hour-Angaben stehen aus. GitHub Actions laufen in gehosteten Test-Runnern und dürfen **niemals** als VPS-Messung ausgegeben werden.
 
 ## 2. VPS-Betreiber-Snapshot vom 17.11.2026 (noch vor Bereinigung)
 
@@ -28,6 +28,40 @@ Alle Werte gehören zum **tatsächlichen Ziel-VPS**, nicht zum eigenen Laptop/Cl
 | Netzwerk: Schnittstellen, Nutzung, realer Durchsatz/Latenz | **83** vom Skript gezählte Netzwerkschnittstellen, RX **223729,2 MiB** und TX **225843,1 MiB** seit Boot; **24 TCP-Listen-Sockets**. Zähler sind keine Geschwindigkeit oder monatliche Abrechnung | aggregierte RX/TX-Zähler plus später ggf. ausdrücklich genehmigter Bandbreitentest | Medien-Downloads/Player/API |
 | Bandbreite/Traffic-Paket: Provider-Limit und egress/Monat | **OFFEN**: Providervertrag, monatliches Transferlimit, Egress-Cap und Linkgeschwindigkeit fehlen | **Providerportal/Vertrag**, keine belastbare Aussage durch lokale RX/TX-Zähler | Video-Hosting-/Traffic-Budget |
 | Betriebslast zu Hauptnutzungszeiten | **OFFEN**: nur ein Betreiber-Snapshot; Nachmessung nach Deinstallation + Busy-Hour-Baseline erforderlich | zumindest zweiter Zeitpunkt und vorhandenes Provider-Monitoring | Einzel-Snapshot ist nicht zuverlässig |
+
+### Nachbereinigungs-Snapshot: Vergleich mit dem ersten Betreiber-Messlauf
+
+**Gemessen am 17.11.2026 um 19:21:09 UTC**, nach der gezielten VideoNewsStudio-/GoldenOracle-Bereinigung. Der Betreiber bestätigt **keine verbliebenen Container oder Docker-Volumes mit den entfernten Projektpräfixen**. Diese Werte stammen aus dem Terminal des VPS-Betreibers, **nicht** aus GitHub-CI oder einem eigenen SSH-Zugriff.
+
+| Messgröße | Vorher, 18:40:28 UTC | Nachher, 19:21:09 UTC | Veränderung |
+| --- | ---: | ---: | --- |
+| Verfügbare logische CPUs | 4 | 4 | Unverändert; 128 konfigurierte CPUs sind **keine** VPS-Kapazität |
+| CPU-Load 1/5/15 min | 0,58 / 0,51 / 0,60 | 0,26 / 0,51 / 0,63 | Momentaufnahme |
+| RAM gesamt | 7964 MiB | 7964 MiB | Unverändert |
+| RAM verfügbar (MemAvailable) | 2409 MiB | **2691 MiB** | **+282 MiB**, keine garantierte Renderreserve |
+| Swap frei | 989 MiB | **1119 MiB** | **+130 MiB**; 929 MiB weiter belegt |
+| ext4 gesamt | 115,20 GiB | 115,20 GiB | Unverändert |
+| ext4 belegt | 108,16 GiB | **107,24 GiB** | **−0,92 GiB** |
+| ext4 frei | 7,02 GiB | **7,94 GiB** | **+0,92 GiB** |
+| ext4 Auslastung | 94 % | **94 %** | **Weiterhin kritisch** |
+| Aktive Docker-Container | 51 | **43** | **−8**; insgesamt 55 Container, davon 12 inaktiv |
+| I/O-PSI avg10/60/300 | 0 / 0 / 0 | 0 / 0 / 0 | Kein IOPS-/Latenznachweis |
+| OS / Docker | Ubuntu 24.04.4 / Docker 29.1.3 | Gleich | Unverändert |
+
+**Netzwerkzähler sind NICHT vergleichbar:** Die Zahl der Netzinterfaces fiel von **83 auf 73**; gleichzeitig fielen die aggregierten RX/TX-Zähler „seit Boot“, weil entfernte virtuelle Interfaces nicht mehr mitgezählt werden. Daraus keine Traffic- oder Bandbreitenersparnis ableiten.
+
+#### Docker-Datenträgerdiagnose nach Bereinigung: `docker system df`
+
+| Bereich | Gesamt / aktiv | Reported size | Reclaimable |
+| --- | --- | ---: | ---: |
+| Images | **704 / 32** | **66,31 GB** | **40,96 GB (61 %)** |
+| Containers | **55 / 43** | **901,9 MB** | **372,3 MB (41 %)** |
+| Local Volumes | **7 / 4** | **541,8 MB** | **53,12 MB (9 %)** |
+| Build Cache | **1892 / 0 in use** | **53,96 GB** | **11,67 GB** |
+
+**Nicht addieren oder als garantiert freigebbaren Speicher verbuchen:** Docker-Images teilen Layer, Cache/Images können sich überschneiden. „Reclaimable“ berücksichtigt nicht alle Anforderungen anderer Projekte an Rollbacks/Builds. **Kein globales `docker system prune -a`, `docker volume prune` oder `docker builder prune -a`** ohne eigene Zuordnungsprüfung und gesonderte Entscheidung. Erst lesend verwaiste Image-/Buildcache-Kandidaten und betroffene Deployments identifizieren.
+
+**Fazit:** Vier verfügbare CPUs und 2691 MiB kurzfristig verfügbarer RAM stehen **nur 7,94 GiB freiem Festplattenplatz bei 94 % Belegung** gegenüber. Ohne verlässliche Reserven für OS, Web, DB, WAL/Backups, temporäre Medien und FFmpeg-Scratch **kein Render-Go**. Providerlimits, SSD-Typ und Busy-Hour-Baseline bleiben offen.
 
 ### Auswertung des ersten Betreiber-Snapshots
 
@@ -50,11 +84,11 @@ Alle Werte gehören zum **tatsächlichen Ziel-VPS**, nicht zum eigenen Laptop/Cl
 | Zugeordnete Docker-Daten-Volumes entfernen | `docker volume rm` meldete erfolgreich: **2 GoldenOracle-Volumes** (DB und WordPress) und **3 VideoNewsStudio-Volumes** (PostgreSQL und zwei Redis-Volumes) | **5 von 5 angefragten Volumes erfolgreich entfernt** |
 | Zugehörige Host-Projektordner löschen | Vorher `du -sh`: **572 MiB** VideoNewsStudio, **80 MiB** GoldenOracle; anschließend `rm -rf` und `rmdir` ohne Fehlermeldung | **Vom Betreiber als durchgeführt gemeldet**, keine Nachprüfung der Pfadexistenz |
 | Verbleibende Images, Docker-Netze, gemeinsame Tunnel-/Cloudflare-Service-Einträge und außerhalb liegende Geheimnis-/Konfigurationsdateien | **Nicht geprüft oder belegt entfernt**; das Cloudflare-Compose-Projekt wird auch von anderen Apps genutzt und darf nicht pauschal entfernt werden | **Offen; nur gezielt und nach Zuordnung ändern** |
-| Tatsächlich gewonnener SSD-Freiraum und entlasteter RAM nach Bereinigung | **Noch keine zweite Messung**; aus früheren `du`-Werten und gelöschten Volumes lässt sich die reale Ersparnis nicht zuverlässig ableiten | **OFFEN: zwingend nachmessen** |
+| Tatsächlich gewonnener Dateisystem-Freiraum und verfügbarer RAM nach Bereinigung | Zweiter Betreiber-Snapshot **19:21:09 UTC**: **+0,92 GiB** freier Speicher, **+282 MiB** verfügbarer RAM, Swap frei **+130 MiB**; **8 weniger aktive Container** | **Erfasst; Speicher weiterhin 94 % voll** |
 
 **Sicherheitsgrenze:** Kein globales `docker system prune`, `docker volume prune` oder gemeinsames `cloudflared`-Compose-Down als Teil dieser Aufgabe. Die aktuelle Bereinigung stammt ausschließlich aus vom Betreiber im Chat geteilten Terminalresultaten; **dieses GitHub-Tool hat keinen Zugriff auf den Host**.
 
-**Für die nächste nachvollziehbare Messung:** Das bereits lokal gespeicherte `audit-vps.sh` erneut **auf dem VPS** ausführen und die Ausgabe vor dem Teilen prüfen. Zusätzlich die verbliebenen Docker-Container/-Volumes nur **auflisten**, nicht pauschal bereinigen. Vergleiche mit dem UTC-Snapshot **2026-11-17T18:40:28Z**: **7,02 GiB** Speicher verfügbar, **2409 MiB RAM verfügbar**, **51 aktive Container**.
+**Die Nachmessung am 2026-11-17T19:21:09Z liegt vor.** Die vom Betreiber ausgeführten Docker-Abfragen ergaben **keine verbleibenden Container oder Volumes mit den entfernten Projektpräfixen**. Andere Anwendungen dürfen nicht von pauschalen Bereinigungen betroffen sein.
 
 ### Sicheres Erfassungsskript
 
@@ -82,16 +116,16 @@ bash scripts/audit-vps.sh /vorhandenes/renderverzeichnis > vps-render-disk-outpu
 
 ## 3. Ressourcenbudget und Reserve (vorerst unbestimmt)
 
-**Erster Snapshot:** 4 derzeit verfügbare logische CPUs, 7964 MiB RAM gesamt / 2409 MiB verfügbar, 115,20 GiB ext4 gesamt / 7,02 GiB frei, **51 Container**. **Noch kein verwendbares Ressourcenbudget.**
+**Jüngster Snapshot nach Bereinigung (19:21:09 UTC):** 4 verfügbare logische CPUs, 7964 MiB RAM gesamt / **2691 MiB verfügbar**, ext4 115,20 GiB / **7,94 GiB frei bei 94 % Auslastung**, **43 aktive Container**. **Noch kein verlässlich zuordenbares Ressourcenbudget.**
 
 **Regel:** Reserven für bereits laufende Systeme/OS und temporäre Medien werden **vor** der Renderer-Kapazität abgezogen. Erst auf Basis realer Zahlen dürfen ein zulässiger Renderjob, Parallelität oder ein Render-Go/No-Go vorgeschlagen werden. **Es gibt noch keine freigegebenen MB-, CPU- oder SSD-Zuteilungen.**
 
 | Dimension | Tatsächlich nutzbare VPS-Ressource (nach Limits) | Bestehender Betrieb / OS-Puffer | Reserviert Web/API | Reserviert PostgreSQL/DB | Render-Worker + temporäre Medien | Freie Reserve | Bewertung |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | **vCPU / CPU-Zeit** | **4 derzeit für Prozess verfügbar; Tarif-/Quotenlimit OFFEN** | OFFEN | OFFEN | OFFEN | OFFEN | OFFEN | **BLOCKED: keine CPU-Basiswerte** |
-| **RAM / MiB** | **7964 MiB gesamt, 2409 MiB Snapshot verfügbar; effektive Limits OFFEN** | OFFEN | OFFEN | OFFEN | OFFEN | OFFEN | **BLOCKED: keine RAM-/Peak-Werte** |
-| **SSD / GiB (dauerhaft)** | **115,20 GiB gesamt, 7,02 GiB frei; Medium nicht bestätigt** | OFFEN | OFFEN | OFFEN | OFFEN | OFFEN | **BLOCKED: keine SSD-Freiraum-/Wachstumsdaten** |
-| **Render-Scratch / GiB (temporär)** | **OFFEN – Root-Dateisystem nur 7,02 GiB frei** | OFFEN | n/a | n/a | OFFEN | OFFEN | **BLOCKED: Temp-Verzeichnis/Spitzen noch unbekannt** |
+| **RAM / MiB** | **7964 MiB gesamt, 2691 MiB im jüngsten Snapshot verfügbar; effektive Limits OFFEN** | OFFEN | OFFEN | OFFEN | OFFEN | OFFEN | **BLOCKED: keine RAM-/Peak-Werte** |
+| **SSD / GiB (dauerhaft)** | **115,20 GiB gesamt, 7,94 GiB frei; Medium nicht bestätigt** | OFFEN | OFFEN | OFFEN | OFFEN | OFFEN | **BLOCKED: keine SSD-Freiraum-/Wachstumsdaten** |
+| **Render-Scratch / GiB (temporär)** | **OFFEN – Root-Dateisystem nur 7,94 GiB frei** | OFFEN | n/a | n/a | OFFEN | OFFEN | **BLOCKED: Temp-Verzeichnis/Spitzen noch unbekannt** |
 | **I/O / IOPS + Latenz** | **OFFEN** | OFFEN | OFFEN | OFFEN | OFFEN | OFFEN | **BLOCKED: keine Lastbaseline** |
 | **Netzwerk / Gbit oder Mbit/s** | **OFFEN** | OFFEN | OFFEN | OFFEN | OFFEN | OFFEN | **BLOCKED: kein Tarif/kein Throughput-Nachweis** |
 | **Monatlicher Transfer / GiB** | **OFFEN** | OFFEN | OFFEN | n/a | Medienstreaming OFFEN | OFFEN | **BLOCKED: Providerlimit und Zieltraffic fehlen** |
@@ -122,10 +156,11 @@ bash scripts/audit-vps.sh /vorhandenes/renderverzeichnis > vps-render-disk-outpu
 - [x] Ein **nichtinvasives, read-only** Inventur-Skript mit Datenschutz-Hinweisen vorbereitet.
 - [x] **Shell-Syntax und Inventurvorlage mit 24/24 statischen Prüfungen bestanden** ([GitHub Actions Run #44144004990](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44144004990)); **kein echter VPS wurde dabei kontaktiert**. [Draft PR #28](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/28) dokumentiert den Zwischenstand.
 - [x] **Erster vom VPS-Betreiber übermittelter Messlauf** mit UTC-Zeitpunkt (17.11.2026, 18:40:28Z) dokumentiert; unabhängiger Direktzugriff/Vertragsabgleich nicht verfügbar.
-- [ ] **Nachmessung nach gezielter VideoNewsStudio-Deinstallation**, Bestandslast/Bandbreitentrafik, Providervertrag und Render-Scratch-Kapazität nachgewiesen.
+- [x] **Nachmessung nach VideoNewsStudio-/GoldenOracle-Löschung am 17.11.2026 19:21:09Z dokumentiert**; keine zugehörigen Container-/Volume-Präfixe mehr sichtbar.
+- [ ] **Provider-Vertragsdaten, SSD-Typ, Busy-Hour-/I/O-/Netzlast und Render-Scratch-Kapazität** nachweisen sowie gegebenenfalls selektive Docker-Image-/Cache-Bereinigung prüfen.
 - [ ] **CPU/RAM/Dateisystem/OS/Docker/Containerzahl und I/O-Basiswerte im ersten Snapshot erfasst**, aber **SSD-Typ, tatsächliche I/O-/Netzbandbreite, Provider-Tarif, laufende Dienste-Lastspitzen und Ressourcenlimits** noch unvollständig.
 - [ ] **Ressourcen für Web, DB, Renderer plus OS-/Betriebspuffer** anhand dieser Zahlen nachvollziehbar zugeteilt.
 - [ ] **Nutzer hat die ausgefüllte 012-Inventur und das Budget ausdrücklich freigegeben.**
 - [ ] Erst dann PR mergen, Issue #27 schließen und die reale 1080p/H.264-Render-Erprobung in **013** starten.
 
-**Status: BLOCKED bis zur Nachmessung nach der vom Betreiber ausgeführten Bereinigung von VideoNewsStudio und GoldenOracle, Providerdaten und belastbarem Web/DB/Renderer-Budget.** Der Entwurf darf nicht als bestandenes M01-Architektur- oder Render-Go/No-Go-Gate missverstanden werden. Das **Monatskosten-/API-Freigabebudget** ist eine separate Entscheidung in **016**, kein Bestandteil dieser Hardware-Kapazitätsaufnahme.
+**Status: BLOCKED trotz erfolgter Nachmessung: 94 % Festplattenbelegung. Eine gezielte, anderen Projekten nicht schadende Speicherbereinigung, Providergrenzen und ein nachweisbares OS/Web/DB/Renderer-Budget fehlen weiterhin.** Der Entwurf darf nicht als bestandenes M01-Architektur- oder Render-Go/No-Go-Gate missverstanden werden. Das **Monatskosten-/API-Freigabebudget** ist eine separate Entscheidung in **016**, kein Bestandteil dieser Hardware-Kapazitätsaufnahme.
