@@ -172,3 +172,9 @@ bash scripts/audit-vps.sh /vorhandenes/renderverzeichnis > vps-render-disk-outpu
 - [ ] Erst dann PR mergen, Issue #27 schließen und die reale 1080p/H.264-Render-Erprobung in **013** starten.
 
 **Status: BLOCKED trotz erfolgter Nachmessung: 94 % Festplattenbelegung. Eine gezielte, anderen Projekten nicht schadende Speicherbereinigung, Providergrenzen und ein nachweisbares OS/Web/DB/Renderer-Budget fehlen weiterhin.** Der Entwurf darf nicht als bestandenes M01-Architektur- oder Render-Go/No-Go-Gate missverstanden werden. Das **Monatskosten-/API-Freigabebudget** ist eine separate Entscheidung in **016**, kein Bestandteil dieser Hardware-Kapazitätsaufnahme.
+
+### Betreiber-Update: Drei VNS-Docker-Netzwerke entfernt (17.11.2026)
+- Vor der Löschung bestätigte der Betreiber für `videonews-studio_backend`, `videonews-studio_feed_egress` und `videonews-studio_frontend` jeweils **0 verbundene Container**.
+- `docker network rm` gab alle drei Netzwerknamen als erfolgreich entfernt zurück. Anschließende Kontrolle mittels `docker network ls` mit Filter auf `videonews|goldenoracle`: **keine passenden Netzwerke**.
+- `df -h /` zeigt danach `116G` gesamt, `107G` belegt, **`8.5G` frei, `93%` ausgelastet** (gerundete Momentaufnahme; kein kausaler Nachweis einer Speicheränderung durch die Netzwerklöschung).
+- **Offen:** dedizierte VideoNewsStudio-Konfigurationsreste erst lesend zuordnen; gemeinsame Cloudflare- und andere Projektkonfigurationen schützen. Danach erneute Messung, nichtinvasive Analyse des Speicherverbrauchs, Provider- und Lastdaten, echtes OS/Web/DB/Renderer-Budget und explizite Nutzerabnahme. **PR #28 bleibt Draft, Issue #27 offen; kein Render-Go.**
