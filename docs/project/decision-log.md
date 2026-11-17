@@ -45,6 +45,8 @@
 
 | DEC-026 | **PRD V0.1 / Roadmap 010 verbindlich freigegeben:** BlueDotAtlas V0.1 umfasst eine öffentliche Videothek ausschließlich manuell freigegebener Dokumentationen und einen geschützten Einzeladmin mit sieben Produktionsschritten (**New Video, News Sources, Discover Topics, Media Library, Script Studio, Voice Studio, Video Production**); zunächst technischer **60-Sekunden-Realfilm-Proof**, reguläre englische Filme mit **8–10-Minuten-Ziel nur bei ausreichend Substanz** und ausschließlich **manuelle redaktionelle Publikationsfreigabe**. Alle Features werden als **MVP / später / ausgeschlossen** kategorisiert. **Autopublish / YouTube-Autoupload, Multiuser/Mehrkanalbetrieb und grafischer Voll-Editor sind in V0.1 ausgeschlossen.** | **Vom Nutzer ausdrücklich freigegeben; Aufgabe 010 abgenommen** | Nutzerantwort „ok, einverstanden“ vom 17.11.2026 unmittelbar auf die explizite Frage nach den Produktgrenzen im präsentierten PRD-V0.1-Vorschlag. | [PRD V0.1](../product/prd-v01.md), [21/21 PRD-Dokumentationschecks PASS](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44131321849), [PR #24](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/24), [Issue #23](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/23). Das PRD ist ein **Produkt-Scope-Beschluss** und weder Nachweis implementierter Funktionen noch pauschale Freigabe kostenpflichtiger Provider. Nächster Roadmap-Schritt **011: messbare Video-Erfolgskriterien definieren**, eigenständige spätere Nutzerabnahme. |
 
+| DEC-027 | **Roadmap 011: Video-Abnahmematrix V0.1 mit allen 18 Kriterien V01–V18 für P60 und LONG ausdrücklich freigegeben.** Der 60-Sekunden-Pilot erhält das **verbindliche Laufzeitfenster 55–65 Sekunden** (als Projektvorgabe, nicht als externe YouTube-Norm). Quellen-, Lizenz-, Ton-, Dynamik- und technische Prüfpflichten gelten wie in `docs/quality/video-acceptance.md`; PASS/FAIL/BLOCKED/N/A, Evidenz-/Reviewerpflicht und Brand-Motion bleiben bindend. Unbekannte neue Messschwellen (z. B. LUFS) wurden dadurch **nicht** festgelegt. | **Vom Nutzer ausdrücklich abgenommen; Task 011 freigegeben** | Nutzer: „Meine Entscheidung zu Aufgabe 011: Qualitätsmatrix: freigegeben. 55–65 Sekunden Pilot-Toleranz: freigegeben. Bitte PR #26 mergen, Issue #25 schließen und den Arbeitsbranch anschließend aufräumen.“ (17.11.2026) | [Video-Qualitätsmatrix V0.1](../quality/video-acceptance.md), [CI: 41/41 Checks PASS](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44134502942), [PR #26](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/26), [Issue #25](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/25). Es handelt sich um **dokumentierte Prüfregeln**, nicht um bereits produzierte oder abgenommene Filme. Das Aufräumen des Head-Branches bleibt ein eigener technischer Schritt nach dem Merge. Nächstes Roadmap-Thema: **012 VPS-Inventur / Ressourcenbudget**. |
+
 ## Offene Entscheidungen
 
 | ID | Frage | Aufgabe | Status |
@@ -57,7 +59,7 @@
 
 
 
-| OPEN-007 | **Video-Abnahmematrix V0.1 (Aufgabe 011)** mit denselben **18 IDs V01–V18** für **echten ca. 60-Sekunden-Piloten (P60)** und **substanziellen Langfilm (LONG)** verbindlich prüfen. Bewertungszustände PASS / FAIL / BLOCKED / begründet N/A; 100% Fakten-/Asset-Nachweise, 1080p/30fps-H264/AAC, filmische Dynamik, Sprache/Ton, Original-Motion und geschützte Vorschau. **55–65s P60-Toleranz ist ein neuer Vorschlagswert, nicht schon beschlossen.** Dokumentation ist **kein tatsächlich absolvierter Filmtest**. | 011 | **Entwurf** [`docs/quality/video-acceptance.md`](../quality/video-acceptance.md), [Issue #25](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/25), Branch `docs/011-video-acceptance`; **Nutzerfreigabe der 011-Kriterien noch ausstehend**. |
+
 
 ## Erledigte Entscheidungspunkte
 
@@ -66,6 +68,7 @@
 - **OPEN-004:** Web-UI-Kit V0.1 nach 12/12-Browser-QA und Sichtvorlage ausdrücklich durch „Ok, einverstanden“ freigegeben (DEC-024).
 - **OPEN-005:** Gesamt-Brand-Kit V0.1 / M00-Gate einschließlich 1080p-Storyboard und historischer 10s-Techniknachweis-Eingrenzung ausdrücklich freigegeben (DEC-025).
 - **OPEN-006:** PRD V0.1 mit siebenstufigem Einzeladmin-Wizard, manueller Veröffentlichung und MVP-/Später-/Ausschlussmatrix ausdrücklich freigegeben (DEC-026).
+- **OPEN-007:** Video-Abnahmematrix 18 Kriterien und 55–65s-Pilot-Toleranz ausdrücklich freigegeben (DEC-027).
 
 ## Dokumentationsregel
 
