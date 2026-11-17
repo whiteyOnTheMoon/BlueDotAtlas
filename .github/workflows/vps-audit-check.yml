@@ -1,0 +1,31 @@
+name: VPS Inventory 012 — safe script and audit template QA
+
+on:
+  push:
+    branches:
+      - infra/012-vps-audit
+    paths:
+      - 'docs/infra/vps-audit.md'
+      - 'scripts/audit-vps.sh'
+      - 'scripts/check-vps-audit.mjs'
+      - '.github/workflows/vps-audit-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-template-static-qa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Shell syntax only — DO NOT execute inventory on CI runner
+        run: bash -n scripts/audit-vps.sh
+      - name: Roadmap 012 categories, privacy guard and evidence-gap checks
+        run: node scripts/check-vps-audit.mjs
+      - name: Clarify provenance
+        run: echo 'This job validates syntax and template only. VPS metrics MUST come from owner-run audit on actual VPS.'
