@@ -1,6 +1,6 @@
 # BlueDotAtlas — Web UI-Kit V0.1 · Roadmap 008
 
-**Status:** **DESIGNVORSCHLAG**, noch nicht durch den Nutzer freigegeben. `main` bleibt unverändert, bis Review, Tests und Abnahme abgeschlossen sind.  
+**Status:** **DESIGN V0.1 AUSDRÜCKLICH FREIGEGEBEN** durch Nutzerantwort „ok, einverstanden, wieter gehts“ am 17.11.2026 (DEC-024). Auf Umsetzung/technische QA geprüft; PR-Merge und Issue-Abschluss als Roadmap-Gate getrennt dokumentiert.  
 **Issue:** [#19](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/19)  
 **Arbeitsbranch:** `design/008-ui-kit-v01`  
 **Roadmap-Ergebnis:** `design/ui-kit-v01` plus `packages/ui/tokens/ui.ts`.
@@ -63,8 +63,8 @@ Es sind **keine Accounts, Internetverbindungen, Datenbank und kein Backend nöti
 - [x] Öffentliche und Admin-Vorschau verwenden **dieselben Tokens, Styles und Komponenten**.
 - [x] Bereits freigegebene Logos/Brandfarben/Typografieregeln als Quelle verknüpft, nicht neu erfunden.
 - [x] **Chromium-QA 12/12 PASS** an **1440 / 960 / 375 px** × **Dark/Light** × **Public/Admin**; keine horizontalen Überläufe, Originalbilder vollständig geladen; Tab-Tastatursteuerung, Filter und Focus erfolgreich. [GitHub Actions Run #44126245757](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44126245757) · [12 Screenshots und JSON als Artefakt](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44126245757/artifacts/14347681682).
-- [ ] Nutzer hat **visuellen Entwurf ausdrücklich freigegeben** oder Anpassungen benannt.
-- [ ] PR-Merge, Issue-Abschluss und Gate nach dem Review.
+- [x] Nutzer hat den präsentierten **visuellen V0.1-Entwurf ausdrücklich freigegeben** („ok, einverstanden, wieter gehts“, 17.11.2026; DEC-024).
+- [x] Review des Designvorschlags und technische QA für die Roadmap-Abnahme abgeschlossen. [PR #20](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/20) wird nach der dokumentierten Freigabe auf `main` gemergt und Issue #19 formal geschlossen.
 
 ## Nicht Teil von 008
 
