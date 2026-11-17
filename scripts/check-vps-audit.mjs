@@ -27,7 +27,7 @@ test('No external network requests or destructive benchmark in executable source
 test('SSH/external access is not assumed',doc.includes('vom Betreiber mitgeteilte Host-Snapshot-Werte')&&doc.includes('keine von dieser GitHub-Verbindung selbst verifizierten VPS-Metriken') );
 test('No invented GitHub CI VPS metrics',doc.includes('GitHub Actions laufen in gehosteten Test-Runnern'));
 test('Post-cleanup evidence present, approval still pending',doc.includes('Aufgabe 012 ist noch NICHT abgenommen')&&doc.includes('- [x] **Nachmessung nach VideoNewsStudio-/GoldenOracle-Löschung')&&doc.includes('7,94 GiB')&&doc.includes('94 %'));
-test('Measurable snapshot includes resource quantities',doc.includes('7964 MiB')&&doc.includes('2409 MiB')&&doc.includes('7,02 GiB')&&doc.includes('94%')&&doc.includes('4 derzeit verfügbare'));
+test('Measurable snapshot includes resource quantities',doc.includes('7964 MiB')&&doc.includes('2409 MiB')&&doc.includes('7,02 GiB')&&doc.includes('94%')&&doc.includes('4 verfügbare logische CPUs'));
 test('No render go claimed at high disk utilization',doc.includes('keine 1080p-Renderjobs')&&doc.includes('kein endgültiges Render-No-Go'));
 test('Before/after operator measurements are comparable',doc.includes('2026-11-17 18:40:28 UTC')&&doc.includes('19:21:09 UTC')&&doc.includes('+0,92 GiB')&&doc.includes('+282 MiB')&&doc.includes('51')&&doc.includes('43'));
 test('Docker disk inventory is not counted as guaranteed savings',doc.includes('704 / 32')&&doc.includes('40,96 GB')&&doc.includes('11,67 GB')&&doc.includes('Nicht addieren'));
