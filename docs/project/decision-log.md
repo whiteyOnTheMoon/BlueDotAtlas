@@ -57,6 +57,8 @@
 
 
 
+| OPEN-007 | **Video-Abnahmematrix V0.1 (Aufgabe 011)** mit denselben **18 IDs V01–V18** für **echten ca. 60-Sekunden-Piloten (P60)** und **substanziellen Langfilm (LONG)** verbindlich prüfen. Bewertungszustände PASS / FAIL / BLOCKED / begründet N/A; 100% Fakten-/Asset-Nachweise, 1080p/30fps-H264/AAC, filmische Dynamik, Sprache/Ton, Original-Motion und geschützte Vorschau. **55–65s P60-Toleranz ist ein neuer Vorschlagswert, nicht schon beschlossen.** Dokumentation ist **kein tatsächlich absolvierter Filmtest**. | 011 | **Entwurf** [`docs/quality/video-acceptance.md`](../quality/video-acceptance.md), [Issue #25](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/25), Branch `docs/011-video-acceptance`; **Nutzerfreigabe der 011-Kriterien noch ausstehend**. |
+
 ## Erledigte Entscheidungspunkte
 
 - **OPEN-001:** Freigabe des Brand Briefs durch „Ok“, dokumentiert unter DEC-007. Die Tagline wurde anschließend separat unter DEC-008 ausgewählt.
