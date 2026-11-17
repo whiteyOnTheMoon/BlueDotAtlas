@@ -178,3 +178,8 @@ bash scripts/audit-vps.sh /vorhandenes/renderverzeichnis > vps-render-disk-outpu
 - `docker network rm` gab alle drei Netzwerknamen als erfolgreich entfernt zurück. Anschließende Kontrolle mittels `docker network ls` mit Filter auf `videonews|goldenoracle`: **keine passenden Netzwerke**.
 - `df -h /` zeigt danach `116G` gesamt, `107G` belegt, **`8.5G` frei, `93%` ausgelastet** (gerundete Momentaufnahme; kein kausaler Nachweis einer Speicheränderung durch die Netzwerklöschung).
 - **Offen:** dedizierte VideoNewsStudio-Konfigurationsreste erst lesend zuordnen; gemeinsame Cloudflare- und andere Projektkonfigurationen schützen. Danach erneute Messung, nichtinvasive Analyse des Speicherverbrauchs, Provider- und Lastdaten, echtes OS/Web/DB/Renderer-Budget und explizite Nutzerabnahme. **PR #28 bleibt Draft, Issue #27 offen; kein Render-Go.**
+
+### Betreiber-Update: Weitere vier Projektpfade gefunden (17.11.2026)
+- Eine read-only Suche im Betreiber-Home (`find ... -maxdepth 5`) meldete **drei Verzeichnisse**: `.config/videonews-studio`, `videonews-pilot-481`, `videonews-previews`; zudem **eine Datei**: `tools/cloudflared/config/config-goldenoracle.yml`.
+- Dies ist **keine vollständige VPS-weite Inventur** und belegt noch nicht die Größe, Nutzung oder Löschbarkeit der Pfade. Die Cloudflare-Datei könnte durch die gemeinsam betriebene Tunnel-Konfiguration referenziert sein; **keine Inhalte/Secrets veröffentlicht**.
+- **Nächste Betreiberprüfung read-only:** Größen/Typen, Docker-Bind-Mounts und Konfigurationsreferenzen kontrollieren. Bis dahin nichts davon löschen; andere Cloudflare-Tunnel/Projekte erhalten. PR #28 bleibt Draft; Issue #27 offen.
