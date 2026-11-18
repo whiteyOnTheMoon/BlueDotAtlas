@@ -12,17 +12,24 @@ Das Skript [`scripts/vps-render-proof-013.sh`](../../scripts/vps-render-proof-01
 - `ffprobe` prüft Videoauflösung/-codec/-Framerate, Audiocodec und Dauer; `/usr/bin/time` erfasst bei Verfügbarkeit Peak-RSS und Laufzeit.
 - Ausgabedatei und Metadaten werden am Ende automatisch entfernt; kein dauerhaftes Cache-Artefakt.
 
-**VPS-Ausführung (nur wenn der Betreiber die Branch-Datei lokal geprüft hat):**
+**VPS-Ausführung (einmalig; vor dem Start das Skript im PR ansehen):**
 
 ```bash
 (
   cd "$HOME" || exit 1
-  # Voraussetzung: Repository-Checkout im aktuellen Verzeichnis, auf Branch infra/013-render-proof
-  bash scripts/vps-render-proof-013.sh
+  script="$(mktemp "$HOME/.bda-013.XXXXXXXX.sh")" || exit 1
+  trap 'rm -f -- "$script"' EXIT
+
+  curl -fsSL --max-time 30 \
+    "https://raw.githubusercontent.com/whiteyOnTheMoon/BlueDotAtlas/infra/013-render-proof/scripts/vps-render-proof-013.sh" \
+    -o "$script" || exit 1
+
+  bash -n "$script" || exit 1
+  bash "$script"
 )
 ```
 
-Falls sich das Repo nicht unter `$HOME` befindet: In diesem geklammerten Block erst `cd` in den tatsächlichen Checkout-Pfad wechseln. Nicht blind einen nicht vorhandenen Pfad annehmen.
+Der Abruf benötigt Zugang zur GitHub-Datei (bei privatem Repository ggf. einen authentifizierten Checkout). **Nur der Abruf** benötigt Internet; das Testskript selbst nicht. Der temporäre Skriptdownload wird beim Verlassen des Blocks entfernt.
 
 ## Abnahme
 
