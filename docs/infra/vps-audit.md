@@ -227,3 +227,9 @@ Der Betreiber hat erneut ein **read-only** Audit am Ziel-VPS ausgeführt; Messwe
 
 **Einordnung:** Inodes unkritisch, Load in dieser Momentaufnahme niedrig, Docker-Mengen unverändert. **Root weiterhin 93 % voll**; Render-Scratch und Web/DB/Renderer-Reserve **nicht freigegeben**. Nächste sichere Betreiberaktion: die drei VNS-Verzeichnisse per `du` auf Größen und per Docker-Mount-/Prozess-Prüfung auf Verwendung kontrollieren; keine globale Prune-Aktion. Providerlimits, Busy-Hour-Baseline und Ressourcenbudget offen; PR #28 bleibt DRAFT, Issue #27 offen.
 
+### Betreiberprüfung: Drei verbliebene VNS-Assetverzeichnisse (18.11.2026)
+- Drei in `$HOME/.local/share` identifizierte VideoNewsStudio-Restverzeichnisse wurden per `stat` / `du -sh` auf dem VPS nachgemessen: `vns-piper-venv` **202M**, `vns-piper-voices` **61M**, `vns-visual-assets` **13M** (zusammen **276M** gerundet).
+- Betreiber hat alle **55 Docker-Container** mit `docker ps -aq` / `docker inspect .Mounts[].Source` geprüft. Der Präfix-Abgleich ergab **jeweils 0 Docker-Mount-Referenzen**.
+- **Noch nicht geprüft:** außerhalb von Docker aktive Prozesse/offene Dateien, ggf. indirekte Skriptreferenzen. **Keine Löschung der drei Verzeichnisse nachgewiesen.** Vor der bereits grundsätzlich genehmigten gezielten Entfernung abschließenden Prozesscheck vornehmen. Keine globale Docker-Prune-Aktion, bestehende Projekte schützen.
+- Root-Festplatte zuletzt **9.3G frei bei 93 % Belegung** (18.11.2026 03:47 UTC). Ressourcenbudget/Providerdaten weiterhin offen; Issue #27 bleibt offen, PR #28 Draft.
+
