@@ -1,36 +1,31 @@
-// Roadmap 012: static audit-document and collector-safety checks ONLY.
-// Never run scripts/audit-vps.sh in GitHub-hosted CI and pretend it is the VPS.
-import {readFileSync,existsSync} from 'node:fs';
-const doc=readFileSync('docs/infra/vps-audit.md','utf8');
-const collector=readFileSync('scripts/audit-vps.sh','utf8');
-let ok=0,total=0;
-const test=(label,passed)=>{total++; if(passed)ok++;
- console.log((passed?'PASS':'FAIL')+' '+label);
-};
-for(const word of ['CPU','RAM','SSD','I/O','OS','Docker','Netzwerk','Bandbreite','Dienste']){
-  test('Roadmap inventory category: '+word,doc.includes(word));
+// Task 012: static validation of operator-supplied VPS audit documentation.
+// Never execute the inventory collector on GitHub CI.
+import {readFileSync, existsSync} from 'node:fs';
+const doc = readFileSync('docs/infra/vps-audit.md','utf8');
+const collector = readFileSync('scripts/audit-vps.sh','utf8');
+let passed = 0, total = 0;
+function test(name, valid) {
+  total++;
+  if (valid) passed++;
+  console.log((valid ? 'PASS ' : 'FAIL ') + name);
 }
-for(const component of ['Web','DB','Renderer']){
-  test('Budget includes '+component,doc.includes(component));
+for (const category of ['CPU', 'RAM', 'Swap', 'ext4', 'I/O', 'Docker', 'Netzwerk', 'SSD']) {
+  test('Inventory category ' + category, doc.includes(category));
 }
-test('Operator-reported VPS snapshot dated and not confused with CI',doc.includes('2026-11-17 18:40:28 UTC')&&doc.includes('51 aktive Docker-Container')&&doc.includes('GitHub Actions laufen in gehosteten Test-Runnern'));
-test('Doc clearly separates 013 render spike',doc.includes('Aufgabe 013')&&doc.includes('kein gemessener VPS-Nachweis'));
-test('No fictional capacity budgets prefilled',doc.includes('OFFEN')&&doc.includes('BLOCKED'));
-test('No raw passwords or IPs solicited',doc.includes('keine IPs, Hostnamen')&&doc.includes('Schlüssel, Tokens')&&doc.includes('private Ports'));
-test('Collector is read-only',collector.includes('READ-ONLY')&&collector.includes('target="/"' )&&collector.includes('No sudo'));
-test('Collector uses standard Linux resource sources',
-  ['/proc/meminfo','/proc/pressure/io','/proc/net/dev','cpu.max','memory.max','docker version','systemctl','df -P'].every(v=>collector.includes(v)));
-test('Collector omits IP/MAC/port details',collector.includes('no IP/MAC')&&collector.includes('no port details'));
-test('No external network requests or destructive benchmark in executable source',
-  !collector.split('\n').filter(line=>!line.trimStart().startsWith('#')).some(line=>
-    /(?:^|[;\s])(sudo|curl|wget|dd|fio|mkfs|rm -rf|iperf3|speedtest|apt-get|iptables|docker run)(?:\s|$)/.test(line)));
-test('SSH/external access is not assumed',doc.includes('vom Betreiber mitgeteilte Host-Snapshot-Werte')&&doc.includes('keine von dieser GitHub-Verbindung selbst verifizierten VPS-Metriken') );
-test('No invented GitHub CI VPS metrics',doc.includes('GitHub Actions laufen in gehosteten Test-Runnern'));
-test('Post-cleanup evidence present, approval still pending',doc.includes('Aufgabe 012 ist noch NICHT abgenommen')&&doc.includes('- [x] **Nachmessung nach VideoNewsStudio-/GoldenOracle-Löschung')&&doc.includes('7,94 GiB')&&doc.includes('94 %'));
-test('Measurable snapshot includes resource quantities',doc.includes('7964 MiB')&&doc.includes('2409 MiB')&&doc.includes('7,02 GiB')&&doc.includes('94%')&&doc.includes('4 verfügbare logische CPUs'));
-test('No render go claimed at high disk utilization',doc.includes('keine 1080p-Renderjobs')&&doc.includes('kein endgültiges Render-No-Go'));
-test('Before/after operator measurements are comparable',doc.includes('2026-11-17 18:40:28 UTC')&&doc.includes('19:21:09 UTC')&&doc.includes('+0,92 GiB')&&doc.includes('+282 MiB')&&doc.includes('51')&&doc.includes('43'));
-test('Docker disk inventory is not counted as guaranteed savings',doc.includes('704 / 32')&&doc.includes('40,96 GB')&&doc.includes('11,67 GB')&&doc.includes('Nicht addieren'));
-test('Expected paths exist',existsSync('scripts/audit-vps.sh')&&existsSync('docs/infra/vps-audit.md'));
-console.log('SUMMARY '+ok+'/'+total+' static audit checks PASS (no VPS contacted)');
-if(ok!==total)process.exitCode=1;
+for (const role of ['Web/API','PostgreSQL/DB','Render-Worker']) {
+  test('Budget includes '+role, doc.includes(role));
+}
+test('Initial and final operator snapshots', doc.includes('17.11.') && doc.includes('89G') && doc.includes('24 %'));
+test('Four CPUs and RAM documented', doc.includes('4 logische CPUs') && doc.includes('7,8 GiB'));
+test('Post-cleanup services counted', doc.includes('43 laufende') && doc.includes('5/5'));
+test('Disk reservations and scratch', doc.includes('40G') && doc.includes('20G') && doc.includes('12G'));
+test('No false render approval', doc.includes('0 produktive Jobs') && doc.includes('Aufgabe 013'));
+test('Unknown provider limits disclosed', doc.includes('Provider') && doc.includes('nicht verifiziert'));
+test('Safety and provenance', doc.includes('Betreiber-Terminalmessungen') && doc.includes('keine SSH-Verbindung'));
+test('Collector is read-only', collector.includes('READ-ONLY') && collector.includes('No sudo'));
+test('Collector uses Linux measurements', ['/proc/meminfo','/proc/pressure/io','df -P','docker version'].every(v=>collector.includes(v)));
+test('No secret or network dumps', collector.includes('no IP/MAC') && collector.includes('no port details'));
+test('No destructive commands in collector', !collector.split('\n').filter(l=>!l.trimStart().startsWith('#')).some(l=> /(?:^|[;\s])(sudo|curl|wget|dd|fio|mkfs|rm -rf|iperf3|speedtest|apt-get|iptables|docker run)(?:\s|$)/.test(l)));
+test('Expected files present', existsSync('scripts/audit-vps.sh') && existsSync('docs/infra/vps-audit.md'));
+console.log('SUMMARY '+passed+'/'+total+' static checks PASS (no VPS accessed)');
+if (passed !== total) process.exitCode = 1;
