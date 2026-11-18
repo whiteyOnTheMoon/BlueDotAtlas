@@ -1,6 +1,6 @@
 # Roadmap 013 – kleiner VPS-1080p-Render-Proof
 
-**Status:** Begrenzter synthetischer 1080p-VPS-Proof **am 18.11.2026, 23:42:49 UTC bestanden** (Betreiber-Terminalausgabe). Die technische Prüfschleife ist abgeschlossen; die formale Task-013-Abnahme durch den Betreiber steht noch aus. Keine Film- oder produktive Renderer-Freigabe.
+**Status:** Begrenzter synthetischer 1080p-VPS-Proof **am 18.11.2026, 23:42:49 UTC bestanden** (Betreiber-Terminalausgabe). Die technische Prüfschleife ist abgeschlossen und **der Betreiber hat Aufgabe 013 am 19.11.2026 mit „ok“ ausdrücklich abgenommen**. Keine Film- oder produktive Renderer-Freigabe.
 
 ## Einmaliger Test
 
@@ -56,6 +56,6 @@ Der synthetische Acht-Sekunden-Encode dauerte **6.30 s**, also rund **1,27× Ech
 - [x] Ergebnis `PASS` mit H.264, 1920×1080, 30/1, AAC und 8.000s.
 - [x] Dauer, CPU-Zeit, Peak-Prozess-RSS, Dateigröße, Speicher vorher/nachher dokumentiert.
 - [x] Test ohne Änderung an laufenden Diensten oder Docker abgeschlossen; 89G frei gemeldet.
-- [ ] **Formale Nutzerfreigabe** für den Abschluss von 013; kein weiterer Diagnoselauf für diesen kleinen Proof notwendig.
+- [x] **Formale Nutzerfreigabe** für den Abschluss von 013 („ok“ vom 19.11.2026). Kein weiterer Diagnoselauf für diesen kleinen Proof notwendig.
 
 **Abgrenzung:** Die 8 Sekunden sind lediglich Encoder-/Systemverträglichkeitsnachweis, nicht der 55–65s-Pilotfilm und nicht der produktive Medien-Workflow. Filme mit lizenziertem Material, Motion/Remotion, Sprecher und BGM werden später separat geprüft. Keine zusätzlichen VPS-Inventurzyklen erforderlich.
