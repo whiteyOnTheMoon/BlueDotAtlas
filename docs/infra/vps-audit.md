@@ -233,3 +233,9 @@ Der Betreiber hat erneut ein **read-only** Audit am Ziel-VPS ausgeführt; Messwe
 - **Noch nicht geprüft:** außerhalb von Docker aktive Prozesse/offene Dateien, ggf. indirekte Skriptreferenzen. **Keine Löschung der drei Verzeichnisse nachgewiesen.** Vor der bereits grundsätzlich genehmigten gezielten Entfernung abschließenden Prozesscheck vornehmen. Keine globale Docker-Prune-Aktion, bestehende Projekte schützen.
 - Root-Festplatte zuletzt **9.3G frei bei 93 % Belegung** (18.11.2026 03:47 UTC). Ressourcenbudget/Providerdaten weiterhin offen; Issue #27 bleibt offen, PR #28 Draft.
 
+### Betreiberprüfung: VNS-Prozessnutzung nicht erkannt (18.11.2026)
+- Betreiber prüfte `/proc/[0-9]*/cwd`, `exe` und `fd/*` per `readlink` auf Dateipfade unter den drei verbleibenden `$HOME/.local/share/vns-*`-Verzeichnissen. Ergebnis **„Keine offenen Prozesspfade erkannt“**.
+- `pgrep -af 'vns-|vns_|piper'` lieferte **keine gemeldeten PIDs**. Bereits zuvor: drei Verzeichnisse mit **202M + 61M + 13M = ~276M** und **je 0 Docker-Mount-Referenzen**.
+- **Grenzen:** Prüfung ist eine Momentaufnahme und kann mangels Berechtigungen und bei indirekten Referenzen Nutzungen übersehen. **Die Löschung wurde noch NICHT ausgeführt oder bestätigt**. Gemäß früherer Nutzerfreigabe für vollständige VNS-Entfernung sind die drei exakt bekannten Pfade Kandidaten für gezielte Entfernung mit Nachmessung. Andere Services und gemeinsame Docker-Ressourcen bleiben unberührt; kein globales Prune.
+- Issue #27 bleibt offen und PR #28 Draft; weiterhin kein sicheres OS/Web/DB/Renderer-Ressourcenbudget.
+
