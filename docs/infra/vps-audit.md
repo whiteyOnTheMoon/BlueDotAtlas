@@ -239,3 +239,10 @@ Der Betreiber hat erneut ein **read-only** Audit am Ziel-VPS ausgeführt; Messwe
 - **Grenzen:** Prüfung ist eine Momentaufnahme und kann mangels Berechtigungen und bei indirekten Referenzen Nutzungen übersehen. **Die Löschung wurde noch NICHT ausgeführt oder bestätigt**. Gemäß früherer Nutzerfreigabe für vollständige VNS-Entfernung sind die drei exakt bekannten Pfade Kandidaten für gezielte Entfernung mit Nachmessung. Andere Services und gemeinsame Docker-Ressourcen bleiben unberührt; kein globales Prune.
 - Issue #27 bleibt offen und PR #28 Draft; weiterhin kein sicheres OS/Web/DB/Renderer-Ressourcenbudget.
 
+
+
+### Betreiber-Update: VNS-Piper-Reste entfernt, 9.5G frei (18.11.2026)
+- Betreiber entfernte pfadspezifisch mit `rm -r` und ohne gemeldete Fehler: `$HOME/.local/share/vns-piper-venv` (zuvor 202M), `vns-piper-voices` (61M), `vns-visual-assets` (13M). Anschließendes `find "$HOME/.local/share" -maxdepth 1 -iname 'vns-*'` fand keine Einträge.
+- `df -h /` danach: 116G gesamt, 106G genutzt, **9.5G frei, 92%** genutzt; zuvor 9.3G und 93% (gerundete Werte). **43 Docker-Container** weiterhin aktiv.
+- Betreiber hat eine neue, read-only Cache-Inventur und die gezielte Entfernung von `$HOME/backups` und `$HOME/cloudflared-backup` freigegeben; Entfernung **noch nicht belegt**. `$HOME/.kurvenfunk-dev-backups` und laufende Dienste nicht anfassen.
+- Kein pauschales Docker-Prune oder Render-Go. PR #28 Draft; Issue #27 offen.
