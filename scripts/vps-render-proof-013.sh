@@ -23,7 +23,7 @@ if ! grep -E '[[:space:]]aac[[:space:]]' >/dev/null <<< "$encoders"; then
   exit 2
 fi
 
-scratch_root="\${TMPDIR:-/tmp}"
+scratch_root="${TMPDIR:-/tmp}"
 if [[ ! -d "$scratch_root" || -L "$scratch_root" ]]; then
   echo 'ERROR: TMPDIR must be an existing non-symlink directory' >&2
   exit 2
@@ -67,11 +67,11 @@ cmd=(
 )
 start="$(date +%s)"
 if [[ -x /usr/bin/time ]]; then
-  nice -n 10 /usr/bin/time -f 'elapsed_seconds=%e user_seconds=%U sys_seconds=%S peak_rss_kib=%M' -o "$metrics" "\${cmd[@]}"
+  nice -n 10 /usr/bin/time -f 'elapsed_seconds=%e user_seconds=%U sys_seconds=%S peak_rss_kib=%M' -o "$metrics" "${cmd[@]}"
   echo '--- process usage ---'
   cat -- "$metrics"
 else
-  nice -n 10 "\${cmd[@]}"
+  nice -n 10 "${cmd[@]}"
   echo 'peak_rss_kib=NOT MEASURED (/usr/bin/time unavailable)'
 fi
 end="$(date +%s)"
