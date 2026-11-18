@@ -208,3 +208,22 @@ bash scripts/audit-vps.sh /vorhandenes/renderverzeichnis > vps-render-disk-outpu
 - Letzte bestätigte Root-`df -h /`-Messung nach gezielter Restdateibereinigung: **9.1G frei / 93 % belegt**. Der erneute `df -h /`-Aufruf am Ende der letzten Betreiber-Ausgabe war abgeschnitten, daher **kein neuerer Wert behauptet**.
 - **Nächste Schritte read-only:** VNS-Verzeichnisse und Mounts/Prozessbezüge prüfen, Platzfresser in `.vscode-server`, `.local`, `.cache` grob zuordnen und Cache-/Image-Rollback-Bedarf der anderen Projekte klären; keine globale Docker-Bereinigung. Task 012 / PR #28 bleiben ungeprüft und offen bis Ressourcenbudget, Providerdaten und Nutzerabnahme.
 
+### Betreiber-Snapshot nach weiterer manueller Bereinigung (18.11.2026, 03:47:45 UTC)
+
+Der Betreiber hat erneut ein **read-only** Audit am Ziel-VPS ausgeführt; Messwerte wurden als Terminalausgabe im Projektchat übermittelt (kein SSH-Zugriff über GitHub).
+
+| Größe | Messwert |
+| --- | --- |
+| Root-Dateisystem `/dev/vda1` | `116G` gesamt, `106G` genutzt, **`9.3G` verfügbar, `93%` belegt** (`df -h /`; gerundet) |
+| Gegenüber letzter Snapshot `9.1G` frei | **rund +0.2G frei**; manuelle Bereinigung nicht detailliert inventarisiert |
+| Inodes | **3,310,019 von 15,597,568 = 22 %** verwendet |
+| CPU | **4** verfügbare logische CPUs; Load 1/5/15 **0.29 / 0.47 / 0.61** |
+| RAM | **7.8 GiB** total, **2.9 GiB verfügbar** zum Zeitpunkt (`free -h`); Swap **2.0 GiB** total, **890 MiB** belegt |
+| Docker | **43 laufende / 55 gesamte Container**; **688 Images / 30 aktiv**, `65.75GB` Image-Größe, `40.61GB` Docker-reclaimable |
+| Docker-Buildcache | **1892** Einträge, `53.96GB`; `docker system df` meldet `11.67GB` reclaimable, `docker buildx du` meldet Shared `42.29GB`, Private `11.67GB`, Reclaimable `53.96GB`; **nicht addieren oder pauschal prunen** |
+| Home | **`9.4G`** gegenüber zuvor `9.6G`; `.vscode-server` `4.1G`, `.local` `1.5G`, `.cache` `517M`, `www` `3.3G` |
+| Verbliebene VNS-Pfade | Namenssuche bis Tiefe 5 fand **`.local/share/vns-piper-venv`, `vns-piper-voices`, `vns-visual-assets`**. Größen/Abhängigkeiten noch **nicht geprüft**, keine Löschung belegt |
+| Alte Netzwerke | Namensfilter `videonews|goldenoracle`: **keine Treffer** |
+
+**Einordnung:** Inodes unkritisch, Load in dieser Momentaufnahme niedrig, Docker-Mengen unverändert. **Root weiterhin 93 % voll**; Render-Scratch und Web/DB/Renderer-Reserve **nicht freigegeben**. Nächste sichere Betreiberaktion: die drei VNS-Verzeichnisse per `du` auf Größen und per Docker-Mount-/Prozess-Prüfung auf Verwendung kontrollieren; keine globale Prune-Aktion. Providerlimits, Busy-Hour-Baseline und Ressourcenbudget offen; PR #28 bleibt DRAFT, Issue #27 offen.
+
