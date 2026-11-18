@@ -47,6 +47,8 @@
 
 | DEC-027 | **Roadmap 011: Video-Abnahmematrix V0.1 mit allen 18 Kriterien V01–V18 für P60 und LONG ausdrücklich freigegeben.** Der 60-Sekunden-Pilot erhält das **verbindliche Laufzeitfenster 55–65 Sekunden** (als Projektvorgabe, nicht als externe YouTube-Norm). Quellen-, Lizenz-, Ton-, Dynamik- und technische Prüfpflichten gelten wie in `docs/quality/video-acceptance.md`; PASS/FAIL/BLOCKED/N/A, Evidenz-/Reviewerpflicht und Brand-Motion bleiben bindend. Unbekannte neue Messschwellen (z. B. LUFS) wurden dadurch **nicht** festgelegt. | **Vom Nutzer ausdrücklich abgenommen; Task 011 freigegeben** | Nutzer: „Meine Entscheidung zu Aufgabe 011: Qualitätsmatrix: freigegeben. 55–65 Sekunden Pilot-Toleranz: freigegeben. Bitte PR #26 mergen, Issue #25 schließen und den Arbeitsbranch anschließend aufräumen.“ (17.11.2026) | [Video-Qualitätsmatrix V0.1](../quality/video-acceptance.md), [CI: 41/41 Checks PASS](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44134502942), [PR #26](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/26), [Issue #25](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/25). Es handelt sich um **dokumentierte Prüfregeln**, nicht um bereits produzierte oder abgenommene Filme. Das Aufräumen des Head-Branches bleibt ein eigener technischer Schritt nach dem Merge. Nächstes Roadmap-Thema: **012 VPS-Inventur / Ressourcenbudget**. |
 
+| DEC-028 | **Roadmap 012 – VPS-Inventur und konservatives Ressourcenbudget abgeschlossen.** Nach gezielter Aufräumaktion stehen laut Betreiber-Messung 89G freier Speicher bei 24 % Belegung, 4 logische CPUs und zuletzt ca. 3,9 GiB verfügbarer RAM zur Verfügung. Bestehende 43 Container und Datenbanken bleiben geschützt; erste Obergrenzen/Reservetöpfe für Web, DB und einen zunächst deaktivierten Renderer sind in `docs/infra/vps-audit.md` festgelegt. Ein Render-Go/No-Go ist ausdrücklich Aufgabe 013, SSD-/Traffic-Providerdaten sind nicht als garantiert behauptet. | **Abgenommen – 012 abgeschlossen** | Nutzer: „# [012] VPS-Inventur und Ressourcenbudget erheben #27 soll abgeschlossen werden. aber es muss nicht ständig bei allem so übertrieben werden“, 19.11.2026. | [Audit und Budget](../infra/vps-audit.md); [PR #28](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/28), [Issue #27](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/27). |
+
 ## Offene Entscheidungen
 
 | ID | Frage | Aufgabe | Status |
@@ -60,6 +62,8 @@
 
 
 
+
+| OPEN-008 | **Roadmap 012 – VPS-Inventur und Ressourcenbudget**: Vermessung und begrenzte Ressourcenverteilung mit Planungsobergrenzen für OS/Bestand, Web, PostgreSQL, Render-Scratch und Worker. Betreiber-Freigabe am 19.11.2026. Tatsächliche 1080p-Renderfähigkeit/Provider-Garantien sind nicht Bestandteil dieser Inventur. | 012 | **Abgeschlossen (DEC-028)** – [Messwerte und Budget](../infra/vps-audit.md), [Issue #27](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/27), [PR #28](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/28). |
 
 ## Erledigte Entscheidungspunkte
 
