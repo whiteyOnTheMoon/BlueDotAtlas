@@ -2,7 +2,7 @@
 
 **Earth & Climate Video Studio** — hochwertige, englischsprachige Wissenschaftsdokumentationen über unseren Planeten.
 
-> Projektphase: **M01 – Produktgrenzen und technische Vorprüfung** · **Aufgaben 001–020 abgeschlossen** · 013 synthetischer 1080p-VPS-Render-Proof bestanden und vom Betreiber freigegeben (DEC-029; [Issue #29](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/29), [PR #30](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/30)).
+> Projektphase: **M02 – Grundsystem, Datenmodell und VPS-Betrieb (gestartet)** · **Aufgaben 001–020 abgeschlossen, 021–034 offen** · 013 synthetischer 1080p-VPS-Render-Proof bestanden und vom Betreiber freigegeben (DEC-029; [Issue #29](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/29), [PR #30](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/30)).
 
 ## Projektziel
 
@@ -87,7 +87,13 @@ Grundlage: *BlueDotAtlas Master Roadmap V0.1* (13. November 2026), 14 Meilenstei
 
 **Stand:** Roadmap 012 (VPS-Inventur, [Issue #27](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/27)) und Roadmap 013 (isolierter 1080p-Render-Proof, [Issue #29](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/29)) sind abgeschlossen. Die technischen 013-Messwerte belegen einen synthetischen 8-Sekunden-Encode, noch keinen vollständigen 55–65-Sekunden-Pilotfilm.
 
-## Geplante technische Basis (noch nicht implementiert)
+## M02 – Aufbau des Grundsystems (021–034)
+
+**Aufgabe 021 (in Arbeit, noch nicht gemergt):** [Issue #38](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/38) führt ein `pnpm`-/TypeScript-Monorepo für `apps/web`, `apps/worker`, `packages/core`, `packages/db`, `packages/video`, `packages/providers` und das vorhandene `packages/ui` ein. [Entwicklungsanleitung im 021-Featurebranch](docs/development/monorepo.md) erläutert Befehle, Grenzen und CI-Nachweise. **Das ist zunächst ein PR-Vorschlag, kein bereits gemergter oder deployter Dienst.**
+
+**M02-Abnahmetor:** Geschütztes Admin-Dashboard, Projekt-CRUD und Renderjob über HTTPS; Neustart und Restore funktionieren. Alle 14 Aufgaben und ihr jeweiliger Einzelabnahme-PR müssen dazu erfolgreich abgeschlossen sein. Weder ein Stub-Workspace noch der synthetische 8s-Renderproof zählen als bestandenes M02-Gate.
+
+## Technische Zielarchitektur (noch nicht deployt)
 
 - Web/App: Next.js, React, TypeScript
 - API: Node.js
