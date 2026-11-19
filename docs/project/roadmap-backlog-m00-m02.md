@@ -2,7 +2,7 @@
 
 **Grundlage:** [Original-PDF der Master Roadmap V0.1 (28 Seiten)](BlueDotAtlas_Roadmap.pdf) und [vollständige Textfassung](master-roadmap-v01-text.md), Betreiber-PDF vom 13.11.2026. GitHub-Issue-Nummern (**#...**) sind nicht die stabilen Roadmap-Nummern (**001–158**).
 
-**Status:** Aufgaben 001–015 laut bisherigen Projektfreigaben abgeschlossen; Aufgaben 016–034 als Backlog angelegt. Ein Meilenstein ist erst nach seinem Gate abgeschlossen. Die [Original-PDF](BlueDotAtlas_Roadmap.pdf) ist auf `main` archiviert und per Git-Blob-SHA mit dem Betreiber-Original identisch; die Textfassung ist ergänzend durchsuchbar.
+**Status:** Aufgaben 001–016 laut bisherigen Projektfreigaben abgeschlossen; Aufgaben 017–034 als Backlog angelegt. Ein Meilenstein ist erst nach seinem Gate abgeschlossen. Die [Original-PDF](BlueDotAtlas_Roadmap.pdf) ist auf `main` archiviert und per Git-Blob-SHA mit dem Betreiber-Original identisch; die Textfassung ist ergänzend durchsuchbar.
 
 ## M00 – Marke, Gestaltung und filmische Identität (001–009)
 
@@ -32,7 +32,7 @@
 | **013** | [Begrenzter VPS-1080p-Render-Proof (FFmpeg/H.264) (#29)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/29) | Bereits abgeschlossen |
 | **014** | [Rechte- und Nutzungsrisiken katalogisieren (#31)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/31) | Abgenommen (DEC-030) |
 | **015** | [Anbieterstatus und aktuelle Dokumentation prüfen (#32)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/32) | Abgenommen (DEC-031) |
-| **016** | [Budget und Freigabegrenzen festsetzen (#33)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/33) | Offen |
+| **016** | [Budget und Freigabegrenzen festsetzen (#33)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/33) | Abgenommen (DEC-032) |
 | **017** | [Kernarchitektur und Systemgrenzen festlegen (#34)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/34) | Offen |
 | **018** | [GitHub-Repository und Arbeitsregeln aufsetzen (#35)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/35) | Offen |
 | **019** | [Roadmap in GitHub-Milestones übertragen (#36)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/36) | Offen |
