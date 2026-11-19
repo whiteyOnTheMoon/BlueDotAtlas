@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="93 133 1892 460" width="1892" height="460" role="img" aria-labelledby="title desc">
+<title id="title">BlueDotAtlas full logo — for light backgrounds</title>
+<desc id="desc">Transparent background. Three topographic contour lines and a blue observation point. Wordmark BlueDotAtlas with the tagline The Planet Has a Story. The icon geometry is the same across all logo variants.</desc>
+<g id="blue-dot-atlas-contour-v1" fill="none" stroke="#021934" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+<path d="M 106 458 C 102 404 140 360 212 329 C 286 297 301 243 357 189 C 404 145 468 137 522 154 C 606 174 642 231 646 322 C 649 372 653 411 657 454 C 662 505 639 548 601 567 C 560 589 516 582 465 562 C 407 538 364 525 316 532 C 272 539 235 548 186 544 C 139 541 103 514 106 458 Z"/>
+<path d="M 207 434 C 212 390 250 365 299 337 C 354 305 378 265 419 235 C 468 201 518 204 560 230 C 618 268 629 336 628 405 C 627 448 619 491 588 513 C 553 536 503 522 454 506 C 401 485 371 479 322 480 C 282 482 255 495 232 476 C 215 462 203 450 207 434 Z"/>
+<path d="M 328 401 C 329 380 362 356 384 337 C 413 312 435 288 471 280 C 515 270 552 303 565 342 C 579 379 562 421 541 438 C 515 458 479 439 443 423 C 404 407 378 421 354 417 C 337 415 328 412 328 401 Z"/>
+</g>
+<circle cx="483" cy="354" r="38" fill="#10AAEC"/>
+<g fill="#021934">
+<text x="691" y="392" font-family="Inter Display, Inter, Arial, Helvetica, sans-serif" font-size="178" font-weight="800" letter-spacing="-5" textLength="1290" lengthAdjust="spacingAndGlyphs">BlueDotAtlas</text>
+<text x="707" y="493" font-family="Inter, Arial, Helvetica, sans-serif" font-size="74" font-weight="400" letter-spacing="8" textLength="1233" lengthAdjust="spacingAndGlyphs">The Planet Has a Story.</text>
+</g>
+</svg>
