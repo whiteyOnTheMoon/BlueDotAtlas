@@ -4,7 +4,7 @@
 
 ## Beabsichtigte Struktur
 
-- `apps/web`: vorerst **nur TypeScript-Workspace**, Next.js-App-Shell folgt **022**.
+- `apps/web`: Next.js-App-Shell im gesonderten 022-Featurebranch vorbereitet; [Web-Shell-Anleitung](web-shell.md). Die reine Workspace-Grundstruktur aus 021 ist abgeschlossen.
 - `apps/worker`: vorerst **nur Workspace**, ausführbarer Jobworker folgt **027**.
 - `packages/core`: Businessregeln und gemeinsame Verträge in späteren Aufgaben.
 - `packages/db`: PostgreSQL/ORM und Migrationen erst **023–024**.

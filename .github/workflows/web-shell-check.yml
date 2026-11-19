@@ -1,0 +1,71 @@
+name: M02 022 Next.js web shell browser QA
+
+on:
+  pull_request:
+    paths:
+      - 'apps/web/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'scripts/check-app-shell.mjs'
+      - '.github/workflows/web-shell-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install (initial bootstrap; freeze after lockfile update)
+        run: pnpm install --no-frozen-lockfile
+      - name: Unit tests
+        run: pnpm test
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: ESLint
+        run: pnpm lint
+      - name: Format
+        run: pnpm format:check
+      - name: Build
+        run: pnpm build
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Screenshot and routing smoke
+        run: node scripts/check-app-shell.mjs
+      - name: Save real browser QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-shell-022-screenshots
+          path: .tmp-web-shell-qa/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Print formatter recommendations
+        if: always()
+        run: |
+          pnpm exec prettier --write "apps/**/*.{ts,tsx,json}" "packages/**/*.{ts,tsx,json}" package.json tsconfig.base.json pnpm-workspace.yaml eslint.config.mjs .prettierrc.json
+          git diff -- apps packages package.json
+      - name: Export lockfile for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-shell-022-lockfile
+          path: pnpm-lock.yaml
+          retention-days: 7
+      - name: Print generated lockfile base64 for first bootstrap
+        if: always()
+        run: |
+          echo BDA_LOCKFILE_START
+          base64 -w0 pnpm-lock.yaml
+          echo
+          echo BDA_LOCKFILE_END
