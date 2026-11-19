@@ -22,6 +22,7 @@ export type StorageErrorCode =
   | 'storage_budget'
   | 'invalid_limit'
   | 'file_changed'
+  | 'reference_check_required'
   | 'not_found';
 
 export class StorageError extends Error {
