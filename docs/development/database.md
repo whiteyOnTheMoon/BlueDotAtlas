@@ -21,7 +21,7 @@
 - Zeit: PostgreSQL `timestamptz` in UTC-konformer Speicherung; `created_at`, `updated_at` als nicht-null; `deleted_at` nullable für **Soft-Delete**.
 - Kein physisches Löschen über den veröffentlichten App-Code; aktive Lesezugriffe müssen `deleted_at IS NULL` verwenden. Automatisches `updated_at` auf Geschäftsobjekten wird in 024/Serviceebene konkretisiert.
 - `app_metadata.key` hat einen eindeutigen Index; Seed legt das öffentliche App-Label idempotent an.
-- `drizzle/meta/_journal.json` und zugehörige SQL-Datei **gemeinsam** committen. `drizzle-kit generate` für künftige migrationsbasierte Erweiterungen und `drizzle-kit check` zum Konsistenzcheck in nachfolgenden Aufgaben.
+- `drizzle/meta/_journal.json`, `drizzle/meta/0000_snapshot.json` und die zugehörige SQL-Datei **gemeinsam** committen. Erster Baseline-Snapshot wurde durch Drizzle Kit auf einem isolierten GitHub-Runner erzeugt und dem Schema gegenübergestellt. `drizzle-kit generate` für künftige migrationsbasierte Erweiterungen und `drizzle-kit check` zum Konsistenzcheck in nachfolgenden Aufgaben.
 - **Rollback:** Bei Fehlern vor einem Produktiv-Deploy eine **frische, isolierte Testdatenbank** bereitstellen und Migrationen erneut testen. Produktionsdaten nicht durch `DROP`, Auto-Rollback oder ungetestete Down-Migrationen gefährden; echtes Backup-/Restore-Gate ist 034.
 
 ## Risiken

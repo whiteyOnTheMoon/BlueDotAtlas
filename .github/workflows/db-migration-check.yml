@@ -54,20 +54,12 @@ jobs:
           pnpm build
       - name: Fresh migration, idempotency, seed, soft-delete contract
         run: pnpm --filter @bluedotatlas/db test:integration
-      - name: Generate canonical Drizzle baseline in an isolated folder (for review)
-        run: pnpm --filter @bluedotatlas/db exec drizzle-kit generate --dialect=postgresql --schema=./src/schema.ts --out=./.tmp-023-generated
-      - name: Archive canonical generated SQL and metadata
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: bda-023-drizzle-baseline
-          path: packages/db/.tmp-023-generated/
-          include-hidden-files: true
-          retention-days: 7
-      - name: Archive CI-generated lockfile
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: bda-023-pnpm-lockfile
-          path: pnpm-lock.yaml
-          retention-days: 7
+      - name: Check migration journal and schema snapshot
+        run: |
+          pnpm --filter @bluedotatlas/db db:check
+          pnpm --filter @bluedotatlas/db db:generate
+          if [ -n "$(git status --porcelain -- packages/db/drizzle)" ]; then
+            echo "Schema changed without a committed Drizzle migration/snapshot"
+            git status --short -- packages/db/drizzle
+            exit 1
+          fi
