@@ -14,7 +14,7 @@
 | CODEOWNERS / Issue-Vorlagen | Im geprüften `.github/`-Verzeichnis bisher nicht vorhanden | Owner- und Issue-Templates in diesem PR ergänzen |
 | Repository-Regelsätze | API lieferte **keine Regeln**; Branch-Protection-Detail war über die Verbindung **nicht abrufbar (403)** | **Schutzwirkung nicht verifiziert**, vor produktiver Arbeit manuell in Settings prüfen/einrichten |
 | GitHub Project Board | Über die verfügbare GitHub-Verbindung nicht anlegbar/verifizierbar | Board-Konfiguration unten dokumentieren; **nicht als erstellt behaupten** |
-| Labels und native Milestones | Neue Labels/Milestones lassen sich über die aktuell verfügbare Verbindung nicht erzeugen | Vorgeschlagene Label-Taxonomie dokumentieren; native Milestones/Backlog-Import gehören auch zu **019** |
+| Labels und native Milestones | **Native GitHub-Meilensteine M00–M13 und 158 Issue-Zuordnungen wurden in 019 per GitHub Actions erfolgreich erstellt und rückgeprüft (DEC-035).** Labels sind weiterhin nur vorgeschlagen. | Native Milestones und Roadmap-Index sind eingerichtet; Labelobjekte nur bei Bedarf im GitHub-UI ergänzen |
 
 **Wichtig:** Die öffentliche GitHub-Sichtbarkeit betrifft auch Commit-Historie, hochgeladene Dateien und veröffentlichte Repository-Artefakte. Keine Secrets oder personenbezogenen Daten ins Repo schreiben, unabhängig vom Sichtbarkeitsstatus. **Der Betreiber hat ausdrücklich festgelegt, dass BlueDotAtlas öffentlich bleibt (DEC-034).** Ein späterer Sichtbarkeitswechsel wäre ein neuer Beschluss.
 
@@ -50,7 +50,7 @@
 | Bereich | `area:web`, `area:worker`, `area:video`, `area:providers`, `area:data`, `area:brand` | Zuständigkeit |
 | Gate | `status:blocked`, `status:review` | Sichtbare Blocker / Review |
 
-**Projektboard-Vorschlag:** Ein GitHub **Projects**-Board mit den Ansichten `Board` und `Roadmap` (falls verfügbar); Spalten `Backlog`, `Ready`, `In Progress`, `Review`, `Done`; Custom Fields `Roadmap ID` (Text), `Milestone` (M00–M13), `Priority` (optional). **Noch nicht angelegt**, deshalb keine angeblich aktiven Automationen oder Links auf nicht existierende Boards. Board erst einrichten, wenn Zugriff vorliegt bzw. der Betreiber es ausdrücklich im GitHub-UI anlegt. Die **34 bestehenden GitHub-Issues 001–034** bleiben die verbindliche Arbeitsquelle; native GitHub-Milestones M00–M13 und Aufgaben 035–158 werden getrennt in **019** behandelt.
+**Projektboard-Vorschlag:** Ein GitHub **Projects**-Board mit den Ansichten `Board` und `Roadmap` (falls verfügbar); Spalten `Backlog`, `Ready`, `In Progress`, `Review`, `Done`; Custom Fields `Roadmap ID` (Text), `Milestone` (M00–M13), `Priority` (optional). **Noch nicht angelegt**, deshalb keine angeblich aktiven Automationen oder Links auf nicht existierende Boards. Board erst einrichten, wenn Zugriff vorliegt bzw. der Betreiber es ausdrücklich im GitHub-UI anlegt. **Alle 158 GitHub-Issues 001–158** sind inzwischen verbindliche Arbeitsquelle; native M00–M13-Meilensteine und Zuordnungen sind in **019** abgeschlossen (DEC-035).
 
 ## 5. Manuelle GitHub-Einstellungen für den Betreiber
 
@@ -72,4 +72,4 @@
 - [x] **Betreiber hat die GitHub-Arbeitsregeln genehmigt und PUBLIC ausdrücklich bestätigt** (19.11.2026 UTC, DEC-034). Merge und Issue-Abschluss folgen demselben Abnahmeschritt.
 - [ ] **Spätere separate GitHub-Adminaktionen:** geeignete Rulesets/Branch-Protection, Labels und Projektboard manuell einrichten. **Keine Sichtbarkeitsänderung nötig oder gewünscht.** Diese Einstellungen werden nicht als durch diesen PR erledigt ausgegeben.
 
-**Abnahmeumfang 018:** Dokumentierte und im Repository bereitgestellte, freigegebene Arbeitsregeln mit erfolgreich getesteter Roadmap-/Issue-Referenzprüfung; das Repository bleibt bewusst **öffentlich**. **Nicht behauptet:** Branch-Protection, Projektboard, neue Labels oder native Milestones seien bereits technisch eingerichtet.
+**Abnahmeumfang 018:** Dokumentierte und im Repository bereitgestellte, freigegebene Arbeitsregeln mit erfolgreich getesteter Roadmap-/Issue-Referenzprüfung; das Repository bleibt bewusst **öffentlich**. **Nicht behauptet:** Branch-Protection, Projektboard oder neue Labels seien bereits technisch eingerichtet. **Native GitHub-Meilensteine sind seit Aufgabe 019 verifiziert (DEC-035)**.
