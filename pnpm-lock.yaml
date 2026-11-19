@@ -52,6 +52,9 @@ importers:
 
   packages/db:
     dependencies:
+      '@bluedotatlas/core':
+        specifier: workspace:*
+        version: link:../core
       drizzle-orm:
         specifier: 0.45.4
         version: 0.45.4(@types/pg@8.15.5)(pg@8.16.3)

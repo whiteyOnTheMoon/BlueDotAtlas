@@ -1,9 +1,11 @@
-name: M02 023 PostgreSQL migrations integration
+name: M02 023-024 PostgreSQL migrations and domain model
 
 on:
   pull_request:
     paths:
       - 'packages/db/**'
+      - 'packages/core/**'
+      - 'scripts/check-monorepo.test.mjs'
       - 'pnpm-lock.yaml'
       - 'package.json'
       - '.github/workflows/db-migration-check.yml'
@@ -54,12 +56,12 @@ jobs:
           pnpm build
       - name: Fresh migration, idempotency, seed, soft-delete contract
         run: pnpm --filter @bluedotatlas/db test:integration
-      - name: Check migration journal and schema snapshot
+      - name: Check migration journal and snapshot have no drift
         run: |
           pnpm --filter @bluedotatlas/db db:check
           pnpm --filter @bluedotatlas/db db:generate
           if [ -n "$(git status --porcelain -- packages/db/drizzle)" ]; then
-            echo "Schema changed without a committed Drizzle migration/snapshot"
+            echo "Uncommitted schema migration or snapshot drift"
             git status --short -- packages/db/drizzle
             exit 1
           fi

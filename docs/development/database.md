@@ -28,3 +28,7 @@
 
 Es gibt noch keine Betreiberfreigabe zum Deploy einer BlueDotAtlas-Datenbank auf dem gemeinsamen VPS. Das M01-Budget plant maximal 512 MiB RAM für einen möglichen isolierten DB-Dienst; reale Ressourcenkontrolle, Volume-/Backup-Verzeichnis, Credentials und HTTPS-Zugriff folgen gesondert in 028–030/034. Kein Redis erforderlich.
 
+
+## Nächste Datenmodelle
+
+Roadmap 024 ergänzt die acht fachlichen Tabellen sowie einen zweiten Migrationsstand, Projektstatus-Übergänge und isolierte Integrationsprüfungen. Siehe [Datenmodell 024](data-model.md). Keine Änderungen an Live-Datenbanken.
