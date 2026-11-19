@@ -135,6 +135,12 @@ try {
   await expectProblem('/api/v1/projects', {
     method: 'POST', headers: jsonHeaders, body: '{bad json',
   }, 400, 'invalid_json');
+  await expectProblem('/api/v1/projects?ignored=not-allowed', {
+    method: 'POST', headers: jsonHeaders, body: '{"title":"forbidden-query"}',
+  }, 400, 'invalid_input');
+  await expectProblem('/api/v1/projects', {
+    method: 'POST', headers: jsonHeaders, body: Buffer.from([0xc3, 0x28]),
+  }, 400, 'invalid_json');
   await expectProblem('/api/v1/projects', {
     method: 'POST', headers: jsonHeaders, body: '{"title":"ok","snapshot":{"secret":"private-secret"}}',
   }, 400, 'invalid_input');
