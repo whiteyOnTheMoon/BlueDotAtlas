@@ -1,6 +1,6 @@
 # Arbeitsvereinbarung V0.1 – Definition of Ready / Done und Dokumentationsregeln
 
-**BlueDotAtlas · Roadmap 020 · Status: Entwurf zur Betreiberabnahme**  
+**BlueDotAtlas · Roadmap 020 · Status: Vom Betreiber genehmigt am 19.11.2026 (UTC); dokumentiert als DEC-036**  
 **Quellen:** [Original-Roadmap, Aufgabe 020 (S. 6)](BlueDotAtlas_Roadmap.pdf) · [Issue #37](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/37) · [GitHub-Arbeitsregeln 018](github-workflow.md) (DEC-034) · [vollständiger Backlog 019](roadmap-backlog-m00-m13.md) (DEC-035).  
 **Zweck:** Jedes Arbeitspaket geht mit eindeutigen Inputs in die Umsetzung und verlässt sie mit prüfbarem Ergebnis, belegt durch Tests/Review und ausdrücklich erteilte Betreiberabnahme. Dies **ergänzt** die PR-Dokumentationsregel DEC-022 und das Issue-/PR-Vorgehen aus 018 – es ersetzt keine älteren Produkt-/Brand-/Kosten-/Rechteentscheidungen.
 
@@ -72,12 +72,12 @@ Dieses Arbeitspaket selbst wird als **beispielhafter PR** verwendet; keine küns
 | Issue und Ready | [Issue #37](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/37) bestand **vor** Branch/Commit; Roadmap, M01, Scope, Ergebnis und Abnahmetor definiert |
 | Deliverables | Dieses Dokument `docs/project/working-agreement.md`, ADR-Vorlage und ADR-001, ergänzte PR-Checkliste |
 | CI | [PR #185](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/185) erstellt. **PASS**: [DoR/DoD-/ADR-Tests, sechs Fälle](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44444255771), [PR-Roadmap-/Issue-Identität](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44444255798) sowie [M00–M13-Manifest-Check](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44444255783). Vor dem Merge auch den **letzten PR-Commit** grün prüfen. |
-| Review | Formale Prüfung anhand Roadmap 020 und bestehender Regeln; **ausdrückliche Betreiberabnahme noch ausstehend** |
+| Review | Fachreview als [Kommentar in PR #185](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/185) dokumentiert; **ausdrückliche Betreiberfreigabe „Ok“** am 19.11.2026 UTC erteilt. Keine unabhängige GitHub-Zweitfreigabe behauptet. |
 | Screenshots | **n/a**, da keine Oberfläche verändert oder ausgeführt wird |
 | Lizenzen/Migration | **n/a**, da keine Medien eingeführt, keine Datenbank und kein Provider verändert werden |
 | Infrastruktur und Kosten | **Keine** VPS-Änderung, kein Deployment, keine bezahlten Provider |
-| Dokumentation | README mit Reviewstatus aktualisieren; neuer DEC-Eintrag **erst nach Genehmigung** in separatem Merge-Schritt |
-| Merge/Abschluss | **Noch ausstehend**; erst nach erfolgreich belegtem CI- und Betreiberreview |
+| Dokumentation | README, beide Roadmap-Indizes und Entscheidungslog mit Freigabe **DEC-036** werden im abgenommenen PR aktualisiert. |
+| Merge/Abschluss | **Betreiberfreigabe erteilt;** nach den erneut grünen CI-Checks folgt der Squash-Merge und danach der Abschluss von Issue #37. |
 
 ## 6. Task-020-Abnahmecheck
 
@@ -85,7 +85,7 @@ Dieses Arbeitspaket selbst wird als **beispielhafter PR** verwendet; keine küns
 - [x] PR-/README-/Decision-Log-Konsistenz und ADR-Format als Arbeitsregel dokumentiert.
 - [x] Vorliegende Entscheidungen DEC-022, 030–035 wiederverwendet; keine neuen Produkt-/Budget-/Sicherheits-Freigaben erfunden.
 - [x] Beispiel-[PR #185](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/185) mit erfolgreicher **GitHub-CI** (DoR/DoD-/ADR-Unit-Tests + Issue-Gate); neuester Commit vor Merge ebenfalls zu prüfen.
-- [ ] Nachvollziehbarer Review-Kommentar und ausdrückliche Betreiberabnahme des konkreten PRs.
-- [ ] **Ausdrückliche Betreiberabnahme** der Arbeitsvereinbarung und PR, anschließend DEC-036, Merge und Issue-Abschluss.
+- [x] Nachvollziehbarer Review-Kommentar auf [PR #185](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/185) und **ausdrückliche Betreiberfreigabe „Ok“** für den konkreten PR liegen vor (19.11.2026 UTC).
+- [x] **Betreiberfreigabe zur Arbeitsvereinbarung und PR #185 erteilt**; im [Entscheidungsprotokoll](decision-log.md) als DEC-036 dokumentiert. Merge und Issue-Abschluss folgen nach erfolgreichem CI auf dem finalen PR-Commit.
 
 **Nächste Roadmap-Aufgabe:** 021 (M02) – Monorepo und Basistooling initialisieren. Ein echter vollständiger 1080p-Pilotfilm ist weiterhin Aufgabe M03.
