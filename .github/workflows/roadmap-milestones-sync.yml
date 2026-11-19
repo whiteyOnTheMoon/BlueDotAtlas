@@ -1,0 +1,40 @@
+name: Roadmap 019 — sync native GitHub milestones
+
+# Mutations only from an approved merge to main, or manual dispatch from main.
+# Uses the repository's short-lived GitHub Actions token; no personal token.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/project/roadmap-milestones-v01.json'
+      - 'scripts/sync-roadmap-milestones.mjs'
+      - '.github/workflows/roadmap-milestones-sync.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: bluedotatlas-milestone-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.ref == 'refs/heads/main'
+    name: Create/reuse M00–M13 and assign 158 roadmap Issues
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Unit tests before any write
+        run: node --test scripts/sync-roadmap-milestones.test.mjs
+      - name: Check milestone manifest
+        run: node scripts/sync-roadmap-milestones.mjs --check
+      - name: Sync native milestones and verify 158 issue assignments
+        run: node scripts/sync-roadmap-milestones.mjs --apply
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
