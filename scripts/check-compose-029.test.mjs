@@ -23,7 +23,7 @@ const valid = (mode = 'base') => {
   if (mode === 'tunnel') {
     x.secrets = { bda_tunnel_token: { file: '/tmp/private-synthetic-token' } };
     x.services.cloudflared = {
-      profiles: ['future-tunnel'], networks: { edge: {} },
+      profiles: ['future-tunnel'], user: '1000:1000', networks: { edge: {} },
       mem_limit: 128 * 1024 ** 2, cpus: 0.1, read_only: true,
       cap_drop: ['ALL'], depends_on: { web: { condition: 'service_healthy' } },
       command: ['tunnel', '--no-autoupdate', 'run', '--token-file', '/run/secrets/bda_tunnel_token'],
@@ -67,6 +67,14 @@ test('rejects public tunnel origin, direct DB edge, missing token-file and weak 
   x.services.cloudflared.cap_drop = [];
   assert.ok(reviewCompose(x, 'tunnel').length >= 4);
 });
+test('tunnel file secret must be accessible only under a reviewed nonroot UID:GID', () => {
+  const x = valid('tunnel');
+  delete x.services.cloudflared.user;
+  assert.ok(reviewCompose(x, 'tunnel').some(error => error.includes('nonroot numeric')));
+  x.services.cloudflared.user = '0:0';
+  assert.ok(reviewCompose(x, 'tunnel').some(error => error.includes('nonroot numeric')));
+});
+
 test('tunnel service cannot be implicitly enabled in plain base', () => {
   assert.ok(reviewCompose(valid('tunnel'), 'base').length >= 1);
 });

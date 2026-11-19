@@ -60,6 +60,8 @@ jobs:
           export BDA_WEB_ENV_FILE="$RUNNER_TEMP/web.env"
           export BDA_WORKER_ENV_FILE="$RUNNER_TEMP/worker.env"
           export BDA_TUNNEL_TOKEN_FILE="$RUNNER_TEMP/tunnel.token"
+          export BDA_TUNNEL_UID="$(id -u)"
+          export BDA_TUNNEL_GID="$(id -g)"
           export BDA_CLOUDFLARED_IMAGE='cloudflare/cloudflared:ci-config-only-never-pull'
           docker compose --profile future-renderer --profile maintenance -f compose.yml config --format json > "$RUNNER_TEMP/compose-base.json"
           node scripts/check-compose-029.mjs "$RUNNER_TEMP/compose-base.json" base

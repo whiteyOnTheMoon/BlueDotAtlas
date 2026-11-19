@@ -5,6 +5,9 @@ services:
   cloudflared:
     profiles: [future-tunnel]
     image: ${BDA_CLOUDFLARED_IMAGE:?Specify reviewed pinned cloudflare/cloudflared image}
+    # Local Compose file-secrets are bind-mounted and retain host file ownership.
+    # Run with the UID:GID of the owner of the private 0600 token file, never root.
+    user: "${BDA_TUNNEL_UID:?Set nonroot UID of token file owner}:${BDA_TUNNEL_GID:?Set nonroot GID of token file owner}"
     command:
       - tunnel
       - --no-autoupdate

@@ -82,6 +82,9 @@ export function reviewCompose(config, mode = 'base') {
       fail('cloudflared must connect to edge only; NEVER directly to database');
     }
     if (tunnel.ports?.length) fail('cloudflared must have no host port');
+    if (!/^[1-9][0-9]*:[1-9][0-9]*$/.test(String(tunnel.user || ''))) {
+      fail('cloudflared must use nonroot numeric UID:GID for the private file secret');
+    }
     if (tunnel.read_only !== true || !tunnel.cap_drop?.includes('ALL')) {
       fail('cloudflared must be read-only with no capabilities');
     }
