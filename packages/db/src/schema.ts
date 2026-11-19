@@ -1,11 +1,27 @@
 import { sql } from 'drizzle-orm';
 import {
-  check, foreignKey, index, integer, jsonb, pgEnum, pgTable,
-  text, timestamp, uniqueIndex, uuid,
+  check,
+  foreignKey,
+  index,
+  integer,
+  jsonb,
+  pgEnum,
+  pgTable,
+  text,
+  timestamp,
+  uniqueIndex,
+  uuid,
 } from 'drizzle-orm/pg-core';
 import {
-  projectStatuses, videoStatuses, renderJobStatuses, stepStatuses,
-  approvalStatuses, approvalScopes, artifactKinds, assetRightsStatuses, auditTargetKinds,
+  projectStatuses,
+  videoStatuses,
+  renderJobStatuses,
+  stepStatuses,
+  approvalStatuses,
+  approvalScopes,
+  artifactKinds,
+  assetRightsStatuses,
+  auditTargetKinds,
 } from '@bluedotatlas/core';
 
 /** M02/023 technical baseline: unchanged, preserving the existing first migration. */
@@ -61,7 +77,9 @@ export const projectVersions = pgTable(
   'project_versions',
   {
     id: uuid('id').defaultRandom().primaryKey(),
-    projectId: uuid('project_id').notNull().references(() => videoProjects.id, { onDelete: 'restrict' }),
+    projectId: uuid('project_id')
+      .notNull()
+      .references(() => videoProjects.id, { onDelete: 'restrict' }),
     revision: integer('revision').notNull(),
     snapshot: jsonb('snapshot').$type<Record<string, unknown>>().default({}).notNull(),
     ...timestamps(),
@@ -77,7 +95,9 @@ export const stepProgress = pgTable(
   'step_progress',
   {
     id: uuid('id').defaultRandom().primaryKey(),
-    projectVersionId: uuid('project_version_id').notNull().references(() => projectVersions.id, { onDelete: 'restrict' }),
+    projectVersionId: uuid('project_version_id')
+      .notNull()
+      .references(() => projectVersions.id, { onDelete: 'restrict' }),
     stepNumber: integer('step_number').notNull(),
     status: stepStatusEnum('status').default('pending').notNull(),
     draft: jsonb('draft').$type<Record<string, unknown>>().default({}).notNull(),
@@ -93,7 +113,9 @@ export const artifacts = pgTable(
   'artifacts',
   {
     id: uuid('id').defaultRandom().primaryKey(),
-    projectVersionId: uuid('project_version_id').notNull().references(() => projectVersions.id, { onDelete: 'restrict' }),
+    projectVersionId: uuid('project_version_id')
+      .notNull()
+      .references(() => projectVersions.id, { onDelete: 'restrict' }),
     kind: artifactKindEnum('kind').notNull(),
     rightsStatus: artifactRightsStatusEnum('rights_status').default('unreviewed').notNull(),
     storageKey: text('storage_key'),
@@ -103,7 +125,10 @@ export const artifacts = pgTable(
     ...timestamps(),
   },
   (table) => [
-    check('artifacts_require_location', sql`${table.storageKey} IS NOT NULL OR ${table.sourceUri} IS NOT NULL`),
+    check(
+      'artifacts_require_location',
+      sql`${table.storageKey} IS NOT NULL OR ${table.sourceUri} IS NOT NULL`,
+    ),
     uniqueIndex('artifacts_storage_key_unique').on(table.storageKey),
     index('artifacts_version_idx').on(table.projectVersionId),
   ],
@@ -113,13 +138,17 @@ export const videos = pgTable(
   'videos',
   {
     id: uuid('id').defaultRandom().primaryKey(),
-    projectId: uuid('project_id').notNull().references(() => videoProjects.id, { onDelete: 'restrict' }),
+    projectId: uuid('project_id')
+      .notNull()
+      .references(() => videoProjects.id, { onDelete: 'restrict' }),
     projectVersionId: uuid('project_version_id').notNull(),
     title: text('title').notNull(),
     slug: text('slug'),
     status: videoStatusEnum('status').default('draft').notNull(),
     durationMs: integer('duration_ms'),
-    finalArtifactId: uuid('final_artifact_id').references(() => artifacts.id, { onDelete: 'restrict' }),
+    finalArtifactId: uuid('final_artifact_id').references(() => artifacts.id, {
+      onDelete: 'restrict',
+    }),
     publishedAt: timestamp('published_at', { withTimezone: true }),
     ...timestamps(),
   },
@@ -131,7 +160,10 @@ export const videos = pgTable(
     }),
     check('videos_title_not_blank', sql`length(btrim(${table.title})) > 0`),
     check('videos_duration_valid', sql`${table.durationMs} IS NULL OR ${table.durationMs} >= 0`),
-    check('videos_published_require_artifact', sql`${table.status} <> 'published' OR (${table.finalArtifactId} IS NOT NULL AND ${table.publishedAt} IS NOT NULL)`),
+    check(
+      'videos_published_require_artifact',
+      sql`${table.status} <> 'published' OR (${table.finalArtifactId} IS NOT NULL AND ${table.publishedAt} IS NOT NULL)`,
+    ),
     uniqueIndex('videos_slug_unique').on(table.slug),
     index('videos_project_status_idx').on(table.projectId, table.status),
   ],
@@ -141,7 +173,9 @@ export const renderJobs = pgTable(
   'render_jobs',
   {
     id: uuid('id').defaultRandom().primaryKey(),
-    projectVersionId: uuid('project_version_id').notNull().references(() => projectVersions.id, { onDelete: 'restrict' }),
+    projectVersionId: uuid('project_version_id')
+      .notNull()
+      .references(() => projectVersions.id, { onDelete: 'restrict' }),
     videoId: uuid('video_id').references(() => videos.id, { onDelete: 'restrict' }),
     status: renderJobStatusEnum('status').default('queued').notNull(),
     progressPct: integer('progress_pct').default(0).notNull(),
@@ -166,7 +200,9 @@ export const approvals = pgTable(
   'approvals',
   {
     id: uuid('id').defaultRandom().primaryKey(),
-    projectVersionId: uuid('project_version_id').notNull().references(() => projectVersions.id, { onDelete: 'restrict' }),
+    projectVersionId: uuid('project_version_id')
+      .notNull()
+      .references(() => projectVersions.id, { onDelete: 'restrict' }),
     videoId: uuid('video_id').references(() => videos.id, { onDelete: 'restrict' }),
     scope: approvalScopeEnum('scope').notNull(),
     status: approvalStatusEnum('status').default('pending').notNull(),
@@ -175,7 +211,10 @@ export const approvals = pgTable(
     ...timestamps(),
   },
   (table) => [
-    check('approvals_decision_time_valid', sql`(${table.status} = 'pending' AND ${table.decidedAt} IS NULL) OR (${table.status} <> 'pending' AND ${table.decidedAt} IS NOT NULL)`),
+    check(
+      'approvals_decision_time_valid',
+      sql`(${table.status} = 'pending' AND ${table.decidedAt} IS NULL) OR (${table.status} <> 'pending' AND ${table.decidedAt} IS NOT NULL)`,
+    ),
     index('approvals_version_scope_idx').on(table.projectVersionId, table.scope),
   ],
 );
@@ -185,7 +224,9 @@ export const auditEvents = pgTable(
   'audit_events',
   {
     id: uuid('id').defaultRandom().primaryKey(),
-    projectId: uuid('project_id').notNull().references(() => videoProjects.id, { onDelete: 'restrict' }),
+    projectId: uuid('project_id')
+      .notNull()
+      .references(() => videoProjects.id, { onDelete: 'restrict' }),
     targetKind: auditTargetKindEnum('target_kind').notNull(),
     targetId: uuid('target_id').notNull(),
     eventType: text('event_type').notNull(),

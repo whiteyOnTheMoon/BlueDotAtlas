@@ -33,7 +33,7 @@ export async function createProject(
       wizardSteps.map((_, index) => ({
         projectVersionId: version.id,
         stepNumber: index + 1,
-        status: index === 0 ? 'active' as const : 'pending' as const,
+        status: index === 0 ? ('active' as const) : ('pending' as const),
       })),
     );
     await tx.insert(auditEvents).values({
