@@ -22,12 +22,12 @@ test('migrations run on fresh PostgreSQL and rerun safely; seed and soft delete 
     const first = await connection.pool.query(
       'select count(*)::integer as count from drizzle.__drizzle_migrations',
     );
-    assert.equal(first.rows[0].count, 3, 'baseline, domain and auth migration journal entries');
+    assert.equal(first.rows[0].count, 4, 'baseline, domain, auth and lease-queue migration journal entries');
     await migrateDatabase(connection);
     const second = await connection.pool.query(
       'select count(*)::integer as count from drizzle.__drizzle_migrations',
     );
-    assert.equal(second.rows[0].count, 3, 'all three migrations are idempotent');
+    assert.equal(second.rows[0].count, 4, 'all four migrations are idempotent');
 
     await seedDatabase(connection);
     await seedDatabase(connection);
