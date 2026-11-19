@@ -16,7 +16,8 @@
     ".": "./dist/index.js",
     "./schema": "./dist/schema.js",
     "./auth": "./dist/auth-service.js",
-    "./api": "./dist/api-service.js"
+    "./api": "./dist/api-service.js",
+    "./queue": "./dist/queue-service.js"
   },
   "dependencies": {
     "drizzle-orm": "0.45.4",
