@@ -87,6 +87,22 @@ test('scrypt hashes never expose passwords; sessions have TTL, revocation and du
     const second = await loginAdmin('admin-ci@bluedotatlas.invalid', password);
     assert.ok(second);
     assert.equal(await hasAdminSession(second.token), true, 'a new DB pool can validate session');
+
+    // Regression: removal or corruption of runtime admin configuration must deny
+    // even an otherwise valid, still-unexpired PostgreSQL session.
+    const configuredEmail = process.env.BDA_ADMIN_EMAIL;
+    const configuredHash = process.env.BDA_ADMIN_PASSWORD_HASH;
+    assert.ok(configuredEmail && configuredHash);
+    delete process.env.BDA_ADMIN_PASSWORD_HASH;
+    assert.equal(await hasAdminSession(second.token), false, 'missing hash denies old session');
+    process.env.BDA_ADMIN_PASSWORD_HASH = 'invalid-hash';
+    assert.equal(await hasAdminSession(second.token), false, 'invalid hash denies old session');
+    process.env.BDA_ADMIN_PASSWORD_HASH = configuredHash;
+    delete process.env.BDA_ADMIN_EMAIL;
+    assert.equal(await hasAdminSession(second.token), false, 'missing email denies old session');
+    process.env.BDA_ADMIN_EMAIL = configuredEmail;
+    assert.equal(await hasAdminSession(second.token), true, 'restored config can validate session');
+
     const secondHash = createHash('sha256').update(second.token).digest('hex');
     const record = (await db.db.select().from(adminSessions)).find(
       (x) => x.tokenHash === secondHash,
