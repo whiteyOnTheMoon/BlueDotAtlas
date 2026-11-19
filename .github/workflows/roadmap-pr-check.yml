@@ -1,0 +1,60 @@
+name: Roadmap PR identity gate
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+jobs:
+  roadmap-identity:
+    name: Valid roadmap ID and matching pre-existing GitHub issue
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out PR merge ref
+        uses: actions/checkout@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Unit tests for metadata checker
+        run: node --test scripts/check-roadmap-pr.test.mjs
+      - name: Validate current PR metadata
+        run: node scripts/check-roadmap-pr.mjs
+      - name: Verify referenced issue exists and matches roadmap ID
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            if (!pr) {
+              core.setFailed('Expected a pull_request event');
+              return;
+            }
+            const id = pr.title.match(/^\[(\d{3})\]/)?.[1];
+            const issueNumber = pr.body?.match(/\b(?:GitHub-Issue:\s*#|(?:Refs|Closes|Fixes|Resolves)\s+#)(\d+)\b/i)?.[1];
+            if (!id || !issueNumber) {
+              core.setFailed('Missing Roadmap ID or GitHub issue reference');
+              return;
+            }
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: Number(issueNumber),
+            });
+            if (issue.pull_request) {
+              core.setFailed('Linked #number is a PR, not an issue');
+              return;
+            }
+            if (!issue.title.startsWith('[' + id + ']')) {
+              core.setFailed('Issue title must start with the same [' + id + '] roadmap ID');
+              return;
+            }
+            if (new Date(issue.created_at) > new Date(pr.created_at)) {
+              core.setFailed('Issue must predate the pull request');
+              return;
+            }
+            core.info('Valid Roadmap ' + id + ' with issue #' + issue.number);

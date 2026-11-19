@@ -1,0 +1,24 @@
+# Local credentials and transient environment files
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.p12
+*.pfx
+
+# JS/TS application and test artifacts (do not ignore committed brand media)
+node_modules/
+.next/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+*.log
+
+# Local render / development artifacts
+.tmp/
+.temp/
+.cache/
+.DS_Store
+Thumbs.db
