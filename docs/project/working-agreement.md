@@ -71,7 +71,7 @@ Dieses Arbeitspaket selbst wird als **beispielhafter PR** verwendet; keine küns
 | --- | --- |
 | Issue und Ready | [Issue #37](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/37) bestand **vor** Branch/Commit; Roadmap, M01, Scope, Ergebnis und Abnahmetor definiert |
 | Deliverables | Dieses Dokument `docs/project/working-agreement.md`, ADR-Vorlage und ADR-001, ergänzte PR-Checkliste |
-| CI | **Noch ausstehend**, bis der PR erstellt ist: GitHub-PR-Identitätscheck plus lokaler Dokumentations-/ADR-Test |
+| CI | [PR #185](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/185) erstellt. **PASS**: [DoR/DoD-/ADR-Tests, sechs Fälle](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44444255771), [PR-Roadmap-/Issue-Identität](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44444255798) sowie [M00–M13-Manifest-Check](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44444255783). Vor dem Merge auch den **letzten PR-Commit** grün prüfen. |
 | Review | Formale Prüfung anhand Roadmap 020 und bestehender Regeln; **ausdrückliche Betreiberabnahme noch ausstehend** |
 | Screenshots | **n/a**, da keine Oberfläche verändert oder ausgeführt wird |
 | Lizenzen/Migration | **n/a**, da keine Medien eingeführt, keine Datenbank und kein Provider verändert werden |
@@ -84,7 +84,8 @@ Dieses Arbeitspaket selbst wird als **beispielhafter PR** verwendet; keine küns
 - [x] DoR/DoD mit Inputs/Outputs, Tests, UI-Screenshots, Lizenz-/Faktenprüfung und Datenmigrationen spezifiziert.
 - [x] PR-/README-/Decision-Log-Konsistenz und ADR-Format als Arbeitsregel dokumentiert.
 - [x] Vorliegende Entscheidungen DEC-022, 030–035 wiederverwendet; keine neuen Produkt-/Budget-/Sicherheits-Freigaben erfunden.
-- [ ] Beispiel-PR hat **erfolgreiche CI** und einen überprüfbaren Review-Nachweis.
+- [x] Beispiel-[PR #185](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/185) mit erfolgreicher **GitHub-CI** (DoR/DoD-/ADR-Unit-Tests + Issue-Gate); neuester Commit vor Merge ebenfalls zu prüfen.
+- [ ] Nachvollziehbarer Review-Kommentar und ausdrückliche Betreiberabnahme des konkreten PRs.
 - [ ] **Ausdrückliche Betreiberabnahme** der Arbeitsvereinbarung und PR, anschließend DEC-036, Merge und Issue-Abschluss.
 
 **Nächste Roadmap-Aufgabe:** 021 (M02) – Monorepo und Basistooling initialisieren. Ein echter vollständiger 1080p-Pilotfilm ist weiterhin Aufgabe M03.
