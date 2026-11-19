@@ -1,0 +1,71 @@
+name: M02 028 isolated local storage and PostgreSQL reference integrity
+
+on:
+  pull_request:
+    paths:
+      - 'packages/storage/**'
+      - 'scripts/check-storage-028-db.mjs'
+      - 'pnpm-lock.yaml'
+      - 'scripts/check-monorepo.test.mjs'
+      - '.github/workflows/storage-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  storage-028:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: bda_test
+          POSTGRES_PASSWORD: bda_test_only
+          POSTGRES_DB: bda_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U bda_test -d bda_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://bda_test:bda_test_only@localhost:5432/bda_test
+      BDA_DB_TEST: '1'
+      BDA_STORAGE_TEST: '1'
+      NODE_ENV: test
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Frozen pnpm, monorepo unit/type/lint/format/build checks
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm test
+          pnpm typecheck
+          pnpm lint
+          pnpm format:check
+          pnpm build
+      - name: Test only private mkdtemp filesystem, streaming writes, traversal and cleanup
+        run: pnpm --filter @bluedotatlas/storage test
+      - name: Check unchanged Drizzle schema and migrate isolated PostgreSQL 16 twice
+        run: |
+          pnpm --filter @bluedotatlas/db db:check
+          pnpm --filter @bluedotatlas/db db:generate
+          if [ -n "$(git status --porcelain -- packages/db/drizzle)" ]; then
+            echo "Unexpected migration drift"
+            git status --short -- packages/db/drizzle
+            exit 1
+          fi
+          pnpm --filter @bluedotatlas/db db:migrate
+          pnpm --filter @bluedotatlas/db db:migrate
+      - name: Persist synthetic rendered artifact reference in PostgreSQL, preserve it after temp/cache cleanup and reconnect
+        run: node scripts/check-storage-028-db.mjs
