@@ -55,7 +55,7 @@ jobs:
       - name: Fresh migration, idempotency, seed, soft-delete contract
         run: pnpm --filter @bluedotatlas/db test:integration
       - name: Generate canonical Drizzle baseline in an isolated folder (for review)
-        run: pnpm --filter @bluedotatlas/db exec drizzle-kit generate --config=drizzle.config.ts --out=./.tmp-023-generated
+        run: pnpm --filter @bluedotatlas/db exec drizzle-kit generate --dialect=postgresql --schema=./src/schema.ts --out=./.tmp-023-generated
       - name: Archive canonical generated SQL and metadata
         if: always()
         uses: actions/upload-artifact@v4
