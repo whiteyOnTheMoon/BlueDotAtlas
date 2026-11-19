@@ -2,7 +2,7 @@
 
 **Earth & Climate Video Studio** — hochwertige, englischsprachige Wissenschaftsdokumentationen über unseren Planeten.
 
-> Projektphase: **M02 – Grundsystem, Datenmodell und VPS-Betrieb (gestartet)** · **Aufgaben 001–023 abgeschlossen, 024–034 offen** · 013 synthetischer 1080p-VPS-Render-Proof bestanden und vom Betreiber freigegeben (DEC-029; [Issue #29](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/29), [PR #30](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/30)).
+> Projektphase: **M02 – Grundsystem, Datenmodell und VPS-Betrieb (gestartet)** · **Aufgaben 001–024 abgeschlossen, 025–034 offen** · 013 synthetischer 1080p-VPS-Render-Proof bestanden und vom Betreiber freigegeben (DEC-029; [Issue #29](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/29), [PR #30](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/30)).
 
 ## Projektziel
 
