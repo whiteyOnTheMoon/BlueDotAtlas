@@ -1,6 +1,6 @@
 # Roadmap 028 – isolierter lokaler Dateispeicher und Lebenszyklus
 
-**Status:** Umsetzung im Featurebranch `feat/028-local-storage`, [Issue #45](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/45). **PR und Betreiberabnahme 028 stehen aus**. Kein Deployment, keine Änderung am VPS, keine neuen Docker-Volumes oder Mounts, keine echten Medien oder veröffentlichbaren MP4s.
+**Status:** Umsetzung und Review in [PR #193](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/193), [Issue #45](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/45). Die **Betreiberfreigabe für den Merge dieses PR wurde am 19.11.2026 erteilt (DEC-040)**. Der Merge und sein finaler CI-Nachweis sind separat zu prüfen. Kein Deployment, keine Änderung am VPS, keine neuen Docker-Volumes oder Mounts, keine echten Medien oder veröffentlichbaren MP4s.
 
 ## Ziel / Projektgrenzen
 
@@ -43,4 +43,4 @@ Der CI-Workflow [`storage-check.yml`](../../.github/workflows/storage-check.yml)
 
 **Nicht bewiesen:** Die DB-Referenzprüfung und der Dateisystem-`unlink` sind **keine gemeinsame atomare Transaktion**; vor produktivem Import/Media-Management muss eine kontrollierte Aufbewahrungs-/Lease-/Referenzsperre gegen zeitgleich hinzukommende Referenzen eingeführt werden. Bösartige lokale Prozesse mit **derselben Unix-UID**, die Verzeichnisse in exakten `lstat`-/`link`-Zeitfenstern austauschen, können unter Node.js-Pfad-APIs nicht vollständig mit `openat2(RESOLVE_BENEATH)`-Garantien ausgeschlossen werden. Auf produktiven Hosts brauchen die Bereiche exklusive OS-Berechtigungen, kontrollierte Prozessrollen sowie eine gesonderte Race-/Quota-/Mount- und Restore-Prüfung in 029/030/034. 028 behauptet **nicht**, dass die vorläufige Anwendung Root-Rechte benötigen oder einen sicheren Multiuser-Fileserver ersetzen darf.
 
-**Offene Gates:** Ein eigenständiger PR 028 muss nach [DEC-036](../project/working-agreement.md) einschließlich CI-/Sicherheitsbelegen **ausdrücklich vom Betreiber genehmigt** werden, bevor er in `main` integriert wird. Selbst danach ist `/srv/blueDotAtlas` ohne die Betriebsaufgaben 029/030 **nicht** freigegeben.
+**Abnahme / offene Betriebsgates:** [PR #193](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/193) ist nach technischer Prüfung und acht erfolgreichen CI-Workflows auf dem geprüften Head **vom Betreiber für den Merge freigegeben (DEC-040)**. Eine neue CI auf eventuellen Abnahme-/Dokumentationscommits muss vor dem Merge ebenfalls grün sein. Selbst danach ist `/srv/blueDotAtlas` ohne gesonderte Betriebsabnahme in 029/030 **nicht** freigegeben.
