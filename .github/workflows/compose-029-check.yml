@@ -8,6 +8,7 @@ on:
       - 'README.md'
       - 'deploy/**'
       - 'scripts/start-public-preview.sh'
+      - 'scripts/verify-live-029*'
       - '.dockerignore'
       - 'apps/web/next.config.ts'
       - 'scripts/check-compose-029*'
@@ -45,6 +46,8 @@ jobs:
         run: |
           bash -n scripts/audit-deploy-029.sh
           bash -n scripts/start-public-preview.sh
+          bash -n scripts/verify-live-029.sh
+          node scripts/check-verify-live-029.mjs
           node scripts/check-deploy-audit-029.mjs
       - name: Isolated Compose settings, negative unit tests and runtime smoke
         env:
