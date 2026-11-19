@@ -4,7 +4,7 @@ import { reviewCompose } from './check-compose-029.mjs';
 
 const valid = (mode = 'base') => {
   const x = {
-    name: 'bluedotatlas-029',
+    name: 'bluedotatlas',
     networks: { edge: {}, private_db: { internal: true } },
     services: {
       db: { networks: { private_db: {} }, mem_limit: 512 * 1024 ** 2,

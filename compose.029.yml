@@ -1,5 +1,5 @@
 # Roadmap 029: review-only scaffold, not an approved production deployment.
-name: bluedotatlas-029
+name: bluedotatlas
 services:
   db:
     image: postgres:16-alpine
@@ -99,4 +99,4 @@ networks:
     internal: true
 volumes:
   bda_pgdata:
-    # Compose automatically namespaces under bluedotatlas-029.
+    # Compose creates this dedicated volume under the permanent bluedotatlas project.

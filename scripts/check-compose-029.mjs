@@ -14,7 +14,7 @@ export function reviewCompose(config, mode = 'base') {
   const errors = [];
   const fail = (message) => errors.push(message);
   if (!['base', 'loopback', 'tunnel'].includes(mode)) return ['unknown Compose mode'];
-  if (config.name !== 'bluedotatlas-029') fail('unexpected project namespace');
+  if (config.name !== 'bluedotatlas') fail('unexpected project namespace');
   const services = config.services || {};
   const networks = config.networks || {};
   for (const name of ['web', 'db', 'migrate', 'worker']) {
