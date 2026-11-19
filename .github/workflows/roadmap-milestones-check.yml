@@ -1,0 +1,30 @@
+name: Roadmap 019 — validate milestone manifest
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - 'docs/project/roadmap-milestones-v01.json'
+      - 'docs/project/roadmap-backlog-m00-m13.md'
+      - 'scripts/sync-roadmap-milestones.mjs'
+      - 'scripts/sync-roadmap-milestones.test.mjs'
+      - '.github/workflows/roadmap-milestones-check.yml'
+      - '.github/workflows/roadmap-milestones-sync.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  roadmap-manifest:
+    name: 14 milestones / 158 task IDs (read-only)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run six manifest and index tests
+        run: node --test scripts/sync-roadmap-milestones.test.mjs
+      - name: Validate manifest without API writes
+        run: node scripts/sync-roadmap-milestones.mjs --check
