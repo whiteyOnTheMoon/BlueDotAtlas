@@ -1,6 +1,6 @@
 # GitHub-Arbeitsregeln V0.1 – Roadmap 018
 
-**BlueDotAtlas · Stand: 18.11.2026 · Vorschlag zur Betreiberabnahme · [Issue #35](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/35)**  
+**BlueDotAtlas · Stand: 19.11.2026 (UTC) · Vorschlag zur Betreiberabnahme · [Issue #35](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/35)**  
 **Quelle:** [Master Roadmap V0.1](master-roadmap-v01-text.md), Aufgabe 018, S. 6. Diese Regeln ergänzen die bereits bestehende PR-Dokumentationsregel **DEC-022** und die Einzelabnahme für jede Roadmap-Aufgabe; die formale Definition of Ready/Done folgt in **020**.
 
 ## 1. Tatsächlich geprüfter GitHub-Zustand
@@ -8,7 +8,7 @@
 | Punkt | Ist-Zustand | Entscheidung / offener Schritt |
 | --- | --- | --- |
 | Repository | [`whiteyOnTheMoon/BlueDotAtlas`](https://github.com/whiteyOnTheMoon/BlueDotAtlas), Standardbranch `main` | Bereits vorhanden; kein neues Repo anlegen und bestehende Historie nicht ersetzen |
-| **Sichtbarkeit** | **PUBLIC / öffentlich**, API-Status am 18.11.2026 geprüft | **Abweichung:** Roadmap fordert ein **privates** Repository. Sichtbarkeit bleibt **unverändert**, bis der Betreiber dies ausdrücklich bestätigt; die Änderung erfordert Repo-Adminaktion in GitHub |
+| **Sichtbarkeit** | **PUBLIC / öffentlich**, API-Status am 19.11.2026 (UTC) geprüft | **Abweichung:** Roadmap fordert ein **privates** Repository. Sichtbarkeit bleibt **unverändert**, bis der Betreiber dies ausdrücklich bestätigt; die Änderung erfordert Repo-Adminaktion in GitHub |
 | PR-Vorlage | `.github/pull_request_template.md` vorhanden; DEC-022-Checkliste und Abnahmetor existieren bereits | Vorhandene Vorlage ergänzen, **nicht** ersetzen |
 | Automatische Checks | Neun fachliche `.github/workflows/*`-Checks existieren für frühere Roadmap-Aufgaben | Bewahren; leichter PR-Metadatencheck wird ergänzt. Bestandsworkflows nicht blind als universelle CI bezeichnen |
 | CODEOWNERS / Issue-Vorlagen | Im geprüften `.github/`-Verzeichnis bisher nicht vorhanden | Owner- und Issue-Templates in diesem PR ergänzen |
