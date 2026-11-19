@@ -16,16 +16,22 @@ export function AdminShell({ preview = false }: { preview?: boolean }) {
       <header className="site-header">
         <div className="container header-inner">
           <BrandMark />
-          <span className="studio-tag">{preview ? "Admin studio · UI preview" : "Admin studio"}</span>
+          <span className="studio-tag">
+            {preview ? 'Admin studio · UI preview' : 'Admin studio'}
+          </span>
         </div>
       </header>
       <main className="container admin-view">
         <p className="eyebrow">Production workspace</p>
         <h1>Studio overview</h1>
-        <p className="muted">The project workspace and production actions will be added in the next milestones.</p>
+        <p className="muted">
+          The project workspace and production actions will be added in the next milestones.
+        </p>
         {!preview ? (
           <form method="post" action="/api/auth/logout" className="signout-form">
-            <button className="button button-secondary" type="submit">Sign out</button>
+            <button className="button button-secondary" type="submit">
+              Sign out
+            </button>
           </form>
         ) : null}
         <div className="admin-panel">

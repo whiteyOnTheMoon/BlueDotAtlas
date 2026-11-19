@@ -30,7 +30,10 @@ export async function generatePasswordHash(password: string): Promise<string> {
 
 /** Fail closed on unsupported/modified hash formats and constant-time comparison. */
 export async function verifyPassword(password: string, encodedHash: string): Promise<boolean> {
-  if (password.length > 256 || !/^scrypt\$16384\$8\$1\$[\da-f]{32}\$[\da-f]{128}$/i.test(encodedHash)) {
+  if (
+    password.length > 256 ||
+    !/^scrypt\$16384\$8\$1\$[\da-f]{32}\$[\da-f]{128}$/i.test(encodedHash)
+  ) {
     return false;
   }
   const parts = encodedHash.split('$');

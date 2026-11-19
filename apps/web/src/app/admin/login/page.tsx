@@ -6,7 +6,11 @@ import { signedInAdmin } from '../../../lib/admin-auth';
 export const metadata = { title: 'Admin sign-in — BlueDotAtlas' };
 export const dynamic = 'force-dynamic';
 
-export default async function Login({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+export default async function Login({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
   if (await signedInAdmin()) redirect('/admin');
   const params = await searchParams;
   const error = params.error === 'invalid';
@@ -28,11 +32,26 @@ export default async function Login({ searchParams }: { searchParams: Promise<{ 
         <form method="post" action="/api/auth/login">
           <div className="field">
             <label htmlFor="email">Email</label>
-            <input id="email" name="email" type="email" autoComplete="username" required maxLength={254} />
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="username"
+              required
+              maxLength={254}
+            />
           </div>
           <div className="field">
             <label htmlFor="password">Password</label>
-            <input id="password" name="password" type="password" autoComplete="current-password" required minLength={12} maxLength={256} />
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              required
+              minLength={12}
+              maxLength={256}
+            />
           </div>
           <button className="button button-primary full-width" type="submit">
             Sign in

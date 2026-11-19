@@ -36,8 +36,8 @@ for (const [directory, name] of required) {
     assert.equal(packageJson.name, name);
     assert.equal(packageJson.private, true);
     if (directory === 'apps/web') {
-      assert.equal(packageJson.scripts.typecheck, 'next typegen && tsc --noEmit');
-      assert.equal(packageJson.scripts.build, 'next build');
+      assert.equal(packageJson.scripts.typecheck, 'pnpm --filter @bluedotatlas/core build && pnpm --filter @bluedotatlas/db build && next typegen && tsc --noEmit');
+      assert.equal(packageJson.scripts.build, 'pnpm --filter @bluedotatlas/core build && pnpm --filter @bluedotatlas/db build && next build');
       assert.equal(packageJson.dependencies.next, '16.4.6');
     } else if (directory === 'packages/db') {
       assert.equal(packageJson.scripts.typecheck, 'pnpm --filter @bluedotatlas/core build && tsc -p tsconfig.json --noEmit');

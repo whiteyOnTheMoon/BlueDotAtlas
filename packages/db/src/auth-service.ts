@@ -61,9 +61,8 @@ export async function loginAdmin(email: string, password: string) {
           .update(adminLoginState)
           .set({
             failedAttempts: failures,
-            lockedUntil: failures >= MAX_ATTEMPTS
-              ? new Date(now.getTime() + LOCK_MINUTES * 60 * 1000)
-              : null,
+            lockedUntil:
+              failures >= MAX_ATTEMPTS ? new Date(now.getTime() + LOCK_MINUTES * 60 * 1000) : null,
             updatedAt: now,
           })
           .where(eq(adminLoginState.key, SINGLE_ADMIN_KEY));
@@ -92,11 +91,13 @@ export async function hasAdminSession(token: string | undefined): Promise<boolea
     const [row] = await connection.db
       .select({ id: adminSessions.id })
       .from(adminSessions)
-      .where(and(
-        eq(adminSessions.tokenHash, tokenHash(token)),
-        isNull(adminSessions.revokedAt),
-        gt(adminSessions.expiresAt, new Date()),
-      ))
+      .where(
+        and(
+          eq(adminSessions.tokenHash, tokenHash(token)),
+          isNull(adminSessions.revokedAt),
+          gt(adminSessions.expiresAt, new Date()),
+        ),
+      )
       .limit(1);
     return !!row;
   } finally {

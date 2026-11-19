@@ -7,8 +7,10 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   if (!sameOrigin(request)) return NextResponse.json({ error: 'forbidden' }, { status: 403 });
-  if (!request.headers.get('content-type')?.startsWith('application/x-www-form-urlencoded') &&
-      !request.headers.get('content-type')?.startsWith('multipart/form-data')) {
+  if (
+    !request.headers.get('content-type')?.startsWith('application/x-www-form-urlencoded') &&
+    !request.headers.get('content-type')?.startsWith('multipart/form-data')
+  ) {
     return NextResponse.json({ error: 'unsupported_media_type' }, { status: 415 });
   }
 
@@ -21,8 +23,12 @@ export async function POST(request: NextRequest) {
   } catch {
     return NextResponse.json({ error: 'bad_request' }, { status: 400 });
   }
-  if (typeof email !== 'string' || typeof password !== 'string' ||
-      email.length > 254 || password.length > 256) {
+  if (
+    typeof email !== 'string' ||
+    typeof password !== 'string' ||
+    email.length > 254 ||
+    password.length > 256
+  ) {
     return NextResponse.json({ error: 'bad_request' }, { status: 400 });
   }
 

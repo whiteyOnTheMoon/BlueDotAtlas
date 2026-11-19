@@ -264,7 +264,5 @@ export const adminLoginState = pgTable(
     lockedUntil: timestamp('locked_until', { withTimezone: true }),
     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
   },
-  (table) => [
-    check('admin_login_state_nonnegative_attempts', sql`${table.failedAttempts} >= 0`),
-  ],
+  (table) => [check('admin_login_state_nonnegative_attempts', sql`${table.failedAttempts} >= 0`)],
 );
