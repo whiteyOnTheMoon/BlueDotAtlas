@@ -35,6 +35,8 @@ export type CleanupOptions = {
   maxDeleteBytes: number;
   maxFiles: number;
   dryRun?: boolean;
+  /** Mandatory on destructive calls: authoritative server-side DB artifact/reference lookup. */
+  referenceCheck?: (storageKey: string) => Promise<boolean>;
 };
 
 export type CleanupReport = {
@@ -42,6 +44,7 @@ export type CleanupReport = {
   dryRun: boolean;
   scannedFiles: number;
   skippedUnsafe: number;
+  skippedProtected: number;
   skippedChanged: number;
   planned: Array<{ storageKey: string; sizeBytes: number }>;
   removed: string[];
@@ -221,7 +224,12 @@ export class LocalStorage {
           }
           continue;
         }
-        if (!stat.isFile() || stat.nlink !== 1 || (stat.mode & 0o077) !== 0) {
+        if (
+          !stat.isFile() ||
+          stat.nlink !== 1 ||
+          (typeof process.getuid === 'function' && stat.uid !== process.getuid()) ||
+          (stat.mode & 0o077) !== 0
+        ) {
           unsafe++;
           continue;
         }
@@ -393,6 +401,9 @@ export class LocalStorage {
     validateBound(options.maxFiles, 1000);
     validateBound(options.maxDeleteBytes, this.limits.scratchBytes);
     const dryRun = options.dryRun !== false;
+    if (!dryRun && typeof options.referenceCheck !== 'function') {
+      throw new StorageError('reference_check_required');
+    }
     const now = Date.now();
     const scanned = await this.walkArea(area);
     const eligible = scanned.files
@@ -401,7 +412,14 @@ export class LocalStorage {
     const planned: CleanupReport['planned'] = [];
     const selected: FileEntry[] = [];
     let bytes = 0;
+    let skippedProtected = 0;
     for (const file of eligible) {
+      // No cleanup of MP4 bytes even if a caller supplies an incomplete DB reference set.
+      // 029/034 must review a separate, reference-aware MP4 retention mechanism.
+      if (file.parts.at(-1)?.toLowerCase().endsWith('.mp4')) {
+        skippedProtected++;
+        continue;
+      }
       if (selected.length >= options.maxFiles || bytes + file.stat.size > options.maxDeleteBytes) {
         continue;
       }
@@ -413,6 +431,14 @@ export class LocalStorage {
     let skippedChanged = 0;
     if (!dryRun) {
       for (const file of selected) {
+        const key = area + '/' + file.parts.join('/');
+        // Fail closed if DB check fails or returns anything other than a boolean.
+        const referenced = await options.referenceCheck!(key);
+        if (referenced === true) {
+          skippedProtected++;
+          continue;
+        }
+        if (referenced !== false) throw new StorageError('reference_check_required');
         await this.parentFor(area, file.parts.slice(0, -1), false);
         let current: Stats;
         try {
@@ -427,6 +453,7 @@ export class LocalStorage {
         if (
           !current.isFile() ||
           current.nlink !== 1 ||
+          (typeof process.getuid === 'function' && current.uid !== process.getuid()) ||
           current.dev !== file.stat.dev ||
           current.ino !== file.stat.ino ||
           current.size !== file.stat.size ||
@@ -446,6 +473,7 @@ export class LocalStorage {
       dryRun,
       scannedFiles: scanned.files.length,
       skippedUnsafe: scanned.unsafe,
+      skippedProtected,
       skippedChanged,
       planned,
       removed,
