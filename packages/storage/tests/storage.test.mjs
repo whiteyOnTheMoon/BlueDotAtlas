@@ -197,6 +197,7 @@ test('symlink directories/files and hardlinked inode are never traversed, read o
   await utimes(join(root, 'temp', 'linked.bin'), old, old);
   const report = await storage.cleanup('temp', {
     olderThanMs: 1000, maxDeleteBytes: 1024, maxFiles: 10, dryRun: false,
+    referenceCheck: async () => false,
   });
   assert.equal(report.skippedUnsafe, 2);
   assert.deepEqual(report.removed, []);
@@ -225,8 +226,8 @@ test('age- and size-bounded dry run; only aged temp/cache deleted; rendered MP4,
   assert.equal((await storage.read('temp/project/expired.bin')).toString(), 'old-temp');
   const dry = await storage.cleanup('cache', { ...options, maxDeleteBytes: 1 });
   assert.deepEqual(dry.planned, [], 'max bytes must be honored');
-  const temp = await storage.cleanup('temp', { ...options, dryRun: false });
-  const cache = await storage.cleanup('cache', { ...options, dryRun: false });
+  const temp = await storage.cleanup('temp', { ...options, dryRun: false, referenceCheck: async () => false });
+  const cache = await storage.cleanup('cache', { ...options, dryRun: false, referenceCheck: async () => false });
   assert.deepEqual(temp.removed, ['temp/project/expired.bin']);
   assert.deepEqual(cache.removed, ['cache/expired.bin']);
   await assert.rejects(storage.read('temp/project/expired.bin'));
@@ -240,6 +241,45 @@ test('age- and size-bounded dry run; only aged temp/cache deleted; rendered MP4,
   await assert.rejects(storage.cleanup('uploads', options), denied('invalid_area'));
   await assert.rejects(storage.cleanup('temp', { ...options, olderThanMs: 0 }), denied('invalid_limit'));
   await assert.rejects(storage.cleanup('cache', { ...options, maxFiles: 0 }), denied('invalid_limit'));
+});
+
+test('destructive cleanup refuses absent/failing DB check and retains referenced files and all MP4s', async () => {
+  const { root, storage } = await fixture();
+  await storage.put('temp', 'referenced.bin', Buffer.from('DB-protected'));
+  await storage.put('temp', 'expired.mp4', Buffer.from('unreviewed-mp4-bytes'));
+  await storage.put('cache', 'orphan.dat', Buffer.from('truly-expired'));
+  const old = new Date(Date.now() - 100_000);
+  for (const [area, name] of [
+    ['temp', 'referenced.bin'],
+    ['temp', 'expired.mp4'],
+    ['cache', 'orphan.dat'],
+  ]) {
+    await utimes(join(root, area, name), old, old);
+  }
+  const opts = { olderThanMs: 1000, maxDeleteBytes: 1000, maxFiles: 5 };
+  await assert.rejects(storage.cleanup('temp', { ...opts, dryRun: false }), denied('reference_check_required'));
+  await assert.rejects(
+    storage.cleanup('cache', { ...opts, dryRun: false, referenceCheck: async () => undefined }),
+    denied('reference_check_required'),
+  );
+  await assert.rejects(
+    storage.cleanup('cache', { ...opts, dryRun: false, referenceCheck: async () => { throw new Error('DB offline'); } }),
+    /DB offline/,
+  );
+  assert.equal((await storage.read('cache/orphan.dat')).toString(), 'truly-expired');
+  const visited = [];
+  const temp = await storage.cleanup('temp', {
+    ...opts, dryRun: false,
+    referenceCheck: async (key) => { visited.push(key); return key === 'temp/referenced.bin'; },
+  });
+  assert.deepEqual(visited, ['temp/referenced.bin']);
+  assert.deepEqual(temp.removed, []);
+  assert.equal(temp.skippedProtected, 2, 'referenced .bin and all MP4 must be retained');
+  assert.equal((await storage.read('temp/referenced.bin')).toString(), 'DB-protected');
+  assert.equal((await storage.read('temp/expired.mp4')).toString(), 'unreviewed-mp4-bytes');
+  const cache = await storage.cleanup('cache', { ...opts, dryRun: false, referenceCheck: async () => false });
+  assert.deepEqual(cache.removed, ['cache/orphan.dat']);
+  await assert.rejects(storage.read('cache/orphan.dat'));
 });
 
 test('existing symlink destination never clobbered and no external source is modified', async () => {
