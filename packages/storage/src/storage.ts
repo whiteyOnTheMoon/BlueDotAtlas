@@ -1,17 +1,6 @@
 import { createHash, randomUUID } from 'node:crypto';
-import {
-  constants,
-  type Stats,
-} from 'node:fs';
-import {
-  link,
-  lstat,
-  mkdir,
-  open,
-  readdir,
-  realpath,
-  unlink,
-} from 'node:fs/promises';
+import { constants, type Stats } from 'node:fs';
+import { link, lstat, mkdir, open, readdir, realpath, unlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { basename, dirname, isAbsolute, join, resolve, sep } from 'node:path';
 import {
@@ -314,12 +303,7 @@ export class LocalStorage {
         hash.update(chunk);
         let cursor = 0;
         while (cursor < chunk.byteLength) {
-          const { bytesWritten } = await file.write(
-            chunk,
-            cursor,
-            chunk.byteLength - cursor,
-            null,
-          );
+          const { bytesWritten } = await file.write(chunk, cursor, chunk.byteLength - cursor, null);
           if (bytesWritten === 0) throw new StorageError('file_changed');
           cursor += bytesWritten;
         }
@@ -331,7 +315,10 @@ export class LocalStorage {
 
       // The stage counts towards the pool budget before it can be committed.
       const used = await this.usage();
-      if (used.mediaBytes > this.limits.mediaBytes || used.scratchBytes > this.limits.scratchBytes) {
+      if (
+        used.mediaBytes > this.limits.mediaBytes ||
+        used.scratchBytes > this.limits.scratchBytes
+      ) {
         throw new StorageError('storage_budget');
       }
       await this.parentFor(area, parts.slice(0, -1), false);
@@ -345,13 +332,20 @@ export class LocalStorage {
       }
       await unlink(stage);
       stageCreated = false;
-      const handle = await open(folder, constants.O_RDONLY | constants.O_DIRECTORY | constants.O_NOFOLLOW);
+      const handle = await open(
+        folder,
+        constants.O_RDONLY | constants.O_DIRECTORY | constants.O_NOFOLLOW,
+      );
       try {
         await handle.sync();
       } finally {
         await handle.close();
       }
-      return { storageKey: area + '/' + parts.join('/'), sizeBytes: bytes, sha256: hash.digest('hex') };
+      return {
+        storageKey: area + '/' + parts.join('/'),
+        sizeBytes: bytes,
+        sha256: hash.digest('hex'),
+      };
     } finally {
       if (file) await file.close();
       if (stageCreated) {
@@ -372,7 +366,10 @@ export class LocalStorage {
     const { area, parts } = parseStorageKey(storageKey);
     const folder = await this.parentFor(area, parts.slice(0, -1), false);
     const filePath = join(folder, parts[parts.length - 1] ?? '');
-    const handle = await open(filePath, constants.O_RDONLY | constants.O_NOFOLLOW | constants.O_NONBLOCK);
+    const handle = await open(
+      filePath,
+      constants.O_RDONLY | constants.O_NOFOLLOW | constants.O_NONBLOCK,
+    );
     try {
       const stat = await handle.stat();
       assertPrivateFile(stat);
