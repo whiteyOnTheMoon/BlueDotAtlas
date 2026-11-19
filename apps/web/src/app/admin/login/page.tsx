@@ -1,9 +1,16 @@
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { BrandMark } from '../../../components/brand-mark';
+import { signedInAdmin } from '../../../lib/admin-auth';
 
 export const metadata = { title: 'Admin sign-in — BlueDotAtlas' };
+export const dynamic = 'force-dynamic';
 
-export default function Login() {
+export default async function Login({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+  if (await signedInAdmin()) redirect('/admin');
+  const params = await searchParams;
+  const error = params.error === 'invalid';
+
   return (
     <main className="login-screen">
       <div className="login-panel">
@@ -11,32 +18,26 @@ export default function Login() {
         <p className="eyebrow">Private studio</p>
         <h1>Admin sign-in</h1>
         <p className="muted">
-          Authentication is not active yet. Sign-in will be implemented in Roadmap task 025. No
-          credentials are accepted or stored here.
+          Sign in with your configured BlueDotAtlas administrator credentials.
         </p>
-        <div className="field">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            autoComplete="username"
-            disabled
-            placeholder="Not available yet"
-          />
-        </div>
-        <div className="field">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            autoComplete="current-password"
-            disabled
-            placeholder="Not available yet"
-          />
-        </div>
-        <button className="button button-primary full-width" type="button" disabled>
-          Sign-in unavailable
-        </button>
+        {error ? (
+          <p className="auth-error" role="alert">
+            Sign-in failed. Check your details or try again later.
+          </p>
+        ) : null}
+        <form method="post" action="/api/auth/login">
+          <div className="field">
+            <label htmlFor="email">Email</label>
+            <input id="email" name="email" type="email" autoComplete="username" required maxLength={254} />
+          </div>
+          <div className="field">
+            <label htmlFor="password">Password</label>
+            <input id="password" name="password" type="password" autoComplete="current-password" required minLength={12} maxLength={256} />
+          </div>
+          <button className="button button-primary full-width" type="submit">
+            Sign in
+          </button>
+        </form>
         <p className="secondary-note">
           <Link href="/">Back to the public library</Link>
         </p>

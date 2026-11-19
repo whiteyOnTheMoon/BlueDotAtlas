@@ -10,19 +10,24 @@ const steps = [
   'Video Production',
 ] as const;
 
-export function AdminShell() {
+export function AdminShell({ preview = false }: { preview?: boolean }) {
   return (
     <>
       <header className="site-header">
         <div className="container header-inner">
           <BrandMark />
-          <span className="studio-tag">Admin studio · UI preview</span>
+          <span className="studio-tag">{preview ? "Admin studio · UI preview" : "Admin studio"}</span>
         </div>
       </header>
       <main className="container admin-view">
         <p className="eyebrow">Production workspace</p>
         <h1>Studio overview</h1>
-        <p className="muted">Interface skeleton only — no projects, credentials or live jobs.</p>
+        <p className="muted">The project workspace and production actions will be added in the next milestones.</p>
+        {!preview ? (
+          <form method="post" action="/api/auth/logout" className="signout-form">
+            <button className="button button-secondary" type="submit">Sign out</button>
+          </form>
+        ) : null}
         <div className="admin-panel">
           <aside className="admin-side" aria-label="Studio navigation">
             <p className="side-caption">Workspace</p>
@@ -42,8 +47,8 @@ export function AdminShell() {
               ))}
             </ol>
             <div className="panel-card">
-              <h3>No active projects</h3>
-              <p>Project creation and persistence follow in Roadmap tasks 023–024 and 031.</p>
+              <h3>Project management is coming soon</h3>
+              <p>Database project models exist. The editable dashboard is part of Roadmap 031.</p>
               <button className="button button-secondary" type="button" disabled>
                 Create New Video · coming soon
               </button>

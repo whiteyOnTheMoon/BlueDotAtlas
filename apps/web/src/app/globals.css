@@ -123,3 +123,13 @@ h1, h2, h3 { font-family: var(--font-display); letter-spacing: -.04em; line-heig
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+.auth-error {
+  margin-block: 18px;
+  padding: 12px;
+  color: var(--text);
+  background: var(--surface-soft);
+  border: 1px solid var(--border-control);
+  border-radius: var(--radius-sm);
+}
+.signout-form { margin-top: 20px; }
