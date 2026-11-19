@@ -45,6 +45,8 @@ Alle **anwendbaren** Kriterien müssen anhand des konkreten Pull Requests nachvo
 - [ ] **PR ↔ Issue ↔ Roadmap-ID:** PR-Titel `[NNN] …`, `Roadmap-Nummer: NNN` und `GitHub-Issue: #ID` (oder `Refs #ID`) passen zu demselben bestehenden Issue.
 - [ ] **Abnahme erteilt:** Der Betreiber hat **den konkret vorgelegten PR/Scope** ausdrücklich genehmigt; Review-Beleg/Datum stehen im PR/Issue. Vorher **kein Merge/Done**. Nach Merge: Commit, CI, Abnahme und Link im Issue; Issue schließen.
 
+**Verbindliche Freigaberegel:** Für jeden späteren PR bleibt eine **ausdrückliche Betreiberabnahme** des konkret geprüften Ergebnisses vor dem Merge Pflicht; die Freigabe dieses Dokumentes (DEC-036) ersetzt keine künftige Einzelentscheidung.
+
 **Done ist nicht gleich „alle Meilenstein-Gates bestanden“:** Einzelne M01-Aufgaben können angenommen sein, obwohl der ursprüngliche umfangreichere Real-Footage-/Remotion-1080p-Gate erst beim echten M03-Pilot überprüft wird. Kein stillschweigendes M01-Gesamt-Go durch Aufgabe 020.
 
 ## 3. Review-Regeln und Änderungen nach Freigabe
