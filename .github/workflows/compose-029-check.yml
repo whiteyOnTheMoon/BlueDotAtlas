@@ -9,6 +9,8 @@ on:
       - 'deploy/**'
       - 'scripts/start-public-preview.sh'
       - 'scripts/verify-live-029*'
+      - 'scripts/verify-web-recovery-029.sh'
+      - 'scripts/check-web-recovery-029.mjs'
       - '.dockerignore'
       - 'apps/web/next.config.ts'
       - 'scripts/check-compose-029*'
@@ -47,6 +49,8 @@ jobs:
           bash -n scripts/audit-deploy-029.sh
           bash -n scripts/start-public-preview.sh
           bash -n scripts/verify-live-029.sh
+          bash -n scripts/verify-web-recovery-029.sh
+          node scripts/check-web-recovery-029.mjs
           node scripts/check-verify-live-029.mjs
           node scripts/check-deploy-audit-029.mjs
       - name: Isolated Compose settings, negative unit tests and runtime smoke
