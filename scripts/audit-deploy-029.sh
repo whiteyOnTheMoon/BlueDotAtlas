@@ -78,8 +78,8 @@ if command -v docker >/dev/null 2>&1; then
   if docker_images="$(docker ps --format '{{.Image}}' 2>/dev/null)"; then
     docker_access=yes
     field 'Running Docker containers' "$(printf '%s\n' "$docker_images" | count_lines)"
-    field 'Images matching cloudflared (count)' "$(printf '%s\n' "$docker_images" | awk 'tolower($0) ~ /(^|\\/)cloudflared([:@]|$)/ { n++ } END { print n+0 }')"
-    field 'Images matching nginx/caddy/traefik/haproxy (count)' "$(printf '%s\n' "$docker_images" | awk 'tolower($0) ~ /(^|\\/)(nginx|caddy|traefik|haproxy)([:@]|$)/ { n++ } END { print n+0 }')"
+    field 'Images matching cloudflared (count)' "$(printf '%s\n' "$docker_images" | awk 'tolower($0) ~ /(^|\/)cloudflared([:@]|$)/ { n++ } END { print n+0 }')"
+    field 'Images matching nginx/caddy/traefik/haproxy (count)' "$(printf '%s\n' "$docker_images" | awk 'tolower($0) ~ /(^|\/)(nginx|caddy|traefik|haproxy)([:@]|$)/ { n++ } END { print n+0 }')"
     if projects="$(docker ps --format '{{.Label "com.docker.compose.project"}}' 2>/dev/null)"; then
       field 'Distinct active Compose projects (approx.)' "$(printf '%s\n' "$projects" | awk 'NF && $0 != "<no value>" && $0 != "-" { projects[$0]=1 } END { for (p in projects) n++; print n+0 }')"
     fi
