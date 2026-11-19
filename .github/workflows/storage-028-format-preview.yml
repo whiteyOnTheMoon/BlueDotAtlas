@@ -1,0 +1,35 @@
+name: Temporary 028 exact Prettier preview
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/storage-028-format-preview.yml'
+      - 'packages/storage/**'
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: pnpm install --frozen-lockfile
+      - name: Exact Prettier output via base64 without touching repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in packages/storage/src/policy.ts packages/storage/src/storage.ts packages/storage/src/index.ts packages/storage/package.json; do
+            echo "@@@BDA_FMT_START:$file@@@"
+            pnpm exec prettier "$file" | base64 -w0
+            echo
+            echo "@@@BDA_FMT_END:$file@@@"
+          done
