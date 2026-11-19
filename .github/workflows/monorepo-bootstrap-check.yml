@@ -32,14 +32,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install (frozen once lockfile is committed)
-        run: |
-          if test -f pnpm-lock.yaml; then
-            pnpm install --frozen-lockfile
-          else
-            pnpm install --no-frozen-lockfile
-            echo "::notice::Bootstrap only: commit the generated lockfile and rerun frozen install before approval"
-          fi
+      - name: Install (frozen)
+        run: pnpm install --frozen-lockfile
       - name: Workspace structure tests
         run: pnpm test
       - name: Typecheck
@@ -50,22 +44,3 @@ jobs:
         run: pnpm format:check
       - name: Build
         run: pnpm build
-      - name: Export generated lockfile for review
-        if: always() && hashFiles('pnpm-lock.yaml') != ''
-        uses: actions/upload-artifact@v4
-        with:
-          name: monorepo-lockfile
-          path: pnpm-lock.yaml
-          retention-days: 7
-      - name: Show formatter suggestions (temporary bootstrap review)
-        if: always()
-        run: |
-          pnpm exec prettier --write "apps/**/*.{ts,json}" "packages/**/*.{ts,json}" package.json tsconfig.base.json pnpm-workspace.yaml eslint.config.mjs .prettierrc.json
-          git diff -- apps packages tsconfig.base.json
-      - name: Print lockfile as base64 for manual onboarding
-        if: always() && hashFiles('pnpm-lock.yaml') != ''
-        run: |
-          echo BDA_LOCKFILE_START
-          base64 -w0 pnpm-lock.yaml
-          echo
-          echo BDA_LOCKFILE_END

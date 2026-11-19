@@ -23,6 +23,6 @@
 
 ## Nachweise und Grenzen
 
-GitHub Actions `monorepo-bootstrap-check` prüft Workspace-Struktur, Paketinstallation, Lint, Format, Typecheck und Build getrennt. Bis zum Lockfile-Commit erzeugt der Bootstrap-Check ein Lockfile als **nicht freigegebenes Hilfsartefakt**; für den abschließenden Test wird auf `--frozen-lockfile` umgestellt. Lokal ohne Paket-Registry ist eine erfolgreiche pnpm-Installation **nicht** nachgewiesen.
+GitHub Actions `monorepo-bootstrap-check` prüft Workspace-Struktur, Paketinstallation, Lint, Format, Typecheck und Build getrennt. Das von GitHub Actions erstmalig erzeugte und überprüfte `pnpm-lock.yaml` wurde in den Featurebranch übernommen. Jeder neue CI-Lauf führt `pnpm install --frozen-lockfile` aus und prüft so eine reproduzierbare Installation. Lokal ohne Paket-Registry ist eine erfolgreiche pnpm-Installation **nicht** nachgewiesen.
 
 **Kein Dienst wird gestartet oder deployt; kein Datenbankschema, kein `/admin`, keine Queue oder Medienverarbeitung.** Bestehende VPS-Projekte, Markenmedien und API-Zugänge werden nicht verändert. Die Vorgaben aus [Architektur 017](../architecture/overview.md), [Budget 016](../operations/budget-policy.md) und [Arbeitsvereinbarung 020](../project/working-agreement.md) bleiben verbindlich.

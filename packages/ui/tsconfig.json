@@ -4,7 +4,5 @@
     "rootDir": ".",
     "outDir": "dist"
   },
-  "include": [
-    "tokens/**/*.ts"
-  ]
+  "include": ["tokens/**/*.ts"]
 }
