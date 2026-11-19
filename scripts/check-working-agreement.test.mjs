@@ -34,5 +34,5 @@ test('Existing architecture ADR must cite actual approved decision', () => {
 
 test('New 020 decision cannot be described as approved before user review', () => {
   const invalid = agreement + '\nDEC-036 abgenommen';
-  assert.match(validateWorkingAgreement(invalid, pr, template, adr).join('\n'), /before the PR is approved/);
+  assert.match(validateWorkingAgreement(invalid, pr, template, adr, '').join('\n'), /without a recorded operator approval/);
 });
