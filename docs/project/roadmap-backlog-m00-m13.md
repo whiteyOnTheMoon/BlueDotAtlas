@@ -2,7 +2,7 @@
 
 > **Quelle:** [Master Roadmap V0.1 (PDF)](BlueDotAtlas_Roadmap.pdf) · [Vollständiger Textspiegel](master-roadmap-v01-text.md) · **158 Aufgaben / 14 Meilensteine / 158 einzigartige GitHub-Issues**, Abgleich am 19.11.2026 (UTC).
 
-**Status:** Roadmap-Aufgaben **001–019 abgeschlossen** (Betreiberfreigaben), **020–158 im Backlog**. Der Aufgaben- und Meilensteinimport ist vollständig, **nicht** die inhaltliche Umsetzung der späteren Aufgaben. **Der Aufgabenimport ist abgeschlossen, nicht die Umsetzung.** GitHub-Issue-Nummern sind nicht gleich Roadmap-Nummern.
+**Status:** Roadmap-Aufgaben **001–020 abgeschlossen** (Betreiberfreigaben), **021–158 im Backlog**. Der Aufgaben- und Meilensteinimport ist vollständig, **nicht** die inhaltliche Umsetzung der späteren Aufgaben. **Der Aufgabenimport ist abgeschlossen, nicht die Umsetzung.** GitHub-Issue-Nummern sind nicht gleich Roadmap-Nummern.
 
 **Native GitHub-Meilensteine sind eingerichtet:** Nach ausdrücklicher Betreiberfreigabe von [PR #183](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/183) wurden **M00–M13 als 14 native Meilensteine** angelegt. [GitHub Actions #44441286199](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44441286199) meldete: `PASS: 14 native GitHub milestones exist, all 158/158 Issues assigned.` Der Workflow prüfte die Zuordnungen **erneut per GitHub-API** (DEC-035). Das [Manifest](roadmap-milestones-v01.json) bewahrt die Quelle.
 
@@ -40,7 +40,7 @@
 | **017** | Kernarchitektur und Systemgrenzen festlegen | [#34](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/34) | Abgenommen |
 | **018** | GitHub-Repository und Arbeitsregeln aufsetzen | [#35](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/35) | Abgenommen |
 | **019** | Roadmap in GitHub-Milestones übertragen | [#36](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/36) | Abgenommen (DEC-035, Sync verifiziert) |
-| **020** | Definition of Ready/Done und Dokumentationsregeln beschließen | [#37](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/37) | In Arbeit – Arbeitsvereinbarung und ADR zur Abnahme |
+| **020** | Definition of Ready/Done und Dokumentationsregeln beschließen | [#37](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/37) | Abgenommen (DEC-036; DoR/DoD und ADR-Regeln) |
 
 ## M02 – Grundsystem, Datenmodell und VPS-Betrieb (021–034)
 
