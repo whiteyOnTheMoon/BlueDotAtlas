@@ -1,9 +1,11 @@
-name: M02 023 PostgreSQL migrations integration
+name: M02 023-024 PostgreSQL migrations and domain model
 
 on:
   pull_request:
     paths:
       - 'packages/db/**'
+      - 'packages/core/**'
+      - 'scripts/check-monorepo.test.mjs'
       - 'pnpm-lock.yaml'
       - 'package.json'
       - '.github/workflows/db-migration-check.yml'
@@ -63,8 +65,3 @@ jobs:
             git status --short -- packages/db/drizzle
             exit 1
           fi
-      - name: Show formatter corrections for review
-        if: always()
-        run: |
-          pnpm exec prettier --write "apps/**/*.{ts,tsx,json}" "packages/**/*.{ts,tsx,json}" package.json tsconfig.base.json pnpm-workspace.yaml eslint.config.mjs .prettierrc.json
-          git diff -- packages/core packages/db package.json
