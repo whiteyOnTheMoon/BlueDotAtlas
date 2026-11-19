@@ -2,7 +2,7 @@
 
 **Earth & Climate Video Studio** — hochwertige, englischsprachige Wissenschaftsdokumentationen über unseren Planeten.
 
-> Projektphase: **M02 – Grundsystem, Datenmodell und VPS-Betrieb (gestartet)** · **Aufgaben 001–022 abgeschlossen, 023–034 offen** · 013 synthetischer 1080p-VPS-Render-Proof bestanden und vom Betreiber freigegeben (DEC-029; [Issue #29](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/29), [PR #30](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/30)).
+> Projektphase: **M02 – Grundsystem, Datenmodell und VPS-Betrieb (gestartet)** · **Aufgaben 001–023 abgeschlossen, 024–034 offen** · 013 synthetischer 1080p-VPS-Render-Proof bestanden und vom Betreiber freigegeben (DEC-029; [Issue #29](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/29), [PR #30](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/30)).
 
 ## Projektziel
 
@@ -95,7 +95,9 @@ Grundlage: *BlueDotAtlas Master Roadmap V0.1* (13. November 2026), 14 Meilenstei
 
 **Aufgabe 022 (abgenommen, gemergt):** Next.js-App-Shell für öffentliche Videothek, noch inaktives Login und serverseitig gesperrtes Admin-Gerüst. Nur lokal im Entwicklungsmodus kann unter `/preview/admin` eine datenfreie UI-Vorschau geprüft werden. Echte Anmeldung folgt erst mit **025**. Details: [Web-Shell-Anleitung](docs/development/web-shell.md) und [Issue #39](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/39).
 
-**Aufgabe 023 (Featurebranch, noch nicht gemergt):** PostgreSQL/Drizzle-ORM-Grundlagen mit wiederholbaren SQL-Migrationen, UUID-/Zeitstempel-/Soft-Delete-Regeln und isolierten CI-Integrationsprüfungen. [Issue #40](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/40) · [DB-Anleitung](docs/development/database.md). Keine Live-Datenbank und keine spezifischen Video-/Job-Tabellen vor 024.
+**Aufgabe 023 (abgenommen und gemergt):** PostgreSQL/Drizzle-ORM-Grundlagen mit wiederholbaren SQL-Migrationen, UUID-/Zeitstempel-/Soft-Delete-Regeln und isolierten CI-Integrationsprüfungen. [Issue #40](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/40) · [DB-Anleitung](docs/development/database.md). Keine Live-Datenbank und keine spezifischen Video-/Job-Tabellen vor 024.
+
+**Aufgabe 024 (Featurebranch, noch nicht gemergt):** Datenmodell für `VideoProject`, `ProjectVersion`, `StepProgress`, `Video`, `RenderJob`, `Approval`, `Artifact` und `AuditEvent`; Status-/Freigabesemantik, FK-/Check-Constraints, atomare Übergänge und reproduzierbare PostgreSQL-Tests. [Issue #41](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/41) · [Modell-/Migrationsdokumentation](docs/development/data-model.md). Kein Autopublish und noch kein VPS-/Live-DB-Deploy.
 
 ## Technische Zielarchitektur (noch nicht deployt)
 
