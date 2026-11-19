@@ -18,3 +18,20 @@ export {
   revokeAdminSession,
 } from './auth-service.js';
 export { generatePasswordHash, verifyPassword } from './password.js';
+
+export {
+  listProjects,
+  listVideos,
+  getVideo,
+  listRenderJobs,
+  getRenderJob,
+  listMediaArtifacts,
+  getMediaArtifact,
+} from './api-read-service.js';
+export {
+  ApiValidationError,
+  parseApiUuid,
+  parseApiListQuery,
+  parseApiCreateProject,
+} from '@bluedotatlas/core';
+export type { ApiCollection, ApiListQuery } from '@bluedotatlas/core';
