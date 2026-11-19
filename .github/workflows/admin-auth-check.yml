@@ -46,12 +46,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Initial link and lockfile generation (bootstrap only)
-        run: pnpm install --no-frozen-lockfile
-      - name: Build core and generate incremental auth migration
+      - name: Clean frozen install
+        run: pnpm install --frozen-lockfile
+      - name: Check Drizzle journal and schema have no drift
         run: |
           pnpm --filter @bluedotatlas/core build
+          pnpm --filter @bluedotatlas/db db:check
           pnpm --filter @bluedotatlas/db db:generate
+          if [ -n "$(git status --porcelain -- packages/db/drizzle)" ]; then
+            echo "Unexpected schema/migration drift"
+            git status --short -- packages/db/drizzle
+            exit 1
+          fi
       - name: Typecheck and regression suite
         run: |
           pnpm test
@@ -73,37 +79,14 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
       - name: Real protected browser login / logout / CSRF / cookie test
         run: node scripts/check-admin-auth.mjs
+      - name: Production HTTPS-cookie and revocation smoke
+        run: node scripts/check-auth-production.mjs
       - name: Browser screenshots and results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: bda-025-admin-auth-qa
           path: .tmp-admin-auth-qa/
-          if-no-files-found: warn
+          if-no-files-found: error
           include-hidden-files: true
           retention-days: 14
-      - name: Export generated migration and pnpm lockfile (temporary bootstrap)
-        if: always()
-        shell: bash
-        run: |
-          set -euo pipefail
-          file="$(find packages/db/drizzle -maxdepth 1 -type f -name '0002_*.sql' -print -quit)"
-          test -n "$file"
-          echo BDA025_SQL_PATH="$file"
-          for kind in SQL SNAPSHOT JOURNAL LOCKFILE; do
-            case "$kind" in
-              SQL) file_to_print="$file" ;;
-              SNAPSHOT) file_to_print="packages/db/drizzle/meta/0002_snapshot.json" ;;
-              JOURNAL) file_to_print="packages/db/drizzle/meta/_journal.json" ;;
-              LOCKFILE) file_to_print="pnpm-lock.yaml" ;;
-            esac
-            echo "BDA025_${kind}_START"
-            base64 -w0 "$file_to_print"
-            echo
-            echo "BDA025_${kind}_END"
-          done
-      - name: Formatter diagnostics during bootstrap
-        if: always()
-        run: |
-          pnpm exec prettier --write "apps/**/*.{ts,tsx,json}" "packages/**/*.{ts,tsx,json}" package.json tsconfig.base.json pnpm-workspace.yaml eslint.config.mjs .prettierrc.json
-          git diff -- apps/web packages/db package.json
