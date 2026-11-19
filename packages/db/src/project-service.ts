@@ -3,7 +3,7 @@ import { assertProjectTransition, wizardSteps, type ProjectStatus } from '@blued
 import { auditEvents, projectVersions, stepProgress, videoProjects } from './schema.js';
 import type { ReturnTypeOfOpenDatabase } from './types.js';
 
-/** No network service or HTTP endpoint is exposed. API validation/auth will follow in 025/026. */
+/** Pure transaction service: external HTTP access is guarded by the separate 026 API layer. */
 export class ProjectNotFound extends Error {
   constructor(id: string) {
     super('Project not found: ' + id);
