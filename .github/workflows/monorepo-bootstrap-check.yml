@@ -51,14 +51,19 @@ jobs:
       - name: Build
         run: pnpm build
       - name: Export generated lockfile for review
-        if: hashFiles('pnpm-lock.yaml') != ''
+        if: always() && hashFiles('pnpm-lock.yaml') != ''
         uses: actions/upload-artifact@v4
         with:
           name: monorepo-lockfile
           path: pnpm-lock.yaml
           retention-days: 7
+      - name: Show formatter suggestions (temporary bootstrap review)
+        if: always()
+        run: |
+          pnpm exec prettier --write "apps/**/*.{ts,json}" "packages/**/*.{ts,json}" package.json tsconfig.base.json pnpm-workspace.yaml eslint.config.mjs .prettierrc.json
+          git diff -- apps packages tsconfig.base.json
       - name: Print lockfile as base64 for manual onboarding
-        if: hashFiles('pnpm-lock.yaml') != ''
+        if: always() && hashFiles('pnpm-lock.yaml') != ''
         run: |
           echo BDA_LOCKFILE_START
           base64 -w0 pnpm-lock.yaml
