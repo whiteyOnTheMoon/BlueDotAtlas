@@ -37,7 +37,7 @@ Das bestehende Domain-Modell [024](data-model.md) definiert `queued`, `running`,
 
 ## Strikt begrenzter Testexecutor
 
-Dies ist **kein Produktionsworker**: `node apps/worker/dist/run.js` verweigert sich ohne **beide** Schalter `BDA_DB_TEST=1` und `BDA_WORKER_SYNTHETIC_TEST=1`; `DATABASE_URL` muss auf die **eigene** lokale PostgreSQL-Datenbank `/bda_test` an `localhost` oder `127.0.0.1` zeigen. Der `run.js`-Test kann zusätzlich `BDA_WORKER_ONCE=1` setzen und endet nach höchstens einem reservierten Job. Es werden keinerlei unbekannte Befehle, Mediendateien oder Drittanbieter-Requests ausgeführt.
+Dies ist **kein Produktionsworker**: `node apps/worker/dist/run.js` verweigert sich ohne **beide** Schalter `BDA_DB_TEST=1` und `BDA_WORKER_SYNTHETIC_TEST=1`; `DATABASE_URL` muss auf die **eigene** lokale PostgreSQL-Datenbank `/bda_test` an `localhost` oder `127.0.0.1` mit dem ausschließlich synthetischen Datenbankbenutzer `bda_test` und ohne URL-Query-/Fragment-Overrides zeigen. Der `run.js`-Test kann zusätzlich `BDA_WORKER_ONCE=1` setzen und endet nach höchstens einem reservierten Job. Es werden keinerlei unbekannte Befehle, Mediendateien oder Drittanbieter-Requests ausgeführt.
 
 Ein expliziter Aufruf von `enqueueSyntheticJob` aus dem **isolierten** Testharness darf ausschließlich `{kind:'synthetic_027',durationMs,failUntilAttempt}` in `manifest` hinterlegen: Dauer 200–5000 Millisekunden, maximal drei Versuche, deterministische Fehlversuche. Eine öffentliche Web-Route zum Einreihen beliebiger Jobs gibt es in 027 **nicht**; der bestehende authentifizierte `GET /api/v1/jobs/:id` aus 026 zeigt den Zustand nur lesend.
 
