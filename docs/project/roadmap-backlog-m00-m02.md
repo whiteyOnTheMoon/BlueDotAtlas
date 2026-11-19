@@ -2,7 +2,7 @@
 
 **Grundlage:** [Original-PDF der Master Roadmap V0.1 (28 Seiten)](BlueDotAtlas_Roadmap.pdf) und [vollständige Textfassung](master-roadmap-v01-text.md), Betreiber-PDF vom 13.11.2026. GitHub-Issue-Nummern (**#...**) sind nicht die stabilen Roadmap-Nummern (**001–158**).
 
-**Status:** Aufgaben 001–017 laut bisherigen Projektfreigaben abgeschlossen; Aufgaben 018–034 als Backlog angelegt. Ein Meilenstein ist erst nach seinem Gate abgeschlossen. Die [Original-PDF](BlueDotAtlas_Roadmap.pdf) ist auf `main` archiviert und per Git-Blob-SHA mit dem Betreiber-Original identisch; die Textfassung ist ergänzend durchsuchbar.
+**Status:** Aufgaben 001–018 laut bisherigen Projektfreigaben abgeschlossen; Aufgaben 019–034 als Backlog angelegt. Ein Meilenstein ist erst nach seinem Gate abgeschlossen. Die [Original-PDF](BlueDotAtlas_Roadmap.pdf) ist auf `main` archiviert und per Git-Blob-SHA mit dem Betreiber-Original identisch; die Textfassung ist ergänzend durchsuchbar.
 
 ## M00 – Marke, Gestaltung und filmische Identität (001–009)
 
@@ -34,7 +34,7 @@
 | **015** | [Anbieterstatus und aktuelle Dokumentation prüfen (#32)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/32) | Abgenommen (DEC-031) |
 | **016** | [Budget und Freigabegrenzen festsetzen (#33)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/33) | Abgenommen (DEC-032) |
 | **017** | [Kernarchitektur und Systemgrenzen festlegen (#34)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/34) | Abgenommen (DEC-033; Video-/Animationsziel, noch kein Rendernachweis) |
-| **018** | [GitHub-Repository und Arbeitsregeln aufsetzen (#35)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/35) | Offen |
+| **018** | [GitHub-Repository und Arbeitsregeln aufsetzen (#35)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/35) | Abgenommen (DEC-034; Repo bewusst öffentlich) |
 | **019** | [Roadmap in GitHub-Milestones übertragen (#36)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/36) | Offen |
 | **020** | [Definition of Ready/Done und Dokumentationsregeln beschließen (#37)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/37) | Offen |
 
