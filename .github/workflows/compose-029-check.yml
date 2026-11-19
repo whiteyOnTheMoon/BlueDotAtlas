@@ -3,7 +3,7 @@ name: M02 029 isolated Compose and Docker build review
 on:
   pull_request:
     paths:
-      - 'compose.029.yml'
+      - 'compose.029*.yml'
       - 'deploy/**'
       - '.dockerignore'
       - 'apps/web/next.config.ts'
@@ -51,15 +51,24 @@ jobs:
           printf '%s\n' 'POSTGRES_DB=bda_test' 'POSTGRES_USER=bda_test' 'POSTGRES_PASSWORD=bda_test_only' > "$RUNNER_TEMP/db.env"
           printf '%s\n' 'NODE_ENV=production' 'DATABASE_URL=postgresql://bda_test:bda_test_only@db:5432/bda_test' 'APP_ORIGIN=http://127.0.0.1:18029' > "$RUNNER_TEMP/web.env"
           printf '%s\n' 'BDA_DB_TEST=1' 'BDA_WORKER_SYNTHETIC_TEST=1' 'DATABASE_URL=postgresql://bda_test:bda_test_only@db:5432/bda_test' > "$RUNNER_TEMP/worker.env"
-          chmod 600 "$RUNNER_TEMP/db.env" "$RUNNER_TEMP/web.env" "$RUNNER_TEMP/worker.env"
+          # Dummy value only — never launch or connect cloudflared in CI.
+          printf '%s\n' 'dummy-not-a-real-cloudflare-token' > "$RUNNER_TEMP/tunnel.token"
+          chmod 600 "$RUNNER_TEMP/db.env" "$RUNNER_TEMP/web.env" "$RUNNER_TEMP/worker.env" "$RUNNER_TEMP/tunnel.token"
           export BDA_DB_ENV_FILE="$RUNNER_TEMP/db.env"
           export BDA_WEB_ENV_FILE="$RUNNER_TEMP/web.env"
           export BDA_WORKER_ENV_FILE="$RUNNER_TEMP/worker.env"
-          docker compose --profile future-renderer --profile maintenance -f compose.029.yml config --format json > "$RUNNER_TEMP/compose.json"
-          node scripts/check-compose-029.mjs "$RUNNER_TEMP/compose.json"
-          docker compose -f compose.029.yml build web
-          docker compose -f compose.029.yml up -d --wait --wait-timeout 120 db web
-          docker compose -f compose.029.yml ps
+          export BDA_TUNNEL_TOKEN_FILE="$RUNNER_TEMP/tunnel.token"
+          export BDA_CLOUDFLARED_IMAGE='cloudflare/cloudflared:ci-config-only-never-pull'
+          docker compose --profile future-renderer --profile maintenance -f compose.029.yml config --format json > "$RUNNER_TEMP/compose-base.json"
+          node scripts/check-compose-029.mjs "$RUNNER_TEMP/compose-base.json" base
+          docker compose --profile future-renderer --profile maintenance -f compose.029.yml -f compose.029.loopback.yml config --format json > "$RUNNER_TEMP/compose-loopback.json"
+          node scripts/check-compose-029.mjs "$RUNNER_TEMP/compose-loopback.json" loopback
+          # Config validation only: never start tunnel or reach Cloudflare.
+          docker compose --profile future-renderer --profile maintenance --profile future-tunnel -f compose.029.yml -f compose.029.cloudflare.yml config --format json > "$RUNNER_TEMP/compose-tunnel.json"
+          node scripts/check-compose-029.mjs "$RUNNER_TEMP/compose-tunnel.json" tunnel
+          docker compose -f compose.029.yml -f compose.029.loopback.yml build web
+          docker compose -f compose.029.yml -f compose.029.loopback.yml up -d --wait --wait-timeout 120 db web
+          docker compose -f compose.029.yml -f compose.029.loopback.yml ps
           curl --retry 10 --retry-delay 2 --retry-connrefused --retry-all-errors --fail --silent --show-error http://127.0.0.1:18029/ > /dev/null
           if curl --silent --show-error --max-time 5 http://127.0.0.1:18029/api/admin/session | grep -qi '"authenticated":true'; then
             echo 'Unexpected authenticated anonymous session' >&2
@@ -74,8 +83,8 @@ jobs:
           export BDA_WEB_ENV_FILE="$RUNNER_TEMP/web.env"
           export BDA_WORKER_ENV_FILE="$RUNNER_TEMP/worker.env"
           if [ -f "$BDA_DB_ENV_FILE" ] && [ -f "$BDA_WEB_ENV_FILE" ] && [ -f "$BDA_WORKER_ENV_FILE" ]; then
-            docker compose -f compose.029.yml ps || true
-            docker compose -f compose.029.yml logs --no-color --tail=80 web db || true
+            docker compose -f compose.029.yml -f compose.029.loopback.yml ps || true
+            docker compose -f compose.029.yml -f compose.029.loopback.yml logs --no-color --tail=80 web db || true
           fi
       - name: Cleanup throwaway Compose project
         if: always()
@@ -86,5 +95,5 @@ jobs:
           export BDA_WEB_ENV_FILE="$RUNNER_TEMP/web.env"
           export BDA_WORKER_ENV_FILE="$RUNNER_TEMP/worker.env"
           if [ -f "$BDA_DB_ENV_FILE" ] && [ -f "$BDA_WEB_ENV_FILE" ] && [ -f "$BDA_WORKER_ENV_FILE" ]; then
-            docker compose -f compose.029.yml down --remove-orphans --volumes || true
+            docker compose -f compose.029.yml -f compose.029.loopback.yml down --remove-orphans --volumes || true
           fi

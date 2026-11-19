@@ -1,0 +1,6 @@
+# Roadmap 029: opt-in loopback-only port for disposable CI or an explicitly reviewed host route.
+# NEVER combine this file with compose.029.cloudflare.yml for a production tunnel.
+services:
+  web:
+    ports:
+      - "127.0.0.1:${BDA_BIND_PORT:?Select and review a free loopback port}:3000"

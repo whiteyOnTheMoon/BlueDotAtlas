@@ -5,18 +5,52 @@
 ## Ausgangslage
 Nach Roadmap 021–028 stehen Next.js-Webapp, Einzeladmin-Login, geschützte API, PostgreSQL/Drizzle-Migrationen, die synthetische PostgreSQL-Jobqueue und ein nur für private Testroots freigegebenes Storage-Modul bereit. **Der 027-Worker ist kein produktiver FFmpeg-/Remotion-Executor** und bleibt im Standardprofil deaktiviert. **Der 028-Storage erlaubt noch keinen produktiven `/srv/blueDotAtlas`-Root.** Render-, Publisher- und Medienrechte bleiben eigenständige Gates.
 
-Der gemeinsame VPS beherbergt zahlreiche produktive Fremddienste. Die Messung aus M01 mit 4 logischen CPUs, 7,8 GiB RAM, ca. 3,9 GiB `MemAvailable`, 89G freiem Speicher und 43 laufenden Containern ist **historisch**. Vor dem ersten Live-Eingriff muss sie neu erhoben werden. Bestehende Container, Datenbanken, Volumes, Proxy-/Cloudflare-Tunnel und Domains dürfen nicht verändert werden.
+Der gemeinsame VPS beherbergt zahlreiche produktive Fremddienste. **Betreiberbestätigter neuer Read-only-Snapshot, 19.11.2026, 18:08:36 UTC:** 7,8 GiB RAM gesamt, **3,0 GiB `MemAvailable`**, 4,8 GiB benutzt, 2 GiB Swap mit 1,3 GiB Belegung, Root-Dateisystem 116G/28G benutzt/**88G frei** (24 %), **43 laufende Container**, anhand der Docker-Image-Namen **4 Cloudflared-Tunnel-Container**, **keine** nach Nginx/Caddy/Traefik/HAProxy erkannten Proxy-Container und keine aktiven Standard-Hostservices Nginx/Apache/Caddy/Traefik/Cloudflared. Dieser Test beweist **nicht**, dass keine anderen Reverse-Proxys, Tunnel-Routen oder Host-Policies existieren. Vorheriger M01-Stand: 3,9 GiB verfügbar, 89G frei. Der kleinere aktuelle freie RAM-Spielraum ist ein Planungsgate, kein Produktions-Render-Go. Bestehende Dienste, Proxy-/Cloudflare-Tunnel, Volumes und Domains dürfen nicht verändert werden.
 
 ## Lieferumfang des Entwurfs
-- `compose.029.yml`: eigener Compose-Namensraum `bluedotatlas-029`; internes `private_db`-Netz für PostgreSQL ohne Host-Port; Web bindet an **ausschließlich `127.0.0.1:<expliziter geprüfter freier Port>`**. Kein angenommener echter öffentlicher Hostname, keine ungeprüfte Cloudflare-/TLS-Konfiguration.
+- **Sichere Standardvariante `compose.029.yml`:** eigenes Compose-Projekt `bluedotatlas-029`, internes `private_db`-Netz ohne PostgreSQL-Host-Port; **Web veröffentlicht standardmäßig überhaupt keinen Host-Port**. Nur bei ausdrücklich gewähltem lokalem Smoke-/Host-Test ergänzt `compose.029.loopback.yml` eine Bindung `127.0.0.1:<geprüfter Port>` (nicht für die Cloudflare-Tunnelvariante).
+- **Spätere Cloudflare-Tunnelvariante `compose.029.cloudflare.yml`:** optionaler eigener `cloudflared`-Service unter dem **standardmäßig deaktivierten Profil `future-tunnel`**. Er liegt ausschließlich im `edge`-Netz und soll über `http://web:3000` an die interne Web-App senden; **weder Web noch PostgreSQL noch cloudflared benötigen veröffentlichte Hostports**. Das Tunnel-Token wird nur als externes Docker-Compose-File-Secret über `--token-file` bereitgestellt; eine echte Tunnelinstanz, Domain oder Cloudflare-Route wurde **nicht** erstellt.
 - `deploy/Dockerfile` und Root-`.dockerignore`: Next.js Standalone mit Monorepo-Tracing, unprivilegierter Node-Prozess, Build-Context ohne `.env*`, Media-Dateien und lokale Daten. Worker-Image nur als gesondertes `future-renderer`-Profil, **nicht** als produktive Renderfreigabe. Migration unter eigenem `maintenance`-Profil, kein automatischer produktiver Schemaeingriff.
 - Web mit Read-only-Root, kleinen tmpfs, eingeschränkten Capabilities, `no-new-privileges`, Healthcheck, Restart-Regel und Budget **384 MiB / 0,25 CPU**. PostgreSQL mit eigenem Named Volume, Healthcheck, **512 MiB / 0,25 CPU**. Worker zunächst aus, Planungsgrenze **1024 MiB / 0,5 CPU**. Speicherbudgets 20 GiB Medien, 12 GiB Scratch, 4 GiB DB/WAL/Backups, 1 GiB Web sowie 40 GiB Bestandsreserve plus 12 GiB Reserve sind **nicht** schon OS-erzwungene Quoten.
 - `scripts/check-compose-029.mjs`, negative Unit-Tests und `.github/workflows/compose-029-check.yml` prüfen auf einem **wegwerfbaren GitHub-Runner** YAML-Konfiguration, isolierte Container-Netze, fehlende externe DB-Ports, Rechte-/Ressourcenregeln sowie Imagebuild und synthetischen Web-/DB-Smoke. Kein Live-Dienst, keine echten Admins/Medien/Provider.
 
 ## Noch nicht freigegebene Runtime-Secrets
-Compose verlangt ausschließlich **außerhalb des öffentlichen Repos gespeicherte** Env-Dateipfade: `BDA_DB_ENV_FILE`, `BDA_WEB_ENV_FILE`, `BDA_WORKER_ENV_FILE` und den ausdrücklich geprüften freien `BDA_BIND_PORT`. DB-Datei: `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`. Web-Datei: `DATABASE_URL` mit Host `db:5432`, `BDA_ADMIN_EMAIL`, `BDA_ADMIN_PASSWORD_HASH`, `APP_ORIGIN` auf später geprüften HTTPS-FQDN und `NODE_ENV=production`. Worker-Datei bleibt ungenutzt.
+Compose verlangt ausschließlich **außerhalb des öffentlichen Repos gespeicherte** Env-Dateipfade: `BDA_DB_ENV_FILE`, `BDA_WEB_ENV_FILE` und `BDA_WORKER_ENV_FILE`. **Nur die lokale Loopback-Variante** benötigt zusätzlich den ausdrücklich geprüften `BDA_BIND_PORT`. **Nur die noch deaktivierte Tunnelvariante** benötigt `BDA_CLOUDFLARED_IMAGE` als vom Betreiber geprüftes und gepinntes Cloudflared-Image (Version **≥ 2025.4.0** wegen `--token-file`) sowie `BDA_TUNNEL_TOKEN_FILE` als Pfad zu einem privat gelagerten Tokenfile (kein Tokenwert in einer Environment-Variable, im Kommando oder in Git). DB-Datei: `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`. Web-Datei: `DATABASE_URL` mit Host `db:5432`, `BDA_ADMIN_EMAIL`, `BDA_ADMIN_PASSWORD_HASH`, `APP_ORIGIN` auf später geprüften HTTPS-FQDN und `NODE_ENV=production`. Worker-Datei bleibt ungenutzt.
 
 **Wichtig:** Normale Container-Env-Werte können für privilegierte Docker-Nutzer bei Container-Inspection sichtbar sein. Aufgabe **030** muss die reale Secretbereitstellung, Dateirechte, Rotation und Redaction separat freigeben; keine echte Konfiguration in Chat, Git, Browser oder CI-Logs ausgeben. Eine `docker compose config`-Ausgabe mit produktiven Werten gehört **nicht** in öffentliche Logs.
+
+## Cloudflare-Architekturentscheidung 029 – Entwurf, noch kein Betreiber-Gate
+
+Der Betreiber bestätigte am **19.11.2026**, dass die Domain bereits über **Cloudflare** verwaltet wird und die BlueDotAtlas-App **später über einen Tunnel** angeschlossen werden soll. Aktuell sind vier als Cloudflared erkannte Container vorhanden. **Diese vier bestehend betriebenen Tunnel bleiben vollständig unangetastet.** Der Name/Hostname der späteren BlueDotAtlas-Route ist noch nicht festgelegt.
+
+**Geplanter Pfad (keine tatsächliche Infrastruktur):**
+
+```text
+Browser --HTTPS--> Cloudflare (später gewählter Hostname/Access)
+                         |
+                 ausgehender Cloudflare-Tunnel
+                         |
+        cloudflared [eigenes BlueDotAtlas-Compose edge-Netz]
+                         |
+                    http://web:3000
+                         |
+                     Next.js/API
+                         |
+               private_db [intern]
+                         |
+               PostgreSQL 16 / Queue
+```
+
+Die Verbindung vom VPS zu Cloudflare ist **ausgehend**, es werden keine zusätzlichen öffentlichen HTTP/HTTPS-/PostgreSQL-Ports vorausgesetzt. Der Container `cloudflared` hat ausschließlich Anschluss an `edge`; PostgreSQL/Worker/Migrationen ausschließlich an `private_db`; die App verbindet beide internen Netze. Das Docker-Token wird später über das **separat genehmigte** File-Secret `bda_tunnel_token` bereitgestellt; **niemals** Token oder Token-beinhaltende Installationsbefehle in den Chat, ins öffentliche Repository oder in CI-Logs kopieren. Der Cloudflare-Tunnel kann im Cloudflare-Zero-Trust-Dashboard angelegt und mit einer expliziten Public-Hostname-Route auf die interne Origin-URL `http://web:3000` konfiguriert werden – aber **erst nach konkreter Betriebs-/Cloudflare-Freigabe**, nicht durch diesen PR. Ob die Adminoberfläche zusätzlich durch Cloudflare Access geschützt wird, welche Seiten öffentlich bleiben, und welche kostenfreien/vertragskonformen Features möglich sind, gehört vor Aktivierung zur gesonderten Sicherheitsabnahme; die eigene Admin-Authentifizierung bleibt erforderlich.
+
+**Konfigurationstypen (alle nur für spätere freigegebene Nutzung):**
+- Basis: `compose.029.yml` – **keine** Hostports und keine laufende Cloudflare-Verbindung.
+- Lokales CI/Host-Testoverlay: `compose.029.yml` + `compose.029.loopback.yml` – **genau ein** Loopback-Web-Port, kein Tunnel.
+- Künftiges Tunneloverlay: `compose.029.yml` + `compose.029.cloudflare.yml`, ausdrücklich `--profile future-tunnel` – **kein Web-Hostport**, Tunnel **nur** per geprüftem Image und externem Tokenfile. Das Worker-Profil `future-renderer` und die Wartungsmigration bleiben deaktiviert.
+
+**Ausstehende Betreiberentscheide:** exakter Hostname, Public-/Admin-Zugriffspfad, Tunnelanlage und Cloudflare-Route, geprüftes Cloudflared-Image/Digest, Secret-Staging 030, Proxy-/Secure-Cookie-Abnahme, Restart-/DB-/Backup-Tests. **Keine** Zugangsdaten, neue DNS-Einträge, Domains oder Gebühren durch diesen Entwurf.
+
+Technische Grundlage: [Cloudflare Tunnel](https://developers.cloudflare.com/tunnel/), [`--token-file` ab Version 2025.4.0](https://developers.cloudflare.com/tunnel/reference/run-parameters/), [Cloudflare Access für selbst gehostete Anwendungen](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/self-hosted-public-app/). Referenzen sind keine Belege für eine bereits laufende BlueDotAtlas-Route.
 
 ## Optionaler nächster Messschritt auf dem echten VPS (ohne Änderungen)
 
@@ -39,7 +73,7 @@ Optional nach privater Portwahl: `bash scripts/audit-deploy-029.sh <KANDIDATENPO
 
 ## Live-Gate vor jeder Änderung des VPS
 1. **Read-only inventarisieren:** aktuelle CPU/RAM/Swap/SSD/Inodes/I/O, Docker-/Volume-/Netz-Namen, veröffentlichte Ports, bestehendes Reverse-Proxy-/Cloudflare-Tunnel-Routing, TLS-Zertifikate und bestehende Datenbanken. Das GitHub-Repo allein belegt diese Details nicht.
-2. **Betreiber entscheidet separat:** exakter Domainname, freie Loopback-Portnummer, Proxy-/TLS-/Host-Header-Weg, Betreiber-/Service-UID, real isolierte Volumes und zulässige Änderungsliste. Host-Loopback ist **kein automatisch funktionierender Zugang aus einem fremden Proxy-Container**. Ohne geprüfte TLS-/Origin-/Cookie-Kette keine öffentliche Adminfreigabe.
+2. **Betreiber entscheidet separat:** exakte Cloudflare-Zone und gewünschter Hostname, **eigenes BlueDotAtlas-Tunnelobjekt ohne Eingriff in bestehende Tunnel**, interne Service-URL `http://web:3000` im BlueDotAtlas-Compose-Edge-Netz, Cloudflare-Zugangsschutz für den Admin, HTTPS-/Origin-/Host-/Forwarded-Header-/Cookie-Kette, Betreiber-/Service-UID, isolierte Volumes und zulässige Änderungsliste. **Keine öffentliche Portfreigabe nötig oder geplant**. Ein optionaler Host-Loopback-Port ist nur ein separater CI-/lokaler Testpfad und nicht automatisch aus einem bestehenden Tunnelcontainer erreichbar. Ohne echten TLS-/Auth-End-to-End-Test keine Adminfreigabe.
 3. **Vor Migration:** frische isolierte Migration/Drift-Prüfung, gesondert bestätigtes Backup-/Restore-Fenster, Rollback-Plan. Niemals `down -v`, Docker-Prune, Reset oder `DROP DATABASE` auf produktiven Diensten. Das CI-Cleanup mit `down --volumes` gilt **ausschließlich** für den disposable GitHub-Runner.
 4. **Echte Abnahme messen:** vorgesehenes HTTPS-System erreichbar, sichere Admin-Session, fehlgeschlagene Fremdanmeldung, DB/Queue extern nicht erreichbar, kontrollierter Neustart, Healthchecks, keine fremden Beeinträchtigungen und eingehaltene Limits. Kein automatisches Publish, keine Realvideos. 030-Secretmanagement und 034-Backup/Restore bleiben eigene Aufgaben.
 
