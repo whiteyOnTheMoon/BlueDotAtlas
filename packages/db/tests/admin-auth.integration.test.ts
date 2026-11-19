@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { eq } from 'drizzle-orm';
@@ -60,7 +61,8 @@ test('scrypt hashes never expose passwords; sessions have TTL, revocation and du
     const second = await loginAdmin('admin-ci@bluedotatlas.invalid', password);
     assert.ok(second);
     assert.equal(await hasAdminSession(second.token), true, 'a new DB pool can validate session');
-    const record = (await db.db.select().from(adminSessions)).find((x) => x.tokenHash !== first.token);
+    const secondHash = createHash('sha256').update(second.token).digest('hex');
+    const record = (await db.db.select().from(adminSessions)).find((x) => x.tokenHash === secondHash);
     assert.ok(record);
     await db.db.update(adminSessions)
       .set({ createdAt: new Date(Date.now() - 3600 * 1000), expiresAt: new Date(Date.now() - 1000) })

@@ -18,4 +18,3 @@ export {
   revokeAdminSession,
 } from './auth-service.js';
 export { generatePasswordHash, verifyPassword } from './password.js';
-export { adminSessions, adminLoginState } from './schema.js';
