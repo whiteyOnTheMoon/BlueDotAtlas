@@ -9,10 +9,7 @@ export type QueueClaim = {
   manifest: unknown;
 };
 export type QueueFailureCode =
-  | 'synthetic_failure'
-  | 'worker_stopped'
-  | 'invalid_synthetic_manifest'
-  | 'lease_expired';
+  'synthetic_failure' | 'worker_stopped' | 'invalid_synthetic_manifest' | 'lease_expired';
 
 function validLeaseMs(ms: number) {
   if (!Number.isInteger(ms) || ms < 500 || ms > 30_000) {
@@ -28,10 +25,7 @@ export function assertSyntheticTestDatabase() {
     throw new Error('Synthetic queue tests require explicit test-only environment flags');
   }
   const parsed = new URL(raw);
-  if (
-    !['localhost', '127.0.0.1'].includes(parsed.hostname) ||
-    parsed.pathname !== '/bda_test'
-  ) {
+  if (!['localhost', '127.0.0.1'].includes(parsed.hostname) || parsed.pathname !== '/bda_test') {
     throw new Error('Refusing synthetic worker operation on a non-isolated database');
   }
 }
@@ -229,10 +223,7 @@ export async function requeueDueJobs({ pool }: ReturnTypeOfOpenDatabase): Promis
 }
 
 /** Cancel revokes the owner immediately; late success/failure must not overwrite it. */
-export async function cancelJob(
-  { pool }: ReturnTypeOfOpenDatabase,
-  id: string,
-): Promise<boolean> {
+export async function cancelJob({ pool }: ReturnTypeOfOpenDatabase, id: string): Promise<boolean> {
   const result = await pool.query(
     `UPDATE render_jobs
      SET status = 'cancelled', lease_token = NULL, lease_expires_at = NULL,
