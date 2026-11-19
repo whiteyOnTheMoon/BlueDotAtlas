@@ -1,6 +1,6 @@
 # Roadmap 027 – PostgreSQL-Queue und separater synthetischer Worker
 
-**Status:** Umsetzung und CI-Prüfung im [PR #192](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/192); **ADR-003 ist ein Vorschlag**, keine Betreiberabnahme. [Issue #44](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/44). **Kein Livebetrieb, kein echter Video-Renderer.**
+**Status:** Umsetzung und CI-Prüfung im [PR #192](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/192); **Betreiberabnahme einschließlich ADR-003 erteilt** (DEC-039, 19.11.2026 UTC). [Issue #44](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/44). **Kein Livebetrieb, kein echter Video-Renderer.**
 
 ## Ziel und Architektur
 
@@ -15,7 +15,7 @@ flowchart LR
   D -->|Erfolg; Fehler; Retry; Cancel| B
 ```
 
-Die **vorläufige** Architektur ist unter [ADR-003](../architecture/adr/003-postgresql-job-leases.md) mit Alternativen, Ressourcenfolgen und offenen Betriebsrisiken beschrieben. Bereits genehmigte [ADR-001](../architecture/adr/001-modular-monolith.md) und [ADR-002](../architecture/adr/002-single-admin-sessions.md) bleiben in Kraft.
+Die **abgenommene** Architektur ist unter [ADR-003](../architecture/adr/003-postgresql-job-leases.md) mit Alternativen, Ressourcenfolgen und offenen Betriebsrisiken beschrieben. Bereits genehmigte [ADR-001](../architecture/adr/001-modular-monolith.md) und [ADR-002](../architecture/adr/002-single-admin-sessions.md) bleiben in Kraft.
 
 ## Jobmodell und Zustandsübergänge
 
@@ -55,5 +55,5 @@ Anschließend prüft `node scripts/check-worker-027.mjs` mit echter Next.js-Prod
 
 - CI-Unit-/Integrationstest und echte Prozess-/HTTP-Beweise müssen **auf dem finalen PR-Head** erfolgreich sein; ein grüner alter Commit reicht nicht.
 - **UI-/Video-/Medien-Nachweise n/a:** Keine UI-Ansichten, Animationen, FFmpeg-Exports oder Drittmedien werden geändert. CI-Logs und SQL-/HTTP-Integrationsergebnisse sind die vorgesehenen Belege.
-- Architekturentscheidung **ADR-003 Proposed**; explizite Betreiberfreigabe des konkreten PR #192 einschließlich ADR-003 ist **vor Merge erforderlich**. Die frühere Zustimmung zu 026/PR #191 deckt 027 nicht ab.
+- Architekturentscheidung **ADR-003 Accepted** und ausdrückliche Betreiberfreigabe des konkreten PR #192 einschließlich ADR-003 liegen gemäß **DEC-039** vor. Alle acht Implementierungs-CI-Gates waren grün; die Dokumentations-/Abnahme-Checks werden vor dem Merge erneut geprüft. Die frühere Zustimmung zu 026/PR #191 allein hätte 027 nicht abgedeckt.
 - **Kein Live-Deploy**, keine neue Redis-Instanz, keine Secrets, keine zusätzlichen Kosten. VPS-RAM-Planungsgrenze Worker max. 1024 MiB ist kein in 027 real getestetes Docker-Limit.
