@@ -2,9 +2,9 @@
 
 > **Quelle:** [Master Roadmap V0.1 (PDF)](BlueDotAtlas_Roadmap.pdf) · [Vollständiger Textspiegel](master-roadmap-v01-text.md) · **158 Aufgaben / 14 Meilensteine / 158 einzigartige GitHub-Issues**, Abgleich am 19.11.2026 (UTC).
 
-**Status:** Roadmap 001–018 abgeschlossen (Betreiberfreigaben), **019 in Arbeit**, 020–158 im Backlog. **Der Aufgabenimport ist abgeschlossen, nicht die Umsetzung.** GitHub-Issue-Nummern sind nicht gleich Roadmap-Nummern.
+**Status:** Roadmap-Aufgaben **001–019 abgeschlossen** (Betreiberfreigaben), **020–158 im Backlog**. Der Aufgaben- und Meilensteinimport ist vollständig, **nicht** die inhaltliche Umsetzung der späteren Aufgaben. **Der Aufgabenimport ist abgeschlossen, nicht die Umsetzung.** GitHub-Issue-Nummern sind nicht gleich Roadmap-Nummern.
 
-**Native GitHub-Meilensteine:** Das [prüfbare Synchronisationsmanifest](roadmap-milestones-v01.json) beschreibt M00–M13. Native Milestone-Objekte werden **erst mit erfolgreicher GitHub-Actions-Synchronisierung nach genehmigtem PR-Merge** erstellt/zugeordnet. Bis dahin ist die Darstellung hier ein Roadmap-Index, **kein** behauptetes natives GitHub-Milestone-Setup.
+**Native GitHub-Meilensteine sind eingerichtet:** Nach ausdrücklicher Betreiberfreigabe von [PR #183](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/183) wurden **M00–M13 als 14 native Meilensteine** angelegt. [GitHub Actions #44441286199](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44441286199) meldete: `PASS: 14 native GitHub milestones exist, all 158/158 Issues assigned.` Der Workflow prüfte die Zuordnungen **erneut per GitHub-API** (DEC-035). Das [Manifest](roadmap-milestones-v01.json) bewahrt die Quelle.
 
 **Abweichungen:** Repository bleibt ausdrücklich öffentlich (DEC-034). Aufgabe 013 ist ein begrenzter 8-Sekunden-FFmpeg-Nachweis, **kein** voller lizenzgeprüfter Remotion-/60s-Pilotfilm. Früher freigegebene Issue-Titel können von Original-Roadmap-Titeln abweichen; hier stehen die **Quelltitel**.
 
@@ -39,7 +39,7 @@
 | **016** | Budget und Freigabegrenzen festsetzen | [#33](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/33) | Abgenommen |
 | **017** | Kernarchitektur und Systemgrenzen festlegen | [#34](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/34) | Abgenommen |
 | **018** | GitHub-Repository und Arbeitsregeln aufsetzen | [#35](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/35) | Abgenommen |
-| **019** | Roadmap in GitHub-Milestones übertragen | [#36](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/36) | In Arbeit |
+| **019** | Roadmap in GitHub-Milestones übertragen | [#36](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/36) | Abgenommen (DEC-035, Sync verifiziert) |
 | **020** | Definition of Ready/Done und Dokumentationsregeln beschließen | [#37](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/37) | Backlog |
 
 ## M02 – Grundsystem, Datenmodell und VPS-Betrieb (021–034)
@@ -269,7 +269,7 @@
 - [x] 158 Roadmap-Titel aus der 28-seitigen PDF-Textfassung extrahiert und den 14 Original-Meilensteinen zugeordnet.
 - [x] Bestehende GitHub-Issues 001–034 **nicht** dupliziert; 035–158 neu importiert.
 - [x] Beide GitHub-Suchrichtungen zusammengeführt; **158/158 eindeutige IDs**, keine fehlenden oder doppelten Aufgaben.
-- [ ] Native GitHub-Meilensteine M00–M13 im Repo erzeugt und alle 158 Issues zugeordnet; **erst nach erfolgreicher Workflow-Ausführung** abhaken.
-- [ ] PR zur Roadmap-Synchronisierung ausdrücklich vom Betreiber freigegeben.
+- [x] Native GitHub-Meilensteine M00–M13 angelegt, **158/158 Issues zugeordnet und API-Rückprüfung PASS** ([Run #44441286199](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44441286199)).
+- [x] [PR #183](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/183) einschließlich GitHub-Milestone-Schreibwirkung ausdrücklich mit „Ok“ freigegeben, gemergt.
 
-**Aufgabe 019:** [Issue #36](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/36). Bis ein technischer Abgleich der nativen GitHub-Meilensteine vorliegt, bleibt 019 offen.
+**Aufgabe 019 vollständig abgenommen (DEC-035):** [Issue #36](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/36); abgeschlossene Import-/Zuordnungsphase, **kein Film-/M01-Gate vorweggenommen**. Nächste Aufgabe ist **020 – Definition of Ready/Done und Dokumentationsregeln beschließen**.
