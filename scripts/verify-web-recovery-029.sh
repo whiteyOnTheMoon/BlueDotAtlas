@@ -23,7 +23,10 @@ count="$(docker ps -aq --filter 'label=com.docker.compose.project=bluedotatlas' 
 if [[ "$count" != "3" ]]; then echo "STOP: Unexpected BlueDotAtlas container count"; exit 2; fi
 id_for() {
   local ids
-  ids="$(docker ps -q --filter 'label=com.docker.compose.project=bluedotatlas' \
+  # Full-length IDs are essential: the foreign snapshot below uses --no-trunc.
+  # A short ID here never equals a full ID there and falsely marks the own
+  # restarted web container as a foreign change.
+  ids="$(docker ps -q --no-trunc --filter 'label=com.docker.compose.project=bluedotatlas' \
     --filter "label=com.docker.compose.service=$1")"
   if [[ -z "$ids" || "$ids" == *$'\n'* ]]; then
     echo "STOP: Missing or duplicate running BlueDotAtlas $1" >&2
