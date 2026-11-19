@@ -1,9 +1,9 @@
 # ADR-003 – PostgreSQL-basierte Jobqueue mit Lease-Fencing
 
-**Status:** Proposed – ausdrückliche Betreiberabnahme des konkreten PR 027 ausstehend  
+**Status:** Accepted – ausdrückliche Betreiberabnahme von PR #192 einschließlich ADR-003 am 19.11.2026 (UTC), DEC-039  
 **Datum:** 2026-11-19 (UTC)  
 **Roadmap / Issue:** [027 / GitHub-Issue #44](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/44)  
-**Betreiberentscheidung:** Noch nicht erteilt. DEC-033 genehmigt die Modularchitektur; er ist **keine** automatische Freigabe der konkreten Queue.  
+**Betreiberentscheidung:** Ausdrückliches „Ok“ auf die konkrete Frage nach Freigabe von [PR #192](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/192) **einschließlich ADR-003**. Entscheidung **DEC-039**; DEC-033 war nur die vorangehende Modularchitekturfreigabe.  
 **Belege:** [Entwicklungs-/Betriebsanleitung 027](../../development/worker-queue.md), [Architektur M02](../overview.md), [Definition of Done](../../project/working-agreement.md).
 
 ## Kontext
@@ -35,8 +35,9 @@ Vorteile: Keine neue externe Infrastruktur oder Providerkosten; einheitliche dau
 
 ## Nachweise
 
-[Roadmap 027 / Issue #44](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/44), isolierte PostgreSQL-16-CI-Integration mit frischer/wiederholter Migration `0003`, zwei separaten Worker-Prozessen/Claims, HTTP-Liveness unter aktivem Job, Heartbeat, Retry, Cancellation und Lease-Fencing. CI-Run-URLs erst nach den tatsächlichen Tests im PR eintragen.
+[Roadmap 027 / Issue #44](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/44), isolierte PostgreSQL-16-CI-Integration mit frischer/wiederholter Migration `0003`, zwei separaten Worker-Prozessen/Claims, HTTP-Liveness unter aktivem Job, Heartbeat, Retry, Cancellation und Lease-Fencing. [Worker-/Queue-Integration PASS](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44475174038), [PostgreSQL-Migrationsregression PASS](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44475174037), [Admin-Auth-/Chrome-Regression PASS](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44475174050). Insgesamt **8/8 passende GitHub-Actions-Prüfungen auf dem abgenommenen Implementierungs-HEAD `6208299e656d2f46976571cbdd71f30f9148546f` PASS**; nach Dokumentation der Abnahme werden die dann neu gestarteten Checks vor Merge erneut geprüft.
 
 ## Änderungshistorie
 
-- 2026-11-19: Vorgeschlagen; **keine** Betreiberabnahme und keine Live-Deployment-Freigabe behauptet.
+- 2026-11-19: Proposed – Entwurf mit getrenntem synthetischem Worker und PostgreSQL-Fencing.
+- 2026-11-19: **Accepted** – ausdrückliche Betreiberfreigabe zu genau PR #192 **einschließlich ADR-003** (DEC-039). **Keine** Live-DB-, VPS-, realen Video-Render- oder Veröffentlichungsfreigabe.
