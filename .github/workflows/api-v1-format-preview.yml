@@ -1,0 +1,33 @@
+name: Temporary Roadmap 026 read-only Prettier preview
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/api-v1-format-preview.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  prettier-preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: pnpm install --frozen-lockfile
+      - name: Output formatted source as base64 (no writes or secrets)
+        shell: bash
+        run: |
+          for file in apps/web/src/lib/api-v1.ts packages/core/src/api-v1.ts packages/db/src/api-read-service.ts; do
+            echo "@@@BDA_START:$file@@@"
+            pnpm exec prettier "$file" | base64 -w0
+            echo
+            echo "@@@BDA_END:$file@@@"
+          done
