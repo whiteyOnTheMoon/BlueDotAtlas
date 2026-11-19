@@ -61,16 +61,16 @@ try {
     await page.goto(url + '/admin');
     await page.waitForURL('**/admin/login');
 
-    const apiNoCookie = await page.request.get(url + '/api/admin/session');
-    assert.equal(apiNoCookie.status(), 401, 'anonymous admin API must be denied');
+    const apiNoCookie = await page.evaluate(async () => (await fetch('/api/admin/session')).status);
+    assert.equal(apiNoCookie, 401, 'anonymous admin API must be denied');
     await page.context().addCookies([{
       name: 'bda-session-dev', value: 'a'.repeat(43), url,
       httpOnly: true, sameSite: 'Strict',
     }]);
     await page.goto(url + '/admin');
     await page.waitForURL('**/admin/login');
-    const forgedApi = await page.request.get(url + '/api/admin/session');
-    assert.equal(forgedApi.status(), 401, 'forged cookie cannot authorize API');
+    const forgedApi = await page.evaluate(async () => (await fetch('/api/admin/session')).status);
+    assert.equal(forgedApi, 401, 'forged cookie cannot authorize API');
     await page.context().clearCookies();
 
     await page.goto(url + '/admin/login');
@@ -87,9 +87,13 @@ try {
     await page.getByRole('button', { name: 'Sign in' }).click();
     await page.waitForURL('**/admin');
     await page.getByRole('heading', { name: 'Studio overview' }).waitFor();
-    const apiOk = await page.request.get(url + '/api/admin/session');
-    assert.equal(apiOk.status(), 200);
-    assert.equal((await apiOk.json()).authenticated, true);
+    // Same-origin browser fetch must carry the actual HttpOnly session cookie.
+    const apiOk = await page.evaluate(async () => {
+      const response = await fetch('/api/admin/session', { credentials: 'same-origin' });
+      return { status: response.status, authenticated: (await response.json()).authenticated };
+    });
+    assert.equal(apiOk.status, 200);
+    assert.equal(apiOk.authenticated, true);
     const cookies = await page.context().cookies();
     const adminCookie = cookies.find((c) => c.name === 'bda-session-dev');
     assert.ok(adminCookie?.httpOnly, 'session cookie must be HttpOnly');
@@ -102,7 +106,7 @@ try {
     await page.screenshot({ path: resolve(screenshots, 'authenticated-admin-' + width + '-' + scheme + '.png'), fullPage: true });
     await page.getByRole('button', { name: 'Sign out' }).click();
     await page.waitForURL('**/admin/login');
-    assert.equal((await page.request.get(url + '/api/admin/session')).status(), 401);
+    assert.equal(await page.evaluate(async () => (await fetch('/api/admin/session')).status), 401);
     assert.equal(errors.length, 0, 'browser JavaScript errors: ' + errors.join('; '));
     results.push({ width, scheme, check: 'anonymous / invalid cookie / failed login / successful login / reload / sign out', status: 'PASS' });
     await page.close();
