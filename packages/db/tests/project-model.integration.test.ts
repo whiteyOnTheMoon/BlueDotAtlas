@@ -25,6 +25,16 @@ if (!['localhost', '127.0.0.1'].includes(url.hostname) || url.pathname !== '/bda
   throw new Error('Refusing to connect to non-test database');
 }
 
+/** Drizzle wraps postgres constraint errors in a query error; inspect the original SQL cause. */
+function databaseError(pattern: RegExp) {
+  return (error: unknown): boolean => {
+    assert.ok(error instanceof Error);
+    const databaseCause = error.cause instanceof Error ? error.cause : error;
+    assert.match(databaseCause.message, pattern);
+    return true;
+  };
+}
+
 test('project, first revision and seven steps survive disconnect/reconnect; forbidden jumps do not persist', async () => {
   let connection = openDatabase(databaseUrl);
   await migrateDatabase(connection);
@@ -111,26 +121,26 @@ test('FK, unique, enum and range checks protect every video/step/job/approval co
     // Database constraints, not a browser-only check.
     await assert.rejects(
       connection.db.insert(projectVersions).values({ projectId: a.project.id, revision: 1 }),
-      /duplicate key value/,
+      databaseError(/duplicate key value/),
     );
     await assert.rejects(
       connection.db.insert(stepProgress).values({ projectVersionId: versionId, stepNumber: 8 }),
-      /step_progress_step_valid/,
+      databaseError(/step_progress_step_valid/),
     );
     await assert.rejects(
       connection.db.insert(stepProgress).values({ projectVersionId: versionId, stepNumber: 1 }),
-      /duplicate key value/,
+      databaseError(/duplicate key value/),
     );
     await assert.rejects(
       connection.db.insert(stepProgress).values({
         projectVersionId: '00000000-0000-0000-0000-000000000002',
         stepNumber: 4,
       }),
-      /foreign key constraint/,
+      databaseError(/foreign key constraint/),
     );
     await assert.rejects(
       connection.db.insert(renderJobs).values({ projectVersionId: versionId, progressPct: 101 }),
-      /render_jobs_progress_valid/,
+      databaseError(/render_jobs_progress_valid/),
     );
     await assert.rejects(
       connection.db.insert(approvals).values({
@@ -138,14 +148,14 @@ test('FK, unique, enum and range checks protect every video/step/job/approval co
         scope: 'publish',
         status: 'approved',
       }),
-      /approvals_decision_time_valid/,
+      databaseError(/approvals_decision_time_valid/),
     );
     await assert.rejects(
       connection.db.insert(artifacts).values({
         projectVersionId: versionId,
         kind: 'footage',
       }),
-      /artifacts_require_location/,
+      databaseError(/artifacts_require_location/),
     );
 
     const [asset] = await connection.db
@@ -167,14 +177,14 @@ test('FK, unique, enum and range checks protect every video/step/job/approval co
       connection.db
         .insert(videos)
         .values({ projectId: b.project.id, projectVersionId: versionId, title: 'Cross-project' }),
-      /videos_project_version_fk/,
+      databaseError(/videos_project_version_fk/),
     );
     await assert.rejects(
       connection.db
         .update(videos)
         .set({ status: 'published', publishedAt: new Date() })
         .where(eq(videos.id, video!.id)),
-      /videos_published_require_artifact/,
+      databaseError(/videos_published_require_artifact/),
     );
     assert.equal(
       (await connection.db.select().from(videos).where(eq(videos.id, video!.id)))[0]?.status,
