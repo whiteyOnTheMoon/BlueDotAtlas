@@ -88,11 +88,23 @@ export async function readCollection(request: NextRequest, collection: ApiCollec
   return databaseAction(async (connection) => {
     switch (collection) {
       case 'projects':
-        return result({ items: await listProjects(connection, query), limit: query.limit, offset: query.offset });
+        return result({
+          items: await listProjects(connection, query),
+          limit: query.limit,
+          offset: query.offset,
+        });
       case 'videos':
-        return result({ items: await listVideos(connection, query), limit: query.limit, offset: query.offset });
+        return result({
+          items: await listVideos(connection, query),
+          limit: query.limit,
+          offset: query.offset,
+        });
       case 'jobs':
-        return result({ items: await listRenderJobs(connection, query), limit: query.limit, offset: query.offset });
+        return result({
+          items: await listRenderJobs(connection, query),
+          limit: query.limit,
+          offset: query.offset,
+        });
       case 'media':
         return result({
           items: await listMediaArtifacts(connection, query),
