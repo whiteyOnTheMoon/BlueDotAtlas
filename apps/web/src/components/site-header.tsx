@@ -7,7 +7,9 @@ export function SiteHeader() {
       <div className="container header-inner">
         <BrandMark />
         <nav aria-label="Main navigation" className="header-nav">
-          <Link href="/" aria-current="page">Library</Link>
+          <Link href="/" aria-current="page">
+            Library
+          </Link>
           <Link href="/admin/login">Admin studio</Link>
         </nav>
       </div>
