@@ -99,7 +99,7 @@ Grundlage: *BlueDotAtlas Master Roadmap V0.1* (13. November 2026), 14 Meilenstei
 
 **Aufgabe 024 (abgenommen und gemergt):** Datenmodell für `VideoProject`, `ProjectVersion`, `StepProgress`, `Video`, `RenderJob`, `Approval`, `Artifact` und `AuditEvent`; Status-/Freigabesemantik, FK-/Check-Constraints, atomare Übergänge und reproduzierbare PostgreSQL-Tests. [Issue #41](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/41) · [Modell-/Migrationsdokumentation](docs/development/data-model.md). Kein Autopublish und noch kein VPS-/Live-DB-Deploy.
 
-**Aufgabe 025 (Featurebranch, noch nicht gemergt):** Einzeladmin-Anmeldung mit salzgebundenem scrypt-Passwort-Hash, persistentem PostgreSQL-Session-Hash, Secure-/HttpOnly-/SameSite-Cookies, Ablauf, Logout/Revocation, Ursprungsprüfung und Brute-Force-Sperre. Admin-SSR und Admin-API prüfen die tatsächliche DB-Sitzung. [Issue #42](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/42) · [Auth-Anleitung](docs/development/admin-auth.md). **Noch keine Live-Konfiguration, kein VPS-Deploy und keine echten Zugangsdaten auf GitHub.**
+**Aufgabe 025 (Featurebranch, noch nicht gemergt):** Einzeladmin-Anmeldung mit salzgebundenem scrypt-Passwort-Hash, persistentem PostgreSQL-Session-Hash, Secure-/HttpOnly-/SameSite-Cookies, Ablauf, Logout/Revocation, Ursprungsprüfung und Brute-Force-Sperre. Admin-SSR und Admin-API prüfen die tatsächliche DB-Sitzung. [Issue #42](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/42) · [Auth-Anleitung](docs/development/admin-auth.md) · [ADR-002 (Vorschlag)](docs/architecture/adr/002-single-admin-sessions.md). **Noch keine Live-Konfiguration, kein VPS-Deploy und keine echten Zugangsdaten auf GitHub.**
 
 ## Technische Zielarchitektur (noch nicht deployt)
 
