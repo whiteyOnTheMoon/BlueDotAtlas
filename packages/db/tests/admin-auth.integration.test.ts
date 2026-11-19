@@ -9,6 +9,7 @@ import {
   generatePasswordHash,
   hasAdminSession,
   loginAdmin,
+  migrateDatabase,
   openDatabase,
   revokeAdminSession,
   verifyPassword,
@@ -38,6 +39,7 @@ test('scrypt hashes never expose passwords; sessions have TTL, revocation and du
   process.env.BDA_ADMIN_PASSWORD_HASH = encoded;
   const db = openDatabase(url);
   try {
+    await migrateDatabase(db); // Test order independent: create 0000–0002 before auth state.
     await db.db.insert(adminLoginState).values({ key: 'single_admin' }).onConflictDoNothing();
     await db.db
       .update(adminLoginState)
