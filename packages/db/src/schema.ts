@@ -183,6 +183,9 @@ export const renderJobs = pgTable(
     maxAttempts: integer('max_attempts').default(3).notNull(),
     manifest: jsonb('manifest').$type<Record<string, unknown>>().default({}).notNull(),
     leaseExpiresAt: timestamp('lease_expires_at', { withTimezone: true }),
+    leaseToken: uuid('lease_token'),
+    heartbeatAt: timestamp('heartbeat_at', { withTimezone: true }),
+    availableAt: timestamp('available_at', { withTimezone: true }).defaultNow().notNull(),
     startedAt: timestamp('started_at', { withTimezone: true }),
     finishedAt: timestamp('finished_at', { withTimezone: true }),
     errorCode: text('error_code'),
@@ -193,6 +196,11 @@ export const renderJobs = pgTable(
     check('render_jobs_attempt_valid', sql`${table.attempt} >= 0 AND ${table.maxAttempts} > 0`),
     index('render_jobs_status_idx').on(table.status, table.createdAt),
     index('render_jobs_version_idx').on(table.projectVersionId),
+    index('render_jobs_dispatch_idx').on(table.status, table.availableAt, table.createdAt),
+    check(
+      'render_jobs_lease_ownership_valid',
+      sql`(${table.status} = 'running' AND ${table.leaseToken} IS NOT NULL AND ${table.leaseExpiresAt} IS NOT NULL) OR (${table.status} <> 'running' AND ${table.leaseToken} IS NULL AND ${table.leaseExpiresAt} IS NULL)`,
+    ),
   ],
 );
 

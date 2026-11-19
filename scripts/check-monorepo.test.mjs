@@ -42,6 +42,18 @@ for (const [directory, name] of required) {
     } else if (directory === 'packages/db') {
       assert.equal(packageJson.scripts.typecheck, 'pnpm --filter @bluedotatlas/core build && tsc -p tsconfig.json --noEmit');
       assert.equal(packageJson.scripts.build, 'tsc -p tsconfig.json');
+    } else if (directory === 'apps/worker') {
+      assert.equal(
+        packageJson.scripts.typecheck,
+        'pnpm --filter @bluedotatlas/core build && pnpm --filter @bluedotatlas/db build && tsc -p tsconfig.json --noEmit',
+      );
+      assert.equal(
+        packageJson.scripts.build,
+        'pnpm --filter @bluedotatlas/core build && pnpm --filter @bluedotatlas/db build && tsc -p tsconfig.json',
+      );
+      assert.equal(packageJson.dependencies['@bluedotatlas/db'], 'workspace:*');
+      assert.equal(packageJson.devDependencies['@types/node'], '22.20.5');
+      assert.equal(packageJson.scripts['start:test'], 'node dist/run.js');
     } else {
       assert.equal(packageJson.scripts.typecheck, 'tsc -p tsconfig.json --noEmit');
       assert.equal(packageJson.scripts.build, 'tsc -p tsconfig.json');

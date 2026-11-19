@@ -4,8 +4,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "build": "pnpm --filter @bluedotatlas/core build && pnpm --filter @bluedotatlas/db build && tsc -p tsconfig.json",
+    "typecheck": "pnpm --filter @bluedotatlas/core build && pnpm --filter @bluedotatlas/db build && tsc -p tsconfig.json --noEmit",
+    "start:test": "node dist/run.js"
+  },
+  "dependencies": {
+    "@bluedotatlas/db": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5"
   },
   "exports": {
     ".": "./dist/index.js"
