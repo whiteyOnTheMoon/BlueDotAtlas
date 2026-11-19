@@ -32,3 +32,14 @@ jobs:
             echo
             echo "@@@BDA_END:$file@@@"
           done
+
+      - name: Inspect exact Prettier source text as base64, no writes
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in apps/worker/src/index.ts apps/worker/src/run.ts packages/db/src/schema.ts packages/db/src/queue.ts packages/db/src/queue-service.ts packages/db/tests/worker-queue.integration.test.ts apps/worker/package.json packages/db/package.json; do
+            echo "@@@BDA_FMT_START:$file@@@"
+            pnpm exec prettier "$file" | base64 -w0
+            echo
+            echo "@@@BDA_FMT_END:$file@@@"
+          done
