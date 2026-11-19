@@ -9,3 +9,13 @@ export {
   transitionProjectStatus,
   ProjectNotFound,
 } from './project-service.js';
+
+export {
+  ADMIN_SESSION_SECONDS,
+  AdminAuthUnavailable,
+  loginAdmin,
+  hasAdminSession,
+  revokeAdminSession,
+} from './auth-service.js';
+export { generatePasswordHash, verifyPassword } from './password.js';
+export { adminSessions, adminLoginState } from './schema.js';
