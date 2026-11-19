@@ -2,7 +2,7 @@
 
 **Grundlage:** [Original-PDF der Master Roadmap V0.1 (28 Seiten)](BlueDotAtlas_Roadmap.pdf) und [vollständige Textfassung](master-roadmap-v01-text.md), Betreiber-PDF vom 13.11.2026. GitHub-Issue-Nummern (**#...**) sind nicht die stabilen Roadmap-Nummern (**001–158**).
 
-**Status:** Aufgaben 001–018 abgeschlossen, **019 in Arbeit**, Aufgaben 020–034 im Backlog. **Alle Aufgaben 001–158 sind inzwischen als Issues vorhanden**; die vollständige Liste und die M00–M13-Gates stehen im [kompletten Roadmap-Index](roadmap-backlog-m00-m13.md). Ein Meilenstein ist erst nach seinem Gate abgeschlossen. Die [Original-PDF](BlueDotAtlas_Roadmap.pdf) ist auf `main` archiviert und per Git-Blob-SHA mit dem Betreiber-Original identisch; die Textfassung ist ergänzend durchsuchbar.
+**Status:** Aufgaben **001–019 abgeschlossen**, Aufgaben **020–034 im Backlog**. **Alle Aufgaben 001–158 sind inzwischen als Issues vorhanden**; die vollständige Liste und die M00–M13-Gates stehen im [kompletten Roadmap-Index](roadmap-backlog-m00-m13.md). Ein Meilenstein ist erst nach seinem Gate abgeschlossen. Die [Original-PDF](BlueDotAtlas_Roadmap.pdf) ist auf `main` archiviert und per Git-Blob-SHA mit dem Betreiber-Original identisch; die Textfassung ist ergänzend durchsuchbar.
 
 ## M00 – Marke, Gestaltung und filmische Identität (001–009)
 
@@ -35,7 +35,7 @@
 | **016** | [Budget und Freigabegrenzen festsetzen (#33)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/33) | Abgenommen (DEC-032) |
 | **017** | [Kernarchitektur und Systemgrenzen festlegen (#34)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/34) | Abgenommen (DEC-033; Video-/Animationsziel, noch kein Rendernachweis) |
 | **018** | [GitHub-Repository und Arbeitsregeln aufsetzen (#35)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/35) | Abgenommen (DEC-034; Repo bewusst öffentlich) |
-| **019** | [Roadmap in GitHub-Milestones übertragen (#36)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/36) | In Arbeit – 158 Issues importiert, native Milestones noch ausstehend |
+| **019** | [Roadmap in GitHub-Milestones übertragen (#36)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/36) | Abgenommen (DEC-035; 14 Milestones/158 Issues verifiziert) |
 | **020** | [Definition of Ready/Done und Dokumentationsregeln beschließen (#37)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/37) | Offen |
 
 ## M02 – Grundsystem, Datenmodell und VPS-Betrieb (021–034)
@@ -63,7 +63,7 @@
 
 - **013 – Render-Spike:** Das [abgenommene Issue #29](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/29) bestand einen begrenzten, synthetischen **8s-H.264/AAC-FFmpeg-Test** auf dem VPS. Das PDF (S. 5) beschreibt darüber hinaus einen **Remotion/FFmpeg-Test mit lizenzgeprüften echten Medien** und ein belastbares Go/No-Go für die spätere Renderarchitektur. **Dieser weitergehende Nachweis liegt noch nicht vor.** Bei [017 – Architektur](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/34) und vor produktivem Worker/Remotion-Einsatz berücksichtigen. Keine falsche Behauptung eines vollen Roadmap-Gates.
 - **014 – Rechte:** Bestehendes [Issue #31](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/31) wurde auf den exakten PDF-Titel „Rechte- und Nutzungsrisiken katalogisieren“ und Ergebnis `docs/legal/rights-matrix.md` abgestimmt.
-- **019 – GitHub-Milestones:** Diese Dateiansicht ordnet Aufgaben M00–M02 zu. Die **nativen GitHub-Milestone-Objekte** für M00–M13 und die übrigen Aufgaben 035–158 sind weiterhin Bestandteil der [Aufgabe 019](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/36); sie wurden nicht automatisch angelegt.
+- **019 – GitHub-Milestones:** Die [vollständige M00–M13-Übersicht](roadmap-backlog-m00-m13.md) erfasst alle Aufgaben 001–158. **Alle 14 nativen GitHub-Meilensteine M00–M13 und 158 Issue-Zuordnungen** wurden nach [PR #183](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/183) erfolgreich angelegt und [per GitHub Actions #44441286199](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44441286199) verifiziert (DEC-035).
 - **Projektname:** PDF verwendet historisch `blueDotAtlas`; freigegeben ist die Schreibweise **BlueDotAtlas**. Der Quelltext bleibt unverändert.
 
 **Arbeitsweise:** Ein Issue pro stabiler Aufgaben-ID; Status über GitHub; Review, dem Risiko angemessene Tests und Dokumentation je Aufgabe – ohne zusätzliche allgemeine VPS-Diagnostik.
