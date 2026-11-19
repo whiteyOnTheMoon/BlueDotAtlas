@@ -75,12 +75,12 @@ jobs:
           set -euo pipefail
           hash="$(printf '%s' "$BDA_TEST_ADMIN_PASSWORD" | node packages/db/scripts/hash-admin-password.mjs)"
           echo "BDA_ADMIN_PASSWORD_HASH=$hash" >> "$GITHUB_ENV"
-      - name: Chromium browser availability
-        run: pnpm exec playwright install --with-deps chromium
-      - name: Real protected browser login / logout / CSRF / cookie test
-        run: node scripts/check-admin-auth.mjs
       - name: Production HTTPS-cookie and revocation smoke
         run: node scripts/check-auth-production.mjs
+      - name: Verify Ubuntu runner's preinstalled Chrome
+        run: google-chrome --version
+      - name: Real Chrome browser login / logout / CSRF / cookie test
+        run: node scripts/check-admin-auth.mjs
       - name: Browser screenshots and results
         if: always()
         uses: actions/upload-artifact@v4

@@ -51,7 +51,7 @@ try {
   assert.equal(badLogin.status, 403, 'CSRF: cross-origin login must be denied');
   results.push({ check: 'cross-origin login and logout', status: 'PASS' });
 
-  browser = await chromium.launch({ headless: true });
+  browser = await chromium.launch({ headless: true, channel: 'chrome' });
   for (const [width, scheme] of [[1440, 'dark'], [375, 'light']]) {
     const page = await browser.newPage({
       viewport: { width, height: 880 }, colorScheme: scheme, reducedMotion: 'reduce',
