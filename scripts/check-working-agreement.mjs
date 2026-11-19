@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-export function validateWorkingAgreement(agreement, prTemplate, adrTemplate, acceptedAdr) {
+export function validateWorkingAgreement(agreement, prTemplate, adrTemplate, acceptedAdr, decisionLog = '') {
   const errors = [];
   const requirements = [
     ['Definition of Ready', /Definition of Ready \(DoR\)/i],
@@ -43,8 +43,9 @@ export function validateWorkingAgreement(agreement, prTemplate, adrTemplate, acc
   if (!/\*\*Status:\*\* Proposed/.test(adrTemplate)) errors.push('ADR template must start as Proposed');
   if (!/\*\*Status:\*\* Accepted/.test(acceptedAdr)) errors.push('Existing approved ADR must say Accepted');
   if (!/DEC-033/.test(acceptedAdr)) errors.push('ADR-001 must link the actual existing decision DEC-033');
-  if (/DEC-036.*(?:abgenommen|Accepted)/i.test(agreement))
-    errors.push('Do not claim a new user decision before the PR is approved');
+  if (/DEC-036.*(?:abgenommen|Accepted)/i.test(agreement) &&
+      !/^\| DEC-036 \|.*(?:Betreiber|Genehmigung)/m.test(decisionLog))
+    errors.push('Do not claim a new user decision without a recorded operator approval');
   return errors;
 }
 
@@ -55,6 +56,7 @@ export function runContractCheck(paths = {}) {
     text(paths.pr ?? '.github/pull_request_template.md'),
     text(paths.adrTemplate ?? 'docs/architecture/adr/000-template.md'),
     text(paths.adr ?? 'docs/architecture/adr/001-modular-monolith.md'),
+    text(paths.decisions ?? 'docs/project/decision-log.md'),
   );
 }
 
