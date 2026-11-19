@@ -20,7 +20,7 @@ export function validateWorkingAgreement(agreement, prTemplate, adrTemplate, acc
     ['ADR rules', /ADR-Regeln/i],
     ['README gate', /README\.md/i],
     ['Decision Log gate', /decision-log\.md/i],
-    ['VPS protection', /bestehende VPS-Projekte/i],
+    ['VPS protection', /bestehende\\w* VPS-Projekt\\w*/i],
   ];
   for (const [label, pattern] of requirements) {
     if (!pattern.test(agreement)) errors.push('Missing agreement rule: ' + label);
