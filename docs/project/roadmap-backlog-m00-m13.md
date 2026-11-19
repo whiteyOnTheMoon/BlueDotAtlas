@@ -40,7 +40,7 @@
 | **017** | Kernarchitektur und Systemgrenzen festlegen | [#34](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/34) | Abgenommen |
 | **018** | GitHub-Repository und Arbeitsregeln aufsetzen | [#35](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/35) | Abgenommen |
 | **019** | Roadmap in GitHub-Milestones übertragen | [#36](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/36) | Abgenommen (DEC-035, Sync verifiziert) |
-| **020** | Definition of Ready/Done und Dokumentationsregeln beschließen | [#37](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/37) | Backlog |
+| **020** | Definition of Ready/Done und Dokumentationsregeln beschließen | [#37](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/37) | In Arbeit – Arbeitsvereinbarung und ADR zur Abnahme |
 
 ## M02 – Grundsystem, Datenmodell und VPS-Betrieb (021–034)
 
