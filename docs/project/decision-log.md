@@ -81,6 +81,12 @@
 
 | OPEN-008 | **Roadmap 012 – VPS-Inventur und Ressourcenbudget**: Vermessung und begrenzte Ressourcenverteilung mit Planungsobergrenzen für OS/Bestand, Web, PostgreSQL, Render-Scratch und Worker. Betreiber-Freigabe am 19.11.2026. Tatsächliche 1080p-Renderfähigkeit/Provider-Garantien sind nicht Bestandteil dieser Inventur. | 012 | **Abgeschlossen (DEC-028)** – [Messwerte und Budget](../infra/vps-audit.md), [Issue #27](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/27), [PR #28](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/28). |
 
+## Vorgeschlagene Entscheidung Roadmap 025
+
+| ID | Frage | Aufgabe | Status |
+| --- | --- | --- | --- |
+| OPEN-009 | Die konkrete Einzeladmin-Sicherheitsarchitektur aus [ADR-002](../architecture/adr/002-single-admin-sessions.md) – scrypt, opaque PostgreSQL-Sessions, 12h TTL, 5 Fehlversuche/15 min Sperre und serverseitige Fail-closed-Prüfung – ist als [PR #190](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/190) implementiert und steht **zur ausdrücklichen Betreiberabnahme**. Das bereits freigegebene PRD DEC-026 legt nur den Einzeladmin-Scope fest, nicht die Abnahme dieses PRs. | 025 | **Proposed / Review offen; kein DEC-Accepted, kein Merge.** |
+
 ## Erledigte Entscheidungspunkte
 
 - **OPEN-001:** Freigabe des Brand Briefs durch „Ok“, dokumentiert unter DEC-007. Die Tagline wurde anschließend separat unter DEC-008 ausgewählt.
