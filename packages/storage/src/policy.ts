@@ -70,8 +70,9 @@ export function validateObjectKey(area: WritableArea, key: string): string[] {
 
 export function parseStorageKey(key: string): { area: WritableArea; parts: string[] } {
   if (typeof key !== 'string' || !key.includes('/')) throw new StorageError('invalid_key');
-  const [area, ...rest] = key.split('/');
-  assertWritableArea(area ?? '');
+  const [rawArea, ...rest] = key.split('/');
+  const area = rawArea ?? '';
+  assertWritableArea(area);
   const parts = validateObjectKey(area, rest.join('/'));
   return { area, parts };
 }
