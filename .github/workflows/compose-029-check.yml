@@ -49,7 +49,7 @@ jobs:
           export BDA_DB_ENV_FILE="$RUNNER_TEMP/db.env"
           export BDA_WEB_ENV_FILE="$RUNNER_TEMP/web.env"
           export BDA_WORKER_ENV_FILE="$RUNNER_TEMP/worker.env"
-          docker compose -f compose.029.yml config --format json > "$RUNNER_TEMP/compose.json"
+          docker compose --profile future-renderer --profile maintenance -f compose.029.yml config --format json > "$RUNNER_TEMP/compose.json"
           node scripts/check-compose-029.mjs "$RUNNER_TEMP/compose.json"
           docker compose -f compose.029.yml build web
           docker compose -f compose.029.yml up -d db web
