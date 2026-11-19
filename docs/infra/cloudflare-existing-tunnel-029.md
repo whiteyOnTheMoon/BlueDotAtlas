@@ -1,6 +1,6 @@
 # Roadmap 029 – Bereits angelegten Cloudflare-Tunnel anbinden (Handover)
 
-**Status 19.11.2026:** Der Betreiber hat **einen Cloudflare-Tunnel bereits im Cloudflare-Dashboard erstellt**. Das ist ein **externer Betreiberhinweis**, keine durch GitHub verifizierte Online-Verbindung. **Keinen zweiten Tunnel anlegen.** [Issue #46](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/46), [Draft-PR #194](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/194), [Deploy-Runbook](deployment.md).
+**Status 19.11.2026:** Der vom Betreiber angelegte Cloudflare-Tunnel ist nun **Healthy** und die öffentliche Website unter `studio.ap-pixels.com` **nach Betreiber-Browser-Test erreichbar**. Die zwischenzeitliche Fehlermeldung **1033 / HTTP 530** lag an einem DNS-CNAME mit der **falschen Tunnel-ID**; der Betreiber hat die Zuordnung selbst berichtigt. **Keinen zweiten Tunnel anlegen.** [Issue #46](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/46), [Draft-PR #194](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/194), [Deploy-Runbook](deployment.md).
 
 ## Was wir derzeit wissen – und was nicht
 
@@ -9,11 +9,11 @@
 | Domain-Verwaltung | Betreiber: bereits bei Cloudflare |
 | Tunnelobjekt für BlueDotAtlas | Betreiber: **angelegt** |
 | Tunnelverwaltung | **Noch nicht bestätigt**: Dashboard/remote-managed oder lokal verwaltet |
-| `cloudflared`-Connector auf dem VPS | **Nicht bestätigt**; vier bereits zuvor laufende Tunnelcontainer gehören nicht automatisch zu BlueDotAtlas |
+| `cloudflared`-Connector auf dem VPS | **`bluedotatlas-cloudflared-1` gestartet und Healthy**, vier registrierte Cloudflare-Edge-Verbindungen; vier ältere fremde Tunnelcontainer bleiben unberührt |
 | Published-application-Hostname | **`studio.ap-pixels.com`**, vom Betreiber per Cloudflare-**Routes**-Screenshot belegt |
 | Origin-/Service-URL in der Cloudflare-Route | **`http://web:3000`**, als **konfiguriert** belegt; tatsächliche Docker-Erreichbarkeit nicht geprüft |
 | Cloudflare Access für Admin | **Nicht bestätigt**, vor externer Adminfreigabe prüfen |
-| Öffentliches TLS/HTTPS + App-Cookie/CSRF | **Noch nicht abgenommen** |
+| Öffentliches TLS/HTTPS + App-Cookie/CSRF | **Öffentliche Website laut Betreiber via HTTPS erreichbar**; Admin-Cookie/CSRF/Anmeldetests **noch nicht abgenommen** |
 | Speicher-/Secrets-/Restore-Gates 030/034 | **Ausstehend** |
 
 ## Dashboard-Prüfung: bitte nur unsensible Angaben teilen
@@ -41,13 +41,14 @@ Die BlueDotAtlas-Admin-Oberfläche benötigt zusätzlich zur eigenen serverseiti
 
 Das Tunnel-Token ist bei einem remote-managed Tunnel ein **vollwertiges Verbindungsgeheimnis**: Wer es kennt, kann einen Connector für diesen Tunnel starten. Es bleibt ausschließlich beim Betreiber in einer privat zugriffsbeschränkten Datei **außerhalb des öffentlichen Repos** und darf **nie** in Chat, GitHub Issue/PR/Action-Logs, Screenshots oder Beispielkommandos mit Klartext-Token auftauchen. `BDA_TUNNEL_TOKEN_FILE` bezeichnet im späteren Compose-Overlay **nur den Pfad der privaten Datei**, nicht den Tokeninhalt. Das richtige Secret-Handling muss in Aufgabe 030 getrennt getestet und genehmigt werden.
 
-## Nächste Nachweise vor irgendeinem VPS-Deploy
+## Nachweise für den erfolgten öffentlichen Vorschau-Start und noch offene Betriebs-Gates
 
 - [x] Betreiber zeigt den konfigurierten öffentlichen Hostnamen **`studio.ap-pixels.com`** samt Origin **`http://web:3000`** im Cloudflare-Routenscreenshot.
-- [ ] Betreiber prüft unter **Overview**, ob der Tunnel/Connector bereits *Connected* ist (oder noch ohne Connector); der Routes-Screenshot beweist das nicht.
-- [ ] Verwaltungstyp und Anschluss des künftigen Connectors sind geklärt; **kein neuer Tunnel nötig**.
-- [ ] Cloudflare-Access-Policy/Hostname und öffentlich-vs-privat-Struktur sind vereinbart.
+- [x] Betreiber meldet Tunnel **Healthy** und vier registrierte Edge-Verbindungen des neuen BlueDotAtlas-Connectors.
+- [x] Bestehenden Cloudflare-Tunnel über den eigenen BlueDotAtlas-Compose-Connector verbunden; **kein neuer Tunnel** und keine Änderungen der vier alten Connectoren.
+- [x] Betreiber entscheidet: **öffentliche Startseite ohne Cloudflare Access**, Admin vorerst nicht aktiviert (DEC-042).
 - [ ] Exakte, konkrete Betriebsänderung und Rollback/Restore/Secrets 030/034 sind freigegeben.
-- [ ] Live-Web über den bestätigten Hostnamen via **echtem HTTPS** getestet; DB/Queue nicht extern erreichbar, Web/DB/Connector-Recovery und Altprojekte ungestört. Erst danach kann 029 als abgeschlossen markiert werden.
+- [x] **Betreiber** bestätigt erfolgreiche öffentliche Browsererreichbarkeit per HTTPS, nachdem er den falschen `studio`-DNS-Tunnel-CNAME korrigiert hat.
+- [ ] Zusätzlich DB/Queue-Unzugänglichkeit von außen, Web/DB/Connector-Recovery, Admin-/Secret-/Restore-Gates und die Unversehrtheit der Altprojekte vollständig abnehmen. Erst danach kann 029 abgeschlossen werden.
 
 **Quellen:** [Cloudflare Tunnel Setup](https://developers.cloudflare.com/tunnel/get-started/), [Tunnel Run Parameters](https://developers.cloudflare.com/tunnel/reference/run-parameters/), [Tunnel Tokens](https://developers.cloudflare.com/tunnel/reference/tunnel-tokens/), [Cloudflare Access für Self-Hosted Apps](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/self-hosted-public-app/). Die Quellen beschreiben Cloudflare-Funktionen, **nicht** den tatsächlichen Zustand dieses Betreiberkontos.
