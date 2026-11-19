@@ -8,6 +8,8 @@ on:
       - '.dockerignore'
       - 'apps/web/next.config.ts'
       - 'scripts/check-compose-029*'
+      - 'scripts/audit-deploy-029.sh'
+      - 'scripts/check-deploy-audit-029.mjs'
       - 'docs/infra/deployment.md'
       - '.github/workflows/compose-029-check.yml'
   workflow_dispatch:
@@ -36,6 +38,10 @@ jobs:
           pnpm lint
           pnpm format:check
           pnpm build
+      - name: Audit 029 safety review — syntax/static checks only, NO real host collection
+        run: |
+          bash -n scripts/audit-deploy-029.sh
+          node scripts/check-deploy-audit-029.mjs
       - name: Isolated Compose settings, negative unit tests and runtime smoke
         env:
           BDA_BIND_PORT: '18029'

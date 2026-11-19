@@ -18,6 +18,25 @@ Compose verlangt ausschließlich **außerhalb des öffentlichen Repos gespeicher
 
 **Wichtig:** Normale Container-Env-Werte können für privilegierte Docker-Nutzer bei Container-Inspection sichtbar sein. Aufgabe **030** muss die reale Secretbereitstellung, Dateirechte, Rotation und Redaction separat freigeben; keine echte Konfiguration in Chat, Git, Browser oder CI-Logs ausgeben. Eine `docker compose config`-Ausgabe mit produktiven Werten gehört **nicht** in öffentliche Logs.
 
+## Optionaler nächster Messschritt auf dem echten VPS (ohne Änderungen)
+
+**Es gibt derzeit keinen SSH-Zugriff über die GitHub-Verbindung.** GitHub-Actions-Runner sind **nicht** der Produktiv-VPS. Alle oben beschriebenen bisherigen CI-Messwerte stammen ausschließlich aus isolierten Wegwerfcontainern. Erst ein durch den Betreiber *auf dem wirklichen VPS* ausgeführtes Audit ist ein neuer Betriebsnachweis.
+
+Das bereits in 012 abgenommene Skript [`scripts/audit-vps.sh`](../../scripts/audit-vps.sh) liefert allgemeine, bereits datensparsame CPU-/RAM-/Disk-/Containerzahlen. Ergänzend wurde für 029 das [`scripts/audit-deploy-029.sh`](../../scripts/audit-deploy-029.sh) erstellt: Es **liest nur** `/proc`, `df`, `nproc`, `systemctl is-active`, `docker ps`/Docker-Netzwerkanzahlen und `ss -lnt` und **verändert keine Container, Dateien, Ports oder Proxy-Routen**. Es zeigt *ausschließlich aggregierte Zahlen*, mögliche Host-Reverse-Proxy-Services und den Beleg, ob ein vom Betreiber **selbst gewählter** Port aktuell als Listener/Mapping sichtbar ist. Es liest/zeigt keine IPs, Hostnamen, Container-/Compose-/Volume-/Netzwerknamen, TLS-Schlüssel, Env-Werte oder Tunnel-Konfiguration.
+
+Nur **wenn diese Skripte bereits als geprüfte Kopie auf dem Ziel-VPS vorliegen**, können diese zwei lokalen Befehle ausgeführt werden:
+
+```bash
+bash scripts/audit-vps.sh
+bash scripts/audit-deploy-029.sh
+```
+
+Optional nach privater Portwahl: `bash scripts/audit-deploy-029.sh <KANDIDATENPORT>`. **Nicht** zur Ausführung von ungeprüftem Code mit `curl | bash` oder zu einer GitHub-CI-Inventur auf dem falschen Host verleiten lassen. Falls der BlueDotAtlas-Checkout noch nicht existiert, zuerst einen vertrauenswürdigen, kontrollierten Transfer des überprüften Skripts organisieren und keine produktiven Verzeichnisse überschreiben.
+
+**Auswertung ohne Veröffentlichung sensibler Infrastrukturdetails:** Ergebnisse lokal sichten und bei Bedarf vor Übermittlung bereinigen. Nicht als Rohdatei ins öffentliche Repository/PR oder in öffentliche CI-Artefakte schreiben. Die Ausgabe enthält keine Routendetails; die konkrete Host-/DNS-/Tunnel-/TLS-Konfiguration muss separat von der Betreiberseite unter Geheimhaltung geprüft werden. Ein Port mit „NONE OBSERVED“ ist **nicht reserviert** und die Erreichbarkeit eines hostseitigen Loopback-Ports aus Docker-/Cloudflare-Netzwerk-Namensräumen bleibt offen.
+
+**Nachweise der 029-Audit-Vorbereitung:** CI kontrolliert `bash -n` und `scripts/check-deploy-audit-029.mjs` als rein statische, privacy-bewusste Prüfung, **führt das VPS-Audit aber ausdrücklich nicht auf einem GitHub-Runner aus**.
+
 ## Live-Gate vor jeder Änderung des VPS
 1. **Read-only inventarisieren:** aktuelle CPU/RAM/Swap/SSD/Inodes/I/O, Docker-/Volume-/Netz-Namen, veröffentlichte Ports, bestehendes Reverse-Proxy-/Cloudflare-Tunnel-Routing, TLS-Zertifikate und bestehende Datenbanken. Das GitHub-Repo allein belegt diese Details nicht.
 2. **Betreiber entscheidet separat:** exakter Domainname, freie Loopback-Portnummer, Proxy-/TLS-/Host-Header-Weg, Betreiber-/Service-UID, real isolierte Volumes und zulässige Änderungsliste. Host-Loopback ist **kein automatisch funktionierender Zugang aus einem fremden Proxy-Container**. Ohne geprüfte TLS-/Origin-/Cookie-Kette keine öffentliche Adminfreigabe.
