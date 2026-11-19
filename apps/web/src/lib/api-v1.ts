@@ -17,7 +17,7 @@ import {
   parseApiListQuery,
   parseApiUuid,
   type ApiCollection,
-} from '@bluedotatlas/db';
+} from '@bluedotatlas/db/api';
 import { adminCookieName, sameOrigin } from './admin-auth';
 
 const headers = {
