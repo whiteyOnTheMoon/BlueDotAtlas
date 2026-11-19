@@ -120,6 +120,9 @@ CREATE TABLE "videos" (
 	CONSTRAINT "videos_published_require_artifact" CHECK ("videos"."status" <> 'published' OR ("videos"."final_artifact_id" IS NOT NULL AND "videos"."published_at" IS NOT NULL))
 );
 --> statement-breakpoint
+-- Required before the composite videos_project_version_fk. Drizzle Kit emits
+-- FK constraints before unique indexes; PostgreSQL requires the unique key first.
+CREATE UNIQUE INDEX "project_versions_project_id_unique" ON "project_versions" USING btree ("project_id","id");--> statement-breakpoint
 ALTER TABLE "approvals" ADD CONSTRAINT "approvals_project_version_id_project_versions_id_fk" FOREIGN KEY ("project_version_id") REFERENCES "public"."project_versions"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "approvals" ADD CONSTRAINT "approvals_video_id_videos_id_fk" FOREIGN KEY ("video_id") REFERENCES "public"."videos"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "artifacts" ADD CONSTRAINT "artifacts_project_version_id_project_versions_id_fk" FOREIGN KEY ("project_version_id") REFERENCES "public"."project_versions"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
@@ -136,7 +139,6 @@ CREATE UNIQUE INDEX "artifacts_storage_key_unique" ON "artifacts" USING btree ("
 CREATE INDEX "artifacts_version_idx" ON "artifacts" USING btree ("project_version_id");--> statement-breakpoint
 CREATE INDEX "audit_events_project_created_idx" ON "audit_events" USING btree ("project_id","created_at");--> statement-breakpoint
 CREATE UNIQUE INDEX "project_versions_project_revision_unique" ON "project_versions" USING btree ("project_id","revision");--> statement-breakpoint
-CREATE UNIQUE INDEX "project_versions_project_id_unique" ON "project_versions" USING btree ("project_id","id");--> statement-breakpoint
 CREATE INDEX "render_jobs_status_idx" ON "render_jobs" USING btree ("status","created_at");--> statement-breakpoint
 CREATE INDEX "render_jobs_version_idx" ON "render_jobs" USING btree ("project_version_id");--> statement-breakpoint
 CREATE UNIQUE INDEX "step_progress_version_step_unique" ON "step_progress" USING btree ("project_version_id","step_number");--> statement-breakpoint

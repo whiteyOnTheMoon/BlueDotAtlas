@@ -41,3 +41,5 @@ Die **kanonischen** Begriffe und zulässigen Übergänge liegen in `packages/cor
 ## Sicherheits- und Deployment-Gates
 
 Der Schutz der externen HTTP-API, des Einzeladmins und des öffentlichen Videoplayer-Queries folgt in 025–026 und späteren Roadmap-Aufgaben; **keine** Render-/Publikationsfunktion ist hier live. Ein Datenbankschema ist kein Freibrief, `published` aus Renderergebnissen zu setzen. Das tatsächlich sichere Publish-Kommando mit revisionsgebundenen Freigabe-/Medienrechten ist Teil der späteren Publish-Gates. Keine Änderungen an bestehenden VPS-Datenbanken, Docker-Volumes, API-Secrets oder Fremdprojekten. Die echte Backup-/Restore-Abnahme ist Roadmap 034.
+
+**Migrationshinweis 024:** Die zusammengesetzte Video-FK benötigt den eindeutigen Index auf `(project_id, id)` in `project_versions`. Drizzle Kit 0.31.11 ordnet beim Erstgenerieren die `ALTER TABLE ... FOREIGN KEY`-Zeilen vor die `CREATE UNIQUE INDEX`-Zeilen ein. Deshalb wurde **nur die Reihenfolge dieses Index in `0001`** angepasst, um einen frischen PostgreSQL-16-Aufbau zu ermöglichen. Der korrespondierende Snapshot bleibt kanonisch; dies ist ein validierter manueller SQL-Sicherheitsfix.
