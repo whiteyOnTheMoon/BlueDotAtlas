@@ -2,7 +2,7 @@
 
 **Grundlage:** [Original-PDF der Master Roadmap V0.1 (28 Seiten)](BlueDotAtlas_Roadmap.pdf) und [vollständige Textfassung](master-roadmap-v01-text.md), Betreiber-PDF vom 13.11.2026. GitHub-Issue-Nummern (**#...**) sind nicht die stabilen Roadmap-Nummern (**001–158**).
 
-**Status:** Aufgaben **001–019 abgeschlossen**, Aufgaben **020–034 im Backlog**. **Alle Aufgaben 001–158 sind inzwischen als Issues vorhanden**; die vollständige Liste und die M00–M13-Gates stehen im [kompletten Roadmap-Index](roadmap-backlog-m00-m13.md). Ein Meilenstein ist erst nach seinem Gate abgeschlossen. Die [Original-PDF](BlueDotAtlas_Roadmap.pdf) ist auf `main` archiviert und per Git-Blob-SHA mit dem Betreiber-Original identisch; die Textfassung ist ergänzend durchsuchbar.
+**Status:** Aufgaben **001–020 abgeschlossen**, Aufgaben **021–034 im Backlog**. **Alle Aufgaben 001–158 sind inzwischen als Issues vorhanden**; die vollständige Liste und die M00–M13-Gates stehen im [kompletten Roadmap-Index](roadmap-backlog-m00-m13.md). Ein Meilenstein ist erst nach seinem Gate abgeschlossen. Die [Original-PDF](BlueDotAtlas_Roadmap.pdf) ist auf `main` archiviert und per Git-Blob-SHA mit dem Betreiber-Original identisch; die Textfassung ist ergänzend durchsuchbar.
 
 ## M00 – Marke, Gestaltung und filmische Identität (001–009)
 
@@ -36,7 +36,7 @@
 | **017** | [Kernarchitektur und Systemgrenzen festlegen (#34)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/34) | Abgenommen (DEC-033; Video-/Animationsziel, noch kein Rendernachweis) |
 | **018** | [GitHub-Repository und Arbeitsregeln aufsetzen (#35)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/35) | Abgenommen (DEC-034; Repo bewusst öffentlich) |
 | **019** | [Roadmap in GitHub-Milestones übertragen (#36)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/36) | Abgenommen (DEC-035; 14 Milestones/158 Issues verifiziert) |
-| **020** | [Definition of Ready/Done und Dokumentationsregeln beschließen (#37)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/37) | Offen |
+| **020** | [Definition of Ready/Done und Dokumentationsregeln beschließen (#37)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/37) | Abgenommen (DEC-036) |
 
 ## M02 – Grundsystem, Datenmodell und VPS-Betrieb (021–034)
 
