@@ -238,3 +238,31 @@ export const auditEvents = pgTable(
     index('audit_events_project_created_idx').on(table.projectId, table.createdAt),
   ],
 );
+
+/** Single-admin auth database: no plaintext sessions, password or personal-profile records. */
+export const adminSessions = pgTable(
+  'admin_sessions',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    tokenHash: text('token_hash').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+    revokedAt: timestamp('revoked_at', { withTimezone: true }),
+  },
+  (table) => [
+    uniqueIndex('admin_sessions_token_hash_unique').on(table.tokenHash),
+    index('admin_sessions_expires_idx').on(table.expiresAt),
+    check('admin_sessions_expires_after_created', sql`${table.expiresAt} > ${table.createdAt}`),
+  ],
+);
+
+export const adminLoginState = pgTable(
+  'admin_login_state',
+  {
+    key: text('key').primaryKey(),
+    failedAttempts: integer('failed_attempts').default(0).notNull(),
+    lockedUntil: timestamp('locked_until', { withTimezone: true }),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [check('admin_login_state_nonnegative_attempts', sql`${table.failedAttempts} >= 0`)],
+);

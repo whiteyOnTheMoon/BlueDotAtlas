@@ -40,7 +40,7 @@ try {
   assert.equal(new URL(adminResponse.headers.get('location'), url).pathname, '/admin/login');
   results.push({ check: 'admin redirect', status: 'PASS', code: adminResponse.status });
 
-  browser = await chromium.launch({ headless: true });
+  browser = await chromium.launch({ headless: true, channel: 'chrome' });
   for (const width of [1440, 375]) {
     for (const scheme of ['dark', 'light']) {
       const page = await browser.newPage({ viewport: { width, height: 900 }, colorScheme: scheme, reducedMotion: 'reduce' });

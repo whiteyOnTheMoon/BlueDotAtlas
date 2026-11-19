@@ -38,8 +38,8 @@ jobs:
         run: pnpm format:check
       - name: Build
         run: pnpm build
-      - name: Install Playwright Chromium
-        run: pnpm exec playwright install --with-deps chromium
+      - name: Verify runner Chrome for browser regression
+        run: google-chrome --version
       - name: Screenshot and routing smoke
         run: node scripts/check-app-shell.mjs
       - name: Verify production preview is not available

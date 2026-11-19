@@ -26,6 +26,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@bluedotatlas/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       next:
         specifier: 16.4.6
         version: 16.4.6(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)

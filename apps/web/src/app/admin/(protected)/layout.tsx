@@ -1,9 +1,11 @@
 import { redirect } from 'next/navigation';
+import { signedInAdmin } from '../../../lib/admin-auth';
 import type { ReactNode } from 'react';
 
-// Server-side denial until task 025 adds validated sessions.
-// Proxy redirects early; protected components must not rely on Proxy alone.
-export default function ProtectedAdminLayout({ children }: { children: ReactNode }) {
-  void children;
-  redirect('/admin/login');
+export const dynamic = 'force-dynamic';
+
+/** A forged cookie bypassing Proxy still cannot access protected components. */
+export default async function ProtectedAdminLayout({ children }: { children: ReactNode }) {
+  if (!(await signedInAdmin())) redirect('/admin/login');
+  return <>{children}</>;
 }

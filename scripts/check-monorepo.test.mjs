@@ -36,8 +36,8 @@ for (const [directory, name] of required) {
     assert.equal(packageJson.name, name);
     assert.equal(packageJson.private, true);
     if (directory === 'apps/web') {
-      assert.equal(packageJson.scripts.typecheck, 'next typegen && tsc --noEmit');
-      assert.equal(packageJson.scripts.build, 'next build');
+      assert.equal(packageJson.scripts.typecheck, 'pnpm --filter @bluedotatlas/core build && pnpm --filter @bluedotatlas/db build && next typegen && tsc --noEmit');
+      assert.equal(packageJson.scripts.build, 'pnpm --filter @bluedotatlas/core build && pnpm --filter @bluedotatlas/db build && next build');
       assert.equal(packageJson.dependencies.next, '16.4.6');
     } else if (directory === 'packages/db') {
       assert.equal(packageJson.scripts.typecheck, 'pnpm --filter @bluedotatlas/core build && tsc -p tsconfig.json --noEmit');
@@ -53,6 +53,8 @@ for (const [directory, name] of required) {
 test('env template contains no credentials', () => {
   const env = readFileSync(fromRoot('.env.example'), 'utf8');
   assert.match(env, /DATABASE_URL=/);
-  assert.match(env, /SESSION_SECRET=/);
+  // Roadmap 025 uses opaque, database-backed sessions: no global signing secret.
+  assert.doesNotMatch(env, /^SESSION_SECRET=/m);
+  assert.doesNotMatch(env, /^(?:BDA_ADMIN_EMAIL|BDA_ADMIN_PASSWORD_HASH)=/m);
   assert.doesNotMatch(env, /(?:SECRET|PASSWORD|TOKEN)=[^\r\n#]+/);
 });
