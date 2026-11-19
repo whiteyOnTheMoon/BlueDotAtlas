@@ -1,6 +1,6 @@
 # Kernarchitektur und Systemgrenzen V0.1
 
-**BlueDotAtlas · Roadmap 017 · Entwurf zur Betreiberabnahme**  
+**BlueDotAtlas · Roadmap 017 · vom Betreiber am 19.11.2026 (UTC) für die spätere Video-/Animationsproduktion freigegeben (DEC-033)**  
 **Status:** Architekturentscheidung, **keine** implementierte/deployte Webapp oder freigegebene Produktions-Renderumgebung.  
 **Grundlage:** [Master Roadmap V0.1](../project/BlueDotAtlas_Roadmap.pdf), S. 5–8 und 26; [PRD 010](../product/prd-v01.md); [VPS-Budget 012](../infra/vps-audit.md); [begrenzter FFmpeg-Proof 013](../infra/render-proof-013.md); [Rechte 014](../legal/rights-matrix.md), [Anbieter 015](../providers/vendor-registry.md), [Budget 016](../operations/budget-policy.md).
 
@@ -119,4 +119,4 @@ Konservative **Planungs**grenzen aus [012](../infra/vps-audit.md), vor tatsächl
 - [x] Grenzen der Module `apps/web`, `apps/worker`, `packages/core/db/providers/video/ui` beschrieben.
 - [x] Ressourcen-, Kosten-, Rechte- und Publikationssperren gegenüber bestehender VPS-Infrastruktur klargestellt.
 - [x] Kein unbewiesenes Redis/BullMQ-Erfordernis und keine falsche Remotion-/Realfilm-Renderfreigabe.
-- [ ] **Explizite Betreiberabnahme**, anschließend PR-Merge, DEC-033 und Issue-Abschluss.
+- [x] **Explizite Betreiberabnahme** erteilt am 19.11.2026 (UTC): „Wenn ich damit meine Videos und Animationen usw machen kann bin ich einverstanden“. Freigabe gilt **für die Zielarchitektur, die Videos, Animationen, Ton und Export ermöglichen soll**, nicht als technische Bestätigung einer schon funktionierenden Produktionspipeline. Entscheidung DEC-033; PR-Merge und Issue-Abschluss dokumentiert.
