@@ -51,6 +51,8 @@
 
 | DEC-029 | **Roadmap 013 – isolierter 1080p-VPS-Render-Proof abgenommen.** Betreiber führte auf dem echten VPS ein synthetisches 8-Sekunden-H.264/AAC-MP4 mit 1920×1080/30 FPS erfolgreich aus. **6,30 s Encode, 229036 KiB Peak-Prozess-RSS, 89G freier Speicher**. Das ist ein begrenzter Encoder-/FFprobe-Proof, **keine** Abnahme eines 55–65-Sekunden-Piloten, realer Medienintegration oder produktiver Worker-Last. | **Abgenommen – Aufgabe 013 abgeschlossen** | Betreiberantwort „ok“ am 19.11.2026 auf die ausdrückliche Frage, ob PR #30 gemergt und Issue #29 geschlossen werden dürfen. | [Ergebnis und Testskript](../infra/render-proof-013.md), [PR #30](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/30), [Issue #29](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/29). |
 
+| DEC-030 | **Roadmap 014 – Rechte- und Nutzungsrisiken V0.1 freigegeben.** Quellenzugriff, Bilder/Videos, Musik, Karten/Geodaten, wissenschaftliche Daten, Marken, Personen, TTS und Veröffentlichungszwecke werden einzeln geprüft; `UNREVIEWED` und `BLOCKED` sind harte Nutzungssperren, `REJECTED` wird nicht verwendet. Kostenlos abrufbare Medien sind nicht automatisch lizenziert. Minimale Nachweisdaten und manuelle Publikationsfreigabe sind definiert. **Keine generelle NASA-/NOAA-/Creative-Commons-Freigabe und keine Anbieterprüfung** (Aufgabe 015). | **Vom Betreiber abgenommen – Aufgabe 014 abgeschlossen** | Nutzerantwort „Ok“ am 19.11.2026 UTC auf die explizite Abnahmefrage zu [PR #54](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/54). | [Rechtematrix V0.1](../legal/rights-matrix.md), [Issue #31](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/31). |
+
 ## Offene Entscheidungen
 
 | ID | Frage | Aufgabe | Status |
