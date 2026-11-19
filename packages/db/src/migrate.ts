@@ -12,7 +12,9 @@ async function main() {
 }
 
 main().catch((error: unknown) => {
-  process.stderr.write('Database migration failed. Check local configuration and migration logs.\n');
+  process.stderr.write(
+    'Database migration failed. Check local configuration and migration logs.\\n',
+  );
   if (process.env.NODE_ENV === 'development' && error instanceof Error) {
     process.stderr.write(error.message + '\n');
   }
