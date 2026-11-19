@@ -1,12 +1,6 @@
 import { and, desc, eq, isNull } from 'drizzle-orm';
 import type { ApiListQuery, ProjectStatus, RenderJobStatus, VideoStatus } from '@bluedotatlas/core';
-import {
-  artifacts,
-  projectVersions,
-  renderJobs,
-  videoProjects,
-  videos,
-} from './schema.js';
+import { artifacts, projectVersions, renderJobs, videoProjects, videos } from './schema.js';
 import type { ReturnTypeOfOpenDatabase } from './types.js';
 
 /** Bounded, server-side read models: never select storage keys, manifests or raw license notes. */
@@ -53,10 +47,7 @@ const mediaFields = {
   updatedAt: artifacts.updatedAt,
 };
 
-export async function listProjects(
-  { db }: ReturnTypeOfOpenDatabase,
-  options: ApiListQuery,
-) {
+export async function listProjects({ db }: ReturnTypeOfOpenDatabase, options: ApiListQuery) {
   return db
     .select(projectFields)
     .from(videoProjects)
@@ -71,10 +62,7 @@ export async function listProjects(
     .offset(options.offset);
 }
 
-export async function listVideos(
-  { db }: ReturnTypeOfOpenDatabase,
-  options: ApiListQuery,
-) {
+export async function listVideos({ db }: ReturnTypeOfOpenDatabase, options: ApiListQuery) {
   return db
     .select(videoFields)
     .from(videos)
@@ -112,10 +100,7 @@ export async function getVideo({ db }: ReturnTypeOfOpenDatabase, id: string) {
   return row ?? null;
 }
 
-export async function listRenderJobs(
-  { db }: ReturnTypeOfOpenDatabase,
-  options: ApiListQuery,
-) {
+export async function listRenderJobs({ db }: ReturnTypeOfOpenDatabase, options: ApiListQuery) {
   return db
     .select(jobFields)
     .from(renderJobs)
@@ -155,10 +140,7 @@ export async function getRenderJob({ db }: ReturnTypeOfOpenDatabase, id: string)
   return row ?? null;
 }
 
-export async function listMediaArtifacts(
-  { db }: ReturnTypeOfOpenDatabase,
-  options: ApiListQuery,
-) {
+export async function listMediaArtifacts({ db }: ReturnTypeOfOpenDatabase, options: ApiListQuery) {
   return db
     .select(mediaFields)
     .from(artifacts)
