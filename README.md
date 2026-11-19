@@ -103,6 +103,8 @@ Grundlage: *BlueDotAtlas Master Roadmap V0.1* (13. November 2026), 14 Meilenstei
 
 **Aufgabe 026 (Betreiberabnahme DEC-038, Integration über PR #191):** Versionierte Einzeladmin-API `/api/v1` für projektbezogenes Erstellen/Lesen und geschützte Lesemetadaten zu Videos, Renderjobs und Medien. Gemeinsame strenge Request-Schemas, einheitliche JSON-Fehler, maximale Listen-/Body-Größen, serverseitige DB-Session-Prüfung, Same-Origin-Schutz bei Mutationen und Soft-Delete-Isolation. [Issue #43](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/43) · [API-v1-Vertrag](docs/api/v1.md). **PR #191 nach sechs erfolgreichen CI-Gates vom Betreiber ausdrücklich für den Squash-Merge genehmigt (DEC-038). Keine Live-Deployment-Freigabe, keine Workersteuerung, Uploads oder Publikation.**
 
+**Aufgabe 027 (in Arbeit, noch nicht vom Betreiber genehmigt):** Separater PostgreSQL-basierter Worker mit `SKIP LOCKED`-Lease, Heartbeat und tokenbasiertem Fencing, Timeout-/Crash-Recovery, begrenzten Retries/Backoff und sofortigem Cancel. Nur synthetische Testjobs auf eigener isolierter Test-DB; weder Real-FFmpeg/Remotion noch dauerhaft laufender VPS-Worker. [Issue #44](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/44) · [PR #192 (Entwurf)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/192) · [Worker-Runbook](docs/development/worker-queue.md) · [ADR-003 (Vorschlag)](docs/architecture/adr/003-postgresql-job-leases.md). **Keine Betreiberabnahme, kein Merge, keine Live-Migration.**
+
 ## Technische Zielarchitektur (noch nicht deployt)
 
 - Web/App: Next.js, React, TypeScript
