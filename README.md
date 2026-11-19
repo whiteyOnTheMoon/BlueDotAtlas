@@ -101,6 +101,8 @@ Grundlage: *BlueDotAtlas Master Roadmap V0.1* (13. November 2026), 14 Meilenstei
 
 **Aufgabe 025 (Betreiberabnahme DEC-037, Merge über PR #190):** Einzeladmin-Anmeldung mit salzgebundenem scrypt-Passwort-Hash, persistentem PostgreSQL-Session-Hash, Secure-/HttpOnly-/SameSite-Cookies, Ablauf, Logout/Revocation, Ursprungsprüfung und Brute-Force-Sperre. Admin-SSR und Admin-API prüfen die tatsächliche DB-Sitzung. [Issue #42](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/42) · [Auth-Anleitung](docs/development/admin-auth.md) · [ADR-002 (genehmigt, DEC-037)](docs/architecture/adr/002-single-admin-sessions.md). **Betreiberfreigabe für PR #190 einschließlich ADR-002 ausdrücklich erteilt; sechs passende CI-Gates auf dem geprüften Implementierungs-Head PASS. Noch keine Live-Konfiguration, kein VPS-Deploy und keine echten Zugangsdaten auf GitHub.**
 
+**Aufgabe 026 (Featurebranch, noch nicht abgenommen):** Versionierte Einzeladmin-API `/api/v1` für projektbezogenes Erstellen/Lesen und geschützte Lesemetadaten zu Videos, Renderjobs und Medien. Gemeinsame strenge Request-Schemas, einheitliche JSON-Fehler, maximale Listen-/Body-Größen, serverseitige DB-Session-Prüfung, Same-Origin-Schutz bei Mutationen und Soft-Delete-Isolation. [Issue #43](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/43) · [API-v1-Vertrag](docs/api/v1.md). **Nur Code/CI-Featurebranch, weder Betreiberabnahme noch Livebetrieb; keine Workersteuerung, Uploads oder Publikation.**
+
 ## Technische Zielarchitektur (noch nicht deployt)
 
 - Web/App: Next.js, React, TypeScript
