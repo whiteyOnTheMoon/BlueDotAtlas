@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "source": "BlueDotAtlas Master Roadmap V0.1, 13.11.2026",
+  "source_file": "docs/project/BlueDotAtlas_Roadmap.pdf",
+  "owner_approved_repo_visibility": "public",
+  "milestones": [
+    {
+      "id": "M00",
+      "title": "Marke, Gestaltung und filmische Identität",
+      "start": 1,
+      "end": 9,
+      "task_count": 9,
+      "acceptance_gate": "Brand-Kit V0.1 ist freigegeben; ein 10-Sekunden-Motion-Test sieht nach blueDotAtlas aus."
+    },
+    {
+      "id": "M01",
+      "title": "Produktgrenzen, technische Vorprüfung und Projektsteuerung",
+      "start": 10,
+      "end": 20,
+      "task_count": 11,
+      "acceptance_gate": "MVP-Scope und Architektur sind entschieden; VPS kann einen realistischen 1080p-Test leisten oder es gibt eine dokumentierte Alternative."
+    },
+    {
+      "id": "M02",
+      "title": "Grundsystem, Datenmodell und VPS-Betrieb",
+      "start": 21,
+      "end": 34,
+      "task_count": 14,
+      "acceptance_gate": "Geschütztes Admin-Dashboard, Projekt-CRUD und Render-Job sind über HTTPS erreichbar; Neustart und Restore funktionieren."
+    },
+    {
+      "id": "M03",
+      "title": "Erster echter 60-Sekunden-Film – technischer Proof",
+      "start": 35,
+      "end": 48,
+      "task_count": 14,
+      "acceptance_gate": "60-Sekunden-MP4 in 1920×1080 wird auf dem VPS gerendert, im Admin abgespielt und gemeinsam anhand der Film-Checkliste abgenommen."
+    },
+    {
+      "id": "M04",
+      "title": "Scene Director und professionelle Video Engine",
+      "start": 49,
+      "end": 63,
+      "task_count": 15,
+      "acceptance_gate": "Eine typisierte Scene-Director-Timeline rendert unterschiedliche Szenenarten, erkennt Qualitätsmängel und kann 8–10 Minuten stabil ausgeben."
+    },
+    {
+      "id": "M05",
+      "title": "Öffentliche Videothek und Admin-Grundoberfläche",
+      "start": 64,
+      "end": 74,
+      "task_count": 11,
+      "acceptance_gate": "Öffentliche Seite zeigt nur freigegebene Videos; Admin-Dashboard und Wizard-Navigation sind benutzbar und persistieren Zustand."
+    },
+    {
+      "id": "M06",
+      "title": "News Sources – dauerhaft gepflegtes Quellenregister",
+      "start": 75,
+      "end": 84,
+      "task_count": 10,
+      "acceptance_gate": "Mindestens vier freigegebene, aktivierbare Quellen liefern regelmäßig normalisierte Nachrichten mit Abrufprotokoll."
+    },
+    {
+      "id": "M07",
+      "title": "Discover Topics – Recherche und Faktenbasis",
+      "start": 85,
+      "end": 96,
+      "task_count": 12,
+      "acceptance_gate": "Ein gewähltes Topic besitzt belegte Kernaussagen, unabhängige Quellenbewertung und eine nachvollziehbare Eignungsentscheidung."
+    },
+    {
+      "id": "M08",
+      "title": "Media Library – Suche, Auswahl und Rechtekette",
+      "start": 97,
+      "end": 110,
+      "task_count": 14,
+      "acceptance_gate": "Mediengalerie mit Upload, Providern, Checkbox-Auswahl, Vorschau und harten Lizenzsperren funktioniert; Szene-spezifische Nachsuche ist möglich."
+    },
+    {
+      "id": "M09",
+      "title": "Script Studio – belegtes Drehbuch mit Szenen",
+      "start": 111,
+      "end": 121,
+      "task_count": 11,
+      "acceptance_gate": "Skript lässt sich abschnittsweise generieren, editieren und freigeben; jede wichtige Aussage ist zu ihrem Beleg rückverfolgbar."
+    },
+    {
+      "id": "M10",
+      "title": "Voice Studio – Stimme, Timing und Audioqualität",
+      "start": 122,
+      "end": 129,
+      "task_count": 8,
+      "acceptance_gate": "Mindestens zwei zulässig verwendbare Stimmen mit hörbarer Vorschau; vollständiges Audio ist zeitlich dem Szenenplan zugeordnet."
+    },
+    {
+      "id": "M11",
+      "title": "Vollständigen Produktions-Wizard verbinden",
+      "start": 130,
+      "end": 139,
+      "task_count": 10,
+      "acceptance_gate": "Ein Projekt durchläuft alle sieben Schritte ohne manuelle Datei- oder Codebearbeitung; das fertige MP4 ist im Admin abrufbar."
+    },
+    {
+      "id": "M12",
+      "title": "Qualitätssicherung, Sicherheit und Veröffentlichung",
+      "start": 140,
+      "end": 150,
+      "task_count": 11,
+      "acceptance_gate": "Drei vollständige Testproduktionen sind geprüft; Veröffentlichung ist ausschließlich nach manueller Freigabe möglich."
+    },
+    {
+      "id": "M13",
+      "title": "Pilotbetrieb, Stabilisierung und V0.1-Abschluss",
+      "start": 151,
+      "end": 158,
+      "task_count": 8,
+      "acceptance_gate": "Mindestens fünf vollständige Pilotläufe sind dokumentiert; V0.1 ist verwendbar, überprüfbar und ohne automatische YouTube-Veröffentlichung."
+    }
+  ]
+}
