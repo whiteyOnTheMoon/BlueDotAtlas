@@ -1,0 +1,34 @@
+name: Temporary 027 Drizzle migration preview
+on:
+  pull_request:
+    paths:
+      - 'packages/db/src/schema.ts'
+      - '.github/workflows/worker-027-generate-preview.yml'
+permissions:
+  contents: read
+jobs:
+  migration-preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: pnpm install --frozen-lockfile
+      - name: Generate Drizzle migration and snapshot, report text base64 only
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --filter @bluedotatlas/core build
+          pnpm --filter @bluedotatlas/db db:generate
+          for file in packages/db/drizzle/0003_*.sql packages/db/drizzle/meta/0003_snapshot.json packages/db/drizzle/meta/_journal.json; do
+            echo "@@@BDA_START:$file@@@"
+            base64 -w0 "$file"
+            echo
+            echo "@@@BDA_END:$file@@@"
+          done
