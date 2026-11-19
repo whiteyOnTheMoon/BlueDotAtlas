@@ -1,0 +1,4 @@
+# BlueDotAtlas V0.1: single project owner / final human review.
+# A CODEOWNERS entry requests reviewer ownership, but does not enable branch protection.
+# Do not require a second GitHub approver until another authorized maintainer exists.
+* @whiteyOnTheMoon
