@@ -133,10 +133,12 @@ test('only synthetic jobs under active parents are reservable, invalid flags can
   const a = openDatabase();
   try {
     const created = await createProject(a, { title: 'Synthetic 027 active parent required' });
-    await a.pool.query(
-      'INSERT INTO render_jobs (project_version_id, manifest) VALUES ($1::uuid, $2::jsonb)',
+    const unrelated = await a.pool.query<{ id: string }>(
+      'INSERT INTO render_jobs (project_version_id, manifest) VALUES ($1::uuid, $2::jsonb) RETURNING id',
       [created.version.id, JSON.stringify({ kind: 'unreviewed_render', arbitrary: 'payload' })],
     );
+    assert.ok(unrelated.rows[0]);
+    assert.equal(await cancelJob(a, unrelated.rows[0].id), false, 'test-only cancel cannot touch other jobs');
     assert.equal(await claimNextJob(a), null, 'unreviewed manifest cannot execute');
     const id = await enqueueSyntheticJob(a, created.version.id, { durationMs: 200 });
     await a.pool.query('UPDATE video_projects SET deleted_at = NOW() WHERE id = $1::uuid', [
@@ -154,6 +156,14 @@ test('only synthetic jobs under active parents are reservable, invalid flags can
       await assert.rejects(enqueueSyntheticJob(a, created.version.id, { durationMs: 200 }));
     } finally {
       process.env.BDA_WORKER_SYNTHETIC_TEST = flag;
+    }
+    const url = process.env.DATABASE_URL;
+    assert.ok(url);
+    process.env.DATABASE_URL = url + '?host=untrusted.invalid';
+    try {
+      assert.throws(assertSyntheticTestDatabase, /non-isolated database/);
+    } finally {
+      process.env.DATABASE_URL = url;
     }
   } finally {
     await a.pool.end();
