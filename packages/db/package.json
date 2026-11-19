@@ -5,9 +5,25 @@
   "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "db:migrate": "tsx src/migrate.ts",
+    "db:seed": "tsx src/seed.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:check": "drizzle-kit check",
+    "test:integration": "tsx --test tests/db.integration.test.ts"
   },
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./schema": "./dist/schema.js"
+  },
+  "dependencies": {
+    "drizzle-orm": "0.45.4",
+    "pg": "8.16.3"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@types/pg": "8.15.5",
+    "drizzle-kit": "0.31.11",
+    "tsx": "4.21.0"
   }
 }

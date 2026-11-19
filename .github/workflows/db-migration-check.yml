@@ -1,0 +1,70 @@
+name: M02 023 PostgreSQL migrations integration
+
+on:
+  pull_request:
+    paths:
+      - 'packages/db/**'
+      - 'pnpm-lock.yaml'
+      - 'package.json'
+      - '.github/workflows/db-migration-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  postgres:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: bda_test
+          POSTGRES_PASSWORD: bda_test_only
+          POSTGRES_DB: bda_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U bda_test -d bda_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://bda_test:bda_test_only@localhost:5432/bda_test
+      BDA_DB_TEST: '1'
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Bootstrap install (final gate will require frozen lockfile)
+        run: pnpm install --no-frozen-lockfile
+      - name: TypeScript and workspace checks
+        run: |
+          pnpm test
+          pnpm typecheck
+          pnpm lint
+          pnpm format:check
+          pnpm build
+      - name: Fresh migration, idempotency, seed, soft-delete contract
+        run: pnpm --filter @bluedotatlas/db test:integration
+      - name: Archive CI-generated lockfile
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bda-023-pnpm-lockfile
+          path: pnpm-lock.yaml
+          retention-days: 7
+      - name: Lockfile transfer (temporary bootstrap only)
+        if: always()
+        run: |
+          echo BDA_LOCKFILE_START
+          base64 -w0 pnpm-lock.yaml
+          echo
+          echo BDA_LOCKFILE_END
