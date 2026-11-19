@@ -1,6 +1,6 @@
 # Rechte- und Nutzungsrisiken – Matrix V0.1
 
-**BlueDotAtlas · Roadmap 014 · Entwurf zur Nutzerabnahme**  
+**BlueDotAtlas · Roadmap 014 · vom Betreiber am 19.11.2026 (UTC) freigegeben (DEC-030)**  
 **Quelle:** [Master Roadmap V0.1, S. 5](../project/BlueDotAtlas_Roadmap.pdf) · [Issue #31](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/31).  
 **Zweck:** Vor Nutzung von Quellen, Bildern, Videos, Musik, Karten, Daten und Stimmen Risiken erkennen und Entscheidungen nachvollziehbar festhalten. **Kein Rechtsgutachten und keine pauschale Freigabe einzelner Anbieter.**
 
@@ -63,6 +63,6 @@ Ein einzelner Nachweis pro fremdem Asset / Quelle genügt als Beginn; zusätzlic
 - [x] Ungeklärte oder ausgeschlossene Nutzungsrechte als harte **BLOCKER** festgelegt.
 - [x] „Gratis / öffentlich / herunterladbar“ ausdrücklich **nicht** mit Nutzungsfreigabe gleichgesetzt.
 - [x] Einheitlicher minimaler Nachweis und Status je konkreter Nutzung beschrieben.
-- [ ] **Inhaltliche Nutzerfreigabe** und anschließender PR-Merge / Issue-Abschluss.
+- [x] **Inhaltliche Nutzerfreigabe** erteilt („Ok“ auf die konkrete Abnahmefrage, 19.11.2026 UTC); formaler PR-Merge / Issue-Abschluss folgt.
 
 **Hinweis:** Dies sind interne Produktions- und Prüfrichtlinien; bei schwierigen Einzelfällen oder strittigen Rechten muss eine geeignete fachliche Rechtsprüfung erfolgen.
