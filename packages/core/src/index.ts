@@ -25,3 +25,11 @@ export type {
   ApprovalStatus,
   ArtifactRightsStatus,
 } from './status.js';
+
+export {
+  ApiValidationError,
+  parseApiUuid,
+  parseApiListQuery,
+  parseApiCreateProject,
+} from './api-v1.js';
+export type { ApiCollection, ApiListQuery } from './api-v1.js';
