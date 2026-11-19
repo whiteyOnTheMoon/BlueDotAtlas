@@ -1,6 +1,6 @@
 # Anbieterregister V0.1 – Roadmap 015
 
-**BlueDotAtlas · Prüftag: 18.11.2026 (UTC) · Status: Entwurf zur Abnahme.**  
+**BlueDotAtlas · Prüftag: 18.11.2026 (UTC) · Status: Vom Betreiber am 19.11.2026 (UTC) ausdrücklich freigegeben (DEC-031).**  
 **Quelle:** [Master Roadmap V0.1, S. 5](../project/BlueDotAtlas_Roadmap.pdf) · [Issue #32](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/32).  
 **Erweiterung durch den Betreiber:** **Unsplash** für Fotos ausdrücklich ergänzen.
 
@@ -53,6 +53,6 @@
 - [x] NASA, NOAA, USGS, ESA/Copernicus, Pixabay, Pexels, Wikimedia, **Unsplash**, Remotion und zwei TTS-Kandidaten getrennt erfasst.
 - [x] Fehlende oder eingeschränkte API-Zugänge/Kosten sichtbar gemacht, keine automatische Aktivierung/Provider-Zusage.
 - [x] Wichtige Nutzungsregeln einschließlich Unsplash-Lizenz **vs. API-Anforderungen**, ESA, Copernicus-Datentrennung und Pexels-API-Pause dokumentiert.
-- [ ] **Inhaltliche Nutzerabnahme** und danach PR-Merge/Issue-Abschluss.
+- [x] **Inhaltliche Nutzerabnahme** am 19.11.2026 (UTC) durch „Ok“ auf die konkrete Freigabefrage erteilt; PR-Merge und Issue-Abschluss dokumentiert.
 
 **Wichtige Folgeaufgaben:** [014 Rechte](../legal/rights-matrix.md), **016 Budget und Freigabegrenzen**, 035–036 Pilot/Einzelasset-Rechte, M06/M08 für echte Quellen-/Mediendienste. Verfügbarkeit oder Bedingungen können sich vor Implementierung ändern; vor echter Aktivierung einen kurzen gezielten Recheck durchführen.
