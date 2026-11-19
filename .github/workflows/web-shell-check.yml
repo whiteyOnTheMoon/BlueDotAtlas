@@ -42,6 +42,34 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
       - name: Screenshot and routing smoke
         run: node scripts/check-app-shell.mjs
+      - name: Verify production preview is not available
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --filter @bluedotatlas/web start --hostname 127.0.0.1 --port 3110 > /tmp/bda-022-prod.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          ready=0
+          for attempt in $(seq 1 50); do
+            status="$(curl --silent --output /dev/null --write-out '%{http_code}' http://127.0.0.1:3110/ || true)"
+            if [ "$status" = "200" ]; then
+              ready=1
+              break
+            fi
+            sleep 1
+          done
+          if [ "$ready" -ne 1 ]; then
+            cat /tmp/bda-022-prod.log
+            echo "Production app did not start"
+            exit 1
+          fi
+          preview="$(curl --silent --output /dev/null --write-out '%{http_code}' http://127.0.0.1:3110/preview/admin)"
+          admin="$(curl --silent --output /dev/null --write-out '%{http_code}' http://127.0.0.1:3110/admin)"
+          login="$(curl --silent --output /dev/null --write-out '%{http_code}' http://127.0.0.1:3110/admin/login)"
+          echo "Production status /preview/admin=$preview, /admin=$admin, /admin/login=$login"
+          [ "$preview" = "404" ]
+          [ "$admin" = "307" ] || [ "$admin" = "308" ]
+          [ "$login" = "200" ]
       - name: Save real browser QA screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -49,4 +77,5 @@ jobs:
           name: web-shell-022-screenshots
           path: .tmp-web-shell-qa/
           retention-days: 14
-          if-no-files-found: warn
+          if-no-files-found: error
+          include-hidden-files: true
