@@ -1,0 +1,10 @@
+# Preserve M00-approved design tokens and existing branded artifacts.
+packages/ui/tokens/*.ts
+assets/
+design/
+docs/
+node_modules/
+dist/
+.next/
+coverage/
+pnpm-lock.yaml
