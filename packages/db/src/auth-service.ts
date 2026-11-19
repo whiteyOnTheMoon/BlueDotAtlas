@@ -88,6 +88,13 @@ export async function loginAdmin(email: string, password: string) {
 /** Every protected page/API checks a nonrevoked, unexpired database session. */
 export async function hasAdminSession(token: string | undefined): Promise<boolean> {
   if (!token || !/^[a-zA-Z0-9_-]{43}$/.test(token)) return false;
+  // Revoking the configured administrator must never leave old cookies authorized.
+  // A valid database session alone is insufficient when auth is unconfigured.
+  try {
+    configuredAdmin();
+  } catch {
+    return false;
+  }
   const connection = openDatabase();
   try {
     const [row] = await connection.db
