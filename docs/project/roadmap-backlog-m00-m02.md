@@ -1,8 +1,8 @@
 # BlueDotAtlas – GitHub-Issue-Backlog M00–M02
 
-**Grundlage:** [Originaltext der Master Roadmap V0.1 (28 Seiten)](master-roadmap-v01-text.md), Betreiber-PDF vom 13.11.2026. GitHub-Issue-Nummern (**#...**) sind nicht die stabilen Roadmap-Nummern (**001–158**).
+**Grundlage:** [Original-PDF der Master Roadmap V0.1 (28 Seiten)](BlueDotAtlas_Roadmap.pdf) und [vollständige Textfassung](master-roadmap-v01-text.md), Betreiber-PDF vom 13.11.2026. GitHub-Issue-Nummern (**#...**) sind nicht die stabilen Roadmap-Nummern (**001–158**).
 
-**Status:** Aufgaben 001–013 laut bisherigen Projektfreigaben abgeschlossen; Aufgaben 014–034 als Backlog angelegt. Ein Meilenstein ist erst nach seinem Gate abgeschlossen. Der GitHub-Upload der originalen PDF-Binärdatei ist separat noch auszuführen; bis dahin liegt hier der vollständig ausgelesene Text.
+**Status:** Aufgaben 001–013 laut bisherigen Projektfreigaben abgeschlossen; Aufgaben 014–034 als Backlog angelegt. Ein Meilenstein ist erst nach seinem Gate abgeschlossen. Die [Original-PDF](BlueDotAtlas_Roadmap.pdf) ist auf `main` archiviert und per Git-Blob-SHA mit dem Betreiber-Original identisch; die Textfassung ist ergänzend durchsuchbar.
 
 ## M00 – Marke, Gestaltung und filmische Identität (001–009)
 
