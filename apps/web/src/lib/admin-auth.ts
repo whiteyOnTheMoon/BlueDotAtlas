@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { hasAdminSession } from '@bluedotatlas/db';
+import { hasAdminSession } from '@bluedotatlas/db/auth';
 import type { NextRequest } from 'next/server';
 
 /** Production requires HTTPS to receive __Host- cookie; no insecure fallback. */

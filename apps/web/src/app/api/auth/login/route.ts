@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { loginAdmin, ADMIN_SESSION_SECONDS } from '@bluedotatlas/db';
+import { loginAdmin, ADMIN_SESSION_SECONDS } from '@bluedotatlas/db/auth';
 import { adminCookieName, sameOrigin } from '../../../../lib/admin-auth';
 
 export const runtime = 'nodejs';

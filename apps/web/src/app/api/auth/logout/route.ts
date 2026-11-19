@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { revokeAdminSession } from '@bluedotatlas/db';
+import { revokeAdminSession } from '@bluedotatlas/db/auth';
 import { adminCookieName, sameOrigin } from '../../../../lib/admin-auth';
 
 export const runtime = 'nodejs';
