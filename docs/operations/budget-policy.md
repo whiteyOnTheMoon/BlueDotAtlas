@@ -1,6 +1,6 @@
 # Kostenbudget und Freigabegrenzen V0.1
 
-**BlueDotAtlas · Roadmap 016 · Entwurf zur Abnahme**  
+**BlueDotAtlas · Roadmap 016 · vom Betreiber freigegeben (DEC-032)**  
 **Budgetvorgabe des Betreibers (18.11.2026):** KI und TTS **zusammen bis zu 25 € pro Monat**; zusätzliche APIs vorerst **kostenlos**, RSS bevorzugt. VPS, Domains und bestehende Infrastruktur sind bereits vorhanden.
 
 ## 1. Verbindlicher Kostenrahmen
@@ -66,6 +66,6 @@ Die Summenansicht zeigt: **KI+TTS gesamt**, gebundene monatliche Gebühren, bere
 - [x] Andere APIs **0 € Zusatzkosten**, bevorzugt RSS und Free-Tiers.
 - [x] Bestehender VPS und Domains **nicht** als neue Zusatzkosten gerechnet.
 - [x] Einzelfreigabe für konkrete kostenpflichtige Provider, Vermeidung von Auto-Overages, Warn- und Stoppschwellen beschrieben.
-- [ ] **Betreiber bestätigt die vollständige Budgetrichtlinie inklusive vorgeschlagener Warnschwellen**; PR wird danach gemergt, Issue geschlossen und Entscheidungsprotokoll aktualisiert.
+- [x] **Betreiber hat die vollständige Budgetrichtlinie einschließlich Warn- und Stoppschwellen** mit „Ok“ am 19.11.2026 (UTC) ausdrücklich freigegeben (DEC-032). PR-Merge und Issue-Abschluss folgen im selben Abnahmeschritt.
 
 **Abgrenzung:** Dieser Task legt die **Policy** fest, keine Bezahlanbindung, keine Billing-API, keinen Kostenservice und keine automatisch erzwungenen Limits. Technische Umsetzung folgt in späteren Provider-/Worker-/Monitoring-Aufgaben.
