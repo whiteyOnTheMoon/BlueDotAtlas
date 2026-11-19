@@ -1,7 +1,7 @@
 import { randomBytes, scrypt, timingSafeEqual } from 'node:crypto';
 
-const COST = 16384;
-const PARALLELISM = 1;
+const COST = 32768;
+const PARALLELISM = 3;
 const BLOCK_SIZE = 8;
 const HASH_BYTES = 64;
 const MAX_MEMORY_BYTES = 64 * 1024 * 1024;
@@ -32,7 +32,7 @@ export async function generatePasswordHash(password: string): Promise<string> {
 export async function verifyPassword(password: string, encodedHash: string): Promise<boolean> {
   if (
     password.length > 256 ||
-    !/^scrypt\$16384\$8\$1\$[\da-f]{32}\$[\da-f]{128}$/i.test(encodedHash)
+    !/^scrypt\$32768\$8\$3\$[\da-f]{32}\$[\da-f]{128}$/i.test(encodedHash)
   ) {
     return false;
   }

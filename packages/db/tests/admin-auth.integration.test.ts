@@ -28,7 +28,7 @@ if (
 test('scrypt hashes never expose passwords; sessions have TTL, revocation and durable lockout', async () => {
   const password = 'Synthetic-test-password-025!';
   const encoded = await generatePasswordHash(password);
-  assert.match(encoded, /^scrypt\$16384\$8\$1\$/);
+  assert.match(encoded, /^scrypt\$32768\$8\$3\$/);
   assert.ok(!encoded.includes(password));
   assert.equal(await verifyPassword(password, encoded), true);
   assert.equal(await verifyPassword('Synthetic-test-password-WRONG', encoded), false);

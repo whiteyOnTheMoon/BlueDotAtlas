@@ -19,7 +19,7 @@ export class AdminAuthUnavailable extends Error {
 function configuredAdmin() {
   const email = process.env.BDA_ADMIN_EMAIL;
   const hash = process.env.BDA_ADMIN_PASSWORD_HASH;
-  if (!email || !hash || !/^scrypt\$16384\$8\$1\$[\da-f]{32}\$[\da-f]{128}$/i.test(hash)) {
+  if (!email || !hash || !/^scrypt\$32768\$8\$3\$[\da-f]{32}\$[\da-f]{128}$/i.test(hash)) {
     throw new AdminAuthUnavailable();
   }
   return { email: email.trim().toLowerCase(), hash };

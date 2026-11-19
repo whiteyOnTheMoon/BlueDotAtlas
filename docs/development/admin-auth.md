@@ -4,7 +4,7 @@
 
 ## Architektur
 
-Nur **ein** konfiguriertes Admin-Konto `BDA_ADMIN_EMAIL` + `BDA_ADMIN_PASSWORD_HASH`. Kein Registrieren, kein Account-Reset, kein OAuth, keine Nutzerverwaltung. Der gespeicherte Hash verwendet salzgebundenes, speicherhartes **scrypt** mit `N=16384, r=8, p=1`, 16-Byte-Zufallssalt, 64-Byte-Ableitung und konstantzeitlicher Prüfung. Ein Passwort ist mindestens 12 und höchstens 256 Zeichen lang. Es wird niemals gespeichert oder protokolliert.
+Nur **ein** konfiguriertes Admin-Konto `BDA_ADMIN_EMAIL` + `BDA_ADMIN_PASSWORD_HASH`. Kein Registrieren, kein Account-Reset, kein OAuth, keine Nutzerverwaltung. Der gespeicherte Hash verwendet salzgebundenes, speicherhartes **scrypt** mit `N=32768, r=8, p=3`, 16-Byte-Zufallssalt, 64-Byte-Ableitung und konstantzeitlicher Prüfung. Ein Passwort ist mindestens 12 und höchstens 256 Zeichen lang. Es wird niemals gespeichert oder protokolliert.
 
 Eine erfolgreiche Authentifizierung erstellt ein 32-Byte-kryptografisches Zufallstoken. **Nur sein SHA-256-Hash** wird in der PostgreSQL-Tabelle `admin_sessions` gespeichert, mit Ablauf nach **12 Stunden** und optionaler sofortiger `revoked_at`-Sperre. Bei jedem Aufruf von `/admin` und `/api/admin/session` wird der Cookie gegen die Datenbank geprüft. Der Next-Proxy ist nur ein erster Filter und **nie der einzige Schutz**. Fehlendes oder unerreichbares PostgreSQL führt zur Zugriffsverweigerung.
 
@@ -39,3 +39,5 @@ Eine **wegwerfbare** PostgreSQL-Service-DB `localhost/bda_test` und nur syntheti
 Noch keine reale Admin-URL, kein TLS-Reverse-Proxy, kein Secret-Manager und kein produktiver DB-Deploy. Aufgaben 029–030 konfigurieren HTTPS, Secret-Rotation und Zugangsschutz. Aufgabe 034 prüft Restore. M02 ist bis dahin nicht produktiv abgenommen.
 
 **Origin-Gate:** Mutation per Form-POST wird nur bei exakt passendem Browser-`Origin` und `Host` akzeptiert. Im Produktionsmodus ist HTTPS für nicht lokale Hostnamen obligatorisch. Der vorangestellte Reverse Proxy muss die erlaubten Hostnamen/TLS korrekt erzwingen (029), nicht nur Header blind durchreichen. Passwortverifikation erfolgt nach persistenter Sperrprüfung unter Kontosperre, um CPU-Last durch parallele Login-Versuche zu begrenzen.
+
+**Parameterbegründung:** Die [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) nennt scrypt **N=2^15, r=8, p=3** als gleichwertige Konfiguration zu N=2^17, r=8, p=1 mit kleinerem (ca. 32 MiB) RAM-Peak pro Verifikation. Die Verifikation läuft erst nach dem DB-Lockout-Check unter einer PostgreSQL-Kontosperre; der gemeinsame VPS erfordert vor Produktivbetrieb gesonderte Lastgrenzen und IP-Drosselung (029–030).
