@@ -2,7 +2,7 @@
 
 > **Quelle:** [Master Roadmap V0.1 (PDF)](BlueDotAtlas_Roadmap.pdf) · [Vollständiger Textspiegel](master-roadmap-v01-text.md) · **158 Aufgaben / 14 Meilensteine / 158 einzigartige GitHub-Issues**, Abgleich am 19.11.2026 (UTC).
 
-**Status:** Roadmap-Aufgaben **001–020 abgeschlossen** (Betreiberfreigaben), **021–158 im Backlog**. Der Aufgaben- und Meilensteinimport ist vollständig, **nicht** die inhaltliche Umsetzung der späteren Aufgaben. **Der Aufgabenimport ist abgeschlossen, nicht die Umsetzung.** GitHub-Issue-Nummern sind nicht gleich Roadmap-Nummern.
+**Statusstand 19.11.2026 (UTC):** Roadmap-Aufgaben **001–028 abgeschlossen** (Issue-/PR-Abnahmen), **029 in Bearbeitung**, **030–158 im Backlog**. **Kein produktives M02-Gesamtgate**. Der Aufgaben- und Meilensteinimport ist vollständig, **nicht** die inhaltliche Umsetzung der späteren Aufgaben. **Der Aufgabenimport ist abgeschlossen, nicht die Umsetzung.** GitHub-Issue-Nummern sind nicht gleich Roadmap-Nummern.
 
 **Native GitHub-Meilensteine sind eingerichtet:** Nach ausdrücklicher Betreiberfreigabe von [PR #183](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/183) wurden **M00–M13 als 14 native Meilensteine** angelegt. [GitHub Actions #44441286199](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44441286199) meldete: `PASS: 14 native GitHub milestones exist, all 158/158 Issues assigned.` Der Workflow prüfte die Zuordnungen **erneut per GitHub-API** (DEC-035). Das [Manifest](roadmap-milestones-v01.json) bewahrt die Quelle.
 
@@ -48,15 +48,15 @@
 
 | Roadmap-ID | Original-Aufgabe | GitHub-Issue | Umsetzungsstatus |
 | --- | --- | --- | --- |
-| **021** | Monorepo und Basistooling initialisieren | [#38](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/38) | Backlog |
-| **022** | Next.js-Anwendung und App-Shell einrichten | [#39](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/39) | Backlog |
-| **023** | PostgreSQL und ORM mit Migrationen starten | [#40](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/40) | Backlog |
-| **024** | Projekt- und Video-Datenmodell erstellen | [#41](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/41) | Backlog |
-| **025** | Admin-Authentifizierung implementieren | [#42](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/42) | Backlog |
-| **026** | API-Routen und Eingabevalidierung schaffen | [#43](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/43) | Backlog |
-| **027** | Jobqueue und Renderworker als eigenen Prozess anlegen | [#44](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/44) | Backlog |
-| **028** | Persistenten lokalen Dateispeicher strukturieren | [#45](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/45) | Backlog |
-| **029** | Docker Compose und Reverse Proxy einrichten | [#46](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/46) | Backlog |
+| **021** | Monorepo und Basistooling initialisieren | [#38](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/38) | Abgenommen / Issue geschlossen |
+| **022** | Next.js-Anwendung und App-Shell einrichten | [#39](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/39) | Abgenommen / Issue geschlossen |
+| **023** | PostgreSQL und ORM mit Migrationen starten | [#40](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/40) | Abgenommen / Issue geschlossen |
+| **024** | Projekt- und Video-Datenmodell erstellen | [#41](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/41) | Abgenommen / Issue geschlossen |
+| **025** | Admin-Authentifizierung implementieren | [#42](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/42) | Abgenommen / Issue geschlossen |
+| **026** | API-Routen und Eingabevalidierung schaffen | [#43](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/43) | Abgenommen / Issue geschlossen |
+| **027** | Jobqueue und Renderworker als eigenen Prozess anlegen | [#44](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/44) | Abgenommen / Issue geschlossen |
+| **028** | Persistenten lokalen Dateispeicher strukturieren | [#45](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/45) | Abgenommen / Issue geschlossen |
+| **029** | Docker Compose und Reverse Proxy einrichten | [#46](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/46) | In Bearbeitung; kein Live-Deploy |
 | **030** | Secrets und Konfigurationsverwaltung absichern | [#47](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/47) | Backlog |
 | **031** | Projekt-CRUD im Dashboard anbieten | [#48](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/48) | Backlog |
 | **032** | Persistente Wizard-Zustände und Autosave vorbereiten | [#49](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/49) | Backlog |

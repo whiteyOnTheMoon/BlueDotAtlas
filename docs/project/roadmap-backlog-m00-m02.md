@@ -2,7 +2,7 @@
 
 **Grundlage:** [Original-PDF der Master Roadmap V0.1 (28 Seiten)](BlueDotAtlas_Roadmap.pdf) und [vollständige Textfassung](master-roadmap-v01-text.md), Betreiber-PDF vom 13.11.2026. GitHub-Issue-Nummern (**#...**) sind nicht die stabilen Roadmap-Nummern (**001–158**).
 
-**Status:** Aufgaben **001–020 abgeschlossen**, Aufgaben **021–034 im Backlog**. **Alle Aufgaben 001–158 sind inzwischen als Issues vorhanden**; die vollständige Liste und die M00–M13-Gates stehen im [kompletten Roadmap-Index](roadmap-backlog-m00-m13.md). Ein Meilenstein ist erst nach seinem Gate abgeschlossen. Die [Original-PDF](BlueDotAtlas_Roadmap.pdf) ist auf `main` archiviert und per Git-Blob-SHA mit dem Betreiber-Original identisch; die Textfassung ist ergänzend durchsuchbar.
+**Statusstand 19.11.2026 (UTC):** Aufgaben **001–028 abgeschlossen**, **029 in Bearbeitung**, **030–034 offen**. Dies beschreibt GitHub-Issue-/PR-Abnahmen, **keinen** produktiven M02-Gesamtgate-Erfolg. **Alle Aufgaben 001–158 sind inzwischen als Issues vorhanden**; die vollständige Liste und die M00–M13-Gates stehen im [kompletten Roadmap-Index](roadmap-backlog-m00-m13.md). Ein Meilenstein ist erst nach seinem Gate abgeschlossen. Die [Original-PDF](BlueDotAtlas_Roadmap.pdf) ist auf `main` archiviert und per Git-Blob-SHA mit dem Betreiber-Original identisch; die Textfassung ist ergänzend durchsuchbar.
 
 ## M00 – Marke, Gestaltung und filmische Identität (001–009)
 
@@ -44,15 +44,15 @@
 
 | Aufgabe | GitHub Issue | Status |
 | --- | --- | --- |
-| **021** | [Monorepo und Basistooling initialisieren (#38)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/38) | Offen |
-| **022** | [Next.js-Anwendung und App-Shell einrichten (#39)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/39) | Offen |
-| **023** | [PostgreSQL und ORM mit Migrationen starten (#40)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/40) | Offen |
-| **024** | [Projekt- und Video-Datenmodell erstellen (#41)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/41) | Offen |
-| **025** | [Admin-Authentifizierung implementieren (#42)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/42) | Offen |
-| **026** | [API-Routen und Eingabevalidierung schaffen (#43)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/43) | Offen |
-| **027** | [Jobqueue und Renderworker als eigenen Prozess anlegen (#44)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/44) | Offen |
-| **028** | [Persistenten lokalen Dateispeicher strukturieren (#45)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/45) | Offen |
-| **029** | [Docker Compose und Reverse Proxy einrichten (#46)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/46) | Offen |
+| **021** | [Monorepo und Basistooling initialisieren (#38)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/38) | Abgenommen; Issue geschlossen |
+| **022** | [Next.js-Anwendung und App-Shell einrichten (#39)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/39) | Abgenommen; Issue geschlossen |
+| **023** | [PostgreSQL und ORM mit Migrationen starten (#40)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/40) | Abgenommen; Issue geschlossen |
+| **024** | [Projekt- und Video-Datenmodell erstellen (#41)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/41) | Abgenommen; Issue geschlossen |
+| **025** | [Admin-Authentifizierung implementieren (#42)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/42) | Abgenommen; Issue geschlossen |
+| **026** | [API-Routen und Eingabevalidierung schaffen (#43)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/43) | Abgenommen; Issue geschlossen |
+| **027** | [Jobqueue und Renderworker als eigenen Prozess anlegen (#44)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/44) | Abgenommen; Issue geschlossen |
+| **028** | [Persistenten lokalen Dateispeicher strukturieren (#45)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/45) | Abgenommen; Issue geschlossen |
+| **029** | [Docker Compose und Reverse Proxy einrichten (#46)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/46) | In Bearbeitung; kein Live-Deploy |
 | **030** | [Secrets und Konfigurationsverwaltung absichern (#47)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/47) | Offen |
 | **031** | [Projekt-CRUD im Dashboard anbieten (#48)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/48) | Offen |
 | **032** | [Persistente Wizard-Zustände und Autosave vorbereiten (#49)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/49) | Offen |
