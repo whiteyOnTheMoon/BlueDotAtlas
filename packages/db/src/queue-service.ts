@@ -25,7 +25,14 @@ export function assertSyntheticTestDatabase() {
     throw new Error('Synthetic queue tests require explicit test-only environment flags');
   }
   const parsed = new URL(raw);
-  if (!['localhost', '127.0.0.1'].includes(parsed.hostname) || parsed.pathname !== '/bda_test') {
+  if (
+    !['postgresql:', 'postgres:'].includes(parsed.protocol) ||
+    parsed.username !== 'bda_test' ||
+    parsed.search !== '' ||
+    parsed.hash !== '' ||
+    !['localhost', '127.0.0.1'].includes(parsed.hostname) ||
+    parsed.pathname !== '/bda_test'
+  ) {
     throw new Error('Refusing synthetic worker operation on a non-isolated database');
   }
 }
