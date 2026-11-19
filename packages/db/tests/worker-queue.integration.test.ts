@@ -138,7 +138,11 @@ test('only synthetic jobs under active parents are reservable, invalid flags can
       [created.version.id, JSON.stringify({ kind: 'unreviewed_render', arbitrary: 'payload' })],
     );
     assert.ok(unrelated.rows[0]);
-    assert.equal(await cancelJob(a, unrelated.rows[0].id), false, 'test-only cancel cannot touch other jobs');
+    assert.equal(
+      await cancelJob(a, unrelated.rows[0].id),
+      false,
+      'test-only cancel cannot touch other jobs',
+    );
     assert.equal(await claimNextJob(a), null, 'unreviewed manifest cannot execute');
     const id = await enqueueSyntheticJob(a, created.version.id, { durationMs: 200 });
     await a.pool.query('UPDATE video_projects SET deleted_at = NOW() WHERE id = $1::uuid', [
