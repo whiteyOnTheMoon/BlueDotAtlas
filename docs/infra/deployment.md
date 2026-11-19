@@ -71,6 +71,10 @@ Optional nach privater Portwahl: `bash scripts/audit-deploy-029.sh <KANDIDATENPO
 
 **Nachweise der 029-Audit-Vorbereitung:** CI kontrolliert `bash -n` und `scripts/check-deploy-audit-029.mjs` als rein statische, privacy-bewusste Prüfung, **führt das VPS-Audit aber ausdrücklich nicht auf einem GitHub-Runner aus**.
 
+## CI-Regression: serielle Monorepo-TS-Builds
+
+Im unabhängigen `monorepo-bootstrap-check` am 19.11.2026 trat unter parallelem `pnpm -r build` sporadisch ein TypeScript-Fehler auf: Worker und Web starteten gleichzeitig erneute `packages/db`-Builds, sodass `packages/db/dist/queue.d.ts` kurzzeitig als **kein Modul** gelesen wurde (`TS2306`). Die isolierte 029-Compose-CI hatte denselben Quellstand parallel bereits erfolgreich gebaut. Das Root-`package.json` führt deshalb `pnpm build` und `pnpm typecheck` mit `--workspace-concurrency=1` aus. Damit werden verschachtelte Build-Skripte nicht gleichzeitig auf denselben TypeScript-Output losgelassen. Diese Änderung betrifft den CI-/Monorepo-Ablauf, **nicht** den VPS oder produktive Container und benötigt die Wiederholung sämtlicher betroffener Checks auf dem finalen PR-Head.
+
 ## Live-Gate vor jeder Änderung des VPS
 1. **Read-only inventarisieren:** aktuelle CPU/RAM/Swap/SSD/Inodes/I/O, Docker-/Volume-/Netz-Namen, veröffentlichte Ports, bestehendes Reverse-Proxy-/Cloudflare-Tunnel-Routing, TLS-Zertifikate und bestehende Datenbanken. Das GitHub-Repo allein belegt diese Details nicht.
 2. **Betreiber entscheidet separat:** exakte Cloudflare-Zone und gewünschter Hostname, **eigenes BlueDotAtlas-Tunnelobjekt ohne Eingriff in bestehende Tunnel**, interne Service-URL `http://web:3000` im BlueDotAtlas-Compose-Edge-Netz, Cloudflare-Zugangsschutz für den Admin, HTTPS-/Origin-/Host-/Forwarded-Header-/Cookie-Kette, Betreiber-/Service-UID, isolierte Volumes und zulässige Änderungsliste. **Keine öffentliche Portfreigabe nötig oder geplant**. Ein optionaler Host-Loopback-Port ist nur ein separater CI-/lokaler Testpfad und nicht automatisch aus einem bestehenden Tunnelcontainer erreichbar. Ohne echten TLS-/Auth-End-to-End-Test keine Adminfreigabe.
