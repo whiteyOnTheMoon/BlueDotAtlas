@@ -11,3 +11,6 @@ pnpm-lock.yaml
 
 # Next.js regenerates this managed file during type generation.
 apps/web/next-env.d.ts
+
+# Drizzle owns SQL and JSON snapshots; Prettier would cause false migration drift.
+packages/db/drizzle/

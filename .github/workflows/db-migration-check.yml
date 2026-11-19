@@ -43,12 +43,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Bootstrap dependency link (only during first 024 code generation)
-        run: pnpm install --no-frozen-lockfile
-      - name: Generate new versioned domain migration
-        run: |
-          pnpm --filter @bluedotatlas/core build
-          pnpm --filter @bluedotatlas/db db:generate
+      - name: Clean frozen install
+        run: pnpm install --frozen-lockfile
       - name: TypeScript and workspace checks
         run: |
           pnpm test
@@ -58,25 +54,17 @@ jobs:
           pnpm build
       - name: Fresh migration, idempotency, seed, soft-delete contract
         run: pnpm --filter @bluedotatlas/db test:integration
-      - name: Check generated migration syntax
-        run: pnpm --filter @bluedotatlas/db db:check
-      - name: Export generated SQL, snapshot and journal for review (temporary)
-        if: always()
-        shell: bash
+      - name: Check migration journal and snapshot have no drift
         run: |
-          set -euo pipefail
-          file="$(find packages/db/drizzle -maxdepth 1 -type f -name '0001_*.sql' -print -quit)"
-          test -n "$file"
-          echo BDA024_SQL_PATH="$file"
-          for kind in SQL SNAPSHOT JOURNAL LOCKFILE; do
-            case "$kind" in
-              SQL) file_to_print="$file" ;;
-              SNAPSHOT) file_to_print="packages/db/drizzle/meta/0001_snapshot.json" ;;
-              JOURNAL) file_to_print="packages/db/drizzle/meta/_journal.json" ;;
-              LOCKFILE) file_to_print="pnpm-lock.yaml" ;;
-            esac
-            echo "BDA024_${kind}_START"
-            base64 -w0 "$file_to_print"
-            echo
-            echo "BDA024_${kind}_END"
-          done
+          pnpm --filter @bluedotatlas/db db:check
+          pnpm --filter @bluedotatlas/db db:generate
+          if [ -n "$(git status --porcelain -- packages/db/drizzle)" ]; then
+            echo "Uncommitted schema migration or snapshot drift"
+            git status --short -- packages/db/drizzle
+            exit 1
+          fi
+      - name: Show formatter corrections for review
+        if: always()
+        run: |
+          pnpm exec prettier --write "apps/**/*.{ts,tsx,json}" "packages/**/*.{ts,tsx,json}" package.json tsconfig.base.json pnpm-workspace.yaml eslint.config.mjs .prettierrc.json
+          git diff -- packages/core packages/db package.json
