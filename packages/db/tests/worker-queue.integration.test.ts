@@ -50,7 +50,10 @@ test('migration 0003, exclusive concurrent SKIP LOCKED claim, heartbeat and succ
     assert.ok(await heartbeatJob(a, owner, 2000, 40));
     assert.equal((await inspect(a.pool, id)).progress_pct, 40);
     assert.ok((await inspect(a.pool, id)).heartbeat_at instanceof Date);
-    assert.equal(await succeedJob(b, { id, leaseToken: '00000000-0000-4000-8000-000000000001' }), false);
+    assert.equal(
+      await succeedJob(b, { id, leaseToken: '00000000-0000-4000-8000-000000000001' }),
+      false,
+    );
     assert.ok(await succeedJob(a, owner));
     assert.equal((await inspect(a.pool, id)).status, 'succeeded');
     assert.equal((await inspect(a.pool, id)).progress_pct, 100);
