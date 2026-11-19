@@ -7,6 +7,7 @@ on:
       - 'docs/infra/cloudflare-existing-tunnel-029.md'
       - 'README.md'
       - 'deploy/**'
+      - 'scripts/start-public-preview.sh'
       - '.dockerignore'
       - 'apps/web/next.config.ts'
       - 'scripts/check-compose-029*'
@@ -43,6 +44,7 @@ jobs:
       - name: Audit 029 safety review — syntax/static checks only, NO real host collection
         run: |
           bash -n scripts/audit-deploy-029.sh
+          bash -n scripts/start-public-preview.sh
           node scripts/check-deploy-audit-029.mjs
       - name: Isolated Compose settings, negative unit tests and runtime smoke
         env:
