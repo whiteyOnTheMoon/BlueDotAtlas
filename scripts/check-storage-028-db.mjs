@@ -11,7 +11,6 @@ import {
   videos,
 } from '../packages/db/dist/index.js';
 import { LocalStorage } from '../packages/storage/dist/index.js';
-import { eq } from 'drizzle-orm';
 
 const url = process.env.DATABASE_URL ? new URL(process.env.DATABASE_URL) : null;
 if (
@@ -29,6 +28,7 @@ if (
 
 const root = await mkdtemp(join(tmpdir(), 'bda-storage-028-'));
 const db = openDatabase();
+let originalDbClosed = false;
 try {
   await migrateDatabase(db);
   const storage = await LocalStorage.openIsolatedTestRoot(root);
@@ -79,26 +79,34 @@ try {
 
   // DB survives independent pool reconnect; referenced file survives independent storage reopen.
   await db.pool.end();
+  originalDbClosed = true;
   const reopenedDb = openDatabase();
   try {
-    const [persistedArtifact] = await reopenedDb.db
-      .select()
-      .from(artifacts)
-      .where(eq(artifacts.id, artifact.id));
-    const [persistedVideo] = await reopenedDb.db
-      .select()
-      .from(videos)
-      .where(eq(videos.id, video.id));
-    assert.equal(persistedVideo?.finalArtifactId, persistedArtifact?.id);
-    assert.equal(persistedArtifact?.storageKey, 'rendered/synthetic-final.mp4');
-    assert.equal(persistedVideo?.status, 'draft', 'No implicit publishing from file presence');
-    assert.equal(persistedArtifact?.rightsStatus, 'unreviewed', 'No implicit rights clearance');
+    const [artifactResult, videoResult] = await Promise.all([
+      reopenedDb.pool.query(
+        'SELECT id, storage_key, checksum_sha256, rights_status FROM artifacts WHERE id = $1::uuid',
+        [artifact.id],
+      ),
+      reopenedDb.pool.query(
+        'SELECT final_artifact_id, status, published_at FROM videos WHERE id = $1::uuid',
+        [video.id],
+      ),
+    ]);
+    const persistedArtifact = artifactResult.rows[0];
+    const persistedVideo = videoResult.rows[0];
+    assert.ok(persistedArtifact);
+    assert.ok(persistedVideo);
+    assert.equal(persistedVideo.final_artifact_id, persistedArtifact.id);
+    assert.equal(persistedArtifact.storage_key, 'rendered/synthetic-final.mp4');
+    assert.equal(persistedVideo.status, 'draft', 'No implicit publishing from file presence');
+    assert.equal(persistedVideo.published_at, null);
+    assert.equal(persistedArtifact.rights_status, 'unreviewed', 'No implicit rights clearance');
     const reopenedStorage = await LocalStorage.openIsolatedTestRoot(root);
-    const contents = await reopenedStorage.read(persistedArtifact.storageKey);
+    const contents = await reopenedStorage.read(persistedArtifact.storage_key);
     assert.deepEqual(contents, payload);
     assert.equal(
       createHash('sha256').update(contents).digest('hex'),
-      persistedArtifact.checksumSha256,
+      persistedArtifact.checksum_sha256,
     );
     assert.equal((await reopenedStorage.usage()).scratchBytes, 0);
     assert.equal((await reopenedStorage.usage()).mediaBytes, payload.byteLength);
@@ -110,6 +118,7 @@ try {
     await reopenedDb.pool.end();
   }
 } finally {
+  if (!originalDbClosed) await db.pool.end();
   // Only the CI-created isolated test root is removable. The library NEVER recursively removes roots.
   await rm(root, { recursive: true, force: true });
 }
