@@ -76,7 +76,10 @@ export async function runSyntheticWorker(options: { once?: boolean; signal?: Abo
           if (options.signal?.aborted) break;
           await delay(Math.min(HEARTBEAT_MS, manifest.durationMs - (Date.now() - started)));
           if (options.signal?.aborted) break;
-          const progress = Math.min(99, Math.floor(((Date.now() - started) * 100) / manifest.durationMs));
+          const progress = Math.min(
+            99,
+            Math.floor(((Date.now() - started) * 100) / manifest.durationMs),
+          );
           ownsLease = await heartbeatJob(connection, claim, LEASE_MS, progress);
           if (!ownsLease) break; // Cancel, expiration or takeover means no more writes.
         }
