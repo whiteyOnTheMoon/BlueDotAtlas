@@ -190,6 +190,9 @@ export async function createProjectRoute(request: NextRequest) {
   if (denied) return denied;
 
   if (!sameOrigin(request)) return problem(403, 'forbidden_origin', 'Same-origin request required');
+  if (request.nextUrl.searchParams.size) {
+    return problem(400, 'invalid_input', 'Mutation does not accept query parameters', 'query');
+  }
   if (!/^application\/json(?:\s*;|$)/i.test(request.headers.get('content-type') ?? '')) {
     return problem(415, 'unsupported_media_type', 'Content-Type application/json required');
   }
