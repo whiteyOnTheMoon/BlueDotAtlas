@@ -1,6 +1,6 @@
 # Roadmap 027 – PostgreSQL-Queue und separater synthetischer Worker
 
-**Status:** Umsetzung und CI-Prüfung im [Draft-PR #192](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/192); **ADR-003 ist ein Vorschlag**, keine Betreiberabnahme. [Issue #44](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/44). **Kein Livebetrieb, kein echter Video-Renderer.**
+**Status:** Umsetzung und CI-Prüfung im [PR #192](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/192); **ADR-003 ist ein Vorschlag**, keine Betreiberabnahme. [Issue #44](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/44). **Kein Livebetrieb, kein echter Video-Renderer.**
 
 ## Ziel und Architektur
 
