@@ -2,7 +2,6 @@ import { createHash, randomUUID } from 'node:crypto';
 import {
   constants,
   type Stats,
-  createReadStream,
 } from 'node:fs';
 import {
   link,
