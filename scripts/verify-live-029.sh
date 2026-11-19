@@ -62,7 +62,11 @@ for service in db web cloudflared; do
   memory="$(docker inspect -f '{{.HostConfig.Memory}}' "$cid")"
   network_mode="$(docker inspect -f '{{.HostConfig.NetworkMode}}' "$cid")"
   bindings="$(docker port "$cid")"
-  actual_networks="$(docker inspect -f '{{range $name, $_ := .NetworkSettings.Networks}}{{println $name}}{{end}}' "$cid" | sort)"
+  # docker inspect adds a trailing newline to a Go template that already uses
+  # {{println}}. Sorting raw output moves the empty line to the beginning and
+  # produces a false negative on correctly isolated containers.
+  # Ignore empty rows, but keep ALL nonempty network names (fail on extra nets).
+  actual_networks="$(docker inspect -f '{{range $name, $_ := .NetworkSettings.Networks}}{{println $name}}{{end}}' "$cid" | awk 'NF' | sort)"
   if [[ "$running" != "true" || "$restart_policy" != "unless-stopped" ]] ||
      [[ ! "$memory" =~ ^[0-9]+$ ]] || (( memory <= 0 || memory > memory_max )) ||
      [[ "$network_mode" == "host" || -n "$bindings" ]] ||

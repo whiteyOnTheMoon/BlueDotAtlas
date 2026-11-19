@@ -2,6 +2,7 @@
 // Do not run it on a CI runner: it is intended for the already running operator VPS.
 import { readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 
 const body = readFileSync(new URL('./verify-live-029.sh', import.meta.url), 'utf8');
 assert.ok(body.startsWith('#!/usr/bin/env bash\n'));
@@ -11,6 +12,28 @@ for (const phrase of [
   'https://studio.ap-pixels.com/', 'https://studio.ap-pixels.com/api/admin/session',
   'expected 401', 'exactly 3 BlueDotAtlas containers',
 ]) assert.ok(body.includes(phrase), 'Missing required 029 live verifier invariant: ' + phrase);
+
+// Regression: docker inspect -f with {{println}} emits an extra terminal newline.
+ // A raw 'sort' moves this empty row first; Bash strips only trailing newlines.
+ // Extract the actual normalization pipeline from the verifier, then test it
+ // against realistic docker inspect output with and without empty rows.
+const match = body.match(/actual_networks="\$\(docker inspect[^\n]*\| (awk 'NF' \| sort)\)"/);
+assert.ok(match, 'Live verifier must filter Docker template blank lines before sorting networks');
+function normalizedNetworks(input) {
+  const result = spawnSync('bash', ['-c', match[1]], { input, encoding: 'utf8' });
+  assert.equal(result.status, 0, result.stderr);
+  return result.stdout.replace(/\n$/, '');
+}
+assert.equal(normalizedNetworks('bluedotatlas_private_db\n\n'), 'bluedotatlas_private_db');
+assert.equal(normalizedNetworks('\nbluedotatlas_private_db\n\n'), 'bluedotatlas_private_db');
+assert.equal(
+  normalizedNetworks('bluedotatlas_private_db\nbluedotatlas_edge\n\n'),
+  'bluedotatlas_edge\nbluedotatlas_private_db',
+);
+assert.notEqual(
+  normalizedNetworks('bluedotatlas_private_db\nforeign_net\n\n'),
+  'bluedotatlas_private_db',
+);
 
 const executable = body.split('\n').filter(line => !/^\s*#/.test(line)).join('\n');
 for (const forbidden of [
