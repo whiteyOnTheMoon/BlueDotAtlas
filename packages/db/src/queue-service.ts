@@ -206,6 +206,7 @@ export async function recoverExpiredJobs({ pool }: ReturnTypeOfOpenDatabase): Pr
          available_at = NOW() + (POWER(2, LEAST(attempt - 1, 5)) * INTERVAL '250 milliseconds'),
          updated_at = NOW()
      WHERE status = 'running' AND lease_expires_at <= NOW()
+       AND manifest->>'kind' = 'synthetic_027'
      RETURNING id`,
   );
   return result.rowCount ?? 0;
@@ -217,6 +218,7 @@ export async function requeueDueJobs({ pool }: ReturnTypeOfOpenDatabase): Promis
     `UPDATE render_jobs
      SET status = 'queued', finished_at = NULL, updated_at = NOW()
      WHERE status = 'failed' AND attempt < max_attempts
+       AND manifest->>'kind' = 'synthetic_027'
        AND available_at <= NOW() AND deleted_at IS NULL
        AND EXISTS (
          SELECT 1 FROM project_versions AS v
@@ -236,6 +238,7 @@ export async function cancelJob({ pool }: ReturnTypeOfOpenDatabase, id: string):
      SET status = 'cancelled', lease_token = NULL, lease_expires_at = NULL,
          finished_at = NOW(), updated_at = NOW(), error_code = NULL
      WHERE id = $1::uuid AND status IN ('queued', 'running', 'failed')
+       AND manifest->>'kind' = 'synthetic_027'
      RETURNING id`,
     [id],
   );
