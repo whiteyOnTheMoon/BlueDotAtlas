@@ -25,8 +25,7 @@ export class ApiValidationError extends Error {
   }
 }
 
-const uuidPattern =
-  /^[\da-f]{8}-[\da-f]{4}-[1-8][\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}$/i;
+const uuidPattern = /^[\da-f]{8}-[\da-f]{4}-[1-8][\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}$/i;
 
 export function parseApiUuid(value: string): string {
   if (!uuidPattern.test(value)) throw new ApiValidationError('id');
