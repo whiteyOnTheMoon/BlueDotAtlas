@@ -26,8 +26,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install (initial bootstrap; freeze after lockfile update)
-        run: pnpm install --no-frozen-lockfile
+      - name: Clean install
+        run: pnpm install --frozen-lockfile
       - name: Unit tests
         run: pnpm test
       - name: Typecheck
@@ -50,22 +50,3 @@ jobs:
           path: .tmp-web-shell-qa/
           retention-days: 14
           if-no-files-found: warn
-      - name: Print formatter recommendations
-        if: always()
-        run: |
-          pnpm exec prettier --write "apps/**/*.{ts,tsx,json}" "packages/**/*.{ts,tsx,json}" package.json tsconfig.base.json pnpm-workspace.yaml eslint.config.mjs .prettierrc.json
-          git diff -- apps packages package.json
-      - name: Export lockfile for review
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: web-shell-022-lockfile
-          path: pnpm-lock.yaml
-          retention-days: 7
-      - name: Print generated lockfile base64 for first bootstrap
-        if: always()
-        run: |
-          echo BDA_LOCKFILE_START
-          base64 -w0 pnpm-lock.yaml
-          echo
-          echo BDA_LOCKFILE_END

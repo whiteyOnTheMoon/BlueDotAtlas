@@ -8,3 +8,6 @@ dist/
 .next/
 coverage/
 pnpm-lock.yaml
+
+# Next.js regenerates this managed file during type generation.
+apps/web/next-env.d.ts
