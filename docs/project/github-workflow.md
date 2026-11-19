@@ -1,6 +1,6 @@
 # GitHub-Arbeitsregeln V0.1 – Roadmap 018
 
-**BlueDotAtlas · Stand: 19.11.2026 (UTC) · Vorschlag zur Betreiberabnahme · [Issue #35](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/35)**  
+**BlueDotAtlas · Stand: 19.11.2026 (UTC) · vom Betreiber freigegeben (DEC-034) · [Issue #35](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/35)**  
 **Quelle:** [Master Roadmap V0.1](master-roadmap-v01-text.md), Aufgabe 018, S. 6. Diese Regeln ergänzen die bereits bestehende PR-Dokumentationsregel **DEC-022** und die Einzelabnahme für jede Roadmap-Aufgabe; die formale Definition of Ready/Done folgt in **020**.
 
 ## 1. Tatsächlich geprüfter GitHub-Zustand
@@ -8,7 +8,7 @@
 | Punkt | Ist-Zustand | Entscheidung / offener Schritt |
 | --- | --- | --- |
 | Repository | [`whiteyOnTheMoon/BlueDotAtlas`](https://github.com/whiteyOnTheMoon/BlueDotAtlas), Standardbranch `main` | Bereits vorhanden; kein neues Repo anlegen und bestehende Historie nicht ersetzen |
-| **Sichtbarkeit** | **PUBLIC / öffentlich**, API-Status am 19.11.2026 (UTC) geprüft | **Abweichung:** Roadmap fordert ein **privates** Repository. Sichtbarkeit bleibt **unverändert**, bis der Betreiber dies ausdrücklich bestätigt; die Änderung erfordert Repo-Adminaktion in GitHub |
+| **Sichtbarkeit** | **PUBLIC / öffentlich**, API-Status am 19.11.2026 (UTC) geprüft | **Bewusste Betreiberentscheidung (DEC-034):** Repo bleibt **PUBLIC**; die ursprüngliche Roadmap-Anforderung „privat“ wird für dieses Repository ausdrücklich übersteuert. Keine Umstellung auf Private geplant |
 | PR-Vorlage | `.github/pull_request_template.md` vorhanden; DEC-022-Checkliste und Abnahmetor existieren bereits | Vorhandene Vorlage ergänzen, **nicht** ersetzen |
 | Automatische Checks | Neun fachliche `.github/workflows/*`-Checks existieren für frühere Roadmap-Aufgaben | Bewahren; leichter PR-Metadatencheck wird ergänzt. Bestandsworkflows nicht blind als universelle CI bezeichnen |
 | CODEOWNERS / Issue-Vorlagen | Im geprüften `.github/`-Verzeichnis bisher nicht vorhanden | Owner- und Issue-Templates in diesem PR ergänzen |
@@ -16,7 +16,7 @@
 | GitHub Project Board | Über die verfügbare GitHub-Verbindung nicht anlegbar/verifizierbar | Board-Konfiguration unten dokumentieren; **nicht als erstellt behaupten** |
 | Labels und native Milestones | Neue Labels/Milestones lassen sich über die aktuell verfügbare Verbindung nicht erzeugen | Vorgeschlagene Label-Taxonomie dokumentieren; native Milestones/Backlog-Import gehören auch zu **019** |
 
-**Wichtig:** Die öffentliche GitHub-Sichtbarkeit betrifft auch Commit-Historie, hochgeladene Dateien und veröffentlichte Repository-Artefakte. Keine Secrets oder personenbezogenen Daten ins Repo schreiben, unabhängig vom Sichtbarkeitsstatus. Sichtbarkeitswechsel nach `private` ist eine **separate Betreiberentscheidung** und keine automatische Aktion dieser PR.
+**Wichtig:** Die öffentliche GitHub-Sichtbarkeit betrifft auch Commit-Historie, hochgeladene Dateien und veröffentlichte Repository-Artefakte. Keine Secrets oder personenbezogenen Daten ins Repo schreiben, unabhängig vom Sichtbarkeitsstatus. **Der Betreiber hat ausdrücklich festgelegt, dass BlueDotAtlas öffentlich bleibt (DEC-034).** Ein späterer Sichtbarkeitswechsel wäre ein neuer Beschluss.
 
 ## 2. Verbindlicher Minimalablauf
 
@@ -54,9 +54,9 @@
 
 ## 5. Manuelle GitHub-Einstellungen für den Betreiber
 
-**Nur nach Freigabe der gewünschten Sichtbarkeit und Zugriffsstruktur** in Repository **Settings** prüfen:
+**Repository bleibt öffentlich (DEC-034).** Unabhängig von der Sichtbarkeit in Repository **Settings** zu einem passenden Zeitpunkt prüfen:
 
-- `General → Danger Zone → Change repository visibility`: `Private`, wenn die ursprüngliche Roadmap-Vorgabe gelten soll. **Achtung:** Ein Umstellen auf privat macht zuvor außerhalb von GitHub kopierte Inhalte nicht rückwirkend unveröffentlicht.
+- **Keine Änderung der Sichtbarkeit:** `PUBLIC` ist für BlueDotAtlas bewusst genehmigt (DEC-034). Daher besonders konsequent keine Secrets, Zugangsdaten oder personenbezogenen Dateien committen.
 - `Settings → Rules → Rulesets` (oder `Branches`, je nach UI): `main` gegen unbeabsichtigte Direkt-Pushes und Force-Push/Delete schützen; PR vor Merge verlangen, passende GitHub-Actions-Checks als erforderliche Checks **erst nach erfolgreichem Test** auswählen.
 - Keine pauschale zwingende externe Approval-Anzahl setzen, wenn nur der eine Projekt-Owner verfügbar ist; menschliche Abnahme bleibt als Projektprozess zu dokumentieren.
 - `Issues → Labels`: vorgeschlagene Labels anlegen; `Projects`: Board erstellen und anschließend bestehende Issues übernehmen. Keine APIs für Repo-Verwaltung oder versteckte Ressourcen freigeben müssen, nur damit die Dokumentationsaufgabe 018 abgeschlossen werden kann.
@@ -67,9 +67,9 @@
 - [x] Branch-Namensgebung, `Issue vor Commit → Tests/Review → PR → explizite Abnahme → Merge` definiert.
 - [x] PR- und Issue-Vorlagen, CODEOWNERS sowie Metadatenprüfung vorbereitet.
 - [x] Typ-/Label-Konzept und Board-Struktur vorbereitet (nicht fälschlich als eingerichtet ausgegeben).
-- [x] Sensible Abweichung **öffentlich statt privat** offen dokumentiert; Änderung bleibt Betreiberentscheidung.
+- [x] Abweichung von der ursprünglichen „privat“-Vorgabe durch **ausdrücklichen Betreiberbeschluss für PUBLIC** geklärt (DEC-034).
 - [x] Automatischer PR-Check in [PR #58](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/58) einschließlich sechs Script-Unit-Tests und Abgleich gegen das echte GitHub-Issue **erfolgreich** ausgeführt ([GitHub Actions Run #44438253259](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44438253259)).
-- [ ] **Inhaltliche Betreiberabnahme**, anschließend Merge und Abschluss von Issue #35.
-- [ ] Gegebenenfalls Repo-Sichtbarkeit/Rulesets, Labels und Board in GitHub manuell nachziehen; diese GitHub-Adminaktionen sind **nicht** Teil eines stillschweigend erfolgten Datei-Merges.
+- [x] **Betreiber hat die GitHub-Arbeitsregeln genehmigt und PUBLIC ausdrücklich bestätigt** (19.11.2026 UTC, DEC-034). Merge und Issue-Abschluss folgen demselben Abnahmeschritt.
+- [ ] **Spätere separate GitHub-Adminaktionen:** geeignete Rulesets/Branch-Protection, Labels und Projektboard manuell einrichten. **Keine Sichtbarkeitsänderung nötig oder gewünscht.** Diese Einstellungen werden nicht als durch diesen PR erledigt ausgegeben.
 
-**Abnahmeumfang 018:** Dokumentierte und im Repository bereitgestellte Arbeitsregeln mit automatischer Roadmap-/Issue-Referenzprüfung. **Nicht behauptet:** das Repo sei bereits privat, eine Branch-Protection sei aktiv oder ein Projektboard/eine native Milestone-Struktur sei erstellt.
+**Abnahmeumfang 018:** Dokumentierte und im Repository bereitgestellte, freigegebene Arbeitsregeln mit erfolgreich getesteter Roadmap-/Issue-Referenzprüfung; das Repository bleibt bewusst **öffentlich**. **Nicht behauptet:** Branch-Protection, Projektboard, neue Labels oder native Milestones seien bereits technisch eingerichtet.
