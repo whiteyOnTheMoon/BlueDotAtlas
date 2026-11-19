@@ -68,7 +68,8 @@
 - [x] PR- und Issue-Vorlagen, CODEOWNERS sowie Metadatenprüfung vorbereitet.
 - [x] Typ-/Label-Konzept und Board-Struktur vorbereitet (nicht fälschlich als eingerichtet ausgegeben).
 - [x] Sensible Abweichung **öffentlich statt privat** offen dokumentiert; Änderung bleibt Betreiberentscheidung.
-- [ ] Automatischer PR-Check im neu geöffneten PR erfolgreich und **inhaltliche Betreiberabnahme** dokumentiert.
+- [x] Automatischer PR-Check in [PR #58](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/58) einschließlich sechs Script-Unit-Tests und Abgleich gegen das echte GitHub-Issue **erfolgreich** ausgeführt ([GitHub Actions Run #44438253259](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44438253259)).
+- [ ] **Inhaltliche Betreiberabnahme**, anschließend Merge und Abschluss von Issue #35.
 - [ ] Gegebenenfalls Repo-Sichtbarkeit/Rulesets, Labels und Board in GitHub manuell nachziehen; diese GitHub-Adminaktionen sind **nicht** Teil eines stillschweigend erfolgten Datei-Merges.
 
 **Abnahmeumfang 018:** Dokumentierte und im Repository bereitgestellte Arbeitsregeln mit automatischer Roadmap-/Issue-Referenzprüfung. **Nicht behauptet:** das Repo sei bereits privat, eine Branch-Protection sei aktiv oder ein Projektboard/eine native Milestone-Struktur sei erstellt.
