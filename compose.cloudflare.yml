@@ -1,6 +1,6 @@
 # Roadmap 029: optional Cloudflare Tunnel wiring for later separately approved deployment.
 # No tunnel/hostname/credentials are created by this file or by its CI validation.
-# Choose this overlay INSTEAD OF compose.029.loopback.yml: base has NO host ports.
+# Choose this overlay INSTEAD OF compose.loopback.yml: base has NO host ports.
 services:
   cloudflared:
     profiles: [future-tunnel]

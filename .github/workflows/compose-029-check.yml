@@ -3,7 +3,9 @@ name: M02 029 isolated Compose and Docker build review
 on:
   pull_request:
     paths:
-      - 'compose.029*.yml'
+      - 'compose*.yml'
+      - 'docs/infra/cloudflare-existing-tunnel-029.md'
+      - 'README.md'
       - 'deploy/**'
       - '.dockerignore'
       - 'apps/web/next.config.ts'
@@ -59,16 +61,16 @@ jobs:
           export BDA_WORKER_ENV_FILE="$RUNNER_TEMP/worker.env"
           export BDA_TUNNEL_TOKEN_FILE="$RUNNER_TEMP/tunnel.token"
           export BDA_CLOUDFLARED_IMAGE='cloudflare/cloudflared:ci-config-only-never-pull'
-          docker compose --profile future-renderer --profile maintenance -f compose.029.yml config --format json > "$RUNNER_TEMP/compose-base.json"
+          docker compose --profile future-renderer --profile maintenance -f compose.yml config --format json > "$RUNNER_TEMP/compose-base.json"
           node scripts/check-compose-029.mjs "$RUNNER_TEMP/compose-base.json" base
-          docker compose --profile future-renderer --profile maintenance -f compose.029.yml -f compose.029.loopback.yml config --format json > "$RUNNER_TEMP/compose-loopback.json"
+          docker compose --profile future-renderer --profile maintenance -f compose.yml -f compose.loopback.yml config --format json > "$RUNNER_TEMP/compose-loopback.json"
           node scripts/check-compose-029.mjs "$RUNNER_TEMP/compose-loopback.json" loopback
           # Config validation only: never start tunnel or reach Cloudflare.
-          docker compose --profile future-renderer --profile maintenance --profile future-tunnel -f compose.029.yml -f compose.029.cloudflare.yml config --format json > "$RUNNER_TEMP/compose-tunnel.json"
+          docker compose --profile future-renderer --profile maintenance --profile future-tunnel -f compose.yml -f compose.cloudflare.yml config --format json > "$RUNNER_TEMP/compose-tunnel.json"
           node scripts/check-compose-029.mjs "$RUNNER_TEMP/compose-tunnel.json" tunnel
-          docker compose -f compose.029.yml -f compose.029.loopback.yml build web
-          docker compose -f compose.029.yml -f compose.029.loopback.yml up -d --wait --wait-timeout 120 db web
-          docker compose -f compose.029.yml -f compose.029.loopback.yml ps
+          docker compose -f compose.yml -f compose.loopback.yml build web
+          docker compose -f compose.yml -f compose.loopback.yml up -d --wait --wait-timeout 120 db web
+          docker compose -f compose.yml -f compose.loopback.yml ps
           curl --retry 10 --retry-delay 2 --retry-connrefused --retry-all-errors --fail --silent --show-error http://127.0.0.1:18029/ > /dev/null
           if curl --silent --show-error --max-time 5 http://127.0.0.1:18029/api/admin/session | grep -qi '"authenticated":true'; then
             echo 'Unexpected authenticated anonymous session' >&2
@@ -83,8 +85,8 @@ jobs:
           export BDA_WEB_ENV_FILE="$RUNNER_TEMP/web.env"
           export BDA_WORKER_ENV_FILE="$RUNNER_TEMP/worker.env"
           if [ -f "$BDA_DB_ENV_FILE" ] && [ -f "$BDA_WEB_ENV_FILE" ] && [ -f "$BDA_WORKER_ENV_FILE" ]; then
-            docker compose -f compose.029.yml -f compose.029.loopback.yml ps || true
-            docker compose -f compose.029.yml -f compose.029.loopback.yml logs --no-color --tail=80 web db || true
+            docker compose -f compose.yml -f compose.loopback.yml ps || true
+            docker compose -f compose.yml -f compose.loopback.yml logs --no-color --tail=80 web db || true
           fi
       - name: Cleanup throwaway Compose project
         if: always()
@@ -95,5 +97,5 @@ jobs:
           export BDA_WEB_ENV_FILE="$RUNNER_TEMP/web.env"
           export BDA_WORKER_ENV_FILE="$RUNNER_TEMP/worker.env"
           if [ -f "$BDA_DB_ENV_FILE" ] && [ -f "$BDA_WEB_ENV_FILE" ] && [ -f "$BDA_WORKER_ENV_FILE" ]; then
-            docker compose -f compose.029.yml -f compose.029.loopback.yml down --remove-orphans --volumes || true
+            docker compose -f compose.yml -f compose.loopback.yml down --remove-orphans --volumes || true
           fi

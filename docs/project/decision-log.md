@@ -106,6 +106,12 @@
 - **OPEN-006:** PRD V0.1 mit siebenstufigem Einzeladmin-Wizard, manueller Veröffentlichung und MVP-/Später-/Ausschlussmatrix ausdrücklich freigegeben (DEC-026).
 - **OPEN-007:** Video-Abnahmematrix 18 Kriterien und 55–65s-Pilot-Toleranz ausdrücklich freigegeben (DEC-027).
 
+## Betreiberentscheidung DEC-041 – saubere VPS-Arbeitsweise für BlueDotAtlas (19.11.2026)
+
+| ID | Beschluss | Status | Herkunft | Auswirkung |
+| --- | --- | --- | --- | --- |
+| DEC-041 | **Nur ein dauerhaftes Projektverzeichnis `/home/ap/www/blueDotAtlas` und ein Compose-Projekt `bluedotatlas`; keine getrennten Staging-/Branch-/Issue-/Meilenstein-Klone oder zusätzlichen BlueDotAtlas-Installationen auf dem Shared-VPS.** Compose-Dateien `compose.yml`, `compose.cloudflare.yml`, `compose.loopback.yml`; Git-Branches im selben Checkout. Betreiber-Shellbefehle immer mit **runden Subshell-Klammern `(...)`** und expliziten Pfad-/Sicherheitsprüfungen. Andere VPS-Projekte, Tunnel und Datenbanken bleiben unangetastet; produktive Änderungen brauchen gesonderte spezifische Freigabe. | **Betreiber-Arbeitsregel entschieden**, aber **keine** produktive Deploy-/Secret-/Backup-/HTTPS-Freigabe | Betreiber am 19.11.2026: „Ich will im www Ordner meinen BlueDotAtlas Ordner“, „Genau im blueDotAtlas sollen wir arbeiten“, „Ich will ... nicht pro branch einen Ordner“ und „Bitte auch auf GitHub die Arbeitsweise am vps dokumentieren, am besten in der readme.“ Der frühere Staging-Klon wurde vom Betreiber entfernt; Git-Checkout im bestehenden Projektordner und **0 BlueDotAtlas-Container/-Volumes/-Netzwerke** bestätigt. | [README-VPS-Regeln](../../README.md#vps-arbeitsweise--verbindlicher-ein-projekt-standard-dec-041), [029-Betriebsrunbook](../infra/deployment.md), [Issue #46](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/46), [PR #194](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/194). |
+
 ## Dokumentationsregel
 
 1. Jede neue Nutzerentscheidung wird mit **Datum, ID, Beschluss, Begründung/Herkunft, Auswirkung und Status** dokumentiert.
