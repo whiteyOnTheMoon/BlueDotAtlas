@@ -106,6 +106,24 @@
 - **OPEN-006:** PRD V0.1 mit siebenstufigem Einzeladmin-Wizard, manueller Veröffentlichung und MVP-/Später-/Ausschlussmatrix ausdrücklich freigegeben (DEC-026).
 - **OPEN-007:** Video-Abnahmematrix 18 Kriterien und 55–65s-Pilot-Toleranz ausdrücklich freigegeben (DEC-027).
 
+## Betreiberentscheidung DEC-041 – saubere VPS-Arbeitsweise für BlueDotAtlas (19.11.2026)
+
+| ID | Beschluss | Status | Herkunft | Auswirkung |
+| --- | --- | --- | --- | --- |
+| DEC-041 | **Nur ein dauerhaftes Projektverzeichnis `/home/ap/www/blueDotAtlas` und ein Compose-Projekt `bluedotatlas`; keine getrennten Staging-/Branch-/Issue-/Meilenstein-Klone oder zusätzlichen BlueDotAtlas-Installationen auf dem Shared-VPS.** Compose-Dateien `compose.yml`, `compose.cloudflare.yml`, `compose.loopback.yml`; Git-Branches im selben Checkout. Betreiber-Shellbefehle immer mit **runden Subshell-Klammern `(...)`** und expliziten Pfad-/Sicherheitsprüfungen. Andere VPS-Projekte, Tunnel und Datenbanken bleiben unangetastet; produktive Änderungen brauchen gesonderte spezifische Freigabe. | **Betreiber-Arbeitsregel entschieden**, aber **keine** produktive Deploy-/Secret-/Backup-/HTTPS-Freigabe | Betreiber am 19.11.2026: „Ich will im www Ordner meinen BlueDotAtlas Ordner“, „Genau im blueDotAtlas sollen wir arbeiten“, „Ich will ... nicht pro branch einen Ordner“ und „Bitte auch auf GitHub die Arbeitsweise am vps dokumentieren, am besten in der readme.“ Der frühere Staging-Klon wurde vom Betreiber entfernt; Git-Checkout im bestehenden Projektordner und **0 BlueDotAtlas-Container/-Volumes/-Netzwerke** bestätigt. | [README-VPS-Regeln](../../README.md#vps-arbeitsweise--verbindlicher-ein-projekt-standard-dec-041), [029-Betriebsrunbook](../infra/deployment.md), [Issue #46](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/46), [PR #194](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/194). |
+
+## Betreiberentscheidung DEC-042 – öffentliche Startseite zuerst, kein Cloudflare Access (19.11.2026)
+
+| ID | Beschluss | Status | Herkunft | Auswirkung |
+| --- | --- | --- | --- | --- |
+| DEC-042 | Der Betreiber möchte die **öffentliche BlueDotAtlas-Startseite** über den bereits vorbereiteten Tunnel `studio.ap-pixels.com` **ohne Cloudflare-Access-Policies** schnell sichtbar machen. **Kein funktionsfähiger Adminbetrieb als Teil dieser Erstvorschau.** | **Öffentlicher Vorschauzugriff entschieden; VPS-/Secrets-/Migration-/Backup-Gates weiterhin offen.** | Betreiber: „Nein, lass die Cloudflare policies.. kann doch jeder sehen.. ich will endlich den Tunnel fertig machen damit ich die seize online sehen kann!“ (19.11.2026). | Nur `/` als öffentliche Ansicht; `BDA_ADMIN_EMAIL`/`BDA_ADMIN_PASSWORD_HASH` bleiben unset, somit Admin serverseitig fail-closed. Der Login-Bildschirm kann noch sichtbar sein; späterer echter Adminzugang benötigt anders geeigneten Schutz. Nochmaliger Tunnel-/DNS-Neuanlage vermeiden; GitHub PR #194, Issue #46. |
+
+## Betreiberentscheidung DEC-043 – Roadmap 029: öffentliche Vorschau abgenommen und Merge freigegeben (19.11.2026)
+
+| ID | Beschluss | Status | Herkunft | Auswirkung |
+| --- | --- | --- | --- | --- |
+| DEC-043 | Der Betreiber bestätigt ausdrücklich, dass die bei `check-host.net` auf TCP-Port `5432` getestete IPv4 **die tatsächliche öffentliche IP seines BlueDotAtlas-VPS aus dem Hosting-Panel** ist; er nimmt Roadmap 029 für die **öffentliche, nicht-adminfähige Web-/DB-/Cloudflare-Vorschau** einschließlich funktionierender HTTPS-Startseite und privater PostgreSQL-Queue-Isolation ab und genehmigt **Squash-Merge von PR #194 bei grüner finaler CI sowie Schließung von Issue #46**. | **Betreiberabnahme erteilt, GitHub-Integration an CI gebunden**. | Auf die explizite kombinierte Frage nach VPS-IP-Zuordnung und 029-Abnahme samt PR-Merge antwortete der Betreiber am 19.11.2026 mit **„Ja“**. Vorherige echte Live-Gates: `029 LIVE READ-ONLY CHECK: PASS`, `029 TUNNEL RECOVERY: PASS`, `029 WEB RECOVERY: PASS`, ungestörte Fremdcontainer im geprüften Zeitraum, kein TCP-5432-Hostlistener, mindestens fünf extern sichtbare `Connection timed out`-Messungen für Port `5432` auf der bestätigten VPS-IP. | **Scope nur öffentliche Erstvorschau:** Admin nicht konfiguriert (anonyme Session 401), produktiver Worker/Renderer deaktiviert (027 nur synthetisch), keine Live-Migration, kein Datenbank-/Host-Reboot und kein neuer Tunnel. Keine Veröffentlichung der eigentlichen Origin-IP/Secrets im Repo. Spätere Admin-/Secrets-/Backup-/Recovery-Gates bleiben eigenständig (030/034). 029-Abnahme behauptet keine dauerhafte Unangreifbarkeit und keinen Test jeder externen Netzroute. [Issue #46](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/46) · [PR #194](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/194) · [029-Betriebsrunbook](../infra/deployment.md). |
+
 ## Dokumentationsregel
 
 1. Jede neue Nutzerentscheidung wird mit **Datum, ID, Beschluss, Begründung/Herkunft, Auswirkung und Status** dokumentiert.

@@ -79,7 +79,9 @@ try {
     await page.locator('input[name="email"]').fill(email);
     await page.locator('input[name="password"]').fill('Bad-test-password-025');
     await page.getByRole('button', { name: 'Sign in' }).click();
-    await page.getByRole('alert').waitFor();
+    // Next.js also inserts an empty route announcer with role=alert.
+    // Select only the actual invalid-login message, never the route announcer.
+    await page.locator('p.auth-error[role="alert"]').waitFor();
     assert.ok(page.url().includes('/admin/login?error=invalid'));
 
     await page.locator('input[name="email"]').fill(email);

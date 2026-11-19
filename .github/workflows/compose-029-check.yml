@@ -1,0 +1,112 @@
+name: M02 029 isolated Compose and Docker build review
+
+on:
+  pull_request:
+    paths:
+      - 'compose*.yml'
+      - 'docs/infra/cloudflare-existing-tunnel-029.md'
+      - 'README.md'
+      - 'deploy/**'
+      - 'scripts/start-public-preview.sh'
+      - 'scripts/verify-live-029*'
+      - 'scripts/verify-web-recovery-029.sh'
+      - 'scripts/check-web-recovery-029.mjs'
+      - '.dockerignore'
+      - 'apps/web/next.config.ts'
+      - 'scripts/check-compose-029*'
+      - 'scripts/audit-deploy-029.sh'
+      - 'scripts/check-deploy-audit-029.mjs'
+      - 'docs/infra/deployment.md'
+      - '.github/workflows/compose-029-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compose-029:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Frozen pnpm, unit, type, lint, format, build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm test
+          pnpm typecheck
+          pnpm lint
+          pnpm format:check
+          pnpm build
+      - name: Audit 029 safety review — syntax/static checks only, NO real host collection
+        run: |
+          bash -n scripts/audit-deploy-029.sh
+          bash -n scripts/start-public-preview.sh
+          bash -n scripts/verify-live-029.sh
+          bash -n scripts/verify-web-recovery-029.sh
+          node scripts/check-web-recovery-029.mjs
+          node scripts/check-verify-live-029.mjs
+          node scripts/check-deploy-audit-029.mjs
+      - name: Isolated Compose settings, negative unit tests and runtime smoke
+        env:
+          BDA_BIND_PORT: '18029'
+        run: |
+          set -eu
+          node --test scripts/check-compose-029.test.mjs
+          printf '%s\n' 'POSTGRES_DB=bda_test' 'POSTGRES_USER=bda_test' 'POSTGRES_PASSWORD=bda_test_only' > "$RUNNER_TEMP/db.env"
+          printf '%s\n' 'NODE_ENV=production' 'DATABASE_URL=postgresql://bda_test:bda_test_only@db:5432/bda_test' 'APP_ORIGIN=http://127.0.0.1:18029' > "$RUNNER_TEMP/web.env"
+          printf '%s\n' 'BDA_DB_TEST=1' 'BDA_WORKER_SYNTHETIC_TEST=1' 'DATABASE_URL=postgresql://bda_test:bda_test_only@db:5432/bda_test' > "$RUNNER_TEMP/worker.env"
+          # Dummy value only — never launch or connect cloudflared in CI.
+          printf '%s\n' 'dummy-not-a-real-cloudflare-token' > "$RUNNER_TEMP/tunnel.token"
+          chmod 600 "$RUNNER_TEMP/db.env" "$RUNNER_TEMP/web.env" "$RUNNER_TEMP/worker.env" "$RUNNER_TEMP/tunnel.token"
+          export BDA_DB_ENV_FILE="$RUNNER_TEMP/db.env"
+          export BDA_WEB_ENV_FILE="$RUNNER_TEMP/web.env"
+          export BDA_WORKER_ENV_FILE="$RUNNER_TEMP/worker.env"
+          export BDA_TUNNEL_TOKEN_FILE="$RUNNER_TEMP/tunnel.token"
+          export BDA_TUNNEL_UID="$(id -u)"
+          export BDA_TUNNEL_GID="$(id -g)"
+          export BDA_CLOUDFLARED_IMAGE='cloudflare/cloudflared:ci-config-only-never-pull'
+          docker compose --profile future-renderer --profile maintenance -f compose.yml config --format json > "$RUNNER_TEMP/compose-base.json"
+          node scripts/check-compose-029.mjs "$RUNNER_TEMP/compose-base.json" base
+          docker compose --profile future-renderer --profile maintenance -f compose.yml -f compose.loopback.yml config --format json > "$RUNNER_TEMP/compose-loopback.json"
+          node scripts/check-compose-029.mjs "$RUNNER_TEMP/compose-loopback.json" loopback
+          # Config validation only: never start tunnel or reach Cloudflare.
+          docker compose --profile future-renderer --profile maintenance --profile future-tunnel -f compose.yml -f compose.cloudflare.yml config --format json > "$RUNNER_TEMP/compose-tunnel.json"
+          node scripts/check-compose-029.mjs "$RUNNER_TEMP/compose-tunnel.json" tunnel
+          docker compose -f compose.yml -f compose.loopback.yml build web
+          docker compose -f compose.yml -f compose.loopback.yml up -d --wait --wait-timeout 120 db web
+          docker compose -f compose.yml -f compose.loopback.yml ps
+          curl --retry 10 --retry-delay 2 --retry-connrefused --retry-all-errors --fail --silent --show-error http://127.0.0.1:18029/ > /dev/null
+          if curl --silent --show-error --max-time 5 http://127.0.0.1:18029/api/admin/session | grep -qi '"authenticated":true'; then
+            echo 'Unexpected authenticated anonymous session' >&2
+            exit 1
+          fi
+      - name: Diagnose synthetic CI containers after failure
+        if: failure()
+        env:
+          BDA_BIND_PORT: '18029'
+        run: |
+          export BDA_DB_ENV_FILE="$RUNNER_TEMP/db.env"
+          export BDA_WEB_ENV_FILE="$RUNNER_TEMP/web.env"
+          export BDA_WORKER_ENV_FILE="$RUNNER_TEMP/worker.env"
+          if [ -f "$BDA_DB_ENV_FILE" ] && [ -f "$BDA_WEB_ENV_FILE" ] && [ -f "$BDA_WORKER_ENV_FILE" ]; then
+            docker compose -f compose.yml -f compose.loopback.yml ps || true
+            docker compose -f compose.yml -f compose.loopback.yml logs --no-color --tail=80 web db || true
+          fi
+      - name: Cleanup throwaway Compose project
+        if: always()
+        env:
+          BDA_BIND_PORT: '18029'
+        run: |
+          export BDA_DB_ENV_FILE="$RUNNER_TEMP/db.env"
+          export BDA_WEB_ENV_FILE="$RUNNER_TEMP/web.env"
+          export BDA_WORKER_ENV_FILE="$RUNNER_TEMP/worker.env"
+          if [ -f "$BDA_DB_ENV_FILE" ] && [ -f "$BDA_WEB_ENV_FILE" ] && [ -f "$BDA_WORKER_ENV_FILE" ]; then
+            docker compose -f compose.yml -f compose.loopback.yml down --remove-orphans --volumes || true
+          fi
