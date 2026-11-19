@@ -1,0 +1,31 @@
+name: Roadmap 020 — working agreement quality check
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - 'docs/project/working-agreement.md'
+      - '.github/pull_request_template.md'
+      - 'docs/architecture/adr/**'
+      - 'scripts/check-working-agreement.mjs'
+      - 'scripts/check-working-agreement.test.mjs'
+      - '.github/workflows/working-agreement-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  working-agreement:
+    name: DoR/DoD and ADR contract tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Unit tests
+        run: node --test scripts/check-working-agreement.test.mjs
+      - name: Validate project policy records
+        run: node scripts/check-working-agreement.mjs

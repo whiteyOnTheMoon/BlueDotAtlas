@@ -19,6 +19,16 @@ Beschreibe kurz, was geändert wurde, warum und welche früheren Entscheidungen 
 - [ ] Medien-/Faktenrechte und Anbieterfreigaben eingehalten; keine kostenpflichtigen Dienste ohne konkreten Betreiberentscheid aktiviert.
 - [ ] Bestehende VPS-Services und persistente Volumes nicht ohne Auftrag verändert.
 
+## Definition of Ready / Done (Roadmap 020)
+- [ ] **Ready:** Inputs, Abhängigkeiten, Scope/Nicht-Ziele, erwartete Outputs, Prüfmethode und Blocker sind im Issue klar.
+- [ ] **Done – Ergebnis und Tests:** Akzeptanzkriterien umgesetzt; passende CI- und manuelle Tests mit Links/Commit dokumentiert.
+- [ ] **UI:** Falls die Oberfläche betroffen ist, echte Screenshots/Browser-Nachweise für relevante Größen und Zustände. Sonst: `n/a – keine UI-Änderung`.
+- [ ] **Medien/Fakten/Lizenzen:** Quellen- und Rechtebelege pro Asset, Stimme, Grafik und Nutzung; ungeprüfte Rechte blockieren Nutzung. Falls unbetroffen: begründetes `n/a`.
+- [ ] **Datenmigrationen:** Frische Testmigration, Wiederholung und Rollback/Restore nachgewiesen. Sonst: `n/a – keine Migration`.
+- [ ] **Architektur:** Neue dauerhafte Designentscheidung als ADR mit Alternativen, Auswirkungen und DEC-/PR-/Issue-Link dokumentiert. Sonst: `n/a – keine neue Architekturentscheidung`.
+- [ ] **Sicherheit und Kosten:** Bestehende VPS-/Datenbankdienste geschützt; keine bezahlten Anbieter ohne gesonderte Betreiberfreigabe.
+- [ ] **Review und Übergabe:** Geprüfter PR-Stand, offen erklärte Risiken, README/Decision-Log konsistent, Betreiberentscheidung **vor Merge**; Issue **erst nach Merge** schließen.
+
 ## Tests und Abnahme
 - [ ] Automatisierte Tests mit Link zum Run dokumentiert.
 - [ ] Erforderliche manuelle Kontrolle / Medien- oder Lizenzprüfung durchgeführt und belegt.
