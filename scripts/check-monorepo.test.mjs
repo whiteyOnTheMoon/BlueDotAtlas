@@ -11,6 +11,7 @@ const required = [
   ['packages/db', '@bluedotatlas/db'],
   ['packages/video', '@bluedotatlas/video'],
   ['packages/providers', '@bluedotatlas/providers'],
+  ['packages/storage', '@bluedotatlas/storage'],
   ['packages/ui', '@bluedotatlas/ui'],
 ];
 const fromRoot = (...parts) => join(root.pathname, ...parts);
