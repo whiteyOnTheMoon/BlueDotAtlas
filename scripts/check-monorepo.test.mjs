@@ -53,6 +53,8 @@ for (const [directory, name] of required) {
 test('env template contains no credentials', () => {
   const env = readFileSync(fromRoot('.env.example'), 'utf8');
   assert.match(env, /DATABASE_URL=/);
-  assert.match(env, /SESSION_SECRET=/);
+  // Roadmap 025 uses opaque, database-backed sessions: no global signing secret.
+  assert.doesNotMatch(env, /^SESSION_SECRET=/m);
+  assert.doesNotMatch(env, /^(?:BDA_ADMIN_EMAIL|BDA_ADMIN_PASSWORD_HASH)=/m);
   assert.doesNotMatch(env, /(?:SECRET|PASSWORD|TOKEN)=[^\r\n#]+/);
 });
