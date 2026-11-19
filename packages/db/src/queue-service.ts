@@ -58,8 +58,8 @@ export async function enqueueSyntheticJob(
   }
   const manifest = { kind: 'synthetic_027', durationMs, failUntilAttempt };
   const result = await pool.query<{ id: string }>(
-    \`INSERT INTO render_jobs (project_version_id, manifest, max_attempts)
-     VALUES ($1::uuid, $2::jsonb, $3::integer) RETURNING id\`,
+    `INSERT INTO render_jobs (project_version_id, manifest, max_attempts)
+     VALUES ($1::uuid, $2::jsonb, $3::integer) RETURNING id`,
     [projectVersionId, JSON.stringify(manifest), maxAttempts],
   );
   if (!result.rows[0]) throw new Error('Unable to create synthetic queue job');
@@ -76,7 +76,7 @@ export async function claimNextJob(
   try {
     await client.query('BEGIN');
     const selected = await client.query<{ id: string }>(
-      \`SELECT r.id
+      `SELECT r.id
        FROM render_jobs AS r
        JOIN project_versions AS v ON v.id = r.project_version_id
        JOIN video_projects AS p ON p.id = v.project_id
@@ -87,7 +87,7 @@ export async function claimNextJob(
          AND r.deleted_at IS NULL AND v.deleted_at IS NULL AND p.deleted_at IS NULL
        ORDER BY r.created_at ASC, r.id ASC
        FOR UPDATE OF r SKIP LOCKED
-       LIMIT 1\`,
+       LIMIT 1`,
     );
     if (!selected.rows[0]) {
       await client.query('COMMIT');
@@ -100,14 +100,14 @@ export async function claimNextJob(
       max_attempts: number;
       manifest: unknown;
     }>(
-      \`UPDATE render_jobs
+      `UPDATE render_jobs
        SET status = 'running', attempt = attempt + 1,
            lease_token = $2::uuid,
            lease_expires_at = NOW() + ($3::integer * INTERVAL '1 millisecond'),
            heartbeat_at = NOW(), started_at = NOW(), finished_at = NULL,
            error_code = NULL, progress_pct = 0, updated_at = NOW()
        WHERE id = $1::uuid AND status = 'queued'
-       RETURNING id, attempt, max_attempts, manifest\`,
+       RETURNING id, attempt, max_attempts, manifest`,
       [selected.rows[0].id, leaseToken, leaseMs],
     );
     if (!updated.rows[0]) throw new Error('Reserved job was not claimable');
@@ -139,13 +139,13 @@ export async function heartbeatJob(
     throw new RangeError('Progress must be an integer 0–99');
   }
   const result = await pool.query(
-    \`UPDATE render_jobs
+    `UPDATE render_jobs
      SET heartbeat_at = NOW(), updated_at = NOW(),
          lease_expires_at = NOW() + ($3::integer * INTERVAL '1 millisecond'),
          progress_pct = GREATEST(progress_pct, $4::integer)
      WHERE id = $1::uuid AND lease_token = $2::uuid
        AND status = 'running' AND lease_expires_at > NOW()
-     RETURNING id\`,
+     RETURNING id`,
     [claim.id, claim.leaseToken, leaseMs, progressPct],
   );
   return result.rowCount === 1;
@@ -156,14 +156,14 @@ export async function succeedJob(
   claim: Pick<QueueClaim, 'id' | 'leaseToken'>,
 ): Promise<boolean> {
   const result = await pool.query(
-    \`UPDATE render_jobs
+    `UPDATE render_jobs
      SET status = 'succeeded', progress_pct = 100,
          finished_at = NOW(), updated_at = NOW(),
          lease_token = NULL, lease_expires_at = NULL, heartbeat_at = NOW(),
          error_code = NULL
      WHERE id = $1::uuid AND lease_token = $2::uuid
        AND status = 'running' AND lease_expires_at > NOW()
-     RETURNING id\`,
+     RETURNING id`,
     [claim.id, claim.leaseToken],
   );
   return result.rowCount === 1;
@@ -182,14 +182,14 @@ export async function failJob(
   ];
   if (!allowed.includes(reason)) throw new RangeError('Unknown job error code');
   const result = await pool.query(
-    \`UPDATE render_jobs
+    `UPDATE render_jobs
      SET status = 'failed', error_code = $3,
          lease_token = NULL, lease_expires_at = NULL, finished_at = NOW(),
          available_at = NOW() + (POWER(2, LEAST(attempt - 1, 5)) * INTERVAL '250 milliseconds'),
          updated_at = NOW()
      WHERE id = $1::uuid AND lease_token = $2::uuid
        AND status = 'running' AND lease_expires_at > NOW()
-     RETURNING id\`,
+     RETURNING id`,
     [claim.id, claim.leaseToken, reason],
   );
   return result.rowCount === 1;
@@ -198,14 +198,14 @@ export async function failJob(
 /** Crash recovery never grants ownership to an expired worker. */
 export async function recoverExpiredJobs({ pool }: ReturnTypeOfOpenDatabase): Promise<number> {
   const result = await pool.query(
-    \`UPDATE render_jobs
+    `UPDATE render_jobs
      SET status = 'failed', error_code = 'lease_expired',
          lease_token = NULL, lease_expires_at = NULL,
          finished_at = NOW(),
          available_at = NOW() + (POWER(2, LEAST(attempt - 1, 5)) * INTERVAL '250 milliseconds'),
          updated_at = NOW()
      WHERE status = 'running' AND lease_expires_at <= NOW()
-     RETURNING id\`,
+     RETURNING id`,
   );
   return result.rowCount ?? 0;
 }
@@ -213,7 +213,7 @@ export async function recoverExpiredJobs({ pool }: ReturnTypeOfOpenDatabase): Pr
 /** Explicit failed → queued transition, only after backoff and below attempt ceiling. */
 export async function requeueDueJobs({ pool }: ReturnTypeOfOpenDatabase): Promise<number> {
   const result = await pool.query(
-    \`UPDATE render_jobs
+    `UPDATE render_jobs
      SET status = 'queued', finished_at = NULL, updated_at = NOW()
      WHERE status = 'failed' AND attempt < max_attempts
        AND available_at <= NOW() AND deleted_at IS NULL
@@ -223,7 +223,7 @@ export async function requeueDueJobs({ pool }: ReturnTypeOfOpenDatabase): Promis
          WHERE v.id = render_jobs.project_version_id
            AND v.deleted_at IS NULL AND p.deleted_at IS NULL
        )
-     RETURNING id\`,
+     RETURNING id`,
   );
   return result.rowCount ?? 0;
 }
@@ -234,11 +234,11 @@ export async function cancelJob(
   id: string,
 ): Promise<boolean> {
   const result = await pool.query(
-    \`UPDATE render_jobs
+    `UPDATE render_jobs
      SET status = 'cancelled', lease_token = NULL, lease_expires_at = NULL,
          finished_at = NOW(), updated_at = NOW(), error_code = NULL
      WHERE id = $1::uuid AND status IN ('queued', 'running', 'failed')
-     RETURNING id\`,
+     RETURNING id`,
     [id],
   );
   return result.rowCount === 1;
