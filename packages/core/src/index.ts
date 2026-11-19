@@ -1,2 +1,9 @@
-// @bluedotatlas/core: workspace bootstrap only; implementation belongs to later M02 issues.
-export const scaffold = 'core' as const;
+export {
+  projectStatuses, videoStatuses, renderJobStatuses, stepStatuses, approvalStatuses,
+  approvalScopes, artifactKinds, assetRightsStatuses, auditTargetKinds, wizardSteps,
+  InvalidStatusTransition, canTransitionProject, assertProjectTransition,
+  canTransitionRenderJob, assertRenderJobTransition, canTransitionVideo, assertVideoTransition,
+} from './status.js';
+export type {
+  ProjectStatus, VideoStatus, RenderJobStatus, StepStatus, ApprovalStatus, ArtifactRightsStatus,
+} from './status.js';

@@ -39,6 +39,9 @@ for (const [directory, name] of required) {
       assert.equal(packageJson.scripts.typecheck, 'next typegen && tsc --noEmit');
       assert.equal(packageJson.scripts.build, 'next build');
       assert.equal(packageJson.dependencies.next, '16.4.6');
+    } else if (directory === 'packages/db') {
+      assert.equal(packageJson.scripts.typecheck, 'pnpm --filter @bluedotatlas/core build && tsc -p tsconfig.json --noEmit');
+      assert.equal(packageJson.scripts.build, 'tsc -p tsconfig.json');
     } else {
       assert.equal(packageJson.scripts.typecheck, 'tsc -p tsconfig.json --noEmit');
       assert.equal(packageJson.scripts.build, 'tsc -p tsconfig.json');
