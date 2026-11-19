@@ -52,12 +52,24 @@ jobs:
           docker compose --profile future-renderer --profile maintenance -f compose.029.yml config --format json > "$RUNNER_TEMP/compose.json"
           node scripts/check-compose-029.mjs "$RUNNER_TEMP/compose.json"
           docker compose -f compose.029.yml build web
-          docker compose -f compose.029.yml up -d db web
+          docker compose -f compose.029.yml up -d --wait --wait-timeout 120 db web
           docker compose -f compose.029.yml ps
-          curl --retry 20 --retry-delay 3 --retry-connrefused --fail --silent --show-error http://127.0.0.1:18029/ > /dev/null
+          curl --retry 10 --retry-delay 2 --retry-connrefused --retry-all-errors --fail --silent --show-error http://127.0.0.1:18029/ > /dev/null
           if curl --silent --show-error --max-time 5 http://127.0.0.1:18029/api/admin/session | grep -qi '"authenticated":true'; then
             echo 'Unexpected authenticated anonymous session' >&2
             exit 1
+          fi
+      - name: Diagnose synthetic CI containers after failure
+        if: failure()
+        env:
+          BDA_BIND_PORT: '18029'
+        run: |
+          export BDA_DB_ENV_FILE="$RUNNER_TEMP/db.env"
+          export BDA_WEB_ENV_FILE="$RUNNER_TEMP/web.env"
+          export BDA_WORKER_ENV_FILE="$RUNNER_TEMP/worker.env"
+          if [ -f "$BDA_DB_ENV_FILE" ] && [ -f "$BDA_WEB_ENV_FILE" ] && [ -f "$BDA_WORKER_ENV_FILE" ]; then
+            docker compose -f compose.029.yml ps || true
+            docker compose -f compose.029.yml logs --no-color --tail=80 web db || true
           fi
       - name: Cleanup throwaway Compose project
         if: always()
