@@ -39,8 +39,6 @@ function sameEmail(left: string, right: string) {
  */
 export async function loginAdmin(email: string, password: string) {
   const admin = configuredAdmin();
-  const passwordMatches = await verifyPassword(password, admin.hash);
-  const valid = sameEmail(email, admin.email) && passwordMatches;
   const connection = openDatabase();
 
   try {
@@ -55,6 +53,10 @@ export async function loginAdmin(email: string, password: string) {
 
       const now = new Date();
       if (state.lockedUntil && state.lockedUntil > now) return null;
+      // Serialize expensive scrypt verification under the account row lock.
+      // Locked accounts do not keep consuming CPU on every bad request.
+      const passwordMatches = await verifyPassword(password, admin.hash);
+      const valid = sameEmail(email, admin.email) && passwordMatches;
       if (!valid) {
         const failures = state.lockedUntil ? 1 : state.failedAttempts + 1;
         await tx

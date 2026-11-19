@@ -20,5 +20,20 @@ export async function signedInAdmin() {
 /** Never trust forwarding headers or unverified cross-origin form submissions. */
 export function sameOrigin(request: NextRequest) {
   const origin = request.headers.get('origin');
-  return !!origin && origin === request.nextUrl.origin;
+  const host = request.headers.get('host');
+  if (!origin || !host) return false;
+  try {
+    const source = new URL(origin);
+    if (source.origin !== origin || source.host.toLowerCase() !== host.toLowerCase()) return false;
+    if (source.protocol === 'https:') return true;
+    // Production HTTP is permitted only for isolated loopback integration checks.
+    return (
+      source.protocol === 'http:' &&
+      (process.env.NODE_ENV !== 'production' ||
+        source.hostname === '127.0.0.1' ||
+        source.hostname === 'localhost')
+    );
+  } catch {
+    return false;
+  }
 }

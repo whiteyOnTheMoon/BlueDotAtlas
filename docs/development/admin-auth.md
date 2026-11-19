@@ -37,3 +37,5 @@ Eine **wegwerfbare** PostgreSQL-Service-DB `localhost/bda_test` und nur syntheti
 ## Offene Produktionsgates
 
 Noch keine reale Admin-URL, kein TLS-Reverse-Proxy, kein Secret-Manager und kein produktiver DB-Deploy. Aufgaben 029–030 konfigurieren HTTPS, Secret-Rotation und Zugangsschutz. Aufgabe 034 prüft Restore. M02 ist bis dahin nicht produktiv abgenommen.
+
+**Origin-Gate:** Mutation per Form-POST wird nur bei exakt passendem Browser-`Origin` und `Host` akzeptiert. Im Produktionsmodus ist HTTPS für nicht lokale Hostnamen obligatorisch. Der vorangestellte Reverse Proxy muss die erlaubten Hostnamen/TLS korrekt erzwingen (029), nicht nur Header blind durchreichen. Passwortverifikation erfolgt nach persistenter Sperrprüfung unter Kontosperre, um CPU-Last durch parallele Login-Versuche zu begrenzen.
