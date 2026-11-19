@@ -18,7 +18,7 @@ test('Missing license rules block completion', () => {
 });
 
 test('Missing explicit operator approval is detected', () => {
-  const withoutApproval = agreement.replaceAll('ausdrückliche Betreiberabnahme', 'ungeprüfte Freigabe');
+  const withoutApproval = agreement.replace(/ausdrückliche Betreiberabnahme/gi, 'ungeprüfte Freigabe');
   assert.match(validateWorkingAgreement(withoutApproval, pr, template, adr).join('\n'), /explicit operator approval/);
 });
 
