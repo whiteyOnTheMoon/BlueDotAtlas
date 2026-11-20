@@ -1,124 +1,138 @@
 #!/usr/bin/env node
-// Roadmap 036: fail-closed local metadata guard; never fetches or renders external media.
+// Roadmap 036: test-only source-rights gate. This does NOT grant publication,
+// prove archived local bytes, or permit unverified originals in a timeline.
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const manifestPath = fileURLToPath(new URL('../assets/pilot/rights-manifest.json', import.meta.url));
-const allowed = new Set(['UNREVIEWED', 'APPROVED', 'BLOCKED', 'REJECTED']);
-const sha256Pattern = /^[a-f0-9]{64}$/;
+const known = new Map([
+  ['P60-VID-001', {sha:'54ecdba5d5899fc7a2e8ee0f544359f59ddc45c13a26b919c3412b633416802c',
+    bytes:27140201, run:'44673061410', width:1080, height:720, audio:false}],
+  ['P60-VID-003', {sha:'8deebf2acf159ab91b3d9c6383de76bbbdb0069acffb9eb2f2c78dc478cd22c8',
+    bytes:47866063, run:'44673061410', width:3840, height:2160, audio:true}],
+  ['P60-VID-005', {sha:'e341bba65deafbf5857f7913af45cef74de2effe0e431323884e88f88574443b',
+    bytes:5548939, run:'44707182588', width:1920, height:1080, audio:true}]
+]);
 
 function officialOrigin(value, name) {
-  assert.equal(typeof value, 'string', name + ': missing URL');
+  assert.equal(typeof value, 'string', name + ': missing original URL');
   const url = new URL(value);
   assert.equal(url.protocol, 'https:', name + ': HTTPS required');
-  assert.ok(url.hostname === 'nasa.gov' || url.hostname.endsWith('.nasa.gov') ||
-    url.hostname === 'noaa.gov' || url.hostname.endsWith('.noaa.gov'),
-    name + ': not a NASA/NOAA original page');
-  return url;
+  assert.ok(url.hostname.endsWith('.nasa.gov') || url.hostname === 'nasa.gov' ||
+    url.hostname.endsWith('.noaa.gov') || url.hostname === 'noaa.gov',
+    name + ': only original NASA/NOAA video pages');
 }
 
 function validate(data) {
   assert.equal(data.schema_version, 1);
   assert.equal(data.roadmap_id, '036');
   assert.equal(data.github_issue, 60);
-  assert.equal(data.local_media_acquired, false, 'Actual media not yet acquired');
+  assert.equal(data.local_media_acquired, false, 'No archived original or VPS media verified');
+  assert.equal(data.internal_test_source_selection_accepted, true);
+  assert.equal(data.publication_authorized, false, 'Not a public release grant');
+  assert.match(data.decision_policy, /PRIVATE_INTERNAL_TEST_ONLY/,
+    'Actual private-only license scope must be stated');
   assert.ok(Array.isArray(data.assets));
-  const primary = data.assets.filter(x => x.type === 'video' && x.priority === 'primary');
-  assert.ok(primary.length >= 3, 'At least three distinct original video candidates required');
-  assert.equal(data.third_party_video_count, primary.length, 'Primary-count field must reflect catalog');
-  assert.equal(new Set(primary.map(x => x.source_page_url)).size, primary.length,
-    'Every primary recording needs a distinct original source page');
-  assert.equal(new Set(primary.map(x => x.origin_category)).size, primary.length,
-    'Primary source categories must be distinct');
-  assert.ok(primary.some(x => x.origin_category === 'actual_ocean_surface_camera'),
-    'A genuine ocean-surface camera source is required');
-  const ids = new Set();
-  for (const asset of data.assets) {
-    const prefix = asset.asset_id + ': ';
-    assert.match(asset.asset_id, /^P60-VID-(?:00[1-9]|ALT-00[1-9])$/);
-    assert.ok(!ids.has(asset.asset_id), prefix + 'duplicate ID');
-    ids.add(asset.asset_id);
-    officialOrigin(asset.source_page_url, prefix);
-    assert.equal(asset.type, 'video');
-    assert.ok(allowed.has(asset.rights_status), prefix + 'unknown rights status');
-    assert.ok(asset.title?.length >= 12);
-    assert.ok(asset.creator?.length >= 12);
-    assert.ok(asset.rights_basis?.length >= 20);
-    assert.ok(asset.credits?.length >= 20);
-    assert.ok(asset.rights_blocker?.length >= 20);
-    assert.ok(Array.isArray(asset.conditions) && asset.conditions.length > 0);
-    assert.ok(Array.isArray(asset.rights_evidence_urls) && asset.rights_evidence_urls.length > 0);
-    for (const evidence of asset.rights_evidence_urls) {
-      const source = new URL(evidence);
-      assert.equal(source.protocol, 'https:', prefix + 'rights evidence must use HTTPS');
-      assert.ok(
-        source.hostname.endsWith('.nasa.gov') ||
-        source.hostname.endsWith('.noaa.gov') ||
-        source.hostname === 'www.bom.gov.au',
-        prefix + 'rights evidence must be authoritative NOAA, NASA or Australian BOM'
-      );
+  const primary = data.assets.filter(a => a.type === 'video' && a.priority === 'primary');
+  assert.equal(primary.length, 4, 'Keep all four real sourced video candidates');
+  assert.equal(data.third_party_video_count, primary.length);
+  assert.equal(new Set(primary.map(a=>a.source_page_url)).size, primary.length);
+  assert.equal(new Set(primary.map(a=>a.origin_category)).size, primary.length);
+  assert.ok(primary.some(a=>a.origin_category === 'actual_ocean_surface_camera'));
+  const seen = new Set();
+  for (const a of data.assets) {
+    const prefix = a.asset_id + ': ';
+    assert.match(a.asset_id, /^P60-VID-(?:00[1-9]|ALT-00[1-9])$/);
+    assert.ok(!seen.has(a.asset_id), prefix + 'duplicate source ID');
+    seen.add(a.asset_id);
+    officialOrigin(a.source_page_url, prefix);
+    assert.ok(a.title?.length >= 12);
+    assert.ok(a.creator?.length >= 12);
+    assert.ok(a.rights_basis?.length >= 20);
+    assert.ok(a.credits?.length >= 20);
+    assert.ok(a.rights_blocker?.length >= 20);
+    assert.ok(Array.isArray(a.rights_evidence_urls) && a.rights_evidence_urls.length);
+    for (const evidence of a.rights_evidence_urls) {
+      const url = new URL(evidence);
+      assert.equal(url.protocol, 'https:');
+      assert.ok(url.hostname.endsWith('.nasa.gov') ||
+        url.hostname.endsWith('.noaa.gov') || url.hostname === 'www.bom.gov.au',
+        prefix + 'rights evidence must be authoritative');
     }
-    assert.match(asset.checked_source_date_utc, /^\d{4}-\d{2}-\d{2}$/);
-    assert.equal(asset.local_file, null, prefix + 'no local media bytes in git');
-    if (asset.download_url !== null) {
-      const videoUrl = new URL(asset.download_url);
-      assert.equal(videoUrl.protocol, 'https:', prefix + 'HTTPS download required');
-      assert.equal(videoUrl.username, '', prefix + 'credentials forbidden');
-      assert.equal(videoUrl.password, '', prefix + 'credentials forbidden');
-      assert.match(videoUrl.pathname.toLowerCase(), /\.mp4$/, prefix + 'MP4 download expected');
-      assert.ok(videoUrl.hostname.endsWith('.noaa.gov') ||
-        videoUrl.hostname.endsWith('.nasa.gov') ||
-        videoUrl.hostname === 'nesdis-prod.s3.amazonaws.com',
-        prefix + 'only official NASA/NOAA or linked NOAA S3 origin hosts allowed');
+    assert.equal(a.local_file, null, prefix + 'No source-video binary in public Git');
+    assert.equal(a.approved_for_timeline, false,
+      prefix + 'No film timeline approval before private byte-verified ingest');
+    assert.equal(a.file_sha256, null, prefix + 'No permanent local-file hash yet');
+    assert.equal(a.file_media_probe, null, prefix + 'No permanent media probe yet');
+    assert.equal(a.file_reviewer, null);
+    assert.equal(a.file_reviewed_at_utc, null);
+    if (a.download_url !== null) {
+      const url = new URL(a.download_url);
+      assert.equal(url.protocol, 'https:');
+      assert.equal(url.username, '');
+      assert.equal(url.password, '');
+      assert.match(url.pathname.toLowerCase(), /\.mp4$/);
+      assert.ok(url.hostname.endsWith('.nasa.gov') ||
+        url.hostname.endsWith('.noaa.gov') || url.hostname === 'nesdis-prod.s3.amazonaws.com',
+        prefix + 'only known official original host');
     }
-    // Fail closed: no source may enter the timeline just because a webpage exists.
-    if (asset.rights_status !== 'APPROVED') {
-      assert.equal(asset.approved_for_timeline, false, prefix + 'unreviewed/blocked asset selected');
-      assert.equal(asset.file_sha256, null, prefix + 'no fabricated file checksum');
-      assert.equal(asset.file_media_probe, null, prefix + 'no fabricated ffprobe');
-      assert.equal(asset.file_reviewed_at_utc, null);
-      assert.equal(asset.file_reviewer, null);
+
+    if (known.has(a.asset_id)) {
+      const e = known.get(a.asset_id);
+      assert.equal(a.rights_status, 'APPROVED',
+        prefix + 'only source-specific private test permission is approved');
+      assert.equal(a.internal_test_source_approved, true);
+      assert.equal(a.approval_scope, 'PRIVATE_INTERNAL_TEST_ONLY');
+      assert.equal(a.source_audio_allowed, false, prefix + 'source audio is always excluded');
+      assert.equal(a.technical_original_sha256, e.sha,
+        prefix + 'hash must match actual original CI download');
+      assert.equal(a.technical_original_bytes, e.bytes);
+      assert.equal(a.technical_proof_run,
+        'https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/' + e.run);
+      assert.equal(a.technical_original_media_probe?.codec_name, 'h264');
+      assert.equal(a.technical_original_media_probe?.width, e.width);
+      assert.equal(a.technical_original_media_probe?.height, e.height);
+      assert.equal(a.technical_original_media_probe?.has_audio, e.audio);
+      assert.equal(a.source_rights_reviewed_at_utc, '2026-11-20');
+      assert.match(a.source_rights_reviewed_by || '', /operator/i);
+      assert.match(a.user_visual_feedback || '', /NOT stated/,
+        prefix + 'do not invent a complete visual/audio audit');
     } else {
-      assert.equal(asset.approved_for_timeline, true, prefix + 'approved must be marked selected');
-      assert.match(asset.file_sha256 || '', sha256Pattern, prefix + 'missing exact file hash');
-      assert.ok(asset.file_media_probe?.codec_name?.length, prefix + 'missing video probe');
-      assert.ok(asset.file_reviewer?.length >= 3, prefix + 'missing human reviewer');
-      assert.match(asset.file_reviewed_at_utc || '', /^\d{4}-\d{2}-\d{2}$/, prefix + 'missing review date');
+      assert.ok(['P60-VID-002','P60-VID-ALT-004'].includes(a.asset_id));
+      assert.equal(a.rights_status, a.asset_id === 'P60-VID-002' ? 'UNREVIEWED' : 'BLOCKED');
+      assert.equal(a.internal_test_source_approved, false);
+      assert.equal(a.approval_scope, null);
     }
   }
-  assert.equal(data.assets.filter(a=>a.rights_status === 'APPROVED').length, 0,
-    '036 pre-acquisition catalog is not a fabricated approval');
-  assert.ok(data.assets.some(a=>a.priority === 'excluded_alternative' && a.rights_status === 'BLOCKED'),
-    'Third-party Saildrone alternative must remain blocked');
+  assert.equal(known.size, data.assets.filter(a=>a.internal_test_source_approved).length);
+  assert.equal(data.assets.filter(a=>a.rights_status === 'APPROVED').length, 3);
 }
 
-function expectRejected(base, mutation, label) {
+function denied(base, mutate, label) {
   const copy = structuredClone(base);
-  mutation(copy);
+  mutate(copy);
   assert.throws(() => validate(copy), undefined, label);
 }
-
 const data = JSON.parse(readFileSync(manifestPath, 'utf8'));
 validate(data);
 if (process.argv.includes('--self-test')) {
-  const primary = d => d.assets.find(x=>x.asset_id==='P60-VID-001');
-  expectRejected(data, d=>{primary(d).approved_for_timeline = true}, 'unreviewed to timeline');
-  expectRejected(data, d=>{primary(d).rights_status = 'APPROVED';primary(d).approved_for_timeline=true},
-    'approve without hash, probe and human reviewer');
-  expectRejected(data, d=>{const a=d.assets.find(x=>x.asset_id==='P60-VID-ALT-004');a.rights_status='APPROVED';a.approved_for_timeline=true},
-    'blocked Saildrone may not be auto-approved');
-  expectRejected(data, d=>{d.assets[0].credits=''}, 'missing credits');
-  expectRejected(data, d=>{d.assets[0].rights_evidence_urls=[]}, 'missing license evidence');
-  expectRejected(data, d=>{d.assets[0].source_page_url='https://unsplash.com/example'}, 'not original source');
-  expectRejected(data, d=>{d.assets[1].source_page_url=d.assets[0].source_page_url}, 'duplicate source');
-  expectRejected(data, d=>{d.assets[1].download_url='http://example.com/video.mp4'}, 'unsafe download URL');
-  expectRejected(data, d=>{d.assets[2].file_sha256='0'.repeat(64)}, 'unverified hash');
-  expectRejected(data, d=>{d.assets.splice(0,2)}, 'fewer than three primary videos');
-  expectRejected(data, d=>{d.assets=d.assets.filter(x=>x.asset_id!=='P60-VID-005');d.third_party_video_count=3},
-    'missing ocean-surface original source');
-  expectRejected(data, d=>{d.third_party_video_count=99}, 'inconsistent primary count');
-  console.log('PASS 036: source manifest + 12 negative rights/metadata guards');
+  const a = (d,id='P60-VID-001')=>d.assets.find(x=>x.asset_id===id);
+  denied(data,d=>{a(d).approved_for_timeline=true}, 'unstaged source cannot render');
+  denied(data,d=>{d.publication_authorized=true}, 'internal approval is not publication');
+  denied(data,d=>{a(d).approval_scope='PUBLIC'}, 'no public rights grant');
+  denied(data,d=>{a(d).source_audio_allowed=true}, 'no source audio');
+  denied(data,d=>{a(d).technical_original_sha256='0'.repeat(64)}, 'wrong original hash');
+  denied(data,d=>{a(d).technical_original_bytes++}, 'wrong byte count');
+  denied(data,d=>{a(d).file_sha256='0'.repeat(64)}, 'fabricated local file hash');
+  denied(data,d=>{a(d,'P60-VID-002').rights_status='APPROVED'}, 'unverified Ernesto');
+  denied(data,d=>{a(d,'P60-VID-ALT-004').rights_status='APPROVED'}, 'Saildrone');
+  denied(data,d=>{a(d).credits=''}, 'lost NASA credit');
+  denied(data,d=>{a(d).rights_evidence_urls=[]}, 'missing rights evidence');
+  denied(data,d=>{a(d).source_page_url='https://example.com/a.mp4'}, 'third-party origin');
+  denied(data,d=>{a(d,'P60-VID-003').source_page_url=a(d).source_page_url}, 'duplicated source');
+  denied(data,d=>{d.local_media_acquired=true}, 'fabricated archived originals');
+  console.log('PASS 036: exactly 3 private-test-only approved sources; 14 denied scope/rights/media bypasses');
 } else {
-  console.log('PASS 036: four real video source records, including open ocean; zero timeline-approved files; Saildrone blocked');
+  console.log('PASS 036: 3 private-test source rights approved, 0 staged timeline assets, publication denied');
 }
