@@ -2,7 +2,7 @@
 
 **Grundlage:** [Original-PDF der Master Roadmap V0.1 (28 Seiten)](BlueDotAtlas_Roadmap.pdf) und [vollständige Textfassung](master-roadmap-v01-text.md), Betreiber-PDF vom 13.11.2026. GitHub-Issue-Nummern (**#...**) sind nicht die stabilen Roadmap-Nummern (**001–158**).
 
-**Statusstand 19.11.2026 (UTC):** Aufgaben **001–029 für den begrenzten Scope abgenommen** (029: nur öffentliche Vorschau, DEC-043), **030 in technischer Umsetzung/Review**, **031–034 offen**. Dies beschreibt GitHub-Issue-/PR-Abnahmen, **keinen** produktiven M02-Gesamtgate-Erfolg. **Alle Aufgaben 001–158 sind inzwischen als Issues vorhanden**; die vollständige Liste und die M00–M13-Gates stehen im [kompletten Roadmap-Index](roadmap-backlog-m00-m13.md). Ein Meilenstein ist erst nach seinem Gate abgeschlossen. Die [Original-PDF](BlueDotAtlas_Roadmap.pdf) ist auf `main` archiviert und per Git-Blob-SHA mit dem Betreiber-Original identisch; die Textfassung ist ergänzend durchsuchbar.
+**Statusstand 19.11.2026 (UTC):** Aufgaben **001–029 für den begrenzten Scope abgenommen** (029: nur öffentliche Vorschau, DEC-043), **030 abgenommen (DEC-044)**, **031 im technischen Review**, **032–034 offen**. Dies beschreibt GitHub-Issue-/PR-Abnahmen, **keinen** produktiven M02-Gesamtgate-Erfolg. **Alle Aufgaben 001–158 sind inzwischen als Issues vorhanden**; die vollständige Liste und die M00–M13-Gates stehen im [kompletten Roadmap-Index](roadmap-backlog-m00-m13.md). Ein Meilenstein ist erst nach seinem Gate abgeschlossen. Die [Original-PDF](BlueDotAtlas_Roadmap.pdf) ist auf `main` archiviert und per Git-Blob-SHA mit dem Betreiber-Original identisch; die Textfassung ist ergänzend durchsuchbar.
 
 ## M00 – Marke, Gestaltung und filmische Identität (001–009)
 
@@ -53,8 +53,8 @@
 | **027** | [Jobqueue und Renderworker als eigenen Prozess anlegen (#44)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/44) | Abgenommen; Issue geschlossen |
 | **028** | [Persistenten lokalen Dateispeicher strukturieren (#45)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/45) | Abgenommen; Issue geschlossen |
 | **029** | [Docker Compose und Reverse Proxy einrichten (#46)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/46) | Öffentliche HTTPS-Vorschau abgenommen (DEC-043), kein aktiver Admin/Renderer |
-| **030** | [Secrets und Konfigurationsverwaltung absichern (#47)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/47) | Branch/CI-/Doku-Review in Arbeit; Betreiberabnahme offen |
-| **031** | [Projekt-CRUD im Dashboard anbieten (#48)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/48) | Offen |
+| **030** | [Secrets und Konfigurationsverwaltung absichern (#47)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/47) | Abgenommen (DEC-044), PR #195 gemergt, Issue geschlossen |
+| **031** | [Projekt-CRUD im Dashboard anbieten (#48)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/48) | Featurebranch mit CI-/UI-Review, Betreiberabnahme offen |
 | **032** | [Persistente Wizard-Zustände und Autosave vorbereiten (#49)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/49) | Offen |
 | **033** | [CI-Pipeline und Basistests aktivieren (#50)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/50) | Offen |
 | **034** | [Backup-, Restore- und Überwachungs-MVP einrichten (#51)](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/51) | Offen |

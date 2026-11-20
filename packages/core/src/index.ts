@@ -31,5 +31,6 @@ export {
   parseApiUuid,
   parseApiListQuery,
   parseApiCreateProject,
+  parseApiProjectPatch,
 } from './api-v1.js';
-export type { ApiCollection, ApiListQuery } from './api-v1.js';
+export type { ApiCollection, ApiListQuery, ApiProjectPatch } from './api-v1.js';

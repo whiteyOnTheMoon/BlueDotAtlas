@@ -115,3 +115,17 @@ export function parseApiCreateProject(value: unknown): { title: string } {
   }
   return { title };
 }
+
+export type ApiProjectPatch = { title: string } | { action: 'archive' };
+
+/** PATCH must express exactly one vetted change; never accept status or raw snapshots. */
+export function parseApiProjectPatch(value: unknown): ApiProjectPatch {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    throw new ApiValidationError('body');
+  }
+  const record = value as Record<string, unknown>;
+  if (Object.keys(record).length !== 1) throw new ApiValidationError('body');
+  if (Object.hasOwn(record, 'title')) return parseApiCreateProject(value);
+  if (record.action === 'archive') return { action: 'archive' };
+  throw new ApiValidationError('body');
+}

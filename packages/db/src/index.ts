@@ -8,6 +8,9 @@ export {
   getProject,
   transitionProjectStatus,
   ProjectNotFound,
+  ProjectConflict,
+  renameProject,
+  archiveProject,
 } from './project-service.js';
 
 export {
@@ -33,5 +36,6 @@ export {
   parseApiUuid,
   parseApiListQuery,
   parseApiCreateProject,
+  parseApiProjectPatch,
 } from '@bluedotatlas/core';
 export type { ApiCollection, ApiListQuery } from '@bluedotatlas/core';
