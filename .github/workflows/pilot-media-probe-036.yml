@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   ephemeral-probe-036:
-    name: 036 Two NOAA source files: bounded hash and ffprobe (not rights approval)
+    name: "036 Two NOAA source files: bounded hash and ffprobe (not rights approval)"
     if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'feat/036-bounded-media-probe'
     runs-on: ubuntu-24.04
     timeout-minutes: 9
