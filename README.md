@@ -20,6 +20,8 @@
 
 **Roadmap 037 / 60s-Storyboard und Sprechertext – abgenommen und gemergt:** [Issue #61](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/61) · [60s-Skript mit neun Einstellungen](docs/pilot/60s-script.json) · [Script-Guard](scripts/check-pilot-script-037.mjs). [PR #206](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/206) auf `main` gemergt. 1.800 Frames / 30fps / 1080p, unverändertes Markenintro/-outro, 2×9-Frame-Überblendung, originalsprachiger Sprechertext mit offiziellen NOAA-Quellen. Skript bleibt eine **Planung** und ist noch keine Ton-, Render- oder öffentliche Veröffentlichungsfreigabe.
 
+**Roadmap 038 / Remotion 1080p – technischer 10s-Proof im Review:** [Issue #62](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/62) · [Runbook](docs/development/remotion-038.md). Remotion 4.0.545, Original-Intro/-Outro ohne Kopien, zwei 9-Frame-Crossfades und eine synthetische 300-Frame-Probekomposition mit getrenntem Introton. Der wirkliche 1080p-Render und ffprobe-/Bild-/Tonprüfung sind erst nach grüner CI als PASS anzusehen. Betreiber: Ein-Mann-Projekt, daher grundsätzlich Remotion Free License; keine neuen Kosten, kein VPS- oder 60s-Publikations-Go.
+
 ## VPS-Arbeitsweise – verbindlicher Ein-Projekt-Standard (DEC-041)
 
 **Ein Projekt – ein Arbeitsverzeichnis – ein Docker-Compose-Projekt.** Der Betreiber hat die saubere VPS-Struktur am 19.11.2026 ausdrücklich festgelegt. Die früher erstellte Zusatzkopie `~/bluedotatlas-029-staging` ist **gelöscht** und darf nicht neu angelegt werden.
