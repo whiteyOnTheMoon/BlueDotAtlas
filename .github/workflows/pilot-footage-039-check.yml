@@ -1,0 +1,68 @@
+name: M03 039 bounded private real footage proof
+
+on:
+  pull_request:
+    paths:
+      - 'packages/video/**'
+      - 'assets/pilot/rights-manifest.json'
+      - 'scripts/ingest-private-footage-039.py'
+      - 'scripts/check-footage-039*'
+      - '.github/workflows/pilot-footage-039-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  footage-039:
+    name: 039 Two real sources / 2 cuts / silent 1080p proof
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Frozen workspace install
+        run: pnpm install --frozen-lockfile
+      - name: Offline scene policy tests with negative cases
+        run: node --test scripts/check-footage-039.test.mjs
+      - name: Compile video module
+        run: pnpm --filter @bluedotatlas/video build
+      - name: Install FFmpeg only on disposable Actions runner
+        run: |
+          set -eu
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg
+          ffprobe -version | head -n 1
+      - name: Read-only source and scope policy negative tests
+        run: python3 scripts/ingest-private-footage-039.py --self-test
+      - name: Bounded official downloads and exact original SHA-256 gate
+        env:
+          BDA_039_PRIVATE_PROOF: 'TRUE'
+        run: python3 scripts/ingest-private-footage-039.py --ingest
+      - name: Final private source verification
+        run: python3 scripts/ingest-private-footage-039.py --check
+      - name: Real silent footage render (180 frames, 1 concurrency)
+        run: pnpm --filter @bluedotatlas/video render:footage-proof
+        env:
+          REMOTION_DISABLE_TELEMETRY: '1'
+      - name: Validate encoded moving video, both cuts, no uncleared audio
+        run: node scripts/check-footage-039.mjs packages/video/out/039-footage-proof.mp4
+      - name: Delete temporary private footage and test output (no artifacts)
+        if: always()
+        run: |
+          set -eu
+          rm -f -- assets/pilot/.private-039/P60-VID-001.mp4
+          rm -f -- assets/pilot/.private-039/P60-VID-005.mp4
+          rm -f -- assets/pilot/.private-039/P60-VID-001.part
+          rm -f -- assets/pilot/.private-039/P60-VID-005.part
+          rmdir -- assets/pilot/.private-039 2>/dev/null || true
+          rm -f -- packages/video/out/039-footage-proof.mp4
+          test -z "$(git status --porcelain -- assets/pilot)"
