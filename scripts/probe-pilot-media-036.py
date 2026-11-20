@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """036: bounded ephemeral evidence only, never authorizes publishing, production, or timeline use.
 
-The only allowable downloads are exactly the three NASA/NOAA MP4 URLs recorded
+The only allowable downloads are exactly the four NASA/NOAA MP4 URLs recorded
 in the approved source catalogue. No redirects, artifacts, VPS, keys, or uploads.
 """
 from __future__ import annotations
@@ -23,6 +23,7 @@ SOURCE_URLS = {
     "P60-VID-001": "https://eol.jsc.nasa.gov/Videos/CrewEarthObservationsVideos/videos/HurricaneOma_ISS058_2019-02/HurricaneOma_ISS058_2019-02.mp4",
     "P60-VID-002": "https://nesdis-prod.s3.amazonaws.com/2024-08/2024_08_22_Hurricane-Ernesto-NO_TEXT.mp4",
     "P60-VID-003": "https://www.omao.noaa.gov/sites/default/files/2024-09/09252024%20N43%20Eye%20of%20Helene%20Credit%20Nick%20Underwood.mp4",
+    "P60-VID-005": "https://oceanexplorer.noaa.gov/wp-content/uploads/2012/09/072121-highseas-1920x1080-1.mp4",
 }
 
 
@@ -33,11 +34,11 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 def validate_url(asset_id: str, url: str) -> None:
     if asset_id not in SOURCE_URLS or url != SOURCE_URLS[asset_id]:
-        raise ValueError("Only exactly catalogued NOAA source URLs are permitted")
+        raise ValueError("Only exactly catalogued NASA/NOAA source URLs are permitted")
     parts = urlsplit(url)
     if parts.scheme != "https" or parts.username or parts.password or parts.fragment:
         raise ValueError("Source must be credential-free HTTPS")
-    if parts.hostname not in ("nesdis-prod.s3.amazonaws.com", "www.omao.noaa.gov", "eol.jsc.nasa.gov"):
+    if parts.hostname not in ("nesdis-prod.s3.amazonaws.com", "www.omao.noaa.gov", "eol.jsc.nasa.gov", "oceanexplorer.noaa.gov"):
         raise ValueError("Source host is not whitelisted")
 
 
@@ -127,7 +128,7 @@ def run_probe(asset_id: str, url: str, folder: Path) -> dict:
 
 
 def self_test() -> None:
-    assert len(SOURCE_URLS) == 3
+    assert len(SOURCE_URLS) == 4
     assert MAX_BYTES == 100_000_000
     for asset_id, url in SOURCE_URLS.items():
         validate_url(asset_id, url)
@@ -144,21 +145,23 @@ def self_test() -> None:
             else:
                 raise AssertionError("Unsafe media URL was not rejected")
     assert NoRedirect().redirect_request(None, None, 302, "Moved", {}, "https://evil.invalid/") is None
-    print("PASS 036: three fixed NASA/NOAA URLs; 12 invalid URL variants; redirects blocked; cap 100 MB")
+    print("PASS 036: four fixed NASA/NOAA URLs; 16 invalid URL variants; redirects blocked; cap 100 MB")
 
 
 def main() -> int:
     if len(sys.argv) == 2 and sys.argv[1] == "--self-test":
         self_test()
         return 0
-    if len(sys.argv) != 2 or sys.argv[1] != "--probe":
-        print("Use --self-test or --probe", file=sys.stderr)
+    if len(sys.argv) != 2 or sys.argv[1] not in ("--probe", "--probe-surface"):
+        print("Use --self-test, --probe or --probe-surface", file=sys.stderr)
         return 2
     if os.environ.get("BDA_036_EPHEMERAL_PROBE") != "TRUE":
         print("Refusing network access without explicit ephemeral CI gate", file=sys.stderr)
         return 2
+    selected_ids = ["P60-VID-005"] if sys.argv[1] == "--probe-surface" else list(SOURCE_URLS)
     with tempfile.TemporaryDirectory(prefix="bda036-ephemeral-") as tmp:
-        for asset_id, url in SOURCE_URLS.items():
+        for asset_id in selected_ids:
+            url = SOURCE_URLS[asset_id]
             evidence = run_probe(asset_id, url, Path(tmp))
             print("BDA-036-PROBE-RESULT " + json.dumps(evidence, sort_keys=True), flush=True)
     print("BDA-036-PROBE-COMPLETE: files deleted; no media artifact uploaded; NO timeline approval")
