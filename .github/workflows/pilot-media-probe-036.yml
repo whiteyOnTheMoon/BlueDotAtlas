@@ -1,0 +1,32 @@
+name: M03 036 bounded ephemeral original-video probe
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/probe-pilot-media-036.py'
+      - '.github/workflows/pilot-media-probe-036.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  ephemeral-probe-036:
+    name: 036 Two NOAA source files: bounded hash and ffprobe (not rights approval)
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'feat/036-bounded-media-probe'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 9
+    steps:
+      - name: Checkout feature PR without persistent credentials
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Source-lock and negative-tests (no HTTP)
+        run: python3 scripts/probe-pilot-media-036.py --self-test
+      - name: Probe exact two NOAA MP4s temporarily (max 100 MB per asset)
+        env:
+          BDA_036_EPHEMERAL_PROBE: 'TRUE'
+        run: |
+          command -v ffprobe
+          command -v ffmpeg
+          python3 scripts/probe-pilot-media-036.py --probe
+          echo "Source-probe metadata is informational. No human visual, audio-rights or publication review performed."
