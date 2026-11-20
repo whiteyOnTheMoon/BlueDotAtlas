@@ -15,7 +15,13 @@ export const FootageScene = ({ shot }: { shot: FootageShotSpec }) => {
     objectFit: shot.fit,
     objectPosition: shot.focalX + '% ' + shot.focalY + '%',
     filter:
-      'brightness(' + shot.brightness + ') contrast(' + shot.contrast + ') saturate(' + shot.saturation + ')',
+      'brightness(' +
+      shot.brightness +
+      ') contrast(' +
+      shot.contrast +
+      ') saturate(' +
+      shot.saturation +
+      ')',
   };
   return (
     <AbsoluteFill style={{ backgroundColor: '#0b3045' }}>

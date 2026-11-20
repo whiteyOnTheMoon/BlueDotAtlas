@@ -83,9 +83,12 @@ export function validateFootageShot(shot) {
     throw new Error('Only previously selected 036 private-test sources are permitted');
   }
   if (
-    !Number.isInteger(shot.from) || shot.from < 0 ||
-    !Number.isInteger(shot.durationInFrames) || shot.durationInFrames < 0 ||
-    !Number.isInteger(shot.trimBefore) || shot.trimBefore < 0
+    !Number.isInteger(shot.from) ||
+    shot.from < 0 ||
+    !Number.isInteger(shot.durationInFrames) ||
+    shot.durationInFrames < 0 ||
+    !Number.isInteger(shot.trimBefore) ||
+    shot.trimBefore < 0
   ) {
     throw new RangeError('Frame positions must be nonnegative integers');
   }
