@@ -56,8 +56,8 @@
 | **026** | API-Routen und Eingabevalidierung schaffen | [#43](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/43) | Abgenommen / Issue geschlossen |
 | **027** | Jobqueue und Renderworker als eigenen Prozess anlegen | [#44](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/44) | Abgenommen / Issue geschlossen |
 | **028** | Persistenten lokalen Dateispeicher strukturieren | [#45](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/45) | Abgenommen / Issue geschlossen |
-| **029** | Docker Compose und Reverse Proxy einrichten | [#46](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/46) | In Bearbeitung; kein Live-Deploy |
-| **030** | Secrets und Konfigurationsverwaltung absichern | [#47](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/47) | Backlog |
+| **029** | Docker Compose und Reverse Proxy einrichten | [#46](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/46) | Öffentliche Vorschau abgenommen (DEC-043); kein produktiver Admin |
+| **030** | Secrets und Konfigurationsverwaltung absichern | [#47](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/47) | Branch und CI-/Doku-Review; Abnahme ausstehend |
 | **031** | Projekt-CRUD im Dashboard anbieten | [#48](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/48) | Backlog |
 | **032** | Persistente Wizard-Zustände und Autosave vorbereiten | [#49](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/49) | Backlog |
 | **033** | CI-Pipeline und Basistests aktivieren | [#50](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/50) | Backlog |
