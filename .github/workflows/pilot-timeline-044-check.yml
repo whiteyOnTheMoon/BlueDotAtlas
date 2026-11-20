@@ -1,0 +1,86 @@
+name: M03 044 measured-voice synchronized timeline and 60s synthetic storyboard
+
+on:
+  pull_request:
+    paths:
+      - 'packages/video/timeline/**'
+      - 'scripts/build-timeline-044.mjs'
+      - 'scripts/check-timeline-044*'
+      - 'scripts/render-timeline-044.py'
+      - 'docs/pilot/pilot-timeline.json'
+      - 'docs/pilot/tts-timing-evidence-042.json'
+      - 'docs/pilot/60s-script.json'
+      - '.github/workflows/pilot-timeline-044-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  synced-timeline-044:
+    name: 044 60s internal storyboard with genuine 042 narration
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      CI: 'true'
+      BDA_TTS_042_PRIVATE_TEST: 'TRUE'
+      BDA_TIMELINE_044_PROOF: 'TRUE'
+      REMOTION_DISABLE_TELEMETRY: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Actual 042 timing SHA, exact 1800-frame coverage and 044 negative tests
+        run: |
+          node --test scripts/check-timeline-044.test.mjs
+          node scripts/build-timeline-044.mjs --check
+      - name: Install FFmpeg and voice runtime only on disposable test runner
+        run: |
+          timeout 180 sudo apt-get update -qq
+          timeout 180 sudo apt-get install -y --no-install-recommends ffmpeg espeak-ng
+          python -m pip install --disable-pip-version-check \
+            "kokoro-onnx==0.6.1" "numpy==2.2.6" "scipy==1.16.3" "Pillow==11.3.0"
+          ffprobe -hide_banner -version | head -n 1
+      - name: Recreate 042 real English voice with the same SHA-pinned model/voice and locked script
+        run: |
+          node scripts/tts-042-plan.mjs
+          python scripts/generate-tts-042.py
+          python scripts/check-tts-042.py \
+            .tmp-tts-042/audio/pilot-narration.wav \
+            .tmp-tts-042/audio/pilot-narration-qa.json
+      - name: Actually render complete 60s original synthetic scene proxies plus 7 aligned speech clips
+        run: python scripts/render-timeline-044.py
+      - name: Independently ffprobe exactly 1800 video frames / AAC end / WAV speaker presence
+        run: python scripts/check-timeline-044.py
+      - name: Create inspectable genuine H264 frame captures at intro, science and outro
+        run: |
+          mkdir -p .tmp-timeline-044/stills
+          for item in "0.5:S00-intro" "9:S02-ocean" "30:S05-science" "54.1:S08-outro"; do
+            second="${item%%:*}"
+            name="${item#*:}"
+            ffmpeg -nostdin -v error -y -ss "$second" \
+              -i .tmp-timeline-044/044-internal-storyboard-60s.mp4 \
+              -frames:v 1 ".tmp-timeline-044/stills/${name}.png"
+          done
+      - name: Upload private synthetic/storyboard QA artifacts only for owner review
+        uses: actions/upload-artifact@v4
+        with:
+          name: timeline-044-synthetic-60s-private-review
+          path: |
+            .tmp-timeline-044/044-internal-storyboard-60s.mp4
+            .tmp-timeline-044/044-render-evidence.json
+            .tmp-timeline-044/044-independent-media-qa.json
+            .tmp-timeline-044/stills/*.png
+          retention-days: 5
+          if-no-files-found: error
+      - name: Remove all private re-generated 042 audio/model data and 044 proxies from runner
+        if: always()
+        run: |
+          rm -rf -- .tmp-tts-042/ .tmp-timeline-044/
+          echo "044 isolated runner original model/voice/proxy cleanup completed"
