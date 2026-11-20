@@ -55,6 +55,38 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Temporary formatting diagnostics for 046 files
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm exec prettier --write \
+            apps/worker/src/render-046.ts \
+            apps/worker/src/run-046.ts \
+            apps/worker/tests/render-046.integration.test.ts \
+            packages/db/src/render-046.ts \
+            packages/db/src/queue-046.ts \
+            apps/web/src/lib/render-046.ts \
+            apps/web/src/components/render-queue-panel.tsx \
+            apps/web/src/components/project-workspace.tsx \
+            'apps/web/src/app/admin/(protected)/projects/[id]/page.tsx' \
+            apps/web/src/app/api/v1/render-046/route.ts \
+            'apps/web/src/app/api/v1/projects/[id]/render-046/route.ts'
+          for path in \
+            apps/worker/src/render-046.ts \
+            apps/worker/src/run-046.ts \
+            apps/worker/tests/render-046.integration.test.ts \
+            packages/db/src/render-046.ts \
+            packages/db/src/queue-046.ts \
+            apps/web/src/lib/render-046.ts \
+            apps/web/src/components/render-queue-panel.tsx \
+            apps/web/src/components/project-workspace.tsx \
+            'apps/web/src/app/admin/(protected)/projects/[id]/page.tsx' \
+            apps/web/src/app/api/v1/render-046/route.ts \
+            'apps/web/src/app/api/v1/projects/[id]/render-046/route.ts'; do
+            echo "BDA046_FORMAT_BEGIN:${path}"
+            base64 -w0 "$path"
+            echo
+            echo "BDA046_FORMAT_END:${path}"
+          done
       - name: Frozen dependency install and monorepo checks
         run: |
           pnpm install --frozen-lockfile
