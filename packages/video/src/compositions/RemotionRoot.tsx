@@ -5,6 +5,8 @@ import { FOOTAGE_PROOF_FRAMES } from './footage-plan.js';
 import { VIDEO_PROFILE } from './profile.js';
 import { GraphicsProof } from './GraphicsProof';
 import { GRAPHICS_PROOF_FRAMES } from './graphics-plan.js';
+import { ScienceProof } from './ScienceProof';
+import { SCIENCE_PROOF_FRAMES } from './science-plan.js';
 
 export const RemotionRoot = () => (
   <>
@@ -31,6 +33,14 @@ export const RemotionRoot = () => (
       height={VIDEO_PROFILE.height}
       fps={VIDEO_PROFILE.fps}
       durationInFrames={GRAPHICS_PROOF_FRAMES}
+    />
+    <Composition
+      id="BDA041ScienceProof"
+      component={ScienceProof}
+      width={VIDEO_PROFILE.width}
+      height={VIDEO_PROFILE.height}
+      fps={VIDEO_PROFILE.fps}
+      durationInFrames={SCIENCE_PROOF_FRAMES}
     />
   </>
 );
