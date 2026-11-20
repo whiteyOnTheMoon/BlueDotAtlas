@@ -1,0 +1,54 @@
+name: M03 041 qualitative science animation and real 1080p proof
+
+on:
+  pull_request:
+    paths:
+      - 'packages/video/**'
+      - 'scripts/check-science-041*'
+      - '.github/workflows/pilot-science-041-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  science-041:
+    name: 041 Real vector physics process proof
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Frozen workspace install
+        run: pnpm install --frozen-lockfile
+      - name: NOAA claim, qualitative motion, negative and release-guard tests
+        run: node --test scripts/check-science-041.test.mjs
+      - name: Compile strict Remotion TypeScript
+        run: pnpm --filter @bluedotatlas/video build
+      - name: Render real 270-frame 1080p30 original vector process
+        run: pnpm --filter @bluedotatlas/video render:science-proof
+        env:
+          REMOTION_DISABLE_TELEMETRY: '1'
+      - name: Render 3 inspectable evaporation, rising-air and condensation stills
+        run: pnpm --filter @bluedotatlas/video exec remotion render src/entry.tsx BDA041ScienceProof out/041-stills --frames=30,130,240 --image-format=png --concurrency=1
+        env:
+          REMOTION_DISABLE_TELEMETRY: '1'
+      - name: Check actual H264, 1080p, 30fps, 270 frames, silence and stage differences
+        run: node scripts/check-science-041.mjs packages/video/out/041-science-proof.mp4 packages/video/out/041-stills
+      - name: Upload only self-created synthetic QA media
+        uses: actions/upload-artifact@v4
+        with:
+          name: science-041-synthetic-review
+          path: |
+            packages/video/out/041-science-proof.mp4
+            packages/video/out/041-stills/**
+          retention-days: 5
+          if-no-files-found: error
