@@ -1,0 +1,37 @@
+name: Temporary 039 formatting bootstrap (self-removing)
+
+on:
+  push:
+    branches:
+      - feat/039-cinematic-footage
+
+permissions:
+  contents: write
+
+jobs:
+  format-once:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Frozen install
+        run: pnpm install --frozen-lockfile
+      - name: Format only modified video files
+        run: |
+          pnpm exec prettier --write packages/video/package.json packages/video/src/compositions/RemotionRoot.tsx packages/video/src/compositions/FootageScene.tsx packages/video/src/compositions/FootageProof.tsx packages/video/src/compositions/footage-plan.js
+      - name: Commit formatting and delete temporary workflow from branch
+        run: |
+          set -eu
+          test "$(git branch --show-current)" = "feat/039-cinematic-footage"
+          git rm -- .github/workflows/footage-039-format-bootstrap.yml
+          git add -- packages/video/
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -m "chore(039): format footage module and remove bootstrap"
+          git push origin HEAD:feat/039-cinematic-footage
