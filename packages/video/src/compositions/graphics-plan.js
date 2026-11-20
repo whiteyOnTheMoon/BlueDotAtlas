@@ -90,10 +90,12 @@ export const GRAPHICS_PROOF_CUES = Object.freeze([
   }),
 ]);
 
+/** @param {unknown} value @param {number} max */
 const textBounded = (value, max) =>
   typeof value === 'string' && value.length > 0 && value.length <= max && !/[\n\r\t<>]/.test(value);
 
 /** Only explicit year or real YYYY-MM-DD source dates, never invented day precision. */
+/** @param {unknown} value */
 export function isValidSourceDate(value) {
   if (typeof value !== 'string') return false;
   const match = /^(\d{4})(?:-(\d{2})-(\d{2}))?$/.exec(value);
@@ -140,8 +142,10 @@ export function validateGraphic(graphic) {
   return graphic;
 }
 
-/** @param {number} frame local frame */
-/** @param {number} durationInFrames total overlay lifetime */
+/**
+ * @param {number} frame Local frame
+ * @param {number} durationInFrames Total overlay lifetime
+ */
 export function graphicOpacity(frame, durationInFrames) {
   const fade = GRAPHICS_LAYOUT.fadeFrames;
   if (
