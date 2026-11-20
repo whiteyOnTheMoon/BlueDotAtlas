@@ -38,6 +38,11 @@ jobs:
         run: pnpm --filter @bluedotatlas/video render:proof
         env:
           REMOTION_DISABLE_TELEMETRY: '1'
+      - name: Install FFmpeg/ffprobe in this disposable runner only
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg
+          ffprobe -version | head -n 1
       - name: Validate encoded output
         run: node scripts/check-remotion-038.mjs packages/video/out/038-proof.mp4
       - name: Capture three inspectable frames
