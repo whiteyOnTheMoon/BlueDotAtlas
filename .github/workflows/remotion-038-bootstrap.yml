@@ -1,0 +1,41 @@
+name: Temporary 038 lockfile generator (self-removing)
+
+on:
+  push:
+    branches:
+      - feat/038-remotion-1080p
+
+permissions:
+  contents: write
+
+jobs:
+  lockfile-once:
+    name: One-shot 038 pnpm lockfile generation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Resolve and install exact dependencies
+        run: pnpm install --no-frozen-lockfile
+      - name: Format only the 038 TypeScript and JSON files
+        run: |
+          pnpm exec prettier --write 'packages/video/**/*.{ts,tsx,json}' packages/video/remotion.config.ts
+      - name: Commit lockfile and self-remove the temporary generator
+        run: |
+          set -eu
+          test "$(git branch --show-current)" = "feat/038-remotion-1080p"
+          test -n "$(git status --porcelain -- pnpm-lock.yaml)"
+          git rm -- .github/workflows/remotion-038-bootstrap.yml
+          git add -- pnpm-lock.yaml packages/video/
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -m "chore(038): lock dependencies and format composition"
+          git push origin HEAD:feat/038-remotion-1080p
