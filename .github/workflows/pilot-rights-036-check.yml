@@ -5,6 +5,8 @@ on:
     paths:
       - 'assets/pilot/**'
       - 'scripts/check-pilot-rights-036.mjs'
+      - 'scripts/check-pilot-manual-review-036.mjs'
+      - 'docs/pilot/manual-media-review-036.md'
       - '.github/workflows/pilot-rights-036-check.yml'
   workflow_dispatch:
 
@@ -23,5 +25,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Validate three independent video sources and ten denial cases
+      - name: Validate original source provenance and denial cases
         run: node scripts/check-pilot-rights-036.mjs --self-test
+      - name: Reject fake human film, audio or rights approvals in 036 dossiers
+        run: node scripts/check-pilot-manual-review-036.mjs --self-test
