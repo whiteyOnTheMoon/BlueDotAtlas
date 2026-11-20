@@ -289,7 +289,7 @@
   "notes": {
     "timing": "Planned 30fps frame windows, not measured narration/TTS; actual timing and quality verified in 044–048.",
     "brand_boundary_rule": "Brand intro overlaps S01 for exactly 9 frames (66–75); S07 overlaps brand outro for exactly 9 frames (1620–1629). Other shot boundaries are cuts.",
-    "rights": "All three original video candidates have rights_status=UNREVIEWED and are planning references only, not cleared render assets. No original third-party audio from NOAA clips; the two approved brand files are already in the repository. Actual use requires individual documented human/rights approval for selected originals and any new soundtrack.",
+    "rights": "At the time the 037 shotlist was drafted the three original video references were UNREVIEWED. After the operator's visual feedback, the three source rights are approved for PRIVATE_INTERNAL_TEST_ONLY, with original audio excluded. No original file is yet locally staged or timeline-approved; no public release or monetization allowed.",
     "render_blocker": "Issue 036 remains open. This script must never bypass rights_status=UNREVIEWED or generate an actual timeline with unapproved video."
   }
 }
