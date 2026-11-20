@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """036: bounded ephemeral evidence only, never authorizes publishing, production, or timeline use.
 
-The only two allowable downloads are exactly the original NOAA MP4 URLs recorded
+The only allowable downloads are exactly the three NASA/NOAA MP4 URLs recorded
 in the approved source catalogue. No redirects, artifacts, VPS, keys, or uploads.
 """
 from __future__ import annotations
@@ -20,6 +20,7 @@ from urllib.parse import urlsplit
 MAX_BYTES = 100_000_000
 CHUNK_BYTES = 1024 * 1024
 SOURCE_URLS = {
+    "P60-VID-001": "https://eol.jsc.nasa.gov/Videos/CrewEarthObservationsVideos/videos/HurricaneOma_ISS058_2019-02/HurricaneOma_ISS058_2019-02.mp4",
     "P60-VID-002": "https://nesdis-prod.s3.amazonaws.com/2024-08/2024_08_22_Hurricane-Ernesto-NO_TEXT.mp4",
     "P60-VID-003": "https://www.omao.noaa.gov/sites/default/files/2024-09/09252024%20N43%20Eye%20of%20Helene%20Credit%20Nick%20Underwood.mp4",
 }
@@ -36,7 +37,7 @@ def validate_url(asset_id: str, url: str) -> None:
     parts = urlsplit(url)
     if parts.scheme != "https" or parts.username or parts.password or parts.fragment:
         raise ValueError("Source must be credential-free HTTPS")
-    if parts.hostname not in ("nesdis-prod.s3.amazonaws.com", "www.omao.noaa.gov"):
+    if parts.hostname not in ("nesdis-prod.s3.amazonaws.com", "www.omao.noaa.gov", "eol.jsc.nasa.gov"):
         raise ValueError("Source host is not whitelisted")
 
 
@@ -126,7 +127,7 @@ def run_probe(asset_id: str, url: str, folder: Path) -> dict:
 
 
 def self_test() -> None:
-    assert len(SOURCE_URLS) == 2
+    assert len(SOURCE_URLS) == 3
     assert MAX_BYTES == 100_000_000
     for asset_id, url in SOURCE_URLS.items():
         validate_url(asset_id, url)
@@ -143,7 +144,7 @@ def self_test() -> None:
             else:
                 raise AssertionError("Unsafe media URL was not rejected")
     assert NoRedirect().redirect_request(None, None, 302, "Moved", {}, "https://evil.invalid/") is None
-    print("PASS 036: two fixed NOAA URLs; 8 invalid URL variants; redirects blocked; cap 100 MB")
+    print("PASS 036: three fixed NASA/NOAA URLs; 12 invalid URL variants; redirects blocked; cap 100 MB")
 
 
 def main() -> int:
