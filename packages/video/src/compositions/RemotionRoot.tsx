@@ -3,6 +3,8 @@ import { TenSecondProof } from './TenSecondProof';
 import { FootageProof } from './FootageProof';
 import { FOOTAGE_PROOF_FRAMES } from './footage-plan.js';
 import { VIDEO_PROFILE } from './profile.js';
+import { GraphicsProof } from './GraphicsProof';
+import { GRAPHICS_PROOF_FRAMES } from './graphics-plan.js';
 
 export const RemotionRoot = () => (
   <>
