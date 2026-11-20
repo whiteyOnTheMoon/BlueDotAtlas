@@ -66,8 +66,9 @@ function validate(data) {
       assert.equal(videoUrl.password, '', prefix + 'credentials forbidden');
       assert.match(videoUrl.pathname.toLowerCase(), /\.mp4$/, prefix + 'MP4 download expected');
       assert.ok(videoUrl.hostname.endsWith('.noaa.gov') ||
+        videoUrl.hostname.endsWith('.nasa.gov') ||
         videoUrl.hostname === 'nesdis-prod.s3.amazonaws.com',
-        prefix + 'only exact original official NOAA download host allowed');
+        prefix + 'only official NASA/NOAA or linked NOAA S3 origin hosts allowed');
     }
     // Fail closed: no source may enter the timeline just because a webpage exists.
     if (asset.rights_status !== 'APPROVED') {
