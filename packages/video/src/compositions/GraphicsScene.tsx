@@ -72,9 +72,21 @@ export const GraphicsScene = ({
           </span>
         </div>
       ) : (
-        <div style={{ fontSize: 30, fontWeight: 600, lineHeight: 1.3, marginBottom: 8 }}>
-          {graphic.detail}
-          <span style={{ color: GRAPHICS_PALETTE.blueDot }}>{' · ' + graphic.date}</span>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            columnGap: 14,
+            fontSize: 30,
+            fontWeight: 600,
+            lineHeight: 1.3,
+            marginBottom: 8,
+          }}
+        >
+          <span>{graphic.detail}</span>
+          <span style={{ color: GRAPHICS_PALETTE.blueDot, whiteSpace: 'nowrap' }}>
+            {graphic.date}
+          </span>
         </div>
       )}
       {graphic.kind === 'metric' && (
