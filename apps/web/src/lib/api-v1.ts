@@ -32,11 +32,11 @@ const headers = {
 };
 const MAX_BODY_BYTES = 8192;
 
-function result(data: unknown, status = 200, extraHeaders: Record<string, string> = {}) {
+export function result(data: unknown, status = 200, extraHeaders: Record<string, string> = {}) {
   return NextResponse.json(data, { status, headers: { ...headers, ...extraHeaders } });
 }
 
-function problem(
+export function problem(
   status: number,
   code: string,
   message: string,
@@ -50,7 +50,7 @@ function problem(
   );
 }
 
-async function adminGate() {
+export async function adminGate() {
   const token = (await cookies()).get(adminCookieName())?.value;
   if (!token) return problem(401, 'unauthorized', 'Administrator session required');
   try {
@@ -61,7 +61,7 @@ async function adminGate() {
   }
 }
 
-async function databaseAction(
+export async function databaseAction(
   action: (connection: ReturnType<typeof openDatabase>) => Promise<NextResponse>,
 ): Promise<NextResponse> {
   try {
@@ -162,7 +162,7 @@ export async function readDetail(
   });
 }
 
-async function boundedBody(request: NextRequest): Promise<string | null> {
+export async function boundedBody(request: NextRequest): Promise<string | null> {
   const length = request.headers.get('content-length');
   if (length !== null && (!/^\d+$/.test(length) || Number(length) > MAX_BODY_BYTES)) {
     return null;
@@ -237,7 +237,7 @@ export async function createProjectRoute(request: NextRequest) {
   });
 }
 
-async function methodDenied(request: NextRequest, allow: string) {
+export async function methodDenied(request: NextRequest, allow: string) {
   const denied = await adminGate();
   if (denied) return denied;
   return problem(405, 'method_not_allowed', 'Method not allowed', undefined, { Allow: allow });

@@ -129,3 +129,41 @@ export function parseApiProjectPatch(value: unknown): ApiProjectPatch {
   if (record.action === 'archive') return { action: 'archive' };
   throw new ApiValidationError('body');
 }
+
+/** Bounded, single-step updates; callers cannot set approvals, job state or raw snapshots. */
+export type ApiWizardChange =
+  | { expectedRevision: number; notes: string }
+  | { expectedRevision: number; action: 'submit' };
+
+export function parseApiWizardStep(value: string): number {
+  if (!/^[1-7]$/.test(value)) throw new ApiValidationError('step');
+  return Number(value);
+}
+
+export function parseApiWizardChange(value: unknown): ApiWizardChange {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    throw new ApiValidationError('body');
+  }
+  const data = value as Record<string, unknown>;
+  if (Object.keys(data).length !== 2) throw new ApiValidationError('body');
+  if (
+    !Number.isSafeInteger(data.expectedRevision) ||
+    (data.expectedRevision as number) < 0 ||
+    (data.expectedRevision as number) >= Number.MAX_SAFE_INTEGER
+  ) {
+    throw new ApiValidationError('expectedRevision');
+  }
+  const expectedRevision = data.expectedRevision as number;
+  if (Object.hasOwn(data, 'notes')) {
+    if (
+      typeof data.notes !== 'string' ||
+      data.notes.length > 4000 ||
+      /[\u0000\u007f]/.test(data.notes)
+    ) {
+      throw new ApiValidationError('notes');
+    }
+    return { expectedRevision, notes: data.notes };
+  }
+  if (data.action === 'submit') return { expectedRevision, action: 'submit' };
+  throw new ApiValidationError('body');
+}
