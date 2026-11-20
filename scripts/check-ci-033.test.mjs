@@ -23,8 +23,8 @@ test('one stable required status check runs on every PR, even docs-only edits', 
     [yaml.replace('pnpm format:check', 'echo skipped'), /Missing required CI command/],
     [yaml.replace('pnpm build', 'echo skipped'), /Build must run/],
     [yaml.replace('pnpm --filter @bluedotatlas/db test:integration', 'true'), /Missing required CI command/],
-    [yaml.replace('          pnpm lint', '          pnpm lint || true'), /cannot ignore failures/],
-    [yaml.replace('          pnpm typecheck', '          pnpm typecheck\n          echo ${{ secrets.API_KEY }}'), /No GitHub Secrets/],
+    [yaml.replace('run: pnpm lint', 'run: pnpm lint || true'), /cannot ignore failures/],
+    [yaml.replace('run: pnpm typecheck', 'run: |\n          pnpm typecheck\n          echo ${{ secrets.API_KEY }}'), /No GitHub Secrets/],
   ]) {
     assert.throws(() => checkRequiredCiContract(bad), warning);
   }
