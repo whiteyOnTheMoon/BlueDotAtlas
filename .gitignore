@@ -43,3 +43,6 @@ bda-*.sha256
 
 # 039 verified private-source media and renders: NEVER commit to the public repository
 assets/pilot/.private-039/
+
+# 042 isolated model weights, voice pack and generated narration (never Git-commit)
+.tmp-tts-042/
