@@ -2,7 +2,6 @@ import { AbsoluteFill, Sequence, useCurrentFrame } from 'remotion';
 import { GraphicsScene } from './GraphicsScene';
 import {
   GRAPHICS_PROOF_CUES,
-  GRAPHICS_PROOF_FRAMES,
   validateGraphicTimeline,
 } from './graphics-plan.js';
 
@@ -57,8 +56,6 @@ export const GraphicsProof = () => {
           <GraphicsScene graphic={cue.graphic} durationInFrames={cue.durationInFrames} />
         </Sequence>
       ))}
-      {/* Last 34 frames deliberately have no text overlay. */}
-      {frame === GRAPHICS_PROOF_FRAMES && null}
     </AbsoluteFill>
   );
 };
