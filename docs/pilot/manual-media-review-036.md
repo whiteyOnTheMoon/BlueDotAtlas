@@ -1,13 +1,15 @@
-# Roadmap 036 – Vollbild-, Ton- und Rechteprüfung der Pilotvideos
+# Roadmap 036 – Drei offizielle Quellvideos für den privaten Test
 
-**Status: Drei Prüfakten VORBEREITET, alle menschlichen Prüfungen AUSSTEHEND.**  
+**Status: Betreiber hat die drei Videos gesehen und für den PRIVATEN INTERNEN TEST akzeptiert (20.11.2026); umfassendes Audio-/Drittrechte-/Publikationsreview bleibt offen.**  
 [Issue #60](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/60) · [Prüfakte als JSON](../../assets/pilot/manual-review-036.json) · [Rechtemanifest](../../assets/pilot/rights-manifest.json) · [echter technischer Byte-Proof](media-byte-proof-036.md) · [Rechtematrix 014](../legal/rights-matrix.md).
 
-Diese Seite ist eine **kurze Review-Anleitung** für den Betreiber auf Handy oder PC. Die drei Clips wurden früher tatsächlich in kurzlebigen GitHub-CI-Runnern vollständig heruntergeladen, mit SHA-256/`ffprobe` identifiziert und anschließend gelöscht. **Ich habe die Videos hier nicht vollständig gesehen oder gehört.** Deshalb wird ausdrücklich **kein** menschlicher Bild-/Ton-/Rechte-PASS protokolliert.
+Diese Seite hält die **bereits erfolgte pragmatische Testauswahl** fest – keine weitere große Reviewrunde notwendig. Drei Video-Originale wurden früher in CI technisch vollständig heruntergeladen/gehasht und sofort gelöscht. Der Betreiber hat die Videos laut eigener Aussage angesehen; er fand sie für ein Testvideo passend. Es wird weder ein Bild-für-Bild-Vollreview noch eine Ton-/Personen-/Logo- oder spätere Veröffentlichungsgenehmigung behauptet. Die offizielle NASA-/NOAA-Quellenherkunft und allgemeine Wiederverwendung mit Credits sind verifiziert; Fremdanteile bleiben die Ausnahme.
 
-## 1. Alle drei Originalclips vollständig ansehen
+**Zulässiger Scope:** `PRIVATE_INTERNAL_TEST_ONLY` als **stumme Bildquellen** mit exakten Credits und klarer Kennzeichnung der unterschiedlichen Ereignisse. Vor tatsächlichem Einfügen in die Test-Timeline muss eine lokale Originaldatei den bekannten SHA-256 erfüllen. `approved_for_timeline=false` bis zur separaten Dateistaging-Prüfung; **öffentliche Publikation weiterhin nicht freigegeben**.
 
-**Drei direkte offizielle MP4-Links; jeweils vom Anfang bis zum Ende abspielen, auch Ton nicht überspringen.**
+## 1. Bereits ausgewählte drei Originalclips – direkte Referenzlinks
+
+**Direkte Original-MP4-Links zur späteren lokalen Beschaffung und zur Kontextkontrolle.** Für die rein interne Testauswahl ist kein erneutes Anschauen durch den Betreiber vorgesehen.
 
 | Asset / tatsächliche Laufzeit | Offizielle Datei, technischer Nachweis | Worauf besonders achten? |
 | --- | --- | --- |
@@ -25,7 +27,7 @@ Diese Seite ist eine **kurze Review-Anleitung** für den Betreiber auf Handy ode
 
 **Wichtig:** Ein Stream im mobilen Browser garantiert **keinen Hash-Abgleich mit einer später verwendeten lokalen Mediendatei**. Vor tatsächlicher Auswahl als Filmasset müssen die exakten Bytes des später verwendeten Originalfiles erneut lokal unter einem gesondert freigegebenen Medienverzeichnis mit dem Referenzhash verglichen und abgelegt werden. **Keine** Videos oder Screenshots in das öffentliche Git-Repositorium kopieren.
 
-## 2. Prüffragen je Clip – erst nach vollständigem Anschauen beantworten
+## 2. Nur bei späterer Veröffentlichung: offene Drittinhalte prüfen
 
 - [ ] **Vollständiges Bild:** Sind der **gesamte Clip** und seine Anfangs-/Endsequenzen geprüft, eventuelle Blenden/Overlays/Abweichungen mit Zeitstempel notiert?
 - [ ] **Vollständiger Ton:** Bei Helene und NOAA-Meeresclip **gesamte** Original-Tonspur angehört; Musik, fremde Stimmen oder andere nicht zuordenbare Töne mit Timecodes erfasst? Bei Oma ohne Audiospur **begründet N/A**.
@@ -44,10 +46,10 @@ Diese Seite ist eine **kurze Review-Anleitung** für den Betreiber auf Handy ode
 
 **Keine Pauschallizenz:** Dass ein Video von einer Behörde veröffentlicht wird, deckt nicht automatisch jeden hörbaren Ton, jede erkennbare Person oder jedes Fremdmaterial ab. Der endgültige Projektfreigabebeschluss ist vom Rechte-/Qualitätsreview und der tatsächlichen Filmverwendung getrennt.
 
-## 4. Noch nicht auswählbar und Review-Ablauf
+## 4. Grenzen der abgeschlossenen internen Source-Auswahl
 
-**Nicht in dieser Drei-Clip-Prüfung:** NOAA Ernesto (`P60-VID-002`, Original 183.440.133 Byte, über dem bisherigen 100-MB-CI-Limit, kein vollständiger Hash-/Byte-Proof) und NOAA-/Saildrone-Hurricane-Sam (`P60-VID-ALT-004`, **BLOCKED** wegen Drittanbieterrechten).
+**Ausgeschlossen:** NOAA Ernesto (`P60-VID-002`, 183.440.133 Byte, noch ohne vollständigen Originalhash) und Saildrone (`P60-VID-ALT-004`, Drittanbieterrechte `BLOCKED`). Nur **Oma**, **Helene** und **NOAA offene See** sind für einen **nicht öffentlichen** Test als Bildquellen ausgewählt.
 
-Du kannst die drei MP4s über die obigen Direktlinks auf dem Handy vollständig prüfen und mir anschließend beispielsweise **„Oma: Bild OK; Helene: Ton unklar ab 00:xx; Meer: Bild OK, Ton nicht verwenden“** mit etwaigen Timecodes zurückmelden. Das ist ein **Review-Input**, noch keine automatische Freigabe: Ich kann anschließend die tatsächlichen Beobachtungen sachlich in der Akte dokumentieren und offene Rechtefragen markieren.
+Die [JSON-Prüfakte](../../assets/pilot/manual-review-036.json) enthält die tatsächliche **Betreiber-Rückmeldung „Videos angesehen, für den Test passend“**, ohne eine vollständige Ton-/Drittmaterialprüfung zu erfinden. Die [Rechtematrix](../legal/rights-matrix.md) gilt weiterhin für eine spätere Veröffentlichung. Kein ungeklärter Originalton und keine irreführende NASA-/NOAA-Partnerschaft.
 
-Die [strukturierte Prüfakte](../../assets/pilot/manual-review-036.json) bleibt bis dahin **dreimal `PENDING`**, ohne fingierte Reviewer, Zeitstempel, vollständige Wiedergabe oder Timelinefreigabe. Der separate [technische SHA-/ffprobe-Beleg](media-byte-proof-036.md) bleibt unverändert; das originale [Rechtemanifest](../../assets/pilot/rights-manifest.json) bleibt `UNREVIEWED`. **Issue #60 bleibt offen**, ebenso Film-/V09-/Publikations-Gate. Keine VPS-/Provider-/Renderänderungen.
+**Das ist der Abschluss der Medienquellen-Auswahl in 036.** Dateistaging und tatsächliche Hashprüfung am späteren lokalen Medienroot folgen erst in den filmtechnischen Roadmap-Aufgaben. Es wurden keine Original-MP4s auf den VPS geladen oder ins Git-Repo übernommen.
