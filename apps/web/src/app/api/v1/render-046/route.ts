@@ -1,4 +1,3 @@
-import type { NextRequest } from 'next/server';
 import { postSynthetic046, readOnlyRender046 } from '../../../../lib/render-046';
 
 export const runtime = 'nodejs';
