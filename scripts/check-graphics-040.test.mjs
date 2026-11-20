@@ -64,6 +64,15 @@ test('short fade-in and fade-out, solid hold, then the overlay unmounts', () => 
   assert.throws(() => graphicOpacity(2.5, 76), RangeError);
 });
 
+test('source date is a separate nonwrapping label in the overlay', () => {
+  const component = readFileSync(
+    new URL('../packages/video/src/compositions/GraphicsScene.tsx', import.meta.url),
+    'utf8',
+  );
+  assert.match(component, /whiteSpace: 'nowrap'/);
+  assert.match(component, /\{graphic\.date\}/);
+});
+
 test('truthful date precision: YYYY and real YYYY-MM-DD only', () => {
   assert.equal(isValidSourceDate('2021'), true);
   assert.equal(isValidSourceDate('2019-02-20'), true);
