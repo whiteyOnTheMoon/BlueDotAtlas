@@ -148,15 +148,16 @@ try {
     reducedMotion: 'reduce',
   });
   const page = await context.newPage();
+  const browserOrigin = 'http://localhost:3131';
   const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
-  await page.goto(origin + '/admin/login');
+  await page.goto(browserOrigin + '/admin/login');
   await page.getByLabel('Email').fill(email);
   await page.getByLabel('Password').fill(password);
   await page.getByRole('button', { name: /sign in/i }).click();
-  await page.waitForURL(origin + '/admin');
+  await page.waitForURL('**/admin');
   await page.getByRole('link', { name: 'Create New Video' }).click();
-  await page.waitForURL(origin + '/admin/projects');
+  await page.waitForURL('**/admin/projects');
   await page.getByRole('heading', { name: 'Projects', exact: true }).waitFor();
   await page.screenshot({ path: resolve(outputDir, 'projects-empty-or-list-1440-dark.png'), fullPage: true });
 
@@ -183,7 +184,7 @@ try {
   const mobile = await context.newPage();
   await mobile.setViewportSize({ width: 375, height: 812 });
   await mobile.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' });
-  await mobile.goto(origin + '/admin/projects');
+  await mobile.goto(browserOrigin + '/admin/projects');
   await mobile.getByRole('heading', { name: 'Projects', exact: true }).waitFor();
   await mobile.locator('#project-status-filter').selectOption('archived');
   await mobile.getByRole('link', { name: 'Browser renamed atlas' }).waitFor();

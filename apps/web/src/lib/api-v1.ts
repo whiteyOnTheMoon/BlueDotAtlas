@@ -252,12 +252,8 @@ export function rejectProjectCollectionMethod(request: NextRequest) {
   return methodDenied(request, 'GET, HEAD, POST');
 }
 
-
 /** Auth -> origin -> strict body -> transactional domain mutation; never expose DB errors. */
-export async function patchProjectRoute(
-  request: NextRequest,
-  params: Promise<{ id: string }>,
-) {
+export async function patchProjectRoute(request: NextRequest, params: Promise<{ id: string }>) {
   const denied = await adminGate();
   if (denied) return denied;
 

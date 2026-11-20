@@ -41,8 +41,10 @@ async function requestJson(path: string, options?: RequestInit) {
     ...options,
   });
   if (!response.ok) {
-    if (response.status === 401) throw new Error('Your administrator session is unavailable. Sign in again.');
-    if (response.status === 409) throw new Error('This project cannot be changed in its current state.');
+    if (response.status === 401)
+      throw new Error('Your administrator session is unavailable. Sign in again.');
+    if (response.status === 409)
+      throw new Error('This project cannot be changed in its current state.');
     if (response.status === 404) throw new Error('Project not found.');
     if (response.status === 400) throw new Error('Check the title and try again.');
     throw new Error('The project service is temporarily unavailable.');
@@ -182,17 +184,22 @@ export function ProjectWorkspace({ projectId }: { projectId?: string }) {
             </Link>
           </nav>
           <form method="post" action="/api/auth/logout">
-            <button className="button button-secondary" type="submit">Sign out</button>
+            <button className="button button-secondary" type="submit">
+              Sign out
+            </button>
           </form>
         </div>
 
         {error ? (
           <p className="auth-error" role="alert">
-            {error}{' '}
-            {error.includes('session') ? <Link href="/admin/login">Sign in</Link> : null}
+            {error} {error.includes('session') ? <Link href="/admin/login">Sign in</Link> : null}
           </p>
         ) : null}
-        {notice ? <p className="project-notice" role="status">{notice}</p> : null}
+        {notice ? (
+          <p className="project-notice" role="status">
+            {notice}
+          </p>
+        ) : null}
 
         {projectId ? (
           <section className="panel-card project-detail" aria-label="Project details">
@@ -205,9 +212,18 @@ export function ProjectWorkspace({ projectId }: { projectId?: string }) {
                   <span className="project-status">{statusLabel(project.status)}</span>
                 </div>
                 <dl className="project-metadata">
-                  <div><dt>Revision</dt><dd>{project.currentVersion}</dd></div>
-                  <div><dt>Created</dt><dd>{dateLabel(project.createdAt)}</dd></div>
-                  <div><dt>Updated</dt><dd>{dateLabel(project.updatedAt)}</dd></div>
+                  <div>
+                    <dt>Revision</dt>
+                    <dd>{project.currentVersion}</dd>
+                  </div>
+                  <div>
+                    <dt>Created</dt>
+                    <dd>{dateLabel(project.createdAt)}</dd>
+                  </div>
+                  <div>
+                    <dt>Updated</dt>
+                    <dd>{dateLabel(project.updatedAt)}</dd>
+                  </div>
                 </dl>
                 <form onSubmit={rename} className="project-form">
                   <label htmlFor="project-edit-title">Project title</label>
@@ -223,7 +239,9 @@ export function ProjectWorkspace({ projectId }: { projectId?: string }) {
                   <button
                     type="submit"
                     className="button button-primary"
-                    disabled={busy || project.status === 'archived' || title.trim() === project.title}
+                    disabled={
+                      busy || project.status === 'archived' || title.trim() === project.title
+                    }
                   >
                     Save title
                   </button>
@@ -232,15 +250,23 @@ export function ProjectWorkspace({ projectId }: { projectId?: string }) {
                   <p className="muted">Archived projects are read-only. History is preserved.</p>
                 ) : (
                   <div className="project-archive">
-                    <p className="muted">Archiving preserves this project and its history. This action is not reversible here.</p>
-                    <button className="button button-secondary" type="button" onClick={archive} disabled={busy}>
+                    <p className="muted">
+                      Archiving preserves this project and its history. This action is not
+                      reversible here.
+                    </p>
+                    <button
+                      className="button button-secondary"
+                      type="button"
+                      onClick={archive}
+                      disabled={busy}
+                    >
                       Archive project
                     </button>
                   </div>
                 )}
                 <p className="muted project-wizard-note">
-                  The seven-step production wizard and autosave are planned for Roadmap 032.
-                  No render job is created by these actions.
+                  The seven-step production wizard and autosave are planned for Roadmap 032. No
+                  render job is created by these actions.
                 </p>
               </>
             ) : null}
@@ -251,7 +277,9 @@ export function ProjectWorkspace({ projectId }: { projectId?: string }) {
               <div>
                 <p className="eyebrow">Step 01 · New Video</p>
                 <h2 id="create-video-heading">Create New Video</h2>
-                <p className="muted">Create a project draft; no rendering or provider calls start.</p>
+                <p className="muted">
+                  Create a project draft; no rendering or provider calls start.
+                </p>
               </div>
               <form onSubmit={createVideo} className="project-form">
                 <label htmlFor="project-new-title">Project title</label>
@@ -265,7 +293,11 @@ export function ProjectWorkspace({ projectId }: { projectId?: string }) {
                   required
                   disabled={busy}
                 />
-                <button className="button button-primary" type="submit" disabled={busy || !newTitle.trim()}>
+                <button
+                  className="button button-primary"
+                  type="submit"
+                  disabled={busy || !newTitle.trim()}
+                >
                   {busy ? 'Creating…' : 'Create New Video'}
                 </button>
               </form>
@@ -285,7 +317,9 @@ export function ProjectWorkspace({ projectId }: { projectId?: string }) {
                     }}
                   >
                     {statuses.map(({ value, label }) => (
-                      <option key={value} value={value}>{label}</option>
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -302,12 +336,21 @@ export function ProjectWorkspace({ projectId }: { projectId?: string }) {
                   {items.map((item) => (
                     <li className="project-list-card" key={item.id}>
                       <div>
-                        <h3><Link href={'/admin/projects/' + item.id}>{item.title}</Link></h3>
-                        <p className="muted">Updated {dateLabel(item.updatedAt)} · Revision {item.currentVersion}</p>
+                        <h3>
+                          <Link href={'/admin/projects/' + item.id}>{item.title}</Link>
+                        </h3>
+                        <p className="muted">
+                          Updated {dateLabel(item.updatedAt)} · Revision {item.currentVersion}
+                        </p>
                       </div>
                       <div className="project-list-actions">
                         <span className="project-status">{statusLabel(item.status)}</span>
-                        <Link href={'/admin/projects/' + item.id} className="button button-secondary">Open</Link>
+                        <Link
+                          href={'/admin/projects/' + item.id}
+                          className="button button-secondary"
+                        >
+                          Open
+                        </Link>
                       </div>
                     </li>
                   ))}
@@ -331,7 +374,11 @@ export function ProjectWorkspace({ projectId }: { projectId?: string }) {
                 >
                   Next
                 </button>
-                <button className="button button-secondary" type="button" onClick={() => setRefresh((n) => n + 1)}>
+                <button
+                  className="button button-secondary"
+                  type="button"
+                  onClick={() => setRefresh((n) => n + 1)}
+                >
                   Refresh
                 </button>
               </div>

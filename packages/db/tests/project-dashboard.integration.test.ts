@@ -50,20 +50,27 @@ test('one project = one version + seven steps + zero jobs; rename/archive persis
     const archived = await archiveProject(conn, id);
     assert.equal(archived.status, 'archived');
     assert.equal((await getProject(conn, id))?.status, 'archived');
-    assert.ok((await listProjects(conn, { limit: 20, offset: 0, status: 'archived' })).some((p) => p.id === id));
-
-    const audits = await conn.db
-      .select()
-      .from(auditEvents)
-      .where(eq(auditEvents.projectId, id));
-    assert.deepEqual(
-      audits.map((entry) => entry.eventType).sort(),
-      ['project.archived', 'project.created', 'project.renamed'],
+    assert.ok(
+      (await listProjects(conn, { limit: 20, offset: 0, status: 'archived' })).some(
+        (p) => p.id === id,
+      ),
     );
+
+    const audits = await conn.db.select().from(auditEvents).where(eq(auditEvents.projectId, id));
+    assert.deepEqual(audits.map((entry) => entry.eventType).sort(), [
+      'project.archived',
+      'project.created',
+      'project.renamed',
+    ]);
     await assert.rejects(renameProject(conn, id, 'No longer editable'), /cannot be modified/);
     await assert.rejects(archiveProject(conn, id), /cannot be modified/);
     assert.equal(
-      (await conn.db.select().from(renderJobs).where(eq(renderJobs.projectVersionId, created.version.id))).length,
+      (
+        await conn.db
+          .select()
+          .from(renderJobs)
+          .where(eq(renderJobs.projectVersionId, created.version.id))
+      ).length,
       0,
     );
   } finally {
@@ -87,7 +94,10 @@ test('queued jobs block archiving without canceling the queue or changing projec
       .select()
       .from(auditEvents)
       .where(eq(auditEvents.projectId, created.project.id));
-    assert.deepEqual(audit.map((x) => x.eventType), ['project.created']);
+    assert.deepEqual(
+      audit.map((x) => x.eventType),
+      ['project.created'],
+    );
   } finally {
     await conn.pool.end();
   }

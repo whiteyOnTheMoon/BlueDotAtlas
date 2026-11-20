@@ -98,7 +98,6 @@ export async function transitionProjectStatus(
   });
 }
 
-
 /** Rename under a row lock; keep the revision and its seven steps unchanged. */
 export async function renameProject(
   { db }: ReturnTypeOfOpenDatabase,

@@ -43,7 +43,9 @@ export function AdminShell({ preview = false }: { preview?: boolean }) {
             {preview ? (
               <p className="side-link">Projects</p>
             ) : (
-              <a className="side-link" href="/admin/projects">Projects</a>
+              <a className="side-link" href="/admin/projects">
+                Projects
+              </a>
             )}
             <p className="side-link">Sources</p>
           </aside>
@@ -60,7 +62,10 @@ export function AdminShell({ preview = false }: { preview?: boolean }) {
             </ol>
             <div className="panel-card">
               <h3>{preview ? 'Project management is coming soon' : 'Project management'}</h3>
-              <p>Database project models exist. Open Projects to create, rename, archive and review your drafts.</p>
+              <p>
+                Database project models exist. Open Projects to create, rename, archive and review
+                your drafts.
+              </p>
               {preview ? (
                 <button className="button button-secondary" type="button" disabled>
                   Create New Video · coming soon

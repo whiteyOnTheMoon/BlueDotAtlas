@@ -116,7 +116,6 @@ export function parseApiCreateProject(value: unknown): { title: string } {
   return { title };
 }
 
-
 export type ApiProjectPatch = { title: string } | { action: 'archive' };
 
 /** PATCH must express exactly one vetted change; never accept status or raw snapshots. */
