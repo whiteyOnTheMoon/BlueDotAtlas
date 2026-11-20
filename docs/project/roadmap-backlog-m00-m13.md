@@ -70,7 +70,7 @@
 | Roadmap-ID | Original-Aufgabe | GitHub-Issue | Umsetzungsstatus |
 | --- | --- | --- | --- |
 | **035** | Ein geeignetes Demonstrationsthema festlegen | [#59](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/59) | DEC-050 angenommen, PR #201 Squash `0e399bd` gemergt, Issue geschlossen |
-| **036** | Rechtegeprüftes Testmaterial zusammenstellen | [#60](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/60) | [Quellen-/Rechtemanifest](../../assets/pilot/rights-manifest.json) im Review: 4 echte Originalquellen, Oma/Helene temporär hash-/streamgeprüft, Ernesto >100 MB, neue NOAA-Meeresoberfläche im Test; keine menschliche Rechte-/Timelinefreigabe, Saildrone BLOCKED |
+| **036** | Rechtegeprüftes Testmaterial zusammenstellen | [#60](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/60) | [Quellen-/Rechtemanifest](../../assets/pilot/rights-manifest.json) im Review: 4 echte Originalquellen, Oma/Helene temporär hash-/streamgeprüft, Ernesto >100 MB, neue NOAA-Meeresoberfläche technisch hash-/streamgeprüft, human Rechteprüfung offen; keine menschliche Rechte-/Timelinefreigabe, Saildrone BLOCKED |
 | **037** | 60-Sekunden-Skript und Shotlist schreiben | [#61](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/61) | Backlog |
 | **038** | Remotion-Projekt mit 1080p-Profil einrichten | [#62](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/62) | Backlog |
 | **039** | Cinematic-Footage-Komponente erstellen | [#63](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/63) | Backlog |
