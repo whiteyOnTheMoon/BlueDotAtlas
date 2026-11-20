@@ -1,6 +1,6 @@
 # M03 / 036 – Technischer Originaldatei-Nachweis (begrenzte CI-Probe)
 
-**Status: TEILNACHWEIS, keine Medien-/Filmfreigabe.** Stand: 20.11.2026 UTC · [Issue #60](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/60) · [Draft-PR #203](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/203) · [Rechtemanifest](../../assets/pilot/rights-manifest.json). Die öffentliche GitHub-Actions-Probe läuft **außerhalb des VPS** und nutzt keine Provider-Keys oder Drittmedien-Speicherung in Git. Sie archiviert keine MP4s/Standbilder.
+**Status: TEILNACHWEIS, keine Medien-/Filmfreigabe.** Stand: 20.11.2026 UTC · [Issue #60](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/60) · [gemergter PR #203](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/203) · [gemergter PR #204](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/204) · [Rechtemanifest](../../assets/pilot/rights-manifest.json). Die öffentliche GitHub-Actions-Probe läuft **außerhalb des VPS** und nutzt keine Provider-Keys oder Drittmedien-Speicherung in Git. Sie archiviert keine MP4s/Standbilder.
 
 ## Gemessene Fakten (kein geschätztes oder simuliertes ffprobe)
 
