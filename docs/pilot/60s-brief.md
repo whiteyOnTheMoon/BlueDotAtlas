@@ -1,6 +1,6 @@
 # M03 / Roadmap 035 – 60-Sekunden-Pilotbrief V0.1
 
-**Status: THEMA vom Betreiber bestätigt (DEC-050), Detailbrief/PR #201 noch vor Merge-Review.** Keine Asset- oder Produktionsfreigabe.  
+**Status: 035-Themenbrief vom Betreiber bestätigt (DEC-050), PR #201 mit Squash-Commit `0e399bd` gemergt, Issue #59 abgeschlossen.** Keine Asset-, TTS- oder Produktionsfreigabe.  
 **Stand:** 19.11.2026 (Betreiber-Ortszeit) · [Issue #59](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/59) · [Master-Roadmap](../project/BlueDotAtlas_Roadmap.pdf).  
 **Aufgabe 035:** Geeignetes, klar umrissenes Earth-Thema, Hook, drei belegbare Kernaussagen und benötigte echte Videoaufnahmen festlegen. **Keine** Medienrechtsabnahme (036), endgültige Narration/Shotlist (037), Videoerstellung oder VPS-Ausführung.
 
@@ -42,15 +42,17 @@ Die Zeitfenster sind **vorläufige editoriale Planung**, nicht ein gemessenes Re
 
 **Rhythmusregel:** Filmaufnahmen und die eigenständige Animation müssen sichtbare Entwicklung oder neue Information bieten. Keine künstlich bewegten Standbilder als Ersatz für Realfootage; keine ungeklärten Karten-/Wetterdaten, keine prominenten Fremdlogos oder dauerhaften Overlays.
 
-## Für Aufgabe 036 benötigtes Material (noch NICHT lizenziert oder heruntergeladen)
+## Ergebnis der Quellenrecherche 036 (Originaldateien noch NICHT erworben, geprüft oder freigegeben)
 
 Mindestens **drei reale, voneinander unterscheidbare Bewegtbildquellen** werden benötigt; weitere Grafiken allein zählen nicht als drei echte Clips:
 
-1. **ISS-/Orbital-Kamera-Timelapse:** Kandidat [NASA Crew Earth Observations – Time-Lapse Videos](https://eol.jsc.nasa.gov/Videos/CrewEarthObservationsVideos/) (z. B. Hurricane Oma). Exakte Clip-ID, Urheber/Credits, tatsächliches Videoformat und Schnittrecht erst in 036 nachweisen.
-2. **Satelliten-Zeitraffer tatsächlicher Messbilder:** Kandidat [NOAA NESDIS Hurricane Imagery](https://www.nesdis.noaa.gov/imagery/hurricane-imagery). Sicherstellen, dass das gewählte Material eine reale beobachtete Zeitfolge ist, nicht ein illustratives CGI.
-3. **Echte gefilmte windbewegte Ozeanoberfläche:** Kandidat [NOAA/AOML: Saildrone-Footage](https://www.aoml.noaa.gov/saildrone-captures-video-from-inside-hurricane/). **Besonderer Blocker:** Saildrone ist ein externer Unternehmenspartner; NOAA-Veröffentlichung bedeutet **keine** gesicherte Drittanbieter-Lizenz. Falls Nutzung nicht eindeutig erlaubt: **nicht verwenden** und auf ein unabhängig geklärtes alternatives Video ausweichen.
+1. **ISS-/Orbital-Kamera-Timelapse:** [NASA/JSC Hurricane Oma](https://eol.jsc.nasa.gov/Videos/CrewEarthObservationsVideos/Special.htm) mit Framefolge ISS058-E-23615–24094 – reale ISS-Aufnahme; exakte heruntergeladene Datei noch ungeprüft.
+2. **Satelliten-Zeitraffer tatsächlicher Beobachtungen:** [NOAA NESDIS Earth from Orbit: Hurricane Ernesto](https://www.nesdis.noaa.gov/news/ernesto-brings-dangerous-seas-north-americas-atlantic-coast), Text-Free-MP4 – echte Beobachtungsbilder, aber Datei/Streams/Credits noch nicht geprüft.
+3. **Reale Kameraaufnahme aus einem Sturm:** [NOAA Hurricane Hunter: Eye of Hurricane Helene](https://www.omao.noaa.gov/aircraft-operations/news-media/video/view-eye-helene-seen-noaa-wp-3d-orion-hurricane-hunter-credit-nick-underwood-noaa), mit spezifischem Credit Nick Underwood/NOAA. **Wichtig:** Flugzeugaufnahmen sind **kein** Ersatz für den vorgesehenen *Ocean-surface*-Shot.
 
-Alle **drei vorerst `UNREVIEWED`**. 036 legt unter `assets/pilot/` die lizenzierten Originale bzw. zulässig referenzierte Quellen und `rights-manifest.json` mit Herkunft, Urheber, Lizenz-/Nutzungsbeleg, Abrufdatum, zulässiger Filmnutzung, Credits, ggf. Originalhash und menschlicher Freigabe an. [NASA-Medienrichtlinien](https://www.nasa.gov/nasa-brand-center/images-and-media/) verlangen insbesondere Kontrolle von Drittmaterial, Personen und geschützten Kennzeichen. **Kein Download, kein Rehost und kein Werbe-/Veröffentlichungsrecht** durch die bloße Auswahl dieses Themas.
+**Noch offene Lücke:** Die [Saildrone-Meeresoberflächenaufnahme](https://www.noaa.gov/news-release/world-first-ocean-drone-captures-video-from-inside-hurricane) ist **BLOCKED** (keine Nutzungsrechte von Saildrone Inc. dokumentiert). Für den Meeresoberflächen-Shot entweder separat freigegebenes echtes Material finden oder die 037-Shotlist sachlich verändern. Die drei Kandidaten zeigen **unterschiedliche Stürme/Jahre**; keine falsche fortlaufende Beobachtung suggerieren.
+
+**Einzelverzeichnis und Sperrstatus:** [`assets/pilot/rights-manifest.json`](../../assets/pilot/rights-manifest.json) und [`assets/pilot/README.md`](../../assets/pilot/README.md) dokumentieren genaue Quellen, Urheber, offizielle Nutzungsregeln, geplanter Einsatz, offene Hash-/ffprobe-/Audio-/Drittrechte-Gates. Alle drei Kandidaten bleiben ausdrücklich `UNREVIEWED`, Saildrone `BLOCKED`. **Keines der Videos ist in GitHub als Binärdatei abgelegt oder für die finale Timeline zugelassen.** Kein Download, kein Rehost, keine Monetarisierungserlaubnis aus bloßer Quellrecherche.
 
 ## Übergabe und Nicht-Ziele
 
@@ -67,7 +69,7 @@ Alle **drei vorerst `UNREVIEWED`**. 036 legt unter `assets/pilot/` die lizenzier
 - [x] Grobe Dynamik mit **7 Film-Einstellungen** plus Original-Intro/-Outro beschrieben; drei benötigte echte Videoarten konkretisiert.
 - [x] Offene **Rechte-, Quellen-, Budget- und TTS-Gates** sichtbar; 036 wird nicht vorweggenommen.
 - [x] Betreiber akzeptiert das **Filmthema** *Hurricanes: Powered by the Ocean* im Projektchat mit „Ok“ (DEC-050).
-- [ ] Hook, drei Claims und Visual-Konzept bleiben im fachlichen PR-Review, keine vollständige Film-/Skriptfreigabe.
-- [ ] PR-Checks **auf dem zuletzt geänderten Commit** tatsächlich grün und Review vor Merge abgeschlossen; vor der Statusänderung 5/5 GitHub-Workflows PASS auf `0ca69c5`.
+- [x] Betreiber hat den konkret geprüften Dokumentations-PR #201 nach final grünem CI freigegeben; Squash-Commit `0e399bd`, Issue geschlossen. Ein finales Sprecher-Skript bleibt Aufgabe 037.
+- [x] Fünf GitHub-Workflowtypen auf finalem Head `625408fc` bestanden, einschließlich `033 Required CI` ([Run #44668122852](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44668122852)).
 
-**Entscheid:** Nur das Thema ist durch DEC-050 festgelegt; der Detailbrief ist bis zum separaten PR-#201-Mergeentscheid ein **Review-Vorschlag**, kein abgenommenes Skript, Asset oder filmischer Proof.
+**Entscheid:** Der **035-Themen-/Brief-Scope** ist mit DEC-050/PR #201 abgenommen; er ist **kein** fertiges Skript, kein freigegebenes Drittasset und kein Film-/Render-Gate. 036 prüft die Rechte einzelner Medien unabhängig.
