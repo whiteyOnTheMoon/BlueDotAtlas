@@ -38,7 +38,11 @@ export function AdminShell({ preview = false }: { preview?: boolean }) {
           <aside className="admin-side" aria-label="Studio navigation">
             <p className="side-caption">Workspace</p>
             <p className="side-link active">Dashboard</p>
-            <p className="side-link">Projects</p>
+            {preview ? (
+              <p className="side-link">Projects</p>
+            ) : (
+              <a className="side-link" href="/admin/projects">Projects</a>
+            )}
             <p className="side-link">Sources</p>
           </aside>
           <div className="admin-main">
@@ -54,10 +58,16 @@ export function AdminShell({ preview = false }: { preview?: boolean }) {
             </ol>
             <div className="panel-card">
               <h3>Project management is coming soon</h3>
-              <p>Database project models exist. The editable dashboard is part of Roadmap 031.</p>
-              <button className="button button-secondary" type="button" disabled>
-                Create New Video · coming soon
-              </button>
+              <p>Database project models exist. Open Projects to create, rename, archive and review your drafts.</p>
+              {preview ? (
+                <button className="button button-secondary" type="button" disabled>
+                  Create New Video · coming soon
+                </button>
+              ) : (
+                <a className="button button-primary" href="/admin/projects">
+                  Create New Video
+                </a>
+              )}
             </div>
           </div>
         </div>
