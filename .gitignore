@@ -46,3 +46,6 @@ assets/pilot/.private-039/
 
 # 042 isolated model weights, voice pack and generated narration (never Git-commit)
 .tmp-tts-042/
+
+# 043 original synthetic audio mix, stems and reports remain ephemeral
+.tmp-audio-043/
