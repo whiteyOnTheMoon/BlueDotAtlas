@@ -47,7 +47,16 @@ function validate(data) {
     assert.ok(asset.rights_blocker?.length >= 20);
     assert.ok(Array.isArray(asset.conditions) && asset.conditions.length > 0);
     assert.ok(Array.isArray(asset.rights_evidence_urls) && asset.rights_evidence_urls.length > 0);
-    for (const evidence of asset.rights_evidence_urls) officialOrigin(evidence, prefix + 'rights evidence');
+    for (const evidence of asset.rights_evidence_urls) {
+      const source = new URL(evidence);
+      assert.equal(source.protocol, 'https:', prefix + 'rights evidence must use HTTPS');
+      assert.ok(
+        source.hostname.endsWith('.nasa.gov') ||
+        source.hostname.endsWith('.noaa.gov') ||
+        source.hostname === 'www.bom.gov.au',
+        prefix + 'rights evidence must be authoritative NOAA, NASA or Australian BOM'
+      );
+    }
     assert.match(asset.checked_source_date_utc, /^\d{4}-\d{2}-\d{2}$/);
     assert.equal(asset.local_file, null, prefix + 'no local media bytes in git');
     if (asset.download_url !== null) {
