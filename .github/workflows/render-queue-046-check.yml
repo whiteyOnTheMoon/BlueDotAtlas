@@ -100,6 +100,7 @@ jobs:
             .tmp-render-046/*.json
             .tmp-render-046/stills/*.png
           if-no-files-found: error
+          include-hidden-files: true
           retention-days: 5
       - name: Destroy disposable 046 media
         if: always()
