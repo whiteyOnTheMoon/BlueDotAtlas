@@ -1,0 +1,31 @@
+name: M02 034 isolated backup and fresh restore MVP
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/ops-034.sh'
+      - 'scripts/check-ops-034.sh'
+      - 'docs/ops/backup-restore.md'
+      - '.github/workflows/ops-034-check.yml'
+      - '.gitignore'
+      - '.dockerignore'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ops-034:
+    name: 034 Disposable PostgreSQL restore proof
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate scripts have valid Bash syntax
+        run: |
+          bash -n scripts/ops-034.sh
+          bash -n scripts/check-ops-034.sh
+      - name: Real synthetic PostgreSQL 16 backup, media manifest and fresh restore
+        run: bash scripts/check-ops-034.sh
