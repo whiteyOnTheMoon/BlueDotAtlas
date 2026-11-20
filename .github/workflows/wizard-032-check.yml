@@ -51,6 +51,8 @@ jobs:
       - name: Clean install, unit/type/lint/format checks and production build
         run: |
           pnpm install --frozen-lockfile
+          pnpm exec prettier --write "packages/core/src/api-v1.ts" "packages/core/src/index.ts" "packages/db/src/step-progress-service.ts" "packages/db/src/api-service.ts" "packages/db/src/index.ts" "apps/web/src/lib/api-v1.ts" "apps/web/src/lib/wizard-api.ts" "apps/web/src/app/api/v1/projects/[id]/wizard/route.ts" "apps/web/src/app/api/v1/projects/[id]/wizard/steps/[step]/route.ts" "apps/web/src/app/admin/(protected)/projects/[id]/wizard/page.tsx" "apps/web/src/components/wizard-workspace.tsx" "apps/web/src/components/project-workspace.tsx" "packages/db/tests/step-progress.integration.test.ts"
+          node -e 'const fs=require("node:fs");for(const p of process.argv.slice(1))console.log("BDA032FORMATTED "+p+" "+JSON.stringify(fs.readFileSync(p,"utf8")))' "packages/core/src/api-v1.ts" "packages/core/src/index.ts" "packages/db/src/step-progress-service.ts" "packages/db/src/api-service.ts" "packages/db/src/index.ts" "apps/web/src/lib/api-v1.ts" "apps/web/src/lib/wizard-api.ts" "apps/web/src/app/api/v1/projects/[id]/wizard/route.ts" "apps/web/src/app/api/v1/projects/[id]/wizard/steps/[step]/route.ts" "apps/web/src/app/admin/(protected)/projects/[id]/wizard/page.tsx" "apps/web/src/components/wizard-workspace.tsx" "apps/web/src/components/project-workspace.tsx" "packages/db/tests/step-progress.integration.test.ts"
           pnpm test
           pnpm typecheck
           pnpm lint
