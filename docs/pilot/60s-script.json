@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "roadmap_id": "037",
+  "github_issue": 61,
+  "title": "Hurricanes: Powered by the Ocean",
+  "language": "en",
+  "release_scope": "INTERNAL_TEST_PLANNING_ONLY",
+  "planning_only": true,
+  "render_authorized": false,
+  "publish_authorized": false,
+  "source_rights_gate_issue": 60,
+  "target": {
+    "duration_frames": 1800,
+    "duration_seconds": 60,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "container": "mp4",
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "audio_channels": 2,
+    "audio_sample_rate_hz": 48000
+  },
+  "brand": {
+    "intro_original": "assets/brand/motion/final/BlueDotAtlas Intro.mp4",
+    "intro_frames": 75,
+    "outro_original": "assets/brand/motion/final/BlueDotAtlas_Outro.mp4",
+    "outro_frames": 180,
+    "boundary_crossfade_frames": 9
+  },
+  "creative_direction": {
+    "audience": "English-language general science audience",
+    "narrative_arc": "Orbit mystery → ocean energy → rising moisture → condensation heat → circulation → real eye → limits and consequences",
+    "spoken_track_status": "SCRIPT_NOT_TTS_GENERATED",
+    "voice_and_music": "No TTS, voice model, stock music or source audio cleared or generated in issue 037",
+    "note": "Caption each observational clip with its real event/year. The expedition waves are illustrative, not hurricane footage or a sea-temperature reading. All animations are explanatory schematics, never measured satellite products."
+  },
+  "scientific_claims": [
+    {
+      "id": "C01",
+      "statement": "Tropical cyclones obtain energy from warm ocean heat and moisture; warm water alone is insufficient for formation.",
+      "reference_urls": [
+        "https://oceanservice.noaa.gov/facts/how-hurricanes-form.html",
+        "https://www.noaa.gov/jetstream/tropical/tropical-cyclone-introduction"
+      ],
+      "checked_at_utc": "2026-11-20"
+    },
+    {
+      "id": "C02",
+      "statement": "Rising moist air condenses and releases latent heat, supporting convection and cyclone circulation when other conditions are favorable.",
+      "reference_urls": [
+        "https://www.nesdis.noaa.gov/about/k-12-education/severe-weather/how-does-hurricane-form",
+        "https://www.noaa.gov/jetstream/tropical/tropical-cyclone-introduction"
+      ],
+      "checked_at_utc": "2026-11-20"
+    },
+    {
+      "id": "C03",
+      "statement": "Loss of warm ocean heat/moisture over land or cooler water can weaken tropical cyclones; dangerous impacts may persist.",
+      "reference_urls": [
+        "https://www.noaa.gov/jetstream/tropical/tropical-cyclone-introduction",
+        "https://oceanexplorer.noaa.gov/ocean-fact/hurricanes/"
+      ],
+      "checked_at_utc": "2026-11-20"
+    }
+  ],
+  "observational_asset_references": [
+    {
+      "id": "P60-VID-001",
+      "source_page_url": "https://eol.jsc.nasa.gov/Videos/CrewEarthObservationsVideos/Special.htm",
+      "source_credit": "Earth Science and Remote Sensing Unit, NASA Johnson Space Center",
+      "event_identity": "Tropical Cyclone Oma (2019)",
+      "original_byte_proof": "docs/pilot/media-byte-proof-036.md",
+      "rights_status_at_planning": "UNREVIEWED",
+      "source_audio_allowed": false
+    },
+    {
+      "id": "P60-VID-003",
+      "source_page_url": "https://www.omao.noaa.gov/aircraft-operations/news-media/video/view-eye-helene-seen-noaa-wp-3d-orion-hurricane-hunter-credit-nick-underwood-noaa",
+      "source_credit": "Nick Underwood / NOAA OMAO",
+      "event_identity": "Hurricane Helene (2024)",
+      "original_byte_proof": "docs/pilot/media-byte-proof-036.md",
+      "rights_status_at_planning": "UNREVIEWED",
+      "source_audio_allowed": false
+    },
+    {
+      "id": "P60-VID-005",
+      "source_page_url": "https://oceanexplorer.noaa.gov/ocean-fact/waves/",
+      "source_credit": "NOAA Ocean Exploration, 2021 North Atlantic Stepping Stones",
+      "event_identity": "Wind-driven open sea (2021), not a hurricane",
+      "original_byte_proof": "docs/pilot/media-byte-proof-036.md",
+      "rights_status_at_planning": "UNREVIEWED",
+      "source_audio_allowed": false
+    }
+  ],
+  "excluded_assets": [
+    "P60-VID-002",
+    "P60-VID-ALT-004"
+  ],
+  "shots": [
+    {
+      "id": "S00",
+      "type": "brand_intro",
+      "start_frame": 0,
+      "end_frame": 75,
+      "transition_in_frames": 0,
+      "transition_out_frames": 9,
+      "brand_asset_path": "assets/brand/motion/final/BlueDotAtlas Intro.mp4",
+      "asset_id": null,
+      "caption": null,
+      "visual": "Unmodified approved BlueDotAtlas original intro; preserve its supplied soundtrack.",
+      "narration": null,
+      "claim_ids": [],
+      "source_audio": "original_brand_only",
+      "pace": "brand_open"
+    },
+    {
+      "id": "S01",
+      "type": "observational_video_reference",
+      "start_frame": 66,
+      "end_frame": 285,
+      "transition_in_frames": 9,
+      "transition_out_frames": 0,
+      "brand_asset_path": null,
+      "asset_id": "P60-VID-001",
+      "caption": "Tropical Cyclone Oma · ISS / NASA · 2019",
+      "visual": "ISS Expedition 58 timelapse over the Coral Sea. Respect original 1080×720 (3:2) framing, not fake 16:9 footage; do not silently distort crop. Hook starts after intro fades.",
+      "narration": {
+        "start_frame": 87,
+        "end_frame": 279,
+        "text": "From space, a tropical cyclone looks like a giant spiral. Its energy starts below."
+      },
+      "claim_ids": [
+        "C01"
+      ],
+      "source_audio": "discard",
+      "pace": "hook"
+    },
+    {
+      "id": "S02",
+      "type": "observational_video_reference",
+      "start_frame": 285,
+      "end_frame": 510,
+      "transition_in_frames": 0,
+      "transition_out_frames": 0,
+      "brand_asset_path": null,
+      "asset_id": "P60-VID-005",
+      "caption": "North Atlantic expedition · Illustrative waves · NOAA 2021",
+      "visual": "Actual wind-driven open-sea camera waves from a NOAA Ocean Exploration expedition. Clearly labeled illustrative B-roll: NOT hurricane footage and NOT a sea-surface temperature observation.",
+      "narration": {
+        "start_frame": 294,
+        "end_frame": 495,
+        "text": "Warm tropical seas supply heat and moisture. But warm water alone cannot create a hurricane."
+      },
+      "claim_ids": [
+        "C01"
+      ],
+      "source_audio": "discard",
+      "pace": "wide_atmospheric"
+    },
+    {
+      "id": "S03",
+      "type": "original_science_animation",
+      "start_frame": 510,
+      "end_frame": 720,
+      "transition_in_frames": 0,
+      "transition_out_frames": 0,
+      "brand_asset_path": null,
+      "asset_id": null,
+      "caption": "Ocean heat + moisture · Schematic",
+      "visual": "Original vector illustration: simple blue ocean, warm-air/moisture arrows rising. Clearly marked Schematic; no temperature readouts, satellite graphics or invented measurements.",
+      "narration": {
+        "start_frame": 522,
+        "end_frame": 707,
+        "text": "Water evaporates from the ocean surface. Rising humid air helps feed the storm's towering clouds."
+      },
+      "claim_ids": [
+        "C01",
+        "C02"
+      ],
+      "source_audio": "none",
+      "pace": "explanation"
+    },
+    {
+      "id": "S04",
+      "type": "original_science_animation",
+      "start_frame": 720,
+      "end_frame": 990,
+      "transition_in_frames": 0,
+      "transition_out_frames": 0,
+      "brand_asset_path": null,
+      "asset_id": null,
+      "caption": "Condensation releases heat · Schematic",
+      "visual": "Original vertical section illustration of vapor cooling and condensing into cloud droplets; show released heat without invented numerical measurements.",
+      "narration": {
+        "start_frame": 735,
+        "end_frame": 974,
+        "text": "As that air climbs, it cools. Water vapor condenses into droplets, releasing heat into the atmosphere."
+      },
+      "claim_ids": [
+        "C02"
+      ],
+      "source_audio": "none",
+      "pace": "build"
+    },
+    {
+      "id": "S05",
+      "type": "original_science_animation",
+      "start_frame": 990,
+      "end_frame": 1230,
+      "transition_in_frames": 0,
+      "transition_out_frames": 0,
+      "brand_asset_path": null,
+      "asset_id": null,
+      "caption": "Rising air + circulation · Schematic",
+      "visual": "Conceptual circulation arrows become organized around a diagrammatic center; label only qualitative movement, avoid suggesting warm water alone causes a storm.",
+      "narration": {
+        "start_frame": 1003,
+        "end_frame": 1215,
+        "text": "This released heat supports rising air and circulation, if the atmosphere provides other favorable conditions."
+      },
+      "claim_ids": [
+        "C02"
+      ],
+      "source_audio": "none",
+      "pace": "crescendo"
+    },
+    {
+      "id": "S06",
+      "type": "observational_video_reference",
+      "start_frame": 1230,
+      "end_frame": 1440,
+      "transition_in_frames": 0,
+      "transition_out_frames": 0,
+      "brand_asset_path": null,
+      "asset_id": "P60-VID-003",
+      "caption": "Hurricane Helene · NOAA Hurricane Hunter · 2024",
+      "visual": "Real WP-3D Orion hurricane-eye footage, with Nick Underwood/NOAA attribution; do not imply same storm as Oma or ocean expedition. Use no original AAC soundtrack before individual clearance.",
+      "narration": {
+        "start_frame": 1244,
+        "end_frame": 1428,
+        "text": "From a hurricane hunter aircraft, the eye reveals how enormous that circulation can become."
+      },
+      "claim_ids": [
+        "C02"
+      ],
+      "source_audio": "discard",
+      "pace": "peak"
+    },
+    {
+      "id": "S07",
+      "type": "original_science_animation",
+      "start_frame": 1440,
+      "end_frame": 1629,
+      "transition_in_frames": 0,
+      "transition_out_frames": 9,
+      "brand_asset_path": null,
+      "asset_id": null,
+      "caption": "Less ocean heat → weaker fuel · Schematic",
+      "visual": "Clearly schematic ocean-to-land/cooler-water move with weakening heat-flow arrows; show that risks can continue. Original animation, not an observation of Oma/Helene.",
+      "narration": {
+        "start_frame": 1451,
+        "end_frame": 1615,
+        "text": "Over land or cooler seas, storms often weaken. Dangerous impacts can still persist."
+      },
+      "claim_ids": [
+        "C03"
+      ],
+      "source_audio": "none",
+      "pace": "resolve"
+    },
+    {
+      "id": "S08",
+      "type": "brand_outro",
+      "start_frame": 1620,
+      "end_frame": 1800,
+      "transition_in_frames": 9,
+      "transition_out_frames": 0,
+      "brand_asset_path": "assets/brand/motion/final/BlueDotAtlas_Outro.mp4",
+      "asset_id": null,
+      "caption": null,
+      "visual": "Unmodified six-second BlueDotAtlas original silent outro. Music across outro may be added later ONLY from separately cleared music provider.",
+      "narration": null,
+      "claim_ids": [],
+      "source_audio": "no_original_audio",
+      "pace": "brand_close"
+    }
+  ],
+  "notes": {
+    "timing": "Planned 30fps frame windows, not measured narration/TTS; actual timing and quality verified in 044–048.",
+    "brand_boundary_rule": "Brand intro overlaps S01 for exactly 9 frames (66–75); S07 overlaps brand outro for exactly 9 frames (1620–1629). Other shot boundaries are cuts.",
+    "rights": "All three original video candidates have rights_status=UNREVIEWED and are planning references only, not cleared render assets. No original third-party audio from NOAA clips; the two approved brand files are already in the repository. Actual use requires individual documented human/rights approval for selected originals and any new soundtrack.",
+    "render_blocker": "Issue 036 remains open. This script must never bypass rights_status=UNREVIEWED or generate an actual timeline with unapproved video."
+  }
+}
