@@ -46,7 +46,7 @@ Die Zeitfenster sind **vorläufige editoriale Planung**, nicht ein gemessenes Re
 
 Mindestens **drei reale, voneinander unterscheidbare Bewegtbildquellen** werden benötigt; weitere Grafiken allein zählen nicht als drei echte Clips:
 
-1. **ISS-/Orbital-Kamera-Timelapse:** [NASA/JSC Hurricane Oma](https://eol.jsc.nasa.gov/Videos/CrewEarthObservationsVideos/Special.htm) mit Framefolge ISS058-E-23615–24094 – reale ISS-Aufnahme; exakte heruntergeladene Datei noch ungeprüft.
+1. **ISS-/Orbital-Kamera-Timelapse:** [NASA/JSC Hurricane Oma (Website-Titel; meteorologisch Tropical Cyclone Oma)](https://eol.jsc.nasa.gov/Videos/CrewEarthObservationsVideos/Special.htm) mit Framefolge ISS058-E-23615–24094 – reale ISS-Aufnahme; [Australian Bureau of Meteorology](https://www.bom.gov.au/cyclone/history/Oma.shtml) führt Oma als tropischen Zyklon im Südpazifik. Exakte heruntergeladene Datei noch ungeprüft.
 2. **Satelliten-Zeitraffer tatsächlicher Beobachtungen:** [NOAA NESDIS Earth from Orbit: Hurricane Ernesto](https://www.nesdis.noaa.gov/news/ernesto-brings-dangerous-seas-north-americas-atlantic-coast), Text-Free-MP4 – echte Beobachtungsbilder, aber Datei/Streams/Credits noch nicht geprüft.
 3. **Reale Kameraaufnahme aus einem Sturm:** [NOAA Hurricane Hunter: Eye of Hurricane Helene](https://www.omao.noaa.gov/aircraft-operations/news-media/video/view-eye-helene-seen-noaa-wp-3d-orion-hurricane-hunter-credit-nick-underwood-noaa), mit spezifischem Credit Nick Underwood/NOAA. **Wichtig:** Flugzeugaufnahmen sind **kein** Ersatz für den vorgesehenen *Ocean-surface*-Shot.
 
