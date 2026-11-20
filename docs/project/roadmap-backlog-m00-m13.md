@@ -2,7 +2,7 @@
 
 > **Quelle:** [Master Roadmap V0.1 (PDF)](BlueDotAtlas_Roadmap.pdf) · [Vollständiger Textspiegel](master-roadmap-v01-text.md) · **158 Aufgaben / 14 Meilensteine / 158 einzigartige GitHub-Issues**, Abgleich am 19.11.2026 (UTC).
 
-**Statusstand 19.11.2026 (UTC):** Roadmap-Aufgaben **001–029 für den vereinbarten Scope abgenommen** (029-Vorschau-Abnahme DEC-043, Squash-Merge PR #194 nach final grüner CI freigegeben), **030–034 begrenzt abgenommen (DEC-044/045/046/048/049); 035: Thema freigegeben (DEC-050), PR noch im Review, 036–158 im Backlog**. **Kein produktives M02-Gesamtgate**. Der Aufgaben- und Meilensteinimport ist vollständig, **nicht** die inhaltliche Umsetzung der späteren Aufgaben. **Der Aufgabenimport ist abgeschlossen, nicht die Umsetzung.** GitHub-Issue-Nummern sind nicht gleich Roadmap-Nummern.
+**Statusstand 19.11.2026 (UTC):** Roadmap-Aufgaben **001–029 für den vereinbarten Scope abgenommen** (029-Vorschau-Abnahme DEC-043, Squash-Merge PR #194 nach final grüner CI freigegeben), **030–034 begrenzt abgenommen (DEC-044/045/046/048/049); 035: abgenommen/gemergt (DEC-050), 036 im technischen Rechte-/Quellenreview, 037–158 im Backlog**. **Kein produktives M02-Gesamtgate**. Der Aufgaben- und Meilensteinimport ist vollständig, **nicht** die inhaltliche Umsetzung der späteren Aufgaben. **Der Aufgabenimport ist abgeschlossen, nicht die Umsetzung.** GitHub-Issue-Nummern sind nicht gleich Roadmap-Nummern.
 
 **Native GitHub-Meilensteine sind eingerichtet:** Nach ausdrücklicher Betreiberfreigabe von [PR #183](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/183) wurden **M00–M13 als 14 native Meilensteine** angelegt. [GitHub Actions #44441286199](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44441286199) meldete: `PASS: 14 native GitHub milestones exist, all 158/158 Issues assigned.` Der Workflow prüfte die Zuordnungen **erneut per GitHub-API** (DEC-035). Das [Manifest](roadmap-milestones-v01.json) bewahrt die Quelle.
 
@@ -69,8 +69,8 @@
 
 | Roadmap-ID | Original-Aufgabe | GitHub-Issue | Umsetzungsstatus |
 | --- | --- | --- | --- |
-| **035** | Ein geeignetes Demonstrationsthema festlegen | [#59](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/59) | [Themenentwurf](../pilot/60s-brief.md) Thema ausdrücklich angenommen (DEC-050); Detailbrief noch in Review, kein PR-Merge |
-| **036** | Rechtegeprüftes Testmaterial zusammenstellen | [#60](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/60) | Backlog |
+| **035** | Ein geeignetes Demonstrationsthema festlegen | [#59](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/59) | DEC-050 angenommen, PR #201 Squash `0e399bd` gemergt, Issue geschlossen |
+| **036** | Rechtegeprüftes Testmaterial zusammenstellen | [#60](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/60) | [Quellen-/Rechtemanifest](../../assets/pilot/rights-manifest.json) im Review: 3 echte Originalquellen, keine Datei-/Timelinefreigabe, Saildrone BLOCKED |
 | **037** | 60-Sekunden-Skript und Shotlist schreiben | [#61](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/61) | Backlog |
 | **038** | Remotion-Projekt mit 1080p-Profil einrichten | [#62](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/62) | Backlog |
 | **039** | Cinematic-Footage-Komponente erstellen | [#63](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/63) | Backlog |
