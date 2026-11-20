@@ -55,6 +55,7 @@ def inspect():
     v=[s for s in m["streams"] if s["codec_type"]=="video"]
     a=[s for s in m["streams"] if s["codec_type"]=="audio"]
     ensure(len(v)==1 and len(a)==1,"missing or multiple tracks")
+    video_stream=v[0]
     ensure(v[0]["codec_name"]=="h264" and int(v[0]["width"])==960 and
            int(v[0]["height"])==540 and v[0]["avg_frame_rate"]=="30/1" and
            int(v[0]["nb_frames"])==1800,"wrong exact visual frame count/fps")
@@ -90,7 +91,7 @@ def inspect():
     ensure(last<pre_fade*0.35,"music did not fade only at outro ending")
     info={
         "scope":"SYNTHETIC_INTERNAL_PROOF_ONLY",
-        "videoFrames":int(v[0]["nb_frames"]) if isinstance(v,list) else 1800,
+        "videoFrames":int(video_stream["nb_frames"]),
         "videoFrameRate":"30/1",
         "videoSize":"960x540",
         "durationSeconds":round(float(m["format"]["duration"]),3),
