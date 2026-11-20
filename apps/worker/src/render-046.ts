@@ -146,9 +146,8 @@ async function exportAndCheckOriginalSynthetic046(
   if (!existsSync(resolve(ROOT, 'render/preset-1080p.json'))) {
     throw new Error('046 locked 045 preset unavailable');
   }
-  const { readAndCheckInputs, syntheticFfmpegArgs } = (await import(
-    '../../../render/preset-1080p.mjs'
-  )) as {
+  const lockedModule = '../../../render/preset-1080p.mjs';
+  const { readAndCheckInputs, syntheticFfmpegArgs } = (await import(lockedModule)) as {
     readAndCheckInputs: () => unknown;
     syntheticFfmpegArgs: (preset: unknown, output: string) => string[];
   };
