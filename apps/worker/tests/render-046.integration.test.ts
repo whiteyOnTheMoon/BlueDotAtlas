@@ -3,8 +3,9 @@ import { createHash } from 'node:crypto';
 import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { after, test } from 'node:test';
-import { createProject, migrateDatabase, openDatabase } from '../src/index.js';
+import { createProject, migrateDatabase, openDatabase } from '@bluedotatlas/db';
 import {
   assertRender046TestEnvironment,
   cancelRender046,
@@ -13,8 +14,8 @@ import {
   finishRender046,
   recoverRender046,
   requeueRender046,
-} from '../src/render-046.js';
-import { runRender046Once } from '../../../apps/worker/src/render-046.js';
+} from '@bluedotatlas/db/queue-046';
+import { runRender046Once } from '../src/render-046.js';
 import { LocalStorage } from '@bluedotatlas/storage';
 
 assertRender046TestEnvironment();
@@ -79,7 +80,7 @@ test('046 real queued synthetic H264/AAC export, singleton artifact, reload and 
       assert.ok(bytes.byteLength > 100_000 && bytes.byteLength < 8_000_000);
       assert.equal(createHash('sha256').update(bytes).digest('hex'), row.checksum_sha256);
       const qa = JSON.parse(
-        await readFile(join(process.cwd(), '.tmp-render-046', queuedA.jobId + '.json'), 'utf8'),
+        await readFile(fileURLToPath(new URL('../../../.tmp-render-046/' + queuedA.jobId + '.json', import.meta.url)), 'utf8'),
       ) as { fileSha256: string; allVideoAndAudioDecoded: boolean; faststart: boolean };
       assert.equal(qa.fileSha256, row.checksum_sha256);
       assert.equal(qa.allVideoAndAudioDecoded, true);

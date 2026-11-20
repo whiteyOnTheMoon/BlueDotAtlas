@@ -94,7 +94,7 @@ export async function claimRender046(
        JOIN project_versions v ON v.id = r.project_version_id
        JOIN video_projects p ON p.id = v.project_id
        WHERE r.status = 'queued' AND r.manifest = $1::jsonb
-         AND r.attempt < r.max_attempts AND r.available_at <= NOW()
+         AND r.video_id IS NOT NULL AND r.attempt < r.max_attempts AND r.available_at <= NOW()
          AND r.deleted_at IS NULL AND v.deleted_at IS NULL AND p.deleted_at IS NULL
        ORDER BY r.created_at ASC, r.id ASC
        FOR UPDATE OF r SKIP LOCKED LIMIT 1`,
