@@ -11,6 +11,7 @@ on:
       - 'scripts/check-export-045.py'
       - 'docs/pilot/60s-script.json'
       - 'docs/pilot/pilot-timeline.json'
+      - 'docs/development/render-046.md'
       - 'pnpm-lock.yaml'
       - '.github/workflows/render-queue-046-check.yml'
   workflow_dispatch:
