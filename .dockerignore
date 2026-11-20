@@ -19,3 +19,5 @@
 *.zip
 *.tar
 *.sql.gz
+**/.tmp-project-qa
+.tmp-project-qa
