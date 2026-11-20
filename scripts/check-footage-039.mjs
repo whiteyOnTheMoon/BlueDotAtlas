@@ -11,7 +11,9 @@ export function validateOutput(probe) {
   assert.equal(v.width, 1920);
   assert.equal(v.height, 1080);
   assert.equal(v.r_frame_rate, '30/1');
-  assert.equal(v.pix_fmt, 'yuv420p');
+  // ffprobe reports limited-range yuv420p or its full-range 4:2:0 alias yuvj420p.
+  // Both have 8-bit 4:2:0 chroma; final limited/full range normalization is 045.
+  assert.ok(['yuv420p', 'yuvj420p'].includes(v.pix_fmt), 'expected 8-bit 4:2:0');
   assert.equal(Number(v.nb_read_frames), FOOTAGE_PROOF_FRAMES);
   assert.equal(probe.streams.filter((s) => s.codec_type === 'audio').length, 0, 'uncleared source audio leaked');
   assert.ok(Math.abs(Number(probe.format.duration) - 6) < 0.03, 'wrong duration');
