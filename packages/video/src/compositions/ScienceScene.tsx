@@ -76,7 +76,7 @@ export const ScienceScene = ({ durationInFrames }: { durationInFrames: number })
         fontWeight="700"
         letterSpacing="4"
       >
-        BLUE DOT ATLAS   /   EARTH SCIENCE
+        BLUEDOTATLAS   /   EARTH SCIENCE
       </text>
       <text
         x="160"
