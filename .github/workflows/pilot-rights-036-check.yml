@@ -1,0 +1,27 @@
+name: M03 036 pilot rights manifest gate
+
+on:
+  pull_request:
+    paths:
+      - 'assets/pilot/**'
+      - 'scripts/check-pilot-rights-036.mjs'
+      - '.github/workflows/pilot-rights-036-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rights-manifest-036:
+    name: 036 Pilot asset provenance and fail-closed rights
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate three independent video sources and ten denial cases
+        run: node scripts/check-pilot-rights-036.mjs --self-test
