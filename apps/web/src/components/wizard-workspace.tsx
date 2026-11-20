@@ -57,11 +57,15 @@ function StepEditor({
   step,
   readonly,
   onSaved,
+  onBusy,
+  onReload,
 }: {
   projectId: string;
   step: Step;
   readonly: boolean;
   onSaved: (next: Step) => void;
+  onBusy: (pending: boolean) => void;
+  onReload: () => Promise<void>;
 }) {
   const [notes, setNotes] = useState(step.notes);
   const [savedNotes, setSavedNotes] = useState(step.notes);
@@ -72,6 +76,10 @@ function StepEditor({
   const [lastSaved, setLastSaved] = useState(step.updatedAt);
   const [reviewState, setReviewState] = useState(step.reviewState);
   const dirty = notes !== savedNotes;
+
+  useEffect(() => {
+    onBusy(dirty || saving || error !== null);
+  }, [dirty, saving, error, onBusy]);
   const path = '/api/v1/projects/' + projectId + '/wizard/steps/' + step.number;
 
   useEffect(() => {
@@ -187,16 +195,11 @@ function StepEditor({
           className="button button-secondary"
           type="button"
           onClick={() => {
-            if (dirty && !window.confirm('Discard your unsaved local notes and reload this step?')) return;
-            setNotes(step.notes);
-            setSavedNotes(step.notes);
-            setRevision(step.editRevision);
-            setReviewState(step.reviewState);
-            setError(null);
-            setConflict(false);
+            if (dirty && !window.confirm('Discard your unsaved local notes and reload the latest saved version?')) return;
+            void onReload();
           }}
         >
-          Discard local changes
+          Discard and reload stored version
         </button>
       ) : null}
       <div className="wizard-editor-actions">
@@ -222,6 +225,7 @@ export function WizardWorkspace({ projectId }: { projectId: string }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [editorKey, setEditorKey] = useState(0);
+  const [pendingChanges, setPendingChanges] = useState(false);
   const selected = wizard?.steps.find((step) => step.number === current);
   const readonly = wizard?.project.status === 'archived' || wizard?.project.status === 'approved' || wizard?.project.status === 'in_review';
 
@@ -248,12 +252,15 @@ export function WizardWorkspace({ projectId }: { projectId: string }) {
     );
   }, []);
 
+  const handleBusy = useCallback((pending: boolean) => setPendingChanges(pending), []);
+
   async function reloadStep() {
     try {
       setError('');
       const refreshed = (await fetchWizard('/api/v1/projects/' + projectId + '/wizard')) as Wizard;
       setWizard(refreshed);
       setEditorKey((value) => value + 1);
+      setPendingChanges(false);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : 'Unable to reload wizard.');
     }
@@ -273,9 +280,9 @@ export function WizardWorkspace({ projectId }: { projectId: string }) {
         <p className="muted">Drafts are private and never trigger video generation or publishing.</p>
         <div className="project-navigation">
           <nav aria-label="Studio navigation">
-            <Link href="/admin">Dashboard</Link>
-            <Link href="/admin/projects">Projects</Link>
-            <Link href={'/admin/projects/' + projectId}>Project details</Link>
+            <Link href="/admin" onClick={(event) => { if (pendingChanges && !window.confirm('You have unsaved notes. Leave this page?')) event.preventDefault(); }}>Dashboard</Link>
+            <Link href="/admin/projects" onClick={(event) => { if (pendingChanges && !window.confirm('You have unsaved notes. Leave this page?')) event.preventDefault(); }}>Projects</Link>
+            <Link href={'/admin/projects/' + projectId} onClick={(event) => { if (pendingChanges && !window.confirm('You have unsaved notes. Leave this page?')) event.preventDefault(); }}>Project details</Link>
           </nav>
           <form action="/api/auth/logout" method="post">
             <button className="button button-secondary" type="submit">Sign out</button>
@@ -298,7 +305,7 @@ export function WizardWorkspace({ projectId }: { projectId: string }) {
                     className={'wizard-step-button' + (step.number === current ? ' selected' : '')}
                     aria-current={step.number === current ? 'step' : undefined}
                     onClick={() => setCurrent(step.number)}
-                    disabled={step.number === current}
+                    disabled={step.number === current || pendingChanges}
                   >
                     <span className="wizard-step-numeral">{String(step.number).padStart(2, '0')}</span>
                     <span>
@@ -316,9 +323,18 @@ export function WizardWorkspace({ projectId }: { projectId: string }) {
                     projectId={projectId}
                     readonly={!!readonly}
                     onSaved={handleSaved}
+                    onBusy={handleBusy}
+                    onReload={reloadStep}
                   />
                   <div className="wizard-reload">
-                    <button className="button button-secondary" type="button" onClick={() => void reloadStep()}>
+                    <button
+                      className="button button-secondary"
+                      type="button"
+                      onClick={() => {
+                        if (pendingChanges && !window.confirm('Discard unsaved notes and reload the saved wizard?')) return;
+                        void reloadStep();
+                      }}
+                    >
                       Reload latest saved wizard
                     </button>
                   </div>
