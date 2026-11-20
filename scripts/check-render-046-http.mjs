@@ -139,6 +139,7 @@ try {
   ], { NODE_ENV: 'production' });
   await serverReady(server);
 
+  const baselineJobCount = (await dbRows('SELECT count(*)::int AS n FROM render_jobs'))[0].n;
   const post = '/api/v1/render-046';
   const unknown = '/api/v1/projects/' + randomUUID() + '/render-046';
   await reject(post, {
@@ -196,7 +197,7 @@ try {
   await reject(post, {
     method: 'POST', headers, body: JSON.stringify({ projectId: randomUUID() }),
   }, 404, 'not_found');
-  assert.equal((await dbRows('SELECT count(*)::int AS n FROM render_jobs'))[0].n, 0);
+  assert.equal((await dbRows('SELECT count(*)::int AS n FROM render_jobs'))[0].n, baselineJobCount);
   report.checks.push('Auth, origin, input shape, body limit, method and unknown-ID fail closed');
 
   const created = await request('/api/v1/projects', {
@@ -260,6 +261,7 @@ try {
   assert.equal(running.status, 200);
   assert.equal(running.body.status, 'running');
   assert.ok(Date.now() - liveStart < 1500, 'Admin status request blocked by FFmpeg worker');
+  await page.reload();
   await page.getByText('running', { exact: true }).waitFor({ timeout: 15000 });
   await page.screenshot({ path: resolve(output, '046-admin-running-1440.png'), fullPage: true });
   assert.equal((await waitExit(worker, 120_000)).code, 0, '046 one-shot worker failed');
