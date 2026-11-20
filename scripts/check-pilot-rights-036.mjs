@@ -25,12 +25,14 @@ function validate(data) {
   assert.equal(data.local_media_acquired, false, 'Actual media not yet acquired');
   assert.ok(Array.isArray(data.assets));
   const primary = data.assets.filter(x => x.type === 'video' && x.priority === 'primary');
-  assert.equal(primary.length, 3, 'Exactly three distinct original video candidates');
-  assert.equal(data.third_party_video_count, 3);
-  assert.equal(new Set(primary.map(x => x.source_page_url)).size, 3,
-    'Three independent original source pages required');
-  assert.equal(new Set(primary.map(x => x.origin_category)).size, 3,
-    'Three different observation types required');
+  assert.ok(primary.length >= 3, 'At least three distinct original video candidates required');
+  assert.equal(data.third_party_video_count, primary.length, 'Primary-count field must reflect catalog');
+  assert.equal(new Set(primary.map(x => x.source_page_url)).size, primary.length,
+    'Every primary recording needs a distinct original source page');
+  assert.equal(new Set(primary.map(x => x.origin_category)).size, primary.length,
+    'Primary source categories must be distinct');
+  assert.ok(primary.some(x => x.origin_category === 'actual_ocean_surface_camera'),
+    'A genuine ocean-surface camera source is required');
   const ids = new Set();
   for (const asset of data.assets) {
     const prefix = asset.asset_id + ': ';
@@ -104,7 +106,7 @@ if (process.argv.includes('--self-test')) {
   expectRejected(data, d=>{primary(d).approved_for_timeline = true}, 'unreviewed to timeline');
   expectRejected(data, d=>{primary(d).rights_status = 'APPROVED';primary(d).approved_for_timeline=true},
     'approve without hash, probe and human reviewer');
-  expectRejected(data, d=>{d.assets[3].rights_status='APPROVED';d.assets[3].approved_for_timeline=true},
+  expectRejected(data, d=>{const a=d.assets.find(x=>x.asset_id==='P60-VID-ALT-004');a.rights_status='APPROVED';a.approved_for_timeline=true},
     'blocked Saildrone may not be auto-approved');
   expectRejected(data, d=>{d.assets[0].credits=''}, 'missing credits');
   expectRejected(data, d=>{d.assets[0].rights_evidence_urls=[]}, 'missing license evidence');
@@ -112,8 +114,11 @@ if (process.argv.includes('--self-test')) {
   expectRejected(data, d=>{d.assets[1].source_page_url=d.assets[0].source_page_url}, 'duplicate source');
   expectRejected(data, d=>{d.assets[1].download_url='http://example.com/video.mp4'}, 'unsafe download URL');
   expectRejected(data, d=>{d.assets[2].file_sha256='0'.repeat(64)}, 'unverified hash');
-  expectRejected(data, d=>{d.assets.splice(0,1)}, 'fewer than three primary videos');
-  console.log('PASS 036: source manifest + 10 negative rights/metadata guards');
+  expectRejected(data, d=>{d.assets.splice(0,2)}, 'fewer than three primary videos');
+  expectRejected(data, d=>{d.assets=d.assets.filter(x=>x.asset_id!=='P60-VID-005');d.third_party_video_count=3},
+    'missing ocean-surface original source');
+  expectRejected(data, d=>{d.third_party_video_count=99}, 'inconsistent primary count');
+  console.log('PASS 036: source manifest + 12 negative rights/metadata guards');
 } else {
-  console.log('PASS 036: three real video source records; zero timeline-approved files; Saildrone blocked');
+  console.log('PASS 036: four real video source records, including open ocean; zero timeline-approved files; Saildrone blocked');
 }
