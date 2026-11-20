@@ -2,6 +2,9 @@ import { cookies } from 'next/headers';
 import { NextResponse, type NextRequest } from 'next/server';
 import {
   ApiValidationError,
+  ProjectConflict,
+  ProjectNotFound,
+  archiveProject,
   createProject,
   getMediaArtifact,
   getProject,
@@ -14,8 +17,10 @@ import {
   listVideos,
   openDatabase,
   parseApiCreateProject,
+  parseApiProjectPatch,
   parseApiListQuery,
   parseApiUuid,
+  renameProject,
   type ApiCollection,
 } from '@bluedotatlas/db/api';
 import { adminCookieName, sameOrigin } from './admin-auth';
@@ -245,4 +250,77 @@ export function rejectReadOnly(request: NextRequest) {
 
 export function rejectProjectCollectionMethod(request: NextRequest) {
   return methodDenied(request, 'GET, HEAD, POST');
+}
+
+
+/** Auth -> origin -> strict body -> transactional domain mutation; never expose DB errors. */
+export async function patchProjectRoute(
+  request: NextRequest,
+  params: Promise<{ id: string }>,
+) {
+  const denied = await adminGate();
+  if (denied) return denied;
+
+  if (!sameOrigin(request)) {
+    return problem(403, 'forbidden_origin', 'Same-origin request required');
+  }
+  if (request.nextUrl.searchParams.size) {
+    return problem(400, 'invalid_input', 'Mutation does not accept query parameters', 'query');
+  }
+  let id: string;
+  try {
+    id = parseApiUuid((await params).id);
+  } catch {
+    return problem(400, 'invalid_input', 'Invalid resource identifier', 'id');
+  }
+  if (!/^application\/json(?:\s*;|$)/i.test(request.headers.get('content-type') ?? '')) {
+    return problem(415, 'unsupported_media_type', 'Content-Type application/json required');
+  }
+
+  let body: string | null;
+  try {
+    body = await boundedBody(request);
+  } catch {
+    return problem(400, 'invalid_json', 'Invalid JSON body');
+  }
+  if (body === null) return problem(413, 'body_too_large', 'Request body exceeds 8192 bytes');
+
+  let input: ReturnType<typeof parseApiProjectPatch>;
+  let json: unknown;
+  try {
+    json = JSON.parse(body);
+  } catch {
+    return problem(400, 'invalid_json', 'Invalid JSON body');
+  }
+  try {
+    input = parseApiProjectPatch(json);
+  } catch (error) {
+    return problem(
+      400,
+      'invalid_input',
+      'Invalid project change',
+      error instanceof ApiValidationError ? error.field : 'body',
+    );
+  }
+
+  return databaseAction(async (connection) => {
+    try {
+      const project =
+        'title' in input
+          ? await renameProject(connection, id, input.title)
+          : await archiveProject(connection, id);
+      const { id: projectId, title, status, currentVersion, createdAt, updatedAt } = project;
+      return result({ id: projectId, title, status, currentVersion, createdAt, updatedAt });
+    } catch (error) {
+      if (error instanceof ProjectNotFound) return problem(404, 'not_found', 'Resource not found');
+      if (error instanceof ProjectConflict) {
+        return problem(409, 'project_conflict', 'Project cannot be changed in its current state');
+      }
+      throw error;
+    }
+  });
+}
+
+export function rejectProjectDetailMethod(request: NextRequest) {
+  return methodDenied(request, 'GET, HEAD, PATCH');
 }
