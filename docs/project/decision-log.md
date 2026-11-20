@@ -133,3 +133,10 @@
 5. Im Projektchat gilt ein **„Ok“ als explizite Abnahme des gerade vorgelegten Ergebnisses**. Das schließt keine weiteren, noch unbesprochenen Entscheidungen ein. Ein Entwurf ist ohne solche Freigabe **nicht** automatisch abgenommen. Aufgabenstatus und Gate-Nachweis werden separat geführt.
 
 **Nachweise:** [Issue #1](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/1) · `docs/brand/brand-brief.md`
+
+
+## Offener Freigabepunkt OPEN-011 – Roadmap 030 (Secrets und Konfigurationsverwaltung)
+
+| ID | Vorschlag | Status | Nachweis / Grenze |
+| --- | --- | --- | --- |
+| OPEN-011 | Die vorhandenen projektlokalen, Git-ignorierten und strikt `0600`-geschützten Env-/Token-Dateien für die **bereits abgenommene öffentliche Vorschau** beibehalten, ohne neuen Secret-SaaS-Dienst. Tracked-File-Leak-Scan, synthetischen HTTP-/Log-Canary, read-only-Dateimetadaten-Prüfung, minimale Debugausgaben und konkrete Rotations-/Incident-Regeln als 030-Sicherheitsminimum ergänzen. DB-/Web-Secrets verbleiben vorläufig in Compose-`env_file` (für Dockerprivilegierte sichtbar); Cloudflare nutzt File-Secret. | **Technischer Vorschlag, noch nicht vom Betreiber abgenommen; keine neue DEC-Nummer.** | [Roadmap-030-Issue #47](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/47) und [Sicherheitsrunbook](../security/secrets.md). Keine tatsächliche Secretrotation, kein Adminbetrieb, kein Servereingriff und keine neue Kostenfreigabe. Vor Merge gilt DEC-036. |
