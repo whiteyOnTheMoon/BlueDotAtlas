@@ -3,6 +3,8 @@ import { TenSecondProof } from './TenSecondProof';
 import { FootageProof } from './FootageProof';
 import { FOOTAGE_PROOF_FRAMES } from './footage-plan.js';
 import { VIDEO_PROFILE } from './profile.js';
+import { GraphicsProof } from './GraphicsProof';
+import { GRAPHICS_PROOF_FRAMES } from './graphics-plan.js';
 
 export const RemotionRoot = () => (
   <>
@@ -21,6 +23,14 @@ export const RemotionRoot = () => (
       height={VIDEO_PROFILE.height}
       fps={VIDEO_PROFILE.fps}
       durationInFrames={FOOTAGE_PROOF_FRAMES}
+    />
+    <Composition
+      id="BDA040GraphicsProof"
+      component={GraphicsProof}
+      width={VIDEO_PROFILE.width}
+      height={VIDEO_PROFILE.height}
+      fps={VIDEO_PROFILE.fps}
+      durationInFrames={GRAPHICS_PROOF_FRAMES}
     />
   </>
 );

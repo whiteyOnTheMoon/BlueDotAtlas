@@ -1,0 +1,56 @@
+name: M03 040 graphics timing and 1080p render proof
+
+on:
+  pull_request:
+    paths:
+      - 'packages/video/**'
+      - 'scripts/check-graphics-040*'
+      - '.github/workflows/pilot-graphics-040-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  graphics-040:
+    name: 040 Graphics overlay 8s render and QA
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Frozen workspace install
+        run: pnpm install --frozen-lockfile
+      - name: Graphics timing, rights, source dates and negative tests
+        run: node --test scripts/check-graphics-040.test.mjs
+      - name: Typecheck and compile composition
+        run: pnpm --filter @bluedotatlas/video build
+      - name: Real 240-frame synthetic 1080p graphics render
+        run: pnpm --filter @bluedotatlas/video render:graphics-proof
+        env:
+          REMOTION_DISABLE_TELEMETRY: '1'
+      - name: Verify actual 8-second encoded MP4 using bundled ffprobe
+        run: node scripts/check-graphics-040.mjs packages/video/out/040-graphics-proof.mp4
+      - name: Render inspectable dark, light, metric and blank frames
+        run: |
+          set -eu
+          pnpm --filter @bluedotatlas/video exec remotion render src/entry.tsx BDA040GraphicsProof out/040-stills --frames=30,120,191,223 --image-format=png --concurrency=1
+        env:
+          REMOTION_DISABLE_TELEMETRY: '1'
+      - name: Upload synthetic-only review media
+        uses: actions/upload-artifact@v4
+        with:
+          name: graphics-040-synthetic-review
+          path: |
+            packages/video/out/040-graphics-proof.mp4
+            packages/video/out/040-stills/**
+          retention-days: 5
+          if-no-files-found: error

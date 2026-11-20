@@ -24,6 +24,8 @@
 
 **Roadmap 039 / echte Cinematic-Footage-Schnitte – im Review:** [Issue #63](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/63) · [039-Runbook](docs/development/footage-039.md). Wiederverwendbare, aspect-ratio-sichere `FootageScene` mit Schnitt-/Trim-/Geschwindigkeits-/SDR-Regeln; für eine private, nicht veröffentlichte 6s-Testmontage werden genau zwei NASA-/NOAA-Originalquellen nur im temporären GitHub-Runner nach Original-SHA-256 geprüft. Bei echtem Renderprüflauf keine Medien, Filmframes oder öffentliche Download-Artefakte hochladen. Originalton ausgeschlossen, keine 60s-/VPS-/Veröffentlichungsfreigabe; Tests/PR-Abnahme bleiben separat.
 
+**Roadmap 040 / Motion Graphics – Implementierung im Review:** [Issue #64](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/64) · [technischer Runbook-/QA-Entwurf](docs/development/graphics-040.md). Eine eigenständige `GraphicsScene` bietet kurze Quellen-/Orts-/Datumseinblendungen und optionale **nur belegbare** Werte mit Einheit; 12-Frame-Ein-/Ausblendung, 160/108px sichere Ränder, 780px kleines Overlay und kontrastreichen Deep-Ocean-Scrim. Die synthetische 8s-/240-Frame-Remotion-Probe enthält nur korrekte Metadaten-Beispiele sowie **30 fps als technischer Testwert**, keinerlei echte Forschungs-/Wetter-Messungen. Realer Render-/QA-CI-Check, PR-Review und Betreiberfreigabe sind vor Abschluss erforderlich. Kein Originalmedia-/VPS-/60s-Render-/Publikations-Go.
+
 ## VPS-Arbeitsweise – verbindlicher Ein-Projekt-Standard (DEC-041)
 
 **Ein Projekt – ein Arbeitsverzeichnis – ein Docker-Compose-Projekt.** Der Betreiber hat die saubere VPS-Struktur am 19.11.2026 ausdrücklich festgelegt. Die früher erstellte Zusatzkopie `~/bluedotatlas-029-staging` ist **gelöscht** und darf nicht neu angelegt werden.
