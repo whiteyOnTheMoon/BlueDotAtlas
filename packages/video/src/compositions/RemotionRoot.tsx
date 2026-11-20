@@ -24,5 +24,13 @@ export const RemotionRoot = () => (
       fps={VIDEO_PROFILE.fps}
       durationInFrames={FOOTAGE_PROOF_FRAMES}
     />
+    <Composition
+      id="BDA040GraphicsProof"
+      component={GraphicsProof}
+      width={VIDEO_PROFILE.width}
+      height={VIDEO_PROFILE.height}
+      fps={VIDEO_PROFILE.fps}
+      durationInFrames={GRAPHICS_PROOF_FRAMES}
+    />
   </>
 );
