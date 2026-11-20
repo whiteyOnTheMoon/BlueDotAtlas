@@ -1,0 +1,82 @@
+name: M02 032 wizard draft autosave and concurrent-tab browser QA
+
+on:
+  pull_request:
+    paths:
+      - 'apps/web/**'
+      - 'packages/core/**'
+      - 'packages/db/**'
+      - 'scripts/check-wizard-032.mjs'
+      - 'docs/development/wizard-autosave.md'
+      - '.github/workflows/wizard-032-check.yml'
+      - 'pnpm-lock.yaml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  wizard-032:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: bda_test
+          POSTGRES_PASSWORD: bda_test_only
+          POSTGRES_DB: bda_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U bda_test -d bda_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://bda_test:bda_test_only@localhost:5432/bda_test
+      BDA_DB_TEST: '1'
+      BDA_ADMIN_EMAIL: admin-ci@bluedotatlas.invalid
+      BDA_TEST_ADMIN_PASSWORD: 'SYNTHETIC-Only-Passphrase-032-for-CI!'
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Clean install, unit/type/lint/format checks and production build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm test
+          pnpm typecheck
+          pnpm lint
+          pnpm format:check
+          pnpm build
+      - name: Isolated PostgreSQL 16 migrations, step CAS and DB regression
+        run: |
+          pnpm --filter @bluedotatlas/db test:integration
+          pnpm --filter @bluedotatlas/db db:check
+          pnpm --filter @bluedotatlas/db db:generate
+          if [ -n "$(git status --porcelain -- packages/db/drizzle)" ]; then
+            echo 'Unexpected migration/snapshot drift'
+            exit 1
+          fi
+      - name: Synthetic administrator (not production credentials)
+        run: |
+          hash="$(printf '%s' "$BDA_TEST_ADMIN_PASSWORD" | node packages/db/scripts/hash-admin-password.mjs)"
+          echo "BDA_ADMIN_PASSWORD_HASH=$hash" >> "$GITHUB_ENV"
+      - name: Next.js HTTP and real Chromium desktop/mobile two-tab/reopen QA
+        run: node scripts/check-wizard-032.mjs
+      - name: Upload real screenshots and automated result (required)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bda-032-wizard-autosave-qa
+          path: .tmp-wizard-032-qa/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14

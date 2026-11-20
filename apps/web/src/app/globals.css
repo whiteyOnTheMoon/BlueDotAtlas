@@ -177,3 +177,26 @@ h1, h2, h3 { font-family: var(--font-display); letter-spacing: -.04em; line-heig
   .project-list-actions { justify-content: space-between; }
   .project-filter { min-width: 0; }
 }
+
+/* Roadmap 032: private seven-step editor; uses M00 brand tokens. */
+.wizard-title { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin: 20px 0; }
+.wizard-title h2 { margin: 0; overflow-wrap: anywhere; }
+.wizard-content { display: grid; grid-template-columns: 240px minmax(0,1fr); gap: 24px; }
+.wizard-steps { display: grid; align-content: start; gap: 8px; }
+.wizard-step-button { display: flex; text-align: left; gap: 14px; align-items: start; width: 100%; padding: 13px; border: 1px solid var(--divider); background: var(--surface); color: var(--text); border-radius: var(--radius-sm); cursor: pointer; }
+.wizard-step-button.selected { border-color: var(--primary); background: var(--surface-soft); }
+.wizard-step-button:disabled { opacity: 1; cursor: default; }
+.wizard-step-numeral { font-size: .78rem; color: var(--accent); font-weight: 700; }
+.wizard-step-button strong { display: block; font-size: .9rem; }
+.wizard-step-button small { display: block; color: var(--muted); margin-top: 2px; }
+.wizard-editor { display: grid; gap: 12px; min-width: 0; }
+.wizard-editor h2 { margin: 0; }
+.wizard-editor-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; font-size: .82rem; color: var(--muted); }
+.wizard-editor > label { font-weight: 700; }
+.wizard-editor textarea { min-height: 160px; resize: vertical; width: 100%; padding: 14px; border: 1px solid var(--border-control); border-radius: var(--radius-sm); background: var(--page); color: var(--text); font: inherit; }
+.wizard-save-state { min-height: 26px; font-size: .88rem; font-weight: 650; }
+.wizard-editor-actions { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; border-top: 1px solid var(--divider); padding-top: 16px; }
+.wizard-editor-actions .muted { margin: 0; max-width: 480px; font-size: .83rem; }
+.wizard-reload { margin-top: 16px; }
+@media (max-width: 800px) { .wizard-content { grid-template-columns: 1fr; } .wizard-steps { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 480px) { .wizard-steps { grid-template-columns: 1fr; } .wizard-editor-actions { align-items: stretch; flex-direction: column; } }

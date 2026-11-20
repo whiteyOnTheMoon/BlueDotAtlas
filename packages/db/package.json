@@ -10,7 +10,7 @@
     "db:seed": "tsx src/seed.ts",
     "db:generate": "drizzle-kit generate",
     "db:check": "drizzle-kit check",
-    "test:integration": "pnpm --filter @bluedotatlas/core build && tsx --test --test-concurrency=1 tests/db.integration.test.ts tests/project-model.integration.test.ts tests/admin-auth.integration.test.ts tests/project-dashboard.integration.test.ts",
+    "test:integration": "pnpm --filter @bluedotatlas/core build && tsx --test --test-concurrency=1 tests/db.integration.test.ts tests/project-model.integration.test.ts tests/admin-auth.integration.test.ts tests/project-dashboard.integration.test.ts tests/step-progress.integration.test.ts",
     "test:queue": "pnpm --filter @bluedotatlas/core build && tsx --test --test-concurrency=1 tests/worker-queue.integration.test.ts"
   },
   "exports": {

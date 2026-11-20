@@ -18,11 +18,14 @@ export {
   getMediaArtifact,
 } from './api-read-service.js';
 export { hasAdminSession } from './auth-service.js';
+export { readWizard, changeWizardStep } from './step-progress-service.js';
 export {
   ApiValidationError,
   parseApiUuid,
   parseApiListQuery,
   parseApiCreateProject,
   parseApiProjectPatch,
+  parseApiWizardStep,
+  parseApiWizardChange,
 } from '@bluedotatlas/core';
-export type { ApiCollection, ApiListQuery } from '@bluedotatlas/core';
+export type { ApiCollection, ApiListQuery, ApiWizardChange } from '@bluedotatlas/core';

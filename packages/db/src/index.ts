@@ -21,6 +21,7 @@ export {
   revokeAdminSession,
 } from './auth-service.js';
 export { generatePasswordHash, verifyPassword } from './password.js';
+export { readWizard, changeWizardStep } from './step-progress-service.js';
 
 export {
   listProjects,
@@ -37,5 +38,7 @@ export {
   parseApiListQuery,
   parseApiCreateProject,
   parseApiProjectPatch,
+  parseApiWizardStep,
+  parseApiWizardChange,
 } from '@bluedotatlas/core';
-export type { ApiCollection, ApiListQuery } from '@bluedotatlas/core';
+export type { ApiCollection, ApiListQuery, ApiWizardChange } from '@bluedotatlas/core';

@@ -264,10 +264,17 @@ export function ProjectWorkspace({ projectId }: { projectId?: string }) {
                     </button>
                   </div>
                 )}
-                <p className="muted project-wizard-note">
-                  The seven-step production wizard and autosave are planned for Roadmap 032. No
-                  render job is created by these actions.
-                </p>
+                <div className="project-wizard-note">
+                  <Link
+                    href={'/admin/projects/' + project.id + '/wizard'}
+                    className="button button-primary"
+                  >
+                    Open seven-step wizard
+                  </Link>
+                  <p className="muted">
+                    Editorial step notes autosave in your private project. No render job is started.
+                  </p>
+                </div>
               </>
             ) : null}
           </section>

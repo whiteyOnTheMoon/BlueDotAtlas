@@ -27,3 +27,6 @@ Thumbs.db
 
 # Isolated 031 browser screenshot / data artifacts
 .tmp-project-qa/
+
+# Disposable 032 browser QA screenshots
+.tmp-wizard-032-qa/
