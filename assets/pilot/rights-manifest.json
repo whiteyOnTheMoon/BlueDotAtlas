@@ -4,9 +4,9 @@
   "github_issue": 60,
   "film_title": "Hurricanes: Powered by the Ocean",
   "as_of_utc": "2026-11-20",
-  "curation_scope": "Four distinct actual observational video candidate sources: orbital camera, satellite time sequence, aircraft camera and wind-driven open-ocean footage; media bytes not locally acquired or approved",
+  "curation_scope": "Exactly three verified NASA/NOAA source videos approved for sourcing into a PRIVATE INTERNAL TEST ONLY; NOAA Ernesto remains unreviewed and Saildrone blocked. Original media are not yet archived or staged.",
   "intended_use": "Edited, clearly attributed, English-language educational documentary pilot; private production review first; potential later public website/YouTube release and monetization require per-file reconfirmation",
-  "decision_policy": "Only rights_status=APPROVED AND exact file SHA-256 AND verified-by-human media review may be selected for a render timeline; all others fail closed",
+  "decision_policy": "Source-level APPROVED with approval_scope=PRIVATE_INTERNAL_TEST_ONLY permits sourcing/temporary local ingest for an internal non-public test only; it is NOT timeline-ready until the exact downloaded source bytes match technical_original_sha256, are kept outside Git in an approved media root, audio is discarded, and the editor applies source/credit/context restrictions. Publication/monetization requires separate review. Missing proof or wrong hash means BLOCKED.",
   "local_media_acquired": false,
   "third_party_video_count": 4,
   "assets": [
@@ -42,14 +42,30 @@
         "In narration/captions use 'Tropical Cyclone Oma', not 'Atlantic Hurricane Oma'; official Bureau of Meteorology 2019 record"
       ],
       "editing_plan": "Mute independent soundtrack if any; 6–7 seconds excerpt after technical visual review, no misleading implication of a single continuous storm with the other shots",
-      "rights_status": "UNREVIEWED",
-      "rights_blocker": "Official NASA JSC MP4 source URL resolved in a GitHub Actions HTML-only source inspection, but complete file size/hash, audio/visual and final-commercial-use review are not yet documented here. No automatic media or timeline approval.",
+      "rights_status": "APPROVED",
+      "rights_blocker": "Source-level internal non-public test approved only. Not yet staged as a local original or checked at ingest, thus not approved_for_timeline. Use footage as silent picture only, keep the exact credit and true event/context; no public release or monetization clearance from this decision.",
       "local_file": null,
       "file_sha256": null,
       "file_media_probe": null,
       "file_reviewed_at_utc": null,
       "file_reviewer": null,
-      "approved_for_timeline": false
+      "approved_for_timeline": false,
+      "internal_test_source_approved": true,
+      "approval_scope": "PRIVATE_INTERNAL_TEST_ONLY",
+      "technical_original_sha256": "54ecdba5d5899fc7a2e8ee0f544359f59ddc45c13a26b919c3412b633416802c",
+      "technical_original_bytes": 27140201,
+      "technical_proof_run": "https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44673061410",
+      "technical_original_media_probe": {
+        "codec_name": "h264",
+        "width": 1080,
+        "height": 720,
+        "duration_seconds": 27.84,
+        "has_audio": false
+      },
+      "source_rights_reviewed_at_utc": "2026-11-20",
+      "source_rights_reviewed_by": "BlueDotAtlas project operator (reported visual acceptance for test); official NASA/NOAA terms checked separately",
+      "user_visual_feedback": "Operator reported watching the videos and finding them suitable for the internal test; complete frame-by-frame/audio/person/logo clearance was NOT stated.",
+      "source_audio_allowed": false
     },
     {
       "asset_id": "P60-VID-002",
@@ -88,7 +104,9 @@
       "file_media_probe": null,
       "file_reviewed_at_utc": null,
       "file_reviewer": null,
-      "approved_for_timeline": false
+      "approved_for_timeline": false,
+      "internal_test_source_approved": false,
+      "approval_scope": null
     },
     {
       "asset_id": "P60-VID-003",
@@ -120,14 +138,30 @@
         "Confirm no copyrighted third-party audio or recognizable people"
       ],
       "editing_plan": "4–6 seconds factual in-flight hurricane scene only if relevant to narration, clear event label",
-      "rights_status": "UNREVIEWED",
-      "rights_blocker": "Published official credit and MP4 link verified, but exact bytes/hash and soundtrack/person/logo inspection are still outstanding, so no asset approval.",
+      "rights_status": "APPROVED",
+      "rights_blocker": "Source-level internal non-public test approved only. Not yet staged as a local original or checked at ingest, thus not approved_for_timeline. Use footage as silent picture only, keep the exact credit and true event/context; no public release or monetization clearance from this decision.",
       "local_file": null,
       "file_sha256": null,
       "file_media_probe": null,
       "file_reviewed_at_utc": null,
       "file_reviewer": null,
-      "approved_for_timeline": false
+      "approved_for_timeline": false,
+      "internal_test_source_approved": true,
+      "approval_scope": "PRIVATE_INTERNAL_TEST_ONLY",
+      "technical_original_sha256": "8deebf2acf159ab91b3d9c6383de76bbbdb0069acffb9eb2f2c78dc478cd22c8",
+      "technical_original_bytes": 47866063,
+      "technical_proof_run": "https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44673061410",
+      "technical_original_media_probe": {
+        "codec_name": "h264",
+        "width": 3840,
+        "height": 2160,
+        "duration_seconds": 34.8348,
+        "has_audio": true
+      },
+      "source_rights_reviewed_at_utc": "2026-11-20",
+      "source_rights_reviewed_by": "BlueDotAtlas project operator (reported visual acceptance for test); official NASA/NOAA terms checked separately",
+      "user_visual_feedback": "Operator reported watching the videos and finding them suitable for the internal test; complete frame-by-frame/audio/person/logo clearance was NOT stated.",
+      "source_audio_allowed": false
     },
     {
       "asset_id": "P60-VID-005",
@@ -161,14 +195,30 @@
         "Verify original bytes/hash/rendition in the bounded CI and separately inspect visual quality for 1920x1080 crop or fit"
       ],
       "editing_plan": "Provisional 5–7 s open-ocean visual illustrating wind-driven waves; no claim footage is from Oma, Ernesto, Helene, or a hurricane.",
-      "rights_status": "UNREVIEWED",
-      "rights_blocker": "Official source credit and original MP4 URL located, but exact downloaded bytes/ffprobe/1-second decode and full human picture/audio/rights review remain pending; this is NOT a hurricane observation.",
+      "rights_status": "APPROVED",
+      "rights_blocker": "Source-level internal non-public test approved only. Not yet staged as a local original or checked at ingest, thus not approved_for_timeline. Use footage as silent picture only, keep the exact credit and true event/context; no public release or monetization clearance from this decision.",
       "local_file": null,
       "file_sha256": null,
       "file_media_probe": null,
       "file_reviewed_at_utc": null,
       "file_reviewer": null,
-      "approved_for_timeline": false
+      "approved_for_timeline": false,
+      "internal_test_source_approved": true,
+      "approval_scope": "PRIVATE_INTERNAL_TEST_ONLY",
+      "technical_original_sha256": "e341bba65deafbf5857f7913af45cef74de2effe0e431323884e88f88574443b",
+      "technical_original_bytes": 5548939,
+      "technical_proof_run": "https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44707182588",
+      "technical_original_media_probe": {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "duration_seconds": 17.483997,
+        "has_audio": true
+      },
+      "source_rights_reviewed_at_utc": "2026-11-20",
+      "source_rights_reviewed_by": "BlueDotAtlas project operator (reported visual acceptance for test); official NASA/NOAA terms checked separately",
+      "user_visual_feedback": "Operator reported watching the videos and finding them suitable for the internal test; complete frame-by-frame/audio/person/logo clearance was NOT stated.",
+      "source_audio_allowed": false
     },
     {
       "asset_id": "P60-VID-ALT-004",
@@ -204,7 +254,11 @@
       "file_media_probe": null,
       "file_reviewed_at_utc": null,
       "file_reviewer": null,
-      "approved_for_timeline": false
+      "approved_for_timeline": false,
+      "internal_test_source_approved": false,
+      "approval_scope": null
     }
-  ]
+  ],
+  "internal_test_source_selection_accepted": true,
+  "publication_authorized": false
 }

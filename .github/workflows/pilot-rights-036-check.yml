@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   rights-manifest-036:
-    name: 036 Pilot asset provenance and fail-closed rights
+    name: 036 Private-test source provenance and strict release safeguards
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
@@ -27,5 +27,5 @@ jobs:
           node-version: '22'
       - name: Validate original source provenance and denial cases
         run: node scripts/check-pilot-rights-036.mjs --self-test
-      - name: Reject fake human film, audio or rights approvals in 036 dossiers
+      - name: Reject fabricated full audio and public-film approval in review notes
         run: node scripts/check-pilot-manual-review-036.mjs --self-test

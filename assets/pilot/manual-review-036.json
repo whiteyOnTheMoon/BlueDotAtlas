@@ -2,8 +2,8 @@
   "schema_version": 1,
   "roadmap_id": "036",
   "github_issue": 60,
-  "purpose": "Human full-playback and exact-file legal clearance workbook; NOT a license, file archive or publication decision.",
-  "media_location": "NONE_ARCHIVED; original video downloads used only on ephemeral CI runners",
+  "purpose": "Operator-accepted private test footage selection with official source rights only; no full audio/person/logo audit or public release",
+  "media_location": "NONE_ARCHIVED; three original files only briefly checked on ephemeral CI, future local ingest must hash-verify",
   "target_use": "English-language documentary pilot about hurricane energy; potential website/YouTube/monetization requires human per-asset review",
   "global_pilot_approved": false,
   "rights_matrix": "docs/legal/rights-matrix.md",
@@ -26,7 +26,7 @@
         "Caption as Tropical Cyclone Oma (South Pacific, 2019); do not call it the Atlantic Hurricane Oma or imply it's the other two storms.",
         "Confirm exact NASA JSC credit, video-page reference, no endorsement or third-party/person rights issues."
       ],
-      "review_status": "PENDING",
+      "review_status": "OPERATOR_ACCEPTED_FOR_PRIVATE_TEST",
       "full_video_watched": false,
       "full_audio_listened": false,
       "persons_logos_reviewed": false,
@@ -42,7 +42,11 @@
       "selected_segment_out": null,
       "source_audio_use": "EXCLUDE_PENDING_CLEARANCE",
       "rights_conclusion": null,
-      "timeline_approved": false
+      "timeline_approved": false,
+      "internal_test_operator_visual_ok": true,
+      "internal_test_acceptance_at_utc": "2026-11-20",
+      "internal_test_acceptance_basis": "Operator reported having seen all selected videos and found them fine for the test; completeness of playback and third-party audio/logo review not asserted",
+      "internal_test_rights_scope": "PRIVATE_INTERNAL_TEST_ONLY"
     },
     {
       "asset_id": "P60-VID-003",
@@ -61,7 +65,7 @@
         "Make clear this is a real in-flight hurricane view, not ocean-surface footage or the same storm as Oma.",
         "Preserve individual Nick Underwood/NOAA credit and check OMAO usage and emblem/no-endorsement terms."
       ],
-      "review_status": "PENDING",
+      "review_status": "OPERATOR_ACCEPTED_FOR_PRIVATE_TEST",
       "full_video_watched": false,
       "full_audio_listened": false,
       "persons_logos_reviewed": false,
@@ -77,7 +81,11 @@
       "selected_segment_out": null,
       "source_audio_use": "EXCLUDE_PENDING_CLEARANCE",
       "rights_conclusion": null,
-      "timeline_approved": false
+      "timeline_approved": false,
+      "internal_test_operator_visual_ok": true,
+      "internal_test_acceptance_at_utc": "2026-11-20",
+      "internal_test_acceptance_basis": "Operator reported having seen all selected videos and found them fine for the test; completeness of playback and third-party audio/logo review not asserted",
+      "internal_test_rights_scope": "PRIVATE_INTERNAL_TEST_ONLY"
     },
     {
       "asset_id": "P60-VID-005",
@@ -96,7 +104,7 @@
         "Use footage solely as illustrative wind-driven open-sea surface: NOT a hurricane observation and NOT a water-temperature measurement.",
         "Preserve the exact NOAA Ocean Exploration source-page credit and check page for any individual copyrighted media exception."
       ],
-      "review_status": "PENDING",
+      "review_status": "OPERATOR_ACCEPTED_FOR_PRIVATE_TEST",
       "full_video_watched": false,
       "full_audio_listened": false,
       "persons_logos_reviewed": false,
@@ -112,7 +120,11 @@
       "selected_segment_out": null,
       "source_audio_use": "EXCLUDE_PENDING_CLEARANCE",
       "rights_conclusion": null,
-      "timeline_approved": false
+      "timeline_approved": false,
+      "internal_test_operator_visual_ok": true,
+      "internal_test_acceptance_at_utc": "2026-11-20",
+      "internal_test_acceptance_basis": "Operator reported having seen all selected videos and found them fine for the test; completeness of playback and third-party audio/logo review not asserted",
+      "internal_test_rights_scope": "PRIVATE_INTERNAL_TEST_ONLY"
     }
   ],
   "excluded_media": [
@@ -126,5 +138,7 @@
       "reason": "Saildrone Inc third-party rights not individually cleared, existing rights_status BLOCKED",
       "timeline_approved": false
     }
-  ]
+  ],
+  "operator_internal_test_source_acceptance": true,
+  "publication_authorized": false
 }
