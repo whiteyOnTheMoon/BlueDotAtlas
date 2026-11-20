@@ -1,0 +1,71 @@
+name: M03 045 real 1080p H264/AAC faststart export and full media QA
+
+on:
+  pull_request:
+    paths:
+      - 'render/**'
+      - 'scripts/export-045.mjs'
+      - 'scripts/check-export-045*'
+      - 'docs/pilot/60s-script.json'
+      - 'docs/pilot/pilot-timeline.json'
+      - '.github/workflows/pilot-export-045-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  isolated-export-045:
+    name: 045 8s original synthetic 1920x1080 / H264 / AAC / +faststart
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      CI: 'true'
+      BDA_EXPORT_045_SYNTHETIC_PROOF: 'TRUE'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify 045 release gates, preset, audio, color and invalid MP4 fixtures
+        run: |
+          node --test scripts/check-export-045.test.mjs
+          python3 scripts/check-export-045.test.py
+      - name: Install FFmpeg only in this disposable runner
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1 || ! command -v ffprobe >/dev/null 2>&1; then
+            timeout 180 sudo apt-get update -qq
+            timeout 180 sudo apt-get install -y --no-install-recommends ffmpeg
+          fi
+          ffmpeg -hide_banner -version | head -n 1
+          ffprobe -hide_banner -version | head -n 1
+      - name: Actually export bounded 8s 1080p H264/AAC +faststart MP4
+        run: node scripts/export-045.mjs
+      - name: Independently probe exact coded streams, MP4 atom order and decode all video/audio
+        run: python3 scripts/check-export-045.py
+      - name: Decode three original visual frames from actual encoded MP4
+        run: |
+          set -eu
+          mkdir -p .tmp-export-045/stills
+          for pair in "1:045-start" "4:045-middle" "7:045-end"; do
+            second="${pair%%:*}"
+            label="${pair#*:}"
+            ffmpeg -nostdin -v error -y -ss "$second" \
+              -i .tmp-export-045/045-original-synthetic-1080p.mp4 \
+              -frames:v 1 ".tmp-export-045/stills/${label}.png"
+          done
+      - name: Upload ONLY original synthetic profile proof for short manual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: export-045-original-1080p-8s-review
+          path: |
+            .tmp-export-045/045-original-synthetic-1080p.mp4
+            .tmp-export-045/045-export-qa.json
+            .tmp-export-045/stills/*.png
+          if-no-files-found: error
+          retention-days: 5
+      - name: Remove 045 isolated test sources and outputs
+        if: always()
+        run: rm -rf -- .tmp-export-045/

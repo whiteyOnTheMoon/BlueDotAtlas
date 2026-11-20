@@ -1,0 +1,62 @@
+{
+  "schema": "bluedotatlas-render-preset-045-v1",
+  "id": "1080p30-h264-aac-faststart",
+  "status": "SYNTHETIC_EXPORT_QA_ONLY",
+  "filmExportAuthorized": false,
+  "publishAuthorized": false,
+  "requiresSeparateRightsApproval": true,
+  "sourcePolicy": {
+    "allowedInThisProof": "ORIGINAL_FFMPEG_GENERATED_TESTSRC2_AND_SINE_ONLY",
+    "thirdPartyFootageAllowed": false,
+    "originalBrandMediaAllowed": false,
+    "commercialMusicAllowed": false,
+    "realPilotTimelineUsed": false
+  },
+  "container": {
+    "format": "mp4",
+    "filenameExtension": ".mp4",
+    "faststart": true,
+    "fragmented": false
+  },
+  "video": {
+    "encoder": "libx264",
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "frameRate": "30/1",
+    "pixelFormat": "yuv420p",
+    "sampleAspectRatio": "1:1",
+    "colorPrimaries": "bt709",
+    "colorTransfer": "bt709",
+    "colorSpace": "bt709",
+    "colorRange": "tv",
+    "profile": "High",
+    "level": "4.1",
+    "preset": "veryfast",
+    "crf": 23,
+    "keyframeInterval": 60,
+    "threads": 2
+  },
+  "audio": {
+    "encoder": "aac",
+    "codec": "aac",
+    "profile": "LC",
+    "bitRate": "128k",
+    "sampleRate": 48000,
+    "channels": 2,
+    "channelLayout": "stereo"
+  },
+  "syntheticProof": {
+    "durationSeconds": 8,
+    "frames": 240,
+    "sourceVideo": "testsrc2",
+    "sourceAudio": "sine_440hz",
+    "outputDirectory": ".tmp-export-045",
+    "outputFilename": "045-original-synthetic-1080p.mp4"
+  },
+  "masterCompatibility": {
+    "targetFrames": 1800,
+    "targetSeconds": 60,
+    "description": "preset can encode a future cleared 60s pilot; 045 proof is only 8s"
+  }
+}

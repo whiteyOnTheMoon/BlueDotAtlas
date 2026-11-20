@@ -52,3 +52,6 @@ assets/pilot/.private-039/
 
 # 044 ephemeral 60s proxy video, speaking wave and QA images – never Git-commit
 .tmp-timeline-044/
+
+# 045 temporary full-1080p original synthetic export and probe QA (never public Git)
+.tmp-export-045/
