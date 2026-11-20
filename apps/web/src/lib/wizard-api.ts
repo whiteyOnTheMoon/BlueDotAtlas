@@ -1,4 +1,5 @@
 import type { NextRequest } from 'next/server';
+import { sameOrigin } from './admin-auth';
 import {
   ApiValidationError,
   changeWizardStep,
@@ -57,7 +58,6 @@ export async function patchWizardStepRoute(
 ) {
   const denied = await adminGate();
   if (denied) return denied;
-  const { sameOrigin } = await import('./admin-auth');
   if (!sameOrigin(request)) return problem(403, 'forbidden_origin', 'Same-origin request required');
   if (paramsInvalid(request)) return problem(400, 'invalid_input', 'Mutation does not accept query parameters', 'query');
 

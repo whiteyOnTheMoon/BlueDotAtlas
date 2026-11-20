@@ -150,8 +150,9 @@ try {
   assert.equal(submit.status, 200);
   assert.equal(submit.data.reviewState, 'submitted');
   assert.equal(submit.data.editRevision, 2);
-  assert.equal((await query('select count(*)::int as n from render_jobs'))[0].n, 0);
-  assert.equal((await query('select count(*)::int as n from approvals'))[0].n, 0);
+  const currentVersion = (await query('select id from project_versions where project_id=$1', [id]))[0].id;
+  assert.equal((await query('select count(*)::int as n from render_jobs where project_version_id=$1', [currentVersion]))[0].n, 0);
+  assert.equal((await query('select count(*)::int as n from approvals where project_version_id=$1', [currentVersion]))[0].n, 0);
 
   browser = await chromium.launch({ headless: true, channel: 'chrome' });
   const context = await browser.newContext({
@@ -210,7 +211,7 @@ try {
 
   await page.getByRole('button', { name: 'Submit for editorial review' }).click();
   await page.getByText('Submitted · not approved').waitFor();
-  assert.equal((await query('select count(*)::int as n from approvals'))[0].n, 0);
+  assert.equal((await query('select count(*)::int as n from approvals where project_version_id=$1', [currentVersion]))[0].n, 0);
   await page.locator('#wizard-editor-notes').fill('Revised after review submission');
   await savedRevision(page, 4);
   await page.getByText('Editorial draft').waitFor();
