@@ -52,7 +52,7 @@ function processCommand(command: string, args: string[], signal: AbortSignal) {
   });
 }
 
-/** Exactly one 046 job on a disposable test runner. No VPS, URLs, third-party assets or publish. */
+/** Exactly one bounded 046 job per call; only original synthetic signals, no publishing. */
 export async function runRender046Once(externalSignal?: AbortSignal) {
   assertRender046ExecutionEnvironment();
   const storageRoot = process.env.BDA_046_TEST_STORAGE_ROOT;

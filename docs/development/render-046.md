@@ -1,6 +1,6 @@
 # Roadmap 046 – isolierter PostgreSQL-Queue-zu-MP4- und Admin-HTTP-Nachweis
 
-**Roadmap:** M03 / 046 · [Issue #70](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/70) · **Status:** Draft-[PR #216](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/216), synthetischer CI-Teilschritt verifiziert (17/17 Checks auf Code-Head `2cf19ec`), Betreiber-/VPS-/Filmabnahme weiterhin offen. **Kein produktiver VPS-/Pilotfilm-Render und keine Publikationsfreigabe.**
+**Roadmap:** M03 / 046 · [Issue #70](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/70) · **Status:** [PR #216](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/216) als Squash `cdf43a5` nach `main` integriert (20/20 Checks bei Freigabe); VPS-Ergänzung in Draft-[PR #217](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/217) unter Review. Betreiber-VPS-Render und echte Filmabnahme weiterhin offen. **Kein produktiver VPS-/Pilotfilm-Render und keine Publikationsfreigabe.**
 
 ## Grenze und Ziel
 
