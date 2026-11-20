@@ -76,7 +76,7 @@ export const ScienceScene = ({ durationInFrames }: { durationInFrames: number })
         fontWeight="700"
         letterSpacing="4"
       >
-        BLUEDOTATLAS   /   EARTH SCIENCE
+        BLUEDOTATLAS / EARTH SCIENCE
       </text>
       <text
         x="160"
@@ -111,7 +111,13 @@ export const ScienceScene = ({ durationInFrames }: { durationInFrames: number })
         stroke="#31546D"
         strokeWidth="2"
       />
-      <path d="M695 384 V868 M1225 384 V868" stroke="#31546D" strokeWidth="2" strokeDasharray="5 17" opacity="0.6" />
+      <path
+        d="M695 384 V868 M1225 384 V868"
+        stroke="#31546D"
+        strokeWidth="2"
+        strokeDasharray="5 17"
+        opacity="0.6"
+      />
       <g fill={SCIENCE_COLORS.iceWhite} opacity="0.15">
         {Array.from({ length: 12 }, (_, index) => (
           <circle
@@ -235,13 +241,7 @@ export const ScienceScene = ({ durationInFrames }: { durationInFrames: number })
           {SCIENCE_LABELS.phaseThreeDetail}
         </text>
       </g>
-      <circle
-        cx="1458"
-        cy="577"
-        r="205"
-        fill="url(#science-glow)"
-        opacity={state.heatRelease}
-      />
+      <circle cx="1458" cy="577" r="205" fill="url(#science-glow)" opacity={state.heatRelease} />
       <g
         opacity={state.condensation}
         transform={`translate(1458 568) scale(${cloudScale}) translate(-1458 -568)`}
