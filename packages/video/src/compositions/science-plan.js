@@ -33,7 +33,9 @@ export const SCIENCE_LABELS = Object.freeze({
   attribution: 'Science basis: NOAA Ocean Service · NOAA NESDIS',
 });
 
-/** Pure timeline gate: 3 seconds minimum, 30 seconds maximum, no full film. */
+/** Pure timeline gate: 3 seconds minimum, 30 seconds maximum, no full film.
+ * @param {number} durationInFrames
+ */
 export function validateScienceDuration(durationInFrames) {
   if (!Number.isInteger(durationInFrames) || durationInFrames < 90 || durationInFrames > 900) {
     throw new RangeError('Science scene must be a bounded 3–30-second clip');
@@ -59,6 +61,7 @@ export function canonicalFrame(frame, durationInFrames = SCIENCE_PROOF_FRAMES) {
  */
 export function scienceStateAt(frame, durationInFrames = SCIENCE_PROOF_FRAMES) {
   const f = canonicalFrame(frame, durationInFrames);
+  /** @param {number} start @param {number} end */
   const smooth = (start, end) => {
     const t = Math.max(0, Math.min(1, (f - start) / (end - start)));
     return t * t * (3 - 2 * t);
