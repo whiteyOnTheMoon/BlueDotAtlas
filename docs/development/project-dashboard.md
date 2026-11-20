@@ -1,6 +1,6 @@
 # Roadmap 031 – Admin-Projektverwaltung (M02)
 
-**Status:** Technische Vorlage für [Issue #48](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/48), ohne Betreiberabnahme und ohne Live-VPS-Deployment.
+**Status:** Roadmap 031 nach ausdrücklicher Betreiberfreigabe **abgenommen (DEC-045)**; [PR #196](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/196) gemergt, [Issue #48](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/48) geschlossen. Kein Live-VPS-Deployment. Die Wizard-Notizfunktion wird in [032](wizard-autosave.md) ergänzt (noch ohne Freigabe).
 
 ## Umfang
 
