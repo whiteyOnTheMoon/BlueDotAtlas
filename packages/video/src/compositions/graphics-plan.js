@@ -91,10 +91,7 @@ export const GRAPHICS_PROOF_CUES = Object.freeze([
 ]);
 
 const textBounded = (value, max) =>
-  typeof value === 'string' &&
-  value.length > 0 &&
-  value.length <= max &&
-  !/[\n\r\t<>]/.test(value);
+  typeof value === 'string' && value.length > 0 && value.length <= max && !/[\n\r\t<>]/.test(value);
 
 /** Only explicit year or real YYYY-MM-DD source dates, never invented day precision. */
 export function isValidSourceDate(value) {

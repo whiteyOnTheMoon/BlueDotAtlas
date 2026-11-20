@@ -32,8 +32,7 @@ export const GraphicsScene = ({
     padding: '23px 30px',
     borderLeft: '6px solid ' + GRAPHICS_PALETTE.glacier,
     borderRadius: 16,
-    background:
-      'linear-gradient(100deg, rgba(2,25,52,0.98) 0%, rgba(7,21,34,0.94) 100%)',
+    background: 'linear-gradient(100deg, rgba(2,25,52,0.98) 0%, rgba(7,21,34,0.94) 100%)',
     color: GRAPHICS_PALETTE.iceWhite,
     opacity,
     transform: 'translateY(' + 14 * (1 - opacity) + 'px)',
@@ -68,9 +67,7 @@ export const GraphicsScene = ({
       {graphic.kind === 'metric' ? (
         <div style={{ fontSize: 60, fontWeight: 700, marginBottom: 8, lineHeight: 1.05 }}>
           {graphic.metricValue}
-          <span
-            style={{ fontSize: 34, fontWeight: 500, color: GRAPHICS_PALETTE.blueDot }}
-          >
+          <span style={{ fontSize: 34, fontWeight: 500, color: GRAPHICS_PALETTE.blueDot }}>
             {' ' + graphic.metricUnit}
           </span>
         </div>

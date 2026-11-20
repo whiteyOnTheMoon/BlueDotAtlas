@@ -1,9 +1,6 @@
 import { AbsoluteFill, Sequence, useCurrentFrame } from 'remotion';
 import { GraphicsScene } from './GraphicsScene';
-import {
-  GRAPHICS_PROOF_CUES,
-  validateGraphicTimeline,
-} from './graphics-plan.js';
+import { GRAPHICS_PROOF_CUES, validateGraphicTimeline } from './graphics-plan.js';
 
 validateGraphicTimeline(GRAPHICS_PROOF_CUES);
 
