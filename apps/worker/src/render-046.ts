@@ -1,7 +1,6 @@
 import { createHash } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync } from 'node:fs';
-import { readFile, rm } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -131,8 +130,7 @@ export async function runRender046Once(externalSignal?: AbortSignal) {
     } finally {
       clearInterval(ticker);
       externalSignal?.removeEventListener('abort', abort);
-      await rm(checkedOutput(claim.id), { force: true });
-      await rm(resolve(TEMP, claim.id + '.json'), { force: true });
+      // Actual encoded MP4/QA report remain only in ignored disposable CI workspace.
     }
   } finally {
     await connection.pool.end();

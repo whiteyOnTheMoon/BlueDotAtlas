@@ -55,3 +55,6 @@ assets/pilot/.private-039/
 
 # 045 temporary full-1080p original synthetic export and probe QA (never public Git)
 .tmp-export-045/
+
+# Roadmap 046: disposable original-synthetic queue export (never track review MP4)
+.tmp-render-046/
