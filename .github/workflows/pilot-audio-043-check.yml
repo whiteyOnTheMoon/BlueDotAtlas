@@ -1,0 +1,63 @@
+name: M03 043 original audio-mix and outro-continuity proof
+
+on:
+  pull_request:
+    paths:
+      - 'packages/video/audio-mix/**'
+      - 'scripts/*audio-043*'
+      - '.github/workflows/pilot-audio-043-check.yml'
+      - 'docs/pilot/60s-script.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audio-043:
+    name: 043 Real 48k WAV music duck and full-outro check
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      CI: 'true'
+      BDA_AUDIO_043_SYNTHETIC_PROOF: 'TRUE'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install local FFmpeg binary only on temporary GitHub runner
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1 || ! command -v ffprobe >/dev/null 2>&1; then
+            timeout 180 sudo apt-get update -qq
+            timeout 180 sudo apt-get install -y --no-install-recommends ffmpeg
+          fi
+          ffmpeg -hide_banner -version | head -n 1
+          ffprobe -hide_banner -version | head -n 1
+      - name: P60 lock, rights, duck and outro negative tests
+        run: node --test scripts/check-audio-043.test.mjs
+      - name: Build actual 16s 4-layer music, ambience, voice-marker and intro-marker mix
+        run: node scripts/render-audio-043.mjs
+      - name: Verify actual 48k PCM stereo WAV, no clipping, real duck and end fade
+        run: |
+          python3 scripts/check-audio-043.py \
+            .tmp-audio-043/043-audio-mix-review.wav \
+            .tmp-audio-043/043-ducked-bed-review.wav \
+            .tmp-audio-043/043-audio-mix-plan.json
+      - name: Upload only original synthetic QA audio
+        uses: actions/upload-artifact@v4
+        with:
+          name: audio-043-original-synthetic-review
+          path: |
+            .tmp-audio-043/043-audio-mix-review.wav
+            .tmp-audio-043/043-ducked-bed-review.wav
+            .tmp-audio-043/043-audio-mix-qa.json
+          if-no-files-found: error
+          retention-days: 5
+      - name: Clean temporary QA audio
+        if: always()
+        run: rm -rf -- .tmp-audio-043/
