@@ -49,3 +49,6 @@ assets/pilot/.private-039/
 
 # 043 original synthetic audio mix, stems and reports remain ephemeral
 .tmp-audio-043/
+
+# 044 ephemeral 60s proxy video, speaking wave and QA images – never Git-commit
+.tmp-timeline-044/
