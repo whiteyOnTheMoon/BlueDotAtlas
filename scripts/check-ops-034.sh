@@ -31,7 +31,8 @@ export BDA_034_CONTAINER="$container"
 
 ready=0
 for attempt in {1..40}; do
-  if docker exec "$container" pg_isready -U bda_test -d bda_test >/dev/null 2>&1; then
+  if docker exec "$container" pg_isready -U bda_test -d bda_test >/dev/null 2>&1 && \
+     [[ "$(docker exec "$container" psql -U bda_test -d bda_test -Atqc 'SELECT 1' 2>/dev/null || true)" == 1 ]]; then
     ready=1
     break
   fi

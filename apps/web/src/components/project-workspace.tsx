@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, type FormEvent } from 'react';
 import { BrandMark } from './brand-mark';
+import { RenderQueuePanel } from './render-queue-panel';
 
 type Project = {
   id: string;
@@ -52,7 +53,13 @@ async function requestJson(path: string, options?: RequestInit) {
   return response.json() as Promise<unknown>;
 }
 
-export function ProjectWorkspace({ projectId }: { projectId?: string }) {
+export function ProjectWorkspace({
+  projectId,
+  syntheticRenderEnabled = false,
+}: {
+  projectId?: string;
+  syntheticRenderEnabled?: boolean;
+}) {
   const router = useRouter();
   const [filter, setFilter] = useState('');
   const [offset, setOffset] = useState(0);
@@ -275,6 +282,7 @@ export function ProjectWorkspace({ projectId }: { projectId?: string }) {
                     Editorial step notes autosave in your private project. No render job is started.
                   </p>
                 </div>
+                {syntheticRenderEnabled ? <RenderQueuePanel projectId={project.id} /> : null}
               </>
             ) : null}
           </section>

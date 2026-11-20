@@ -1,0 +1,132 @@
+name: M03 046 isolated queued synthetic 1080p artifact and PostgreSQL state QA
+
+on:
+  pull_request:
+    paths:
+      - 'apps/worker/**'
+      - 'packages/db/**'
+      - 'packages/storage/**'
+      - 'render/**'
+      - 'scripts/check-render-046.py'
+      - 'scripts/check-render-046-http.mjs'
+      - 'apps/web/**'
+      - 'scripts/check-export-045.py'
+      - 'docs/pilot/60s-script.json'
+      - 'docs/pilot/pilot-timeline.json'
+      - 'docs/development/render-046.md'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/render-queue-046-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  isolated-render-046:
+    name: 046 guarded PostgreSQL queue to real 1080p QA MP4
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: bda_test
+          POSTGRES_PASSWORD: bda_test_only
+          POSTGRES_DB: bda_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U bda_test -d bda_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      CI: 'true'
+      DATABASE_URL: postgresql://bda_test:bda_test_only@localhost:5432/bda_test
+      BDA_DB_TEST: '1'
+      BDA_WORKER_SYNTHETIC_TEST: '1'
+      BDA_STORAGE_TEST: '1'
+      BDA_RENDER_046_SYNTHETIC_PROOF: 'TRUE'
+      BDA_ADMIN_EMAIL: admin-ci@bluedotatlas.invalid
+      BDA_TEST_ADMIN_PASSWORD: 'SYNTHETIC-Only-Passphrase-046-for-CI!'
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Frozen dependency install and monorepo checks
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm test
+          pnpm typecheck
+          pnpm lint
+          pnpm format:check
+          pnpm build
+      - name: Verify unchanged migrations and rerun PostgreSQL-16 setup
+        run: |
+          pnpm --filter @bluedotatlas/db db:check
+          pnpm --filter @bluedotatlas/db db:generate
+          if [ -n "$(git status --porcelain -- packages/db/drizzle)" ]; then exit 1; fi
+          pnpm --filter @bluedotatlas/db db:migrate
+          pnpm --filter @bluedotatlas/db db:migrate
+      - name: Require FFmpeg and FFprobe on disposable runner only
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            timeout 180 sudo apt-get update -qq
+            timeout 180 sudo apt-get install -y --no-install-recommends ffmpeg
+          fi
+      - name: Real queued render, full MP4 decoder QA, DB artifact/reference and negative lease tests
+        run: pnpm --filter @bluedotatlas/db test:render-046
+      - name: Create disposable synthetic admin password hash for HTTP + Chromium proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          hash="$(printf '%s' "$BDA_TEST_ADMIN_PASSWORD" | node packages/db/scripts/hash-admin-password.mjs)"
+          echo "BDA_ADMIN_PASSWORD_HASH=$hash" >> "$GITHUB_ENV"
+      - name: Authenticated Next.js HTTP, live worker liveness, Chromium UI and closed gate
+        run: |
+          google-chrome --version
+          node scripts/check-render-046-http.mjs
+      - name: Upload private test-only HTTP and browser QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: render-046-admin-http-chrome-qa
+          path: .tmp-render-046/http-ui/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 5
+      - name: Extract actual motion sample frames from completed queued MP4
+        run: |
+          set -eu
+          mkdir -p .tmp-render-046/stills
+          found=0
+          for media in .tmp-render-046/*.mp4; do
+            test -f "$media" || continue
+            found=1
+            for second in 1 4 7; do
+              ffmpeg -nostdin -v error -y -ss "$second" -i "$media" -frames:v 1                 ".tmp-render-046/stills/046-${second}s.png"
+            done
+          done
+          test "$found" -eq 1
+      - name: Short-lived original synthetic review artifact (no third-party footage)
+        uses: actions/upload-artifact@v4
+        with:
+          name: render-046-queued-original-1080p-proof
+          path: |
+            .tmp-render-046/*.mp4
+            .tmp-render-046/*.json
+            .tmp-render-046/stills/*.png
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 5
+      - name: Destroy disposable 046 media
+        if: always()
+        run: rm -rf -- .tmp-render-046/
