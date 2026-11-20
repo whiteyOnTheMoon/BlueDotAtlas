@@ -36,11 +36,11 @@ jobs:
                   print('NASA-036-Oma: TITLE_NOT_FOUND')
               else:
                   fragment=html[max(0, match.start()-250):match.start()+10000]
-                  links=re.findall(r'(?:src|href|data-src|data-href)\\s*=\\s*["\\']([^"\\']+)["\\']',fragment,re.IGNORECASE)
+                  links=re.findall(r'(?:src|href|data-src|data-href)\s*=\s*"([^"]+)"',fragment,re.IGNORECASE)
                   print('NASA-036-Oma: official title found; nearby explicit links follow')
                   for link in list(dict.fromkeys(links))[:35]:
                       print('NASA-036-NEARBY-LINK: '+unescape(link)[:350])
-                  print('NASA-036-HTML-CONTEXT: '+re.sub(r'\\s+',' ',fragment[:1000])[:1000])
+                  print('NASA-036-HTML-CONTEXT: '+re.sub(r'\s+',' ',fragment[:1000])[:1000])
           except Exception as exc:
               print('NASA-036-Oma: SOURCE_HTML_UNAVAILABLE '+type(exc).__name__)
           PY
