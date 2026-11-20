@@ -24,3 +24,6 @@ coverage/
 Thumbs.db
 
 .tmp-web-shell-qa/
+
+# Isolated 031 browser screenshot / data artifacts
+.tmp-project-qa/
