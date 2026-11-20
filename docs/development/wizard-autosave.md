@@ -1,6 +1,6 @@
 # Roadmap 032 – Sieben Schritte und sichere Entwurfs-Autosaves
 
-**Status:** Feature-Branch `feat/032-wizard-autosave`, Issue [#49](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/49); technischer Test-/Reviewstand, **keine Betreiberfreigabe, kein Live-Admin-VPS-Deploy**.
+**Status:** Roadmap 032 nach ausdrücklicher Betreiberfreigabe **abgenommen (DEC-046)**; [PR #197](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/197) erfolgreich als Squash-Merge in `main` übernommen; [Issue #49](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/49) geschlossen, 12/12 CI-Workflows PASS. **Kein Live-Admin-VPS-Deploy.**
 
 ## Zweck und Benutzeroberfläche
 
