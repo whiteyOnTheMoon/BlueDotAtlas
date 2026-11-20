@@ -132,8 +132,7 @@ export function parseApiProjectPatch(value: unknown): ApiProjectPatch {
 
 /** Bounded, single-step updates; callers cannot set approvals, job state or raw snapshots. */
 export type ApiWizardChange =
-  | { expectedRevision: number; notes: string }
-  | { expectedRevision: number; action: 'submit' };
+  { expectedRevision: number; notes: string } | { expectedRevision: number; action: 'submit' };
 
 export function parseApiWizardStep(value: string): number {
   if (!/^[1-7]$/.test(value)) throw new ApiValidationError('step');

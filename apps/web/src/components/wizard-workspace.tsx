@@ -116,7 +116,8 @@ function StepEditor({
       setSaving(true);
       void patch({ expectedRevision: capturedRevision, notes: capturedNotes })
         .catch((reason: unknown) => {
-          const failure = reason instanceof WizardError ? reason : new WizardError('Autosave failed.', 503);
+          const failure =
+            reason instanceof WizardError ? reason : new WizardError('Autosave failed.', 503);
           setError(failure);
           if (failure.status === 409) setConflict(true);
         })
@@ -126,12 +127,24 @@ function StepEditor({
   }, [readonly, dirty, saving, error, conflict, notes, revision, patch]);
 
   async function submitForReview() {
-    if (readonly || dirty || saving || error || conflict || !notes.trim() || reviewState === 'submitted') return;
+    if (
+      readonly ||
+      dirty ||
+      saving ||
+      error ||
+      conflict ||
+      !notes.trim() ||
+      reviewState === 'submitted'
+    )
+      return;
     setSaving(true);
     try {
       await patch({ expectedRevision: revision, action: 'submit' });
     } catch (reason) {
-      const failure = reason instanceof WizardError ? reason : new WizardError('Unable to submit for review.', 503);
+      const failure =
+        reason instanceof WizardError
+          ? reason
+          : new WizardError('Unable to submit for review.', 503);
       setError(failure);
       if (failure.status === 409) setConflict(true);
     } finally {
@@ -180,11 +193,18 @@ function StepEditor({
         <div className="auth-error" role="alert">
           <p>{error.message}</p>
           {conflict ? (
-            <p>Copy your local notes first if needed. Reloading will replace them with the stored version.</p>
+            <p>
+              Copy your local notes first if needed. Reloading will replace them with the stored
+              version.
+            </p>
           ) : null}
           {error.status === 401 ? <Link href="/admin/login">Sign in</Link> : null}
           {!conflict && error.status !== 401 ? (
-            <button className="button button-secondary" type="button" onClick={() => setError(null)}>
+            <button
+              className="button button-secondary"
+              type="button"
+              onClick={() => setError(null)}
+            >
               Retry autosave
             </button>
           ) : null}
@@ -195,7 +215,13 @@ function StepEditor({
           className="button button-secondary"
           type="button"
           onClick={() => {
-            if (dirty && !window.confirm('Discard your unsaved local notes and reload the latest saved version?')) return;
+            if (
+              dirty &&
+              !window.confirm(
+                'Discard your unsaved local notes and reload the latest saved version?',
+              )
+            )
+              return;
             void onReload();
           }}
         >
@@ -206,7 +232,15 @@ function StepEditor({
         <button
           className="button button-secondary"
           type="button"
-          disabled={readonly || dirty || saving || !!error || conflict || !notes.trim() || reviewState === 'submitted'}
+          disabled={
+            readonly ||
+            dirty ||
+            saving ||
+            !!error ||
+            conflict ||
+            !notes.trim() ||
+            reviewState === 'submitted'
+          }
           onClick={() => void submitForReview()}
         >
           Submit for editorial review
@@ -227,7 +261,10 @@ export function WizardWorkspace({ projectId }: { projectId: string }) {
   const [editorKey, setEditorKey] = useState(0);
   const [pendingChanges, setPendingChanges] = useState(false);
   const selected = wizard?.steps.find((step) => step.number === current);
-  const readonly = wizard?.project.status === 'archived' || wizard?.project.status === 'approved' || wizard?.project.status === 'in_review';
+  const readonly =
+    wizard?.project.status === 'archived' ||
+    wizard?.project.status === 'approved' ||
+    wizard?.project.status === 'in_review';
 
   useEffect(() => {
     const controller = new AbortController();
@@ -236,7 +273,8 @@ export function WizardWorkspace({ projectId }: { projectId: string }) {
         if (!controller.signal.aborted) setWizard(data as Wizard);
       })
       .catch((reason: unknown) => {
-        if (!controller.signal.aborted) setError(reason instanceof Error ? reason.message : 'Wizard unavailable.');
+        if (!controller.signal.aborted)
+          setError(reason instanceof Error ? reason.message : 'Wizard unavailable.');
       })
       .finally(() => {
         if (!controller.signal.aborted) setLoading(false);
@@ -247,7 +285,10 @@ export function WizardWorkspace({ projectId }: { projectId: string }) {
   const handleSaved = useCallback((next: Step) => {
     setWizard((prior) =>
       prior
-        ? { ...prior, steps: prior.steps.map((step) => (step.number === next.number ? next : step)) }
+        ? {
+            ...prior,
+            steps: prior.steps.map((step) => (step.number === next.number ? next : step)),
+          }
         : prior,
     );
   }, []);
@@ -277,24 +318,58 @@ export function WizardWorkspace({ projectId }: { projectId: string }) {
       <main className="container admin-view project-workspace">
         <p className="eyebrow">Production workspace · Roadmap 032</p>
         <h1>Video wizard</h1>
-        <p className="muted">Drafts are private and never trigger video generation or publishing.</p>
+        <p className="muted">
+          Drafts are private and never trigger video generation or publishing.
+        </p>
         <div className="project-navigation">
           <nav aria-label="Studio navigation">
-            <Link href="/admin" onClick={(event) => { if (pendingChanges && !window.confirm('You have unsaved notes. Leave this page?')) event.preventDefault(); }}>Dashboard</Link>
-            <Link href="/admin/projects" onClick={(event) => { if (pendingChanges && !window.confirm('You have unsaved notes. Leave this page?')) event.preventDefault(); }}>Projects</Link>
-            <Link href={'/admin/projects/' + projectId} onClick={(event) => { if (pendingChanges && !window.confirm('You have unsaved notes. Leave this page?')) event.preventDefault(); }}>Project details</Link>
+            <Link
+              href="/admin"
+              onClick={(event) => {
+                if (pendingChanges && !window.confirm('You have unsaved notes. Leave this page?'))
+                  event.preventDefault();
+              }}
+            >
+              Dashboard
+            </Link>
+            <Link
+              href="/admin/projects"
+              onClick={(event) => {
+                if (pendingChanges && !window.confirm('You have unsaved notes. Leave this page?'))
+                  event.preventDefault();
+              }}
+            >
+              Projects
+            </Link>
+            <Link
+              href={'/admin/projects/' + projectId}
+              onClick={(event) => {
+                if (pendingChanges && !window.confirm('You have unsaved notes. Leave this page?'))
+                  event.preventDefault();
+              }}
+            >
+              Project details
+            </Link>
           </nav>
           <form action="/api/auth/logout" method="post">
-            <button className="button button-secondary" type="submit">Sign out</button>
+            <button className="button button-secondary" type="submit">
+              Sign out
+            </button>
           </form>
         </div>
         {loading ? <p role="status">Loading saved wizard…</p> : null}
-        {error ? <p className="auth-error" role="alert">{error}</p> : null}
+        {error ? (
+          <p className="auth-error" role="alert">
+            {error}
+          </p>
+        ) : null}
         {!loading && wizard ? (
           <>
             <div className="wizard-title">
               <h2>{wizard.project.title}</h2>
-              <span className="project-status">Project revision {wizard.project.currentVersion}</span>
+              <span className="project-status">
+                Project revision {wizard.project.currentVersion}
+              </span>
             </div>
             <div className="wizard-content">
               <nav aria-label="Wizard steps" className="wizard-steps">
@@ -307,10 +382,14 @@ export function WizardWorkspace({ projectId }: { projectId: string }) {
                     onClick={() => setCurrent(step.number)}
                     disabled={step.number === current || pendingChanges}
                   >
-                    <span className="wizard-step-numeral">{String(step.number).padStart(2, '0')}</span>
+                    <span className="wizard-step-numeral">
+                      {String(step.number).padStart(2, '0')}
+                    </span>
                     <span>
                       <strong>{step.label}</strong>
-                      <small>{step.reviewState === 'submitted' ? 'Review requested' : step.status}</small>
+                      <small>
+                        {step.reviewState === 'submitted' ? 'Review requested' : step.status}
+                      </small>
                     </span>
                   </button>
                 ))}
@@ -331,7 +410,11 @@ export function WizardWorkspace({ projectId }: { projectId: string }) {
                       className="button button-secondary"
                       type="button"
                       onClick={() => {
-                        if (pendingChanges && !window.confirm('Discard unsaved notes and reload the saved wizard?')) return;
+                        if (
+                          pendingChanges &&
+                          !window.confirm('Discard unsaved notes and reload the saved wizard?')
+                        )
+                          return;
                         void reloadStep();
                       }}
                     >

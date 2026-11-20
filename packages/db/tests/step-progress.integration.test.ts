@@ -28,7 +28,10 @@ test('seven step drafts persist across pool restart, with independent CAS revisi
   const id = project.project.id;
   const initial = await readWizard(connection, id);
   assert.equal(initial.steps.length, 7);
-  assert.deepEqual(initial.steps.map((s) => s.editRevision), [0, 0, 0, 0, 0, 0, 0]);
+  assert.deepEqual(
+    initial.steps.map((s) => s.editRevision),
+    [0, 0, 0, 0, 0, 0, 0],
+  );
   assert.ok(initial.steps.every((s) => s.reviewState === 'draft'));
   const saved = await changeWizardStep(connection, id, 2, {
     expectedRevision: 0,
@@ -81,13 +84,22 @@ test('seven step drafts persist across pool restart, with independent CAS revisi
     .select()
     .from(approvals)
     .where(eq(approvals.projectVersionId, project.version.id));
-  assert.equal(authorizations.length, 0, 'Review request must not count as rights/render/publish approval');
-  const audit = await connection.db.select().from(auditEvents).where(eq(auditEvents.projectId, id));
-  assert.deepEqual(
-    audit.map((event) => event.eventType).sort(),
-    ['project.created', 'step.draft_saved', 'step.draft_saved', 'step.review_requested'],
+  assert.equal(
+    authorizations.length,
+    0,
+    'Review request must not count as rights/render/publish approval',
   );
-  assert.doesNotMatch(JSON.stringify(audit), /Private climate research note|Updated editorial direction/);
+  const audit = await connection.db.select().from(auditEvents).where(eq(auditEvents.projectId, id));
+  assert.deepEqual(audit.map((event) => event.eventType).sort(), [
+    'project.created',
+    'step.draft_saved',
+    'step.draft_saved',
+    'step.review_requested',
+  ]);
+  assert.doesNotMatch(
+    JSON.stringify(audit),
+    /Private climate research note|Updated editorial direction/,
+  );
   await connection.pool.end();
 
   connection = openDatabase();
@@ -103,7 +115,10 @@ test('seven step drafts persist across pool restart, with independent CAS revisi
     assert.equal(originalSteps.length, 7);
     await archiveProject(connection, id);
     await assert.rejects(
-      changeWizardStep(connection, id, 2, { expectedRevision: 3, notes: 'Forbidden after archive' }),
+      changeWizardStep(connection, id, 2, {
+        expectedRevision: 3,
+        notes: 'Forbidden after archive',
+      }),
       /cannot be modified/,
     );
   } finally {

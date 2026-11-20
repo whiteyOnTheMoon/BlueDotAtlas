@@ -68,12 +68,7 @@ export async function readWizard({ db }: ReturnTypeOfOpenDatabase, id: string) {
       updatedAt: stepProgress.updatedAt,
     })
     .from(stepProgress)
-    .where(
-      and(
-        eq(stepProgress.projectVersionId, version.id),
-        isNull(stepProgress.deletedAt),
-      ),
-    )
+    .where(and(eq(stepProgress.projectVersionId, version.id), isNull(stepProgress.deletedAt)))
     .orderBy(asc(stepProgress.stepNumber));
   if (steps.length !== wizardSteps.length || steps.some((item, n) => item.stepNumber !== n + 1)) {
     throw new ProjectConflict();
@@ -94,12 +89,20 @@ export async function changeWizardStep(
 ) {
   return db.transaction(async (tx) => {
     const [project] = await tx
-      .select({ id: videoProjects.id, status: videoProjects.status, version: videoProjects.currentVersion })
+      .select({
+        id: videoProjects.id,
+        status: videoProjects.status,
+        version: videoProjects.currentVersion,
+      })
       .from(videoProjects)
       .where(and(eq(videoProjects.id, id), isNull(videoProjects.deletedAt)))
       .for('update');
     if (!project) throw new ProjectNotFound(id);
-    if (project.status === 'archived' || project.status === 'approved' || project.status === 'in_review') {
+    if (
+      project.status === 'archived' ||
+      project.status === 'approved' ||
+      project.status === 'in_review'
+    ) {
       throw new ProjectConflict();
     }
     const [version] = await tx

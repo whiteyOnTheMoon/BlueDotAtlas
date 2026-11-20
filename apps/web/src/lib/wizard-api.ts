@@ -10,14 +10,7 @@ import {
   ProjectNotFound,
   readWizard,
 } from '@bluedotatlas/db/api';
-import {
-  adminGate,
-  boundedBody,
-  databaseAction,
-  methodDenied,
-  problem,
-  result,
-} from './api-v1';
+import { adminGate, boundedBody, databaseAction, methodDenied, problem, result } from './api-v1';
 
 function paramsInvalid(request: NextRequest) {
   return request.nextUrl.searchParams.size > 0;
@@ -31,13 +24,11 @@ async function wizardId(params: Promise<{ id: string }>) {
   }
 }
 
-export async function getWizardRoute(
-  request: NextRequest,
-  params: Promise<{ id: string }>,
-) {
+export async function getWizardRoute(request: NextRequest, params: Promise<{ id: string }>) {
   const denied = await adminGate();
   if (denied) return denied;
-  if (paramsInvalid(request)) return problem(400, 'invalid_input', 'Query parameters are not allowed', 'query');
+  if (paramsInvalid(request))
+    return problem(400, 'invalid_input', 'Query parameters are not allowed', 'query');
   const id = await wizardId(params);
   if (!id) return problem(400, 'invalid_input', 'Invalid project identifier', 'id');
   return databaseAction(async (connection) => {
@@ -45,7 +36,8 @@ export async function getWizardRoute(
       return result(await readWizard(connection, id));
     } catch (error) {
       if (error instanceof ProjectNotFound) return problem(404, 'not_found', 'Resource not found');
-      if (error instanceof ProjectConflict) return problem(409, 'project_conflict', 'Project state cannot be read');
+      if (error instanceof ProjectConflict)
+        return problem(409, 'project_conflict', 'Project state cannot be read');
       throw error;
     }
   });
@@ -58,7 +50,8 @@ export async function patchWizardStepRoute(
   const denied = await adminGate();
   if (denied) return denied;
   if (!sameOrigin(request)) return problem(403, 'forbidden_origin', 'Same-origin request required');
-  if (paramsInvalid(request)) return problem(400, 'invalid_input', 'Mutation does not accept query parameters', 'query');
+  if (paramsInvalid(request))
+    return problem(400, 'invalid_input', 'Mutation does not accept query parameters', 'query');
 
   let id: string;
   let step: number;

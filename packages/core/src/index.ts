@@ -35,9 +35,4 @@ export {
   parseApiWizardStep,
   parseApiWizardChange,
 } from './api-v1.js';
-export type {
-  ApiCollection,
-  ApiListQuery,
-  ApiProjectPatch,
-  ApiWizardChange,
-} from './api-v1.js';
+export type { ApiCollection, ApiListQuery, ApiProjectPatch, ApiWizardChange } from './api-v1.js';

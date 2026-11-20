@@ -265,7 +265,10 @@ export function ProjectWorkspace({ projectId }: { projectId?: string }) {
                   </div>
                 )}
                 <div className="project-wizard-note">
-                  <Link href={'/admin/projects/' + project.id + '/wizard'} className="button button-primary">
+                  <Link
+                    href={'/admin/projects/' + project.id + '/wizard'}
+                    className="button button-primary"
+                  >
                     Open seven-step wizard
                   </Link>
                   <p className="muted">
