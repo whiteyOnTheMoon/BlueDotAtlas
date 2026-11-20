@@ -3,7 +3,6 @@ import { sameOrigin } from './admin-auth';
 import {
   ApiValidationError,
   changeWizardStep,
-  openDatabase,
   parseApiUuid,
   parseApiWizardChange,
   parseApiWizardStep,
