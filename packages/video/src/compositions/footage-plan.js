@@ -82,10 +82,12 @@ export function validateFootageShot(shot) {
   if (!Object.hasOwn(PRIVATE_ORIGINALS, shot.assetId)) {
     throw new Error('Only previously selected 036 private-test sources are permitted');
   }
-  for (const key of ['from', 'durationInFrames', 'trimBefore']) {
-    if (!Number.isInteger(shot[key]) || shot[key] < 0) {
-      throw new RangeError('Nonnegative integer required: ' + key);
-    }
+  if (
+    !Number.isInteger(shot.from) || shot.from < 0 ||
+    !Number.isInteger(shot.durationInFrames) || shot.durationInFrames < 0 ||
+    !Number.isInteger(shot.trimBefore) || shot.trimBefore < 0
+  ) {
+    throw new RangeError('Frame positions must be nonnegative integers');
   }
   if (shot.durationInFrames < 10 || shot.durationInFrames > 150) {
     throw new RangeError('Bounded shots only; never bypass full-film render gate');
@@ -96,13 +98,13 @@ export function validateFootageShot(shot) {
   if (shot.fit !== 'contain' && shot.fit !== 'cover') {
     throw new RangeError('Only contain or cover preserves the source aspect ratio');
   }
-  for (const key of ['focalX', 'focalY']) {
-    if (!Number.isFinite(shot[key]) || shot[key] < 0 || shot[key] > 100) {
+  for (const value of [shot.focalX, shot.focalY]) {
+    if (!Number.isFinite(value) || value < 0 || value > 100) {
       throw new RangeError('Focal point must be 0–100%');
     }
   }
-  for (const key of ['brightness', 'contrast', 'saturation']) {
-    if (!Number.isFinite(shot[key]) || shot[key] < 0.9 || shot[key] > 1.1) {
+  for (const value of [shot.brightness, shot.contrast, shot.saturation]) {
+    if (!Number.isFinite(value) || value < 0.9 || value > 1.1) {
       throw new RangeError('Only mild SDR adjustments in 0.9–1.1 permitted');
     }
   }
