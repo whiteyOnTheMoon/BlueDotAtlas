@@ -1,0 +1,37 @@
+# M03 / 046 – opt-in original-synthetic 8-second renderer, NOT a product-film release.
+# Include only when specifically authorizing the one VPS synthetic proof.
+services:
+  renderer046:
+    profiles: [vps-synthetic-render]
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile
+      target: worker046
+    env_file:
+      - ${BDA_WORKER_ENV_FILE:?Specify existing private BlueDotAtlas worker DB configuration}
+    environment:
+      BDA_RENDER_046_VPS_SYNTHETIC: "TRUE"
+      BDA_046_VPS_STORAGE_ROOT: /bda-media
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    cpus: 0.5
+    mem_limit: 1024m
+    pids_limit: 200
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,noexec,size=32m
+      - /app/.tmp-render-046:rw,nosuid,nodev,noexec,size=64m,uid=1000,gid=1000
+    volumes:
+      - type: bind
+        source: ${BDA_046_MEDIA_HOST:?Specify existing private operator-owned media directory}
+        target: /bda-media
+        bind:
+          create_host_path: false
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - private_db

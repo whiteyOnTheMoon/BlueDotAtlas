@@ -156,6 +156,38 @@ export class LocalStorage {
     return storage;
   }
 
+  /**
+   * Operator-created, privately bind-mounted directory for the one VPS synthetic
+   * renderer. This never permits public uploads or unreviewed film assets.
+   */
+  static async openRender046VpsRoot(path: string): Promise<LocalStorage> {
+    if (
+      process.env.BDA_RENDER_046_VPS_SYNTHETIC !== 'TRUE' ||
+      process.env.CI === 'true' ||
+      process.env.NODE_ENV !== 'production' ||
+      process.env.BDA_STORAGE_TEST === '1' ||
+      process.platform !== 'linux' ||
+      path !== '/bda-media'
+    ) {
+      throw new StorageError('invalid_root');
+    }
+    const rootStat = await lstat(path);
+    assertPrivateDirectory(rootStat);
+    if ((await realpath(path)) !== path) throw new StorageError('invalid_root');
+    const storage = new LocalStorage(path, rootStat.dev, rootStat.ino, STORAGE_BUDGETS);
+    await storage.checkRoot();
+    for (const area of FOLDER_PLAN) {
+      const target = join(path, area);
+      try {
+        await mkdir(target, { mode: 0o700 });
+      } catch (error) {
+        if (!isNodeError(error, 'EEXIST')) throw error;
+      }
+      await storage.checkPrivateDirectory(target);
+    }
+    return storage;
+  }
+
   private async checkRoot() {
     const stat = await lstat(this.root);
     assertPrivateDirectory(stat);

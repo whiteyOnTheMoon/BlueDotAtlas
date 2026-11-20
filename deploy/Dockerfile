@@ -28,6 +28,15 @@ COPY --from=build --chown=node:node /workspace ./
 USER node
 CMD ["node", "apps/worker/dist/run.js"]
 
+# Optional 046 original-synthetic VPS worker: one container, no original footage.
+# Never enabled by the default Compose profile.
+FROM worker AS worker046
+USER root
+RUN apt-get update -qq && apt-get install -y --no-install-recommends ffmpeg python3 \
+    && rm -rf /var/lib/apt/lists/*
+USER node
+CMD ["node", "apps/worker/dist/run-046.js"]
+
 # One-shot DB migrations. Only explicitly enabled under the maintenance profile.
 FROM build AS migrate
 ENV NODE_ENV=production
