@@ -1,17 +1,6 @@
 import { Audio } from '@remotion/media';
-import {
-  AbsoluteFill,
-  OffthreadVideo,
-  Sequence,
-  staticFile,
-  useCurrentFrame,
-} from 'remotion';
-import {
-  BRAND_SOURCES,
-  layerOpacity,
-  planBrandTimeline,
-  VIDEO_PROFILE,
-} from './profile.js';
+import { AbsoluteFill, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from 'remotion';
+import { BRAND_SOURCES, layerOpacity, planBrandTimeline, VIDEO_PROFILE } from './profile.js';
 
 const timeline = planBrandTimeline(VIDEO_PROFILE.proofFrames);
 
@@ -30,12 +19,7 @@ const IntroPicture = () => {
   return (
     <FullFrameVideo
       src={BRAND_SOURCES.intro}
-      opacity={layerOpacity(
-        frame,
-        VIDEO_PROFILE.introFrames,
-        0,
-        VIDEO_PROFILE.crossfadeFrames,
-      )}
+      opacity={layerOpacity(frame, VIDEO_PROFILE.introFrames, 0, VIDEO_PROFILE.crossfadeFrames)}
     />
   );
 };
@@ -45,12 +29,7 @@ const IntroSound = () => {
   return (
     <Audio
       src={staticFile(BRAND_SOURCES.intro)}
-      volume={layerOpacity(
-        frame,
-        VIDEO_PROFILE.introFrames,
-        0,
-        VIDEO_PROFILE.crossfadeFrames,
-      )}
+      volume={layerOpacity(frame, VIDEO_PROFILE.introFrames, 0, VIDEO_PROFILE.crossfadeFrames)}
     />
   );
 };
@@ -68,8 +47,7 @@ const SyntheticMotion = () => {
     <AbsoluteFill
       style={{
         opacity,
-        background:
-          'radial-gradient(ellipse at 65% 45%, #16516c 0%, #071f37 45%, #02101e 100%)',
+        background: 'radial-gradient(ellipse at 65% 45%, #16516c 0%, #071f37 45%, #02101e 100%)',
         color: '#ffffff',
         fontFamily: 'Arial, sans-serif',
       }}
@@ -93,9 +71,7 @@ const SyntheticMotion = () => {
         >
           BlueDotAtlas · Technical Proof
         </div>
-        <div style={{ fontSize: 78, fontWeight: 700, marginTop: 20 }}>
-          Ocean in motion
-        </div>
+        <div style={{ fontSize: 78, fontWeight: 700, marginTop: 20 }}>Ocean in motion</div>
         <div style={{ fontSize: 28, marginTop: 24 }}>
           1920 × 1080 · 30 fps · synthetic animation
         </div>
@@ -119,12 +95,7 @@ const OutroPicture = () => {
   return (
     <FullFrameVideo
       src={BRAND_SOURCES.outro}
-      opacity={layerOpacity(
-        frame,
-        VIDEO_PROFILE.outroFrames,
-        VIDEO_PROFILE.crossfadeFrames,
-        0,
-      )}
+      opacity={layerOpacity(frame, VIDEO_PROFILE.outroFrames, VIDEO_PROFILE.crossfadeFrames, 0)}
     />
   );
 };
