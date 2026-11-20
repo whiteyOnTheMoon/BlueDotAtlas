@@ -60,7 +60,7 @@
 | **030** | Secrets und Konfigurationsverwaltung absichern | [#47](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/47) | Abgenommen (DEC-044); PR #195 gemergt |
 | **031** | Projekt-CRUD im Dashboard anbieten | [#48](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/48) | Abgenommen (DEC-045), Squash PR #196 |
 | **032** | Persistente Wizard-Zustände und Autosave vorbereiten | [#49](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/49) | Abgenommen (DEC-046), Squash PR #197 |
-| **033** | CI-Pipeline und Basistests aktivieren | [#50](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/50) | Zentraler CI-PR in Review; externe Main-Branch-Regel noch nicht aktiv |
+| **033** | CI-Pipeline und Basistests aktivieren | [#50](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/50) | Technisches Sicherheitsgate verifiziert, Ruleset #27693408/negative PR #199 PASS; Betreibermergefreigabe zu PR #198 offen |
 | **034** | Backup-, Restore- und Überwachungs-MVP einrichten | [#51](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/51) | Backlog |
 
 ## M03 – Erster echter 60-Sekunden-Film – technischer Proof (035–048)
