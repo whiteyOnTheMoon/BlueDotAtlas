@@ -1,5 +1,5 @@
 import { ProjectWorkspace } from '../../../../../components/project-workspace';
-import { assertRender046TestEnvironment } from '@bluedotatlas/db/queue-046';
+import { assertRender046ExecutionEnvironment } from '@bluedotatlas/db/queue-046';
 
 export const dynamic = 'force-dynamic';
 
@@ -7,7 +7,7 @@ export default async function ProjectDetails({ params }: { params: Promise<{ id:
   const { id } = await params;
   let syntheticRenderEnabled = false;
   try {
-    assertRender046TestEnvironment();
+    assertRender046ExecutionEnvironment();
     syntheticRenderEnabled = true;
   } catch {
     // A public or productive preview must never offer 046 rendering.

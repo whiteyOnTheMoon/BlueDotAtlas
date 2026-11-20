@@ -4,7 +4,7 @@ import { existsSync, mkdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  assertRender046TestEnvironment,
+  assertRender046ExecutionEnvironment,
   claimRender046,
   failRender046,
   finishRender046,
@@ -52,12 +52,16 @@ function processCommand(command: string, args: string[], signal: AbortSignal) {
   });
 }
 
-/** Exactly one 046 job on a disposable test runner. No VPS, URLs, third-party assets or publish. */
+/** Exactly one bounded 046 job per call; only original synthetic signals, no publishing. */
 export async function runRender046Once(externalSignal?: AbortSignal) {
-  assertRender046TestEnvironment();
+  assertRender046ExecutionEnvironment();
   const storageRoot = process.env.BDA_046_TEST_STORAGE_ROOT;
-  if (!storageRoot) throw new Error('046 isolated storage root missing');
-  const storage = await LocalStorage.openIsolatedTestRoot(storageRoot);
+  const isVps = process.env.BDA_RENDER_046_VPS_SYNTHETIC === 'TRUE';
+  const root = isVps ? process.env.BDA_046_VPS_STORAGE_ROOT : storageRoot;
+  if (!root) throw new Error('046 private storage root missing');
+  const storage = isVps
+    ? await LocalStorage.openRender046VpsRoot(root)
+    : await LocalStorage.openIsolatedTestRoot(root);
   const connection = openDatabase();
   try {
     await recoverRender046(connection);

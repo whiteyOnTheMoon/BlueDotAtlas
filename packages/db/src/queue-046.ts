@@ -1,6 +1,7 @@
 /** Separate, CI-isolated synthetic 046 render queue. Never a production entrypoint. */
 export {
   assertRender046TestEnvironment,
+  assertRender046ExecutionEnvironment,
   enqueueRender046,
   claimRender046,
   recoverRender046,

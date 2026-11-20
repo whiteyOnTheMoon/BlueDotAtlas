@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server';
 import {
-  assertRender046TestEnvironment,
+  assertRender046ExecutionEnvironment,
   enqueueRender046,
   RENDER_046_MANIFEST,
 } from '@bluedotatlas/db/queue-046';
@@ -10,7 +10,7 @@ import { adminGate, boundedBody, databaseAction, methodDenied, problem, result }
 
 function syntheticTestGate() {
   try {
-    assertRender046TestEnvironment();
+    assertRender046ExecutionEnvironment();
     return true;
   } catch {
     return false;

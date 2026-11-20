@@ -27,12 +27,46 @@ export function assertRender046TestEnvironment(): void {
   }
 }
 
+/**
+ * An explicitly enabled VPS profile may process ONLY the same fixed 8s synthetic
+ * manifest. Never infer film/publication authorization from this technical gate.
+ */
+export function assertRender046ExecutionEnvironment(): void {
+  if (process.env.BDA_RENDER_046_VPS_SYNTHETIC === 'TRUE') {
+    let url: URL;
+    try {
+      url = new URL(process.env.DATABASE_URL ?? '');
+    } catch {
+      throw new Error('046 VPS database identity missing');
+    }
+    if (
+      process.env.CI === 'true' ||
+      process.env.NODE_ENV !== 'production' ||
+      process.env.BDA_DB_TEST === '1' ||
+      process.env.BDA_STORAGE_TEST === '1' ||
+      process.env.BDA_WORKER_SYNTHETIC_TEST === '1' ||
+      process.env.BDA_RENDER_046_SYNTHETIC_PROOF === 'TRUE' ||
+      url.protocol !== 'postgresql:' ||
+      url.hostname !== 'db' ||
+      (url.port !== '' && url.port !== '5432') ||
+      url.username !== 'bluedotatlas' ||
+      url.pathname !== '/bluedotatlas' ||
+      url.search !== '' ||
+      url.hash !== ''
+    ) {
+      throw new Error('046 VPS synthetic-only environment denied');
+    }
+    return;
+  }
+  assertRender046TestEnvironment();
+}
+
 /** Concurrent submit of the same revision is idempotent, even after a completed test. */
 export async function enqueueRender046(
   { pool }: ReturnTypeOfOpenDatabase,
   projectVersionId: string,
 ): Promise<{ jobId: string; videoId: string }> {
-  assertRender046TestEnvironment();
+  assertRender046ExecutionEnvironment();
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
@@ -85,7 +119,7 @@ export async function enqueueRender046(
 export async function claimRender046({
   pool,
 }: ReturnTypeOfOpenDatabase): Promise<Render046Claim | null> {
-  assertRender046TestEnvironment();
+  assertRender046ExecutionEnvironment();
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
@@ -133,7 +167,7 @@ export async function claimRender046({
 
 /** Expired owners cannot commit an artifact; retry may reuse an identical immutable file. */
 export async function recoverRender046({ pool }: ReturnTypeOfOpenDatabase): Promise<number> {
-  assertRender046TestEnvironment();
+  assertRender046ExecutionEnvironment();
   const result = await pool.query(
     `UPDATE render_jobs
      SET status = 'failed', error_code = 'lease_expired',
@@ -148,7 +182,7 @@ export async function recoverRender046({ pool }: ReturnTypeOfOpenDatabase): Prom
 }
 
 export async function requeueRender046({ pool }: ReturnTypeOfOpenDatabase): Promise<number> {
-  assertRender046TestEnvironment();
+  assertRender046ExecutionEnvironment();
   const result = await pool.query(
     `UPDATE render_jobs SET status = 'queued', finished_at = NULL, updated_at = NOW()
      WHERE status = 'failed' AND attempt < max_attempts
@@ -167,7 +201,7 @@ export async function failRender046(
   { pool }: ReturnTypeOfOpenDatabase,
   claim: Render046Claim,
 ): Promise<boolean> {
-  assertRender046TestEnvironment();
+  assertRender046ExecutionEnvironment();
   const result = await pool.query(
     `UPDATE render_jobs
      SET status = 'failed', error_code = 'synthetic_render_failed',
@@ -185,7 +219,7 @@ export async function cancelRender046(
   { pool }: ReturnTypeOfOpenDatabase,
   id: string,
 ): Promise<boolean> {
-  assertRender046TestEnvironment();
+  assertRender046ExecutionEnvironment();
   const result = await pool.query(
     `UPDATE render_jobs SET status = 'cancelled', lease_token = NULL,
        lease_expires_at = NULL, finished_at = NOW(), updated_at = NOW()
@@ -202,7 +236,7 @@ export async function finishRender046(
   claim: Render046Claim,
   file: { storageKey: string; sha256: string; sizeBytes: number },
 ): Promise<boolean> {
-  assertRender046TestEnvironment();
+  assertRender046ExecutionEnvironment();
   if (
     file.storageKey !== `rendered/jobs/${claim.id}.mp4` ||
     !/^[a-f0-9]{64}$/.test(file.sha256) ||
