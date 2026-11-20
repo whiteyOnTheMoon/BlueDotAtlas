@@ -1,0 +1,36 @@
+name: M03 036 bounded NOAA open-ocean footage verification
+
+on:
+  pull_request:
+    types: [ready_for_review]
+    paths:
+      - 'scripts/probe-pilot-media-036.py'
+      - '.github/workflows/pilot-open-ocean-036.yml'
+      - 'assets/pilot/rights-manifest.json'
+
+permissions:
+  contents: read
+
+jobs:
+  ocean-source-036:
+    name: "036 Verify NOAA open-ocean camera MP4 bytes, no rights approval"
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'feat/036-noaa-open-ocean-footage'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - name: Checkout approved PR without storing credentials
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate exact source lock and unsafe URL denial
+        run: python3 scripts/probe-pilot-media-036.py --self-test
+      - name: Install ffprobe and ffmpeg only on disposable CI host
+        run: |
+          timeout 90s sudo apt-get update -qq
+          timeout 90s sudo apt-get install -y -qq --no-install-recommends ffmpeg
+      - name: Temporarily probe NOAA open-ocean source under original 100 MB cap
+        env:
+          BDA_036_EPHEMERAL_PROBE: 'TRUE'
+        run: |
+          python3 scripts/probe-pilot-media-036.py --probe-surface
+          echo "Media bytes deleted by probe. CI success does not establish rights, visual quality or timeline approval."
