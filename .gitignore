@@ -16,6 +16,9 @@ coverage/
 *.tsbuildinfo
 *.log
 
+# Local Remotion proof exports (do not commit test media)
+out/
+
 # Local render / development artifacts
 .tmp/
 .temp/

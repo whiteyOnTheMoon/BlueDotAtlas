@@ -72,7 +72,7 @@
 | **035** | Ein geeignetes Demonstrationsthema festlegen | [#59](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/59) | DEC-050 angenommen, PR #201 Squash `0e399bd` gemergt, Issue geschlossen |
 | **036** | Rechtegeprüftes Testmaterial zusammenstellen | [#60](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/60) | Drei tatsächlich bytegeprüfte NASA-/NOAA-Quellen nach Betreiber-Sichtung für **internen privaten Test** als **stummes Bild** akzeptiert; Credits/Herkunft dokumentiert, lokale Dateihashprüfung vor Montage, Veröffentlichung weiterhin ungeprüft. NOAA Ernesto UNREVIEWED; Saildrone BLOCKED. |
 | **037** | 60-Sekunden-Skript und Shotlist schreiben | [#61](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/61) | 102-Wort-Skript und [neun Shots / 1800-Frame-Plan](../pilot/60s-script.json) nach Betreiber-OK über [PR #206](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/206) gemergt; Issue abgeschlossen; Planung ohne Render-Go. |
-| **038** | Remotion-Projekt mit 1080p-Profil einrichten | [#62](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/62) | Backlog |
+| **038** | Remotion-Projekt mit 1080p-Profil einrichten | [#62](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/62) | 1080p/30fps-Profil und synthetischer 10s-CI-Render im Feature-PR; Test-/Mergefreigabe und Abschluss noch offen, kein 60s-/VPS-Go. |
 | **039** | Cinematic-Footage-Komponente erstellen | [#63](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/63) | Backlog |
 | **040** | Motion-Graphics-Komponente erstellen | [#64](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/64) | Backlog |
 | **041** | Eine echte wissenschaftliche Animation prototypisieren | [#65](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/65) | Backlog |
