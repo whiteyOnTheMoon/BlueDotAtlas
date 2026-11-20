@@ -16,7 +16,7 @@
       "priority": "primary",
       "title": "Hurricane Oma — ISS Expedition 58 time-lapse",
       "shot_role": "Orbital camera opener (C01); observational ISS still-photo sequence composed as time-lapse",
-      "event_name": "Hurricane Oma (NASA page label)",
+      "event_name": "Severe Tropical Cyclone Oma (South Pacific; NASA's page calls it 'Hurricane Oma')",
       "observed_at_utc": "2019-02-20",
       "source_page_url": "https://eol.jsc.nasa.gov/Videos/CrewEarthObservationsVideos/Special.htm",
       "source_locator": "Hurricane Oma; ISS058-E-23615 through ISS058-E-24094",
@@ -29,15 +29,17 @@
       "rights_basis": "NASA astronaut-imagery guidance; U.S. government media unless specifically marked third-party/copyrighted",
       "rights_evidence_urls": [
         "https://eol.jsc.nasa.gov/faq/",
-        "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+        "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "https://www.bom.gov.au/cyclone/history/Oma.shtml"
       ],
       "checked_source_date_utc": "2026-11-20",
-      "credits": "Video courtesy of the Earth Science and Remote Sensing Unit, NASA Johnson Space Center. Hurricane Oma, ISS058-E-23615–ISS058-E-24094; eol.jsc.nasa.gov.",
+      "credits": "Video courtesy of the Earth Science and Remote Sensing Unit, NASA Johnson Space Center. Tropical Cyclone Oma (NASA clip title: Hurricane Oma), ISS058-E-23615–ISS058-E-24094; eol.jsc.nasa.gov.",
       "conditions": [
         "Do not imply NASA endorsement",
         "Retain exact hurricane/date/source context",
         "Exclude any independently copyrighted music, logos or recognizable people",
-        "Confirm downloaded rendition and exact original file before use"
+        "Confirm downloaded rendition and exact original file before use",
+        "In narration/captions use 'Tropical Cyclone Oma', not 'Atlantic Hurricane Oma'; official Bureau of Meteorology 2019 record"
       ],
       "editing_plan": "Mute independent soundtrack if any; 6–7 seconds excerpt after technical visual review, no misleading implication of a single continuous storm with the other shots",
       "rights_status": "UNREVIEWED",
