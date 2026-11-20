@@ -77,5 +77,6 @@ jobs:
         with:
           name: bda-031-project-dashboard-qa
           path: .tmp-project-qa/
-          if-no-files-found: warn
+          if-no-files-found: error
+          include-hidden-files: true
           retention-days: 14
