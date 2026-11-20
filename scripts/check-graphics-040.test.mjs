@@ -14,6 +14,16 @@ import {
 import { VIDEO_PROFILE } from '../packages/video/src/compositions/profile.js';
 import { validateGraphicsOutput } from './check-graphics-040.mjs';
 
+test('proof must be registered as an actual selectable Remotion composition', () => {
+  const root = readFileSync(
+    new URL('../packages/video/src/compositions/RemotionRoot.tsx', import.meta.url),
+    'utf8',
+  );
+  assert.match(root, /id="BDA040GraphicsProof"/);
+  assert.match(root, /component=\{GraphicsProof\}/);
+  assert.match(root, /durationInFrames=\{GRAPHICS_PROOF_FRAMES\}/);
+});
+
 test('040 proof uses exactly two contextual captions, one real technical metric, 8-second film', () => {
   assert.equal(VIDEO_PROFILE.width, 1920);
   assert.equal(VIDEO_PROFILE.height, 1080);
