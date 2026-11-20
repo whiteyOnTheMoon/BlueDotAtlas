@@ -22,6 +22,8 @@
 
 **Roadmap 038 / Remotion 1080p – technischer 10s-Proof im Review:** [Issue #62](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/62) · [Runbook](docs/development/remotion-038.md). Remotion 4.0.545, Original-Intro/-Outro ohne Kopien, zwei 9-Frame-Crossfades und eine synthetische 300-Frame-Probekomposition mit getrenntem Introton. Der wirkliche 1080p-Render und ffprobe-/Bild-/Tonprüfung sind erst nach grüner CI als PASS anzusehen. Betreiber: Ein-Mann-Projekt, daher grundsätzlich Remotion Free License; keine neuen Kosten, kein VPS- oder 60s-Publikations-Go.
 
+**Roadmap 039 / echte Cinematic-Footage-Schnitte – im Review:** [Issue #63](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/63) · [039-Runbook](docs/development/footage-039.md). Wiederverwendbare, aspect-ratio-sichere `FootageScene` mit Schnitt-/Trim-/Geschwindigkeits-/SDR-Regeln; für eine private, nicht veröffentlichte 6s-Testmontage werden genau zwei NASA-/NOAA-Originalquellen nur im temporären GitHub-Runner nach Original-SHA-256 geprüft. Bei echtem Renderprüflauf keine Medien, Filmframes oder öffentliche Download-Artefakte hochladen. Originalton ausgeschlossen, keine 60s-/VPS-/Veröffentlichungsfreigabe; Tests/PR-Abnahme bleiben separat.
+
 ## VPS-Arbeitsweise – verbindlicher Ein-Projekt-Standard (DEC-041)
 
 **Ein Projekt – ein Arbeitsverzeichnis – ein Docker-Compose-Projekt.** Der Betreiber hat die saubere VPS-Struktur am 19.11.2026 ausdrücklich festgelegt. Die früher erstellte Zusatzkopie `~/bluedotatlas-029-staging` ist **gelöscht** und darf nicht neu angelegt werden.

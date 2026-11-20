@@ -40,3 +40,6 @@ Thumbs.db
 *.manifest.tar
 bda-*.sha256
 .ops-backups/
+
+# 039 verified private-source media and renders: NEVER commit to the public repository
+assets/pilot/.private-039/
