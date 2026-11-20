@@ -131,7 +131,11 @@ export function validateGraphic(graphic) {
     }
   } else {
     if (graphic.date !== null) throw new Error('Metric must not invent a source date');
-    if (!Number.isFinite(graphic.metricValue) || graphic.metricValue < 0) {
+    if (
+      typeof graphic.metricValue !== 'number' ||
+      !Number.isFinite(graphic.metricValue) ||
+      graphic.metricValue < 0
+    ) {
       throw new RangeError('Only finite nonnegative measured values');
     }
     if (!textBounded(graphic.metricUnit, 12)) throw new Error('Metric requires unit');
