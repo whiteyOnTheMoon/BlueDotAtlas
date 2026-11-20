@@ -1,10 +1,10 @@
-# M03 / Roadmap 035 – 60-Sekunden-Pilotbrief V0.1 (Themenvorschlag)
+# M03 / Roadmap 035 – 60-Sekunden-Pilotbrief V0.1
 
-**Status: ENTWURF – bis zur ausdrücklichen Betreiberabnahme keine verbindliche Themenentscheidung.**  
+**Status: THEMA vom Betreiber bestätigt (DEC-050), Detailbrief/PR #201 noch vor Merge-Review.** Keine Asset- oder Produktionsfreigabe.  
 **Stand:** 19.11.2026 (Betreiber-Ortszeit) · [Issue #59](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/59) · [Master-Roadmap](../project/BlueDotAtlas_Roadmap.pdf).  
 **Aufgabe 035:** Geeignetes, klar umrissenes Earth-Thema, Hook, drei belegbare Kernaussagen und benötigte echte Videoaufnahmen festlegen. **Keine** Medienrechtsabnahme (036), endgültige Narration/Shotlist (037), Videoerstellung oder VPS-Ausführung.
 
-## Vorgeschlagenes Thema und Ziel
+## Gewähltes Thema und vorläufiges Filmkonzept
 
 **Arbeitstitel (Film auf Englisch):** *Hurricanes: Powered by the Ocean*  
 **Redaktionelle Leitfrage:** How can warm ocean water help power a hurricane?  
@@ -66,7 +66,8 @@ Alle **drei vorerst `UNREVIEWED`**. 036 legt unter `assets/pilot/` die lizenzier
 - [x] **Drei** naturwissenschaftliche Kernaussagen mit amtlichen NOAA-Originalquellen und Vereinfachungsgrenzen benannt.
 - [x] Grobe Dynamik mit **7 Film-Einstellungen** plus Original-Intro/-Outro beschrieben; drei benötigte echte Videoarten konkretisiert.
 - [x] Offene **Rechte-, Quellen-, Budget- und TTS-Gates** sichtbar; 036 wird nicht vorweggenommen.
-- [ ] Betreiber akzeptiert **genau dieses** Thema/Hook/3 Claims/Visual-Konzept ausdrücklich.
-- [ ] PR-Checks auf finalem Commit tatsächlich grün und Review vor Merge abgeschlossen.
+- [x] Betreiber akzeptiert das **Filmthema** *Hurricanes: Powered by the Ocean* im Projektchat mit „Ok“ (DEC-050).
+- [ ] Hook, drei Claims und Visual-Konzept bleiben im fachlichen PR-Review, keine vollständige Film-/Skriptfreigabe.
+- [ ] PR-Checks **auf dem zuletzt geänderten Commit** tatsächlich grün und Review vor Merge abgeschlossen; vor der Statusänderung 5/5 GitHub-Workflows PASS auf `0ca69c5`.
 
-**Entscheid:** Bis zur ausdrücklichen Betreiberfreigabe ist dieses Dokument ein **Vorschlag**, kein abgenommenes Skript, Asset oder filmischer Proof.
+**Entscheid:** Nur das Thema ist durch DEC-050 festgelegt; der Detailbrief ist bis zum separaten PR-#201-Mergeentscheid ein **Review-Vorschlag**, kein abgenommenes Skript, Asset oder filmischer Proof.
