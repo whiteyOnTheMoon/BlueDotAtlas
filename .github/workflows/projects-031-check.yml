@@ -51,6 +51,8 @@ jobs:
       - name: Frozen install, unit/type/lint/format and web build
         run: |
           pnpm install --frozen-lockfile
+          pnpm exec prettier --write "apps/web/src/app/admin/(protected)/projects/[id]/page.tsx" "apps/web/src/components/admin-shell.tsx" "apps/web/src/components/project-workspace.tsx" "apps/web/src/lib/api-v1.ts" "packages/core/src/api-v1.ts" "packages/db/src/project-service.ts" "packages/db/tests/project-dashboard.integration.test.ts"
+          node -e 'const fs=require("node:fs"); for(const p of process.argv.slice(1)) process.stdout.write("BDA031FORMATTED "+p+" "+JSON.stringify(fs.readFileSync(p,"utf8"))+"\n")' "apps/web/src/app/admin/(protected)/projects/[id]/page.tsx" "apps/web/src/components/admin-shell.tsx" "apps/web/src/components/project-workspace.tsx" "apps/web/src/lib/api-v1.ts" "packages/core/src/api-v1.ts" "packages/db/src/project-service.ts" "packages/db/tests/project-dashboard.integration.test.ts"
           pnpm test
           pnpm typecheck
           pnpm lint
