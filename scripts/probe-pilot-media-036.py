@@ -65,6 +65,8 @@ def run_probe(asset_id: str, url: str, folder: Path) -> dict:
             if source.status != 200:
                 raise ValueError("Unexpected HTTP status " + str(source.status))
             declared = source.headers.get("Content-Length")
+            if declared:
+                result["remote_declared_bytes"] = int(declared)
             if declared and int(declared) > MAX_BYTES:
                 raise ValueError("REMOTE_TOO_LARGE: declared size exceeds bounded probe")
             content_type = source.headers.get("Content-Type", "")
