@@ -21,3 +21,5 @@
 *.sql.gz
 **/.tmp-project-qa
 .tmp-project-qa
+**/.tmp-wizard-032-qa
+.tmp-wizard-032-qa
