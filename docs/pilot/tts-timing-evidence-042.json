@@ -1,0 +1,63 @@
+{
+  "source": "042 actual spoken QA run #44799853740; original provisional Kokoro bm_george voice; durations/sample counts measured, not estimates",
+  "status": "PRIVATE_AUDIO_QA_TIMING_ONLY",
+  "runId": 44799853740,
+  "artifactId": 14659719687,
+  "language": "en-gb",
+  "voice": "bm_george",
+  "sourceSha256": "a619b6a8d2f7e107f9505f14d3be7c9de11fe1e1d29235e92a6d7827ba1eabdb",
+  "wavSha256": "e9a554d85f7eb10cc7f49f5ae5347eb2e0ba445c1a84f6db25b2186669b6224f",
+  "sampleRate": 48000,
+  "channels": 2,
+  "durationSeconds": 48.593,
+  "leadSamples": 5760,
+  "gapSamples": 13440,
+  "tailSamples": 16800,
+  "segments": [
+    {
+      "id": "S01",
+      "startSeconds": 0.12,
+      "speechSamples": 289792,
+      "speechSeconds": 6.037
+    },
+    {
+      "id": "S02",
+      "startSeconds": 6.437,
+      "speechSamples": 318464,
+      "speechSeconds": 6.635
+    },
+    {
+      "id": "S03",
+      "startSeconds": 13.352,
+      "speechSamples": 332800,
+      "speechSeconds": 6.933
+    },
+    {
+      "id": "S04",
+      "startSeconds": 20.565,
+      "speechSamples": 350208,
+      "speechSeconds": 7.296
+    },
+    {
+      "id": "S05",
+      "startSeconds": 28.141,
+      "speechSamples": 351232,
+      "speechSeconds": 7.317
+    },
+    {
+      "id": "S06",
+      "startSeconds": 35.739,
+      "speechSamples": 293888,
+      "speechSeconds": 6.123
+    },
+    {
+      "id": "S07",
+      "startSeconds": 42.141,
+      "speechSamples": 292864,
+      "speechSeconds": 6.101
+    }
+  ],
+  "mediaRights": "PRIVATE_INTERNAL_TEST_ONLY",
+  "filmAuthorized": false,
+  "publishAuthorized": false
+}
