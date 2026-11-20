@@ -241,10 +241,10 @@ export const ScienceScene = ({ durationInFrames }: { durationInFrames: number })
           {SCIENCE_LABELS.phaseThreeDetail}
         </text>
       </g>
-      <circle cx="1458" cy="577" r="205" fill="url(#science-glow)" opacity={state.heatRelease} />
+      <circle cx="1458" cy="624" r="195" fill="url(#science-glow)" opacity={state.heatRelease} />
       <g
         opacity={state.condensation}
-        transform={`translate(1458 568) scale(${cloudScale}) translate(-1458 -568)`}
+        transform={`translate(1458 624) scale(${cloudScale}) translate(-1458 -568)`}
       >
         <ellipse cx="1420" cy="587" rx="132" ry="59" fill="url(#science-cloud)" />
         <circle cx="1367" cy="569" r="67" fill="url(#science-cloud)" />
@@ -265,8 +265,8 @@ export const ScienceScene = ({ durationInFrames }: { durationInFrames: number })
         <circle
           key={'latent-heat-' + index}
           cx="1458"
-          cy="571"
-          r={111 + index * 39 + Math.sin(frame / 21) * 4}
+          cy="624"
+          r={94 + index * 33 + Math.sin(frame / 21) * 4}
           stroke={SCIENCE_COLORS.heat}
           strokeWidth="6"
           fill="none"
@@ -275,9 +275,19 @@ export const ScienceScene = ({ durationInFrames }: { durationInFrames: number })
           opacity={state.heatRelease * (0.7 - index * 0.14)}
         />
       ))}
+      {/* Keep scientific annotation readable above the moving heat loops. */}
+      <rect
+        x="1285"
+        y="691"
+        width="355"
+        height="58"
+        rx="12"
+        fill={SCIENCE_COLORS.panel}
+        opacity={state.heatRelease * 0.93}
+      />
       <text
-        x="1292"
-        y="713"
+        x="1301"
+        y="729"
         fill={SCIENCE_COLORS.heat}
         fontSize="27"
         fontWeight="700"
