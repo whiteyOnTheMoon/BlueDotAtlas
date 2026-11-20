@@ -56,7 +56,7 @@ export function checkRequiredCiContract(yaml) {
     'Build must refuse ambient DB/admin credentials',
   );
   expect(
-    !/postgresql:\/\/|BDA_ADMIN_EMAIL:|BDA_ADMIN_PASSWORD_HASH:/.test(build),
+    !/postgresql:\/\/|^\s+(?:DATABASE_URL|BDA_ADMIN_EMAIL|BDA_ADMIN_PASSWORD_HASH):/m.test(build),
     'Build must not receive real/test credentials',
   );
   expect(/\/bda_test\b/.test(yaml) && /BDA_DB_TEST: '1'/.test(yaml), 'No persistent or production database');
