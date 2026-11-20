@@ -2,9 +2,11 @@
 
 **Earth & Climate Video Studio** — hochwertige, englischsprachige Wissenschaftsdokumentationen über unseren Planeten.
 
-> Projektphase: **M02 – Grundsystem, Datenmodell und VPS-Betrieb (gestartet)** · **Aufgaben 001–029 für den ausdrücklich begrenzten Scope abgenommen, 030 im Review, 031–034 offen** · 013 synthetischer 1080p-VPS-Render-Proof bestanden und vom Betreiber freigegeben (DEC-029; [Issue #29](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/29), [PR #30](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/30)).
+> Projektphase: **M02 – Grundsystem, Datenmodell und VPS-Betrieb (gestartet)** · **Aufgaben 001–030 für den begrenzten Scope abgenommen, 031 im Review, 032–034 offen** · 013 synthetischer 1080p-VPS-Render-Proof bestanden und vom Betreiber freigegeben (DEC-029; [Issue #29](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/29), [PR #30](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/30)).
 
-**Roadmap 030 / Secrets – in Review:** [GitHub-Issue #47](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/47) · [Security-Runbook](docs/security/secrets.md). Die bestehende öffentliche 029-Vorschau verwendet bereits private, Git-/Docker-ignorierte 0600-Dateien; 030 ergänzt Leak-Scans, synthetische HTTP-/Log-Canarytests, sichere Debug-/Redaction- und Rotation-Regeln sowie einen ausdrücklich **read-only** VPS-Metadatencheck. **Noch keine 030-Betreiberabnahme, kein produktiver Admin, kein Key-/DB-/Tunnelwechsel und kein neuer Dienst.**
+**Roadmap 030 / Secrets – abgenommen (DEC-044):** [GitHub-Issue #47](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/47) · [Security-Runbook](docs/security/secrets.md). Die bestehende öffentliche 029-Vorschau verwendet bereits private, Git-/Docker-ignorierte 0600-Dateien; 030 ergänzt Leak-Scans, synthetische HTTP-/Log-Canarytests, sichere Debug-/Redaction- und Rotation-Regeln sowie einen ausdrücklich **read-only** VPS-Metadatencheck. **PR #195 nach ausdrücklicher Betreiberfreigabe gemergt; kein produktiver Admin, kein Key-/DB-/Tunnelwechsel und kein neuer Dienst.**
+
+**Roadmap 031 / Projekt-Dashboard – technischer Review, noch keine Abnahme:** [Issue #48](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/48) · [Implementierungsanleitung](docs/development/project-dashboard.md). `/admin/projects` erstellt, öffnet, benennt um und archiviert Projekte über die vorhandene PostgreSQL-API; eine Erstellung legt **eine Revision, sieben Schritte und keinen Renderjob** an. Geschützter Admin-Test ausschließlich mit synthetischer CI-Identität; auf der öffentlichen VPS-Vorschau bleibt der Login **unaktiviert**, keine Migration, kein Provider-/Renderbetrieb und kein Live-Deploy durch diesen Branch.
 
 ## VPS-Arbeitsweise – verbindlicher Ein-Projekt-Standard (DEC-041)
 

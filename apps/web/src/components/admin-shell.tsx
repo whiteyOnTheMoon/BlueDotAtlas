@@ -25,7 +25,9 @@ export function AdminShell({ preview = false }: { preview?: boolean }) {
         <p className="eyebrow">Production workspace</p>
         <h1>Studio overview</h1>
         <p className="muted">
-          The project workspace and production actions will be added in the next milestones.
+          {preview
+            ? 'The project workspace and production actions will be added in the next milestones.'
+            : 'Project management is available; the remaining production steps follow in later milestones.'}
         </p>
         {!preview ? (
           <form method="post" action="/api/auth/logout" className="signout-form">
@@ -57,7 +59,7 @@ export function AdminShell({ preview = false }: { preview?: boolean }) {
               ))}
             </ol>
             <div className="panel-card">
-              <h3>Project management is coming soon</h3>
+              <h3>{preview ? 'Project management is coming soon' : 'Project management'}</h3>
               <p>Database project models exist. Open Projects to create, rename, archive and review your drafts.</p>
               {preview ? (
                 <button className="button button-secondary" type="button" disabled>

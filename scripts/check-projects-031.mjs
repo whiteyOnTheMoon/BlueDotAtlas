@@ -180,7 +180,9 @@ try {
   await page.getByText('Archived projects are read-only.').waitFor();
   assert.equal((await rows('select status from video_projects where id=$1', [browserId]))[0].status, 'archived');
 
-  const mobile = await context.newPage({ viewport: { width: 375, height: 812 }, colorScheme: 'light' });
+  const mobile = await context.newPage();
+  await mobile.setViewportSize({ width: 375, height: 812 });
+  await mobile.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' });
   await mobile.goto(origin + '/admin/projects');
   await mobile.getByRole('heading', { name: 'Projects', exact: true }).waitFor();
   await mobile.locator('#project-status-filter').selectOption('archived');
