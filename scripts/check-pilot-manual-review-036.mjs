@@ -36,7 +36,9 @@ function check(packetData, manifestData) {
   assert.equal(packetData.roadmap_id, '036');
   assert.equal(packetData.github_issue, 60);
   assert.equal(packetData.global_pilot_approved, false,
-    'Pilot may not be approved by an unreviewed file evidence packet');
+    'Pilot/render/publication not approved from source selection');
+  assert.equal(packetData.operator_internal_test_source_acceptance, true);
+  assert.equal(packetData.publication_authorized, false);
   assert.match(packetData.media_location, /NONE_ARCHIVED/,
     'Do not claim a private original file archive exists');
   assert.ok(Array.isArray(packetData.review_cases));
@@ -50,7 +52,12 @@ function check(packetData, manifestData) {
     const technical = evidence.get(asset.asset_id);
     const source = manifestData.assets.find(a => a.asset_id === asset.asset_id);
     assert.ok(source, 'No matching original rights inventory record');
-    assert.equal(source.rights_status, 'UNREVIEWED', 'Never relabel core source approved');
+    assert.equal(source.rights_status, 'APPROVED',
+      'Only the source rights are approved for a private internal test');
+    assert.equal(source.approval_scope, 'PRIVATE_INTERNAL_TEST_ONLY');
+    assert.equal(source.internal_test_source_approved, true);
+    assert.equal(source.technical_original_sha256, technical.sha);
+    assert.equal(source.technical_original_bytes, technical.size);
     assert.equal(source.approved_for_timeline, false);
     assert.equal(source.file_sha256, null, 'No permanent reviewed original file');
     assert.equal(asset.download_url, source.download_url, 'Original asset link changed');
@@ -63,7 +70,13 @@ function check(packetData, manifestData) {
       'https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/' + technical.run,
       'Source must link to actual checked CI evidence');
 
-    assert.equal(asset.review_status, 'PENDING', 'Do not invent human-review approval');
+    assert.equal(asset.review_status, 'OPERATOR_ACCEPTED_FOR_PRIVATE_TEST',
+      'User reported viewing and accepting these videos for the private test');
+    assert.equal(asset.internal_test_operator_visual_ok, true);
+    assert.equal(asset.internal_test_acceptance_at_utc, '2026-11-20');
+    assert.equal(asset.internal_test_rights_scope, 'PRIVATE_INTERNAL_TEST_ONLY');
+    assert.match(asset.internal_test_acceptance_basis || '', /not asserted/i,
+      'Do not invent complete playback/audio/publication review');
     for (const field of mustBeFalse) {
       assert.equal(asset[field], false, asset.asset_id + ': not human-reviewed: ' + field);
     }
@@ -109,7 +122,9 @@ if (process.argv.includes('--self-test')) {
   mustFail(d => { d.review_cases.splice(1, 1); }, 'fewer than three files');
   mustFail(d => { d.excluded_media = []; }, 'missing excluded originals');
   mustFail(d => { d.global_pilot_approved = true; }, 'invented film approval');
-  console.log('PASS 036: three pending human-review dossiers, 12 denied false approvals');
+  mustFail(d => { d.publication_authorized = true; }, 'invented publication');
+  mustFail(d => { d.review_cases[0].internal_test_rights_scope = 'PUBLIC'; }, 'scope escalation');
+  console.log('PASS 036: three operator-accepted private test sources, 14 denied false approvals');
 } else {
-  console.log('PASS 036: all source and playback decisions PENDING; no rights/timeline approval');
+  console.log('PASS 036: three operator-accepted private test sources; no staged timeline/publication approval');
 }
