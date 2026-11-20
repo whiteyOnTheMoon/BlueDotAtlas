@@ -76,6 +76,9 @@ const valid = () => ({
 
 test('final output must be H264 1080p30 180 frames and entirely mute', () => {
   assert.doesNotThrow(() => validateOutput(valid()));
+  const fullRange = valid();
+  fullRange.streams[0].pix_fmt = 'yuvj420p';
+  assert.doesNotThrow(() => validateOutput(fullRange));
   for (const corrupt of [
     (p) => { p.streams[0].width = 1280; },
     (p) => { p.streams[0].r_frame_rate = '25/1'; },
