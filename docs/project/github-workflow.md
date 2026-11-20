@@ -10,9 +10,9 @@
 | Repository | [`whiteyOnTheMoon/BlueDotAtlas`](https://github.com/whiteyOnTheMoon/BlueDotAtlas), Standardbranch `main` | Bereits vorhanden; kein neues Repo anlegen und bestehende Historie nicht ersetzen |
 | **Sichtbarkeit** | **PUBLIC / öffentlich**, API-Status am 19.11.2026 (UTC) geprüft | **Bewusste Betreiberentscheidung (DEC-034):** Repo bleibt **PUBLIC**; die ursprüngliche Roadmap-Anforderung „privat“ wird für dieses Repository ausdrücklich übersteuert. Keine Umstellung auf Private geplant |
 | PR-Vorlage | `.github/pull_request_template.md` vorhanden; DEC-022-Checkliste und Abnahmetor existieren bereits | Vorhandene Vorlage ergänzen, **nicht** ersetzen |
-| Automatische Checks | Neun fachliche `.github/workflows/*`-Checks existieren für frühere Roadmap-Aufgaben | Bewahren; leichter PR-Metadatencheck wird ergänzt. Bestandsworkflows nicht blind als universelle CI bezeichnen |
+| Automatische Checks | Historisch neun M00/M01-Checks, seit M02 viele fachliche (022–032) und der neue 033-Required-CI-Entwurf | Vorhandene Workflows bewahren. 033 soll als einziger bedingungslos laufender Merge-Pflichtcheck dienen; erfolgreiche Jobs allein erzwingen keinen Schutz |
 | CODEOWNERS / Issue-Vorlagen | Im geprüften `.github/`-Verzeichnis bisher nicht vorhanden | Owner- und Issue-Templates in diesem PR ergänzen |
-| Repository-Regelsätze | API lieferte **keine Regeln**; Branch-Protection-Detail war über die Verbindung **nicht abrufbar (403)** | **Schutzwirkung nicht verifiziert**, vor produktiver Arbeit manuell in Settings prüfen/einrichten |
+| Repository-Regelsätze | **Nach Betreiberaktion am 19.11.2026:** `main.protected=true`; aktives [BlueDotAtlas Ruleset #27693408](https://github.com/whiteyOnTheMoon/BlueDotAtlas/rules/27693408), `033 Required CI` von GitHub Actions als strenger Pflichtcheck, kein Bypass | **Technischer Merge-Schutz nachgewiesen:** absichtlich roter [Probe-PR #199](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/199) lieferte `033 Required CI=failure`, `mergeable_state=blocked`, ohne Merge geschlossen; noch keine Freigabe für Implementierungs-PR #198 |
 | GitHub Project Board | Über die verfügbare GitHub-Verbindung nicht anlegbar/verifizierbar | Board-Konfiguration unten dokumentieren; **nicht als erstellt behaupten** |
 | Labels und native Milestones | **Native GitHub-Meilensteine M00–M13 und 158 Issue-Zuordnungen wurden in 019 per GitHub Actions erfolgreich erstellt und rückgeprüft (DEC-035).** Labels sind weiterhin nur vorgeschlagen. | Native Milestones und Roadmap-Index sind eingerichtet; Labelobjekte nur bei Bedarf im GitHub-UI ergänzen |
 
@@ -73,3 +73,10 @@
 - [ ] **Spätere separate GitHub-Adminaktionen:** geeignete Rulesets/Branch-Protection, Labels und Projektboard manuell einrichten. **Keine Sichtbarkeitsänderung nötig oder gewünscht.** Diese Einstellungen werden nicht als durch diesen PR erledigt ausgegeben.
 
 **Abnahmeumfang 018:** Dokumentierte und im Repository bereitgestellte, freigegebene Arbeitsregeln mit erfolgreich getesteter Roadmap-/Issue-Referenzprüfung; das Repository bleibt bewusst **öffentlich**. **Nicht behauptet:** Branch-Protection, Projektboard oder neue Labels seien bereits technisch eingerichtet. **Native GitHub-Meilensteine sind seit Aufgabe 019 verifiziert (DEC-035)**.
+
+
+## Ergänzung Roadmap 033 – Zentraler PR-Check und aktiver Main-Schutz
+
+Roadmap 033 führt ergänzend zum historischen Issue-/PR-Prozess den **unabhängig von geänderten Dateipfaden gestarteten** GitHub-Workflow [`required-ci-033.yml`](../../.github/workflows/required-ci-033.yml) mit dem stabilen Job-/Check-Namen **`033 Required CI`** ein. Tests der Workflow-Konfiguration verbieten, diesen zwingenden Check mittels `paths`-/`branches`-Filter oder `continue-on-error` zu überspringen. Der ausdrückliche Betreiberentscheid zu jedem konkreten PR bleibt als zusätzlicher menschlicher Schritt gültig. **Ein erfolgreicher Action-Run allein aktiviert keine Branch-Protection.**
+
+**Aktueller Stand (19.11.2026):** Der Betreiber hat [Ruleset #27693408](https://github.com/whiteyOnTheMoon/BlueDotAtlas/rules/27693408) für `main` in der UI angelegt. GitHub bestätigt `protected=true` und den verpflichtenden Check `033 Required CI`; die echte negative [PR-Probe #199](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/199) wurde mit `mergeable_state=blocked` abgewiesen, ohne Merge geschlossen. Die Implementierungs-PR #198 bleibt bis zur konkreten Betreiberabnahme ungemergt. Ausführliche [033-Betriebsdokumentation](../development/ci-033.md).

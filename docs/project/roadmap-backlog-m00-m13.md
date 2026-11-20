@@ -2,7 +2,7 @@
 
 > **Quelle:** [Master Roadmap V0.1 (PDF)](BlueDotAtlas_Roadmap.pdf) · [Vollständiger Textspiegel](master-roadmap-v01-text.md) · **158 Aufgaben / 14 Meilensteine / 158 einzigartige GitHub-Issues**, Abgleich am 19.11.2026 (UTC).
 
-**Statusstand 19.11.2026 (UTC):** Roadmap-Aufgaben **001–029 für den vereinbarten Scope abgenommen** (029-Vorschau-Abnahme DEC-043, Squash-Merge PR #194 nach final grüner CI freigegeben), **030–031 abgenommen (DEC-044/045), 032 im Review, 033–158 im Backlog**. **Kein produktives M02-Gesamtgate**. Der Aufgaben- und Meilensteinimport ist vollständig, **nicht** die inhaltliche Umsetzung der späteren Aufgaben. **Der Aufgabenimport ist abgeschlossen, nicht die Umsetzung.** GitHub-Issue-Nummern sind nicht gleich Roadmap-Nummern.
+**Statusstand 19.11.2026 (UTC):** Roadmap-Aufgaben **001–029 für den vereinbarten Scope abgenommen** (029-Vorschau-Abnahme DEC-043, Squash-Merge PR #194 nach final grüner CI freigegeben), **030–032 abgenommen (DEC-044/045/046), 033 im Review, 034–158 im Backlog**. **Kein produktives M02-Gesamtgate**. Der Aufgaben- und Meilensteinimport ist vollständig, **nicht** die inhaltliche Umsetzung der späteren Aufgaben. **Der Aufgabenimport ist abgeschlossen, nicht die Umsetzung.** GitHub-Issue-Nummern sind nicht gleich Roadmap-Nummern.
 
 **Native GitHub-Meilensteine sind eingerichtet:** Nach ausdrücklicher Betreiberfreigabe von [PR #183](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/183) wurden **M00–M13 als 14 native Meilensteine** angelegt. [GitHub Actions #44441286199](https://github.com/whiteyOnTheMoon/BlueDotAtlas/actions/runs/44441286199) meldete: `PASS: 14 native GitHub milestones exist, all 158/158 Issues assigned.` Der Workflow prüfte die Zuordnungen **erneut per GitHub-API** (DEC-035). Das [Manifest](roadmap-milestones-v01.json) bewahrt die Quelle.
 
@@ -59,8 +59,8 @@
 | **029** | Docker Compose und Reverse Proxy einrichten | [#46](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/46) | Öffentliche Vorschau abgenommen (DEC-043); kein produktiver Admin |
 | **030** | Secrets und Konfigurationsverwaltung absichern | [#47](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/47) | Abgenommen (DEC-044); PR #195 gemergt |
 | **031** | Projekt-CRUD im Dashboard anbieten | [#48](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/48) | Abgenommen (DEC-045), Squash PR #196 |
-| **032** | Persistente Wizard-Zustände und Autosave vorbereiten | [#49](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/49) | Branch/Integrations- und UI-CI, Betreiberabnahme offen |
-| **033** | CI-Pipeline und Basistests aktivieren | [#50](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/50) | Backlog |
+| **032** | Persistente Wizard-Zustände und Autosave vorbereiten | [#49](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/49) | Abgenommen (DEC-046), Squash PR #197 |
+| **033** | CI-Pipeline und Basistests aktivieren | [#50](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/50) | Technisches Sicherheitsgate verifiziert, Ruleset #27693408/negative PR #199 PASS; Betreibermergefreigabe zu PR #198 offen |
 | **034** | Backup-, Restore- und Überwachungs-MVP einrichten | [#51](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/51) | Backlog |
 
 ## M03 – Erster echter 60-Sekunden-Film – technischer Proof (035–048)
