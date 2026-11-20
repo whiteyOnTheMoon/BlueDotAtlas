@@ -4,7 +4,7 @@
 
 > Projektphase: **M02 – Grundsystem, Datenmodell und VPS-Betrieb (gestartet)** · **Aufgaben 001–029 für den ausdrücklich begrenzten Scope abgenommen, 030–034 offen** · 013 synthetischer 1080p-VPS-Render-Proof bestanden und vom Betreiber freigegeben (DEC-029; [Issue #29](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/29), [PR #30](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/30)).
 
-## VPS-Arbeitsweise – verbindlicher Ein-Projekt-Standard (DEC-041)
+**Roadmap 030 / Secrets – in Review:** [GitHub-Issue #47](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/47) · [Security-Runbook](docs/security/secrets.md). Die bestehende öffentliche 029-Vorschau verwendet bereits private, Git-/Docker-ignorierte 0600-Dateien; 030 ergänzt Leak-Scans, synthetische HTTP-/Log-Canarytests, sichere Debug-/Redaction- und Rotation-Regeln sowie einen ausdrücklich **read-only** VPS-Metadatencheck. **Noch keine 030-Betreiberabnahme, kein produktiver Admin, kein Key-/DB-/Tunnelwechsel und kein neuer Dienst.**\n\n## VPS-Arbeitsweise – verbindlicher Ein-Projekt-Standard (DEC-041)
 
 **Ein Projekt – ein Arbeitsverzeichnis – ein Docker-Compose-Projekt.** Der Betreiber hat die saubere VPS-Struktur am 19.11.2026 ausdrücklich festgelegt. Die früher erstellte Zusatzkopie `~/bluedotatlas-029-staging` ist **gelöscht** und darf nicht neu angelegt werden.
 
