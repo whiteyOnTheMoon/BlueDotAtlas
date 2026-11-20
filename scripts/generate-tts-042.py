@@ -107,10 +107,12 @@ def generate() -> None:
     from kokoro_onnx import Kokoro
 
     synth = Kokoro(str(model), str(voices))
-    utterances = []
-    segments = []
-    cursor = 0
     sample_rate = 48_000
+    # Safe audible lead-in, so the first syllable never starts at sample zero.
+    lead_samples = round(sample_rate * 0.12)
+    utterances = [np.zeros(lead_samples, dtype=np.float32)]
+    segments = []
+    cursor = lead_samples
     gap_frames = round(plan["segmentGapSeconds"] * sample_rate)
     for item in plan["segments"]:
         audio, rate = synth.create(
