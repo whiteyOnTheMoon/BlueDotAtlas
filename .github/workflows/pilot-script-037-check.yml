@@ -1,0 +1,30 @@
+name: M03 037 pilot script and shotlist guard
+
+on:
+  pull_request:
+    paths:
+      - 'docs/pilot/60s-script.json'
+      - 'scripts/check-pilot-script-037.mjs'
+      - '.github/workflows/pilot-script-037-check.yml'
+      - 'assets/pilot/rights-manifest.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pilot-script-037:
+    name: "037 English pilot narrative, timeboxes, sources and rights boundaries"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout review commit without persistent credentials
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install Node 22 for standalone JSON validator
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 60-second script plus 12 negative boundary tests
+        run: node scripts/check-pilot-script-037.mjs --self-test
