@@ -23,3 +23,9 @@
 .tmp-project-qa
 **/.tmp-wizard-032-qa
 .tmp-wizard-032-qa
+# Keep 034 backup bytes out of image layers
+*.dump
+*.media.tar
+*.manifest.tar
+bda-*.sha256
+**/.ops-backups
