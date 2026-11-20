@@ -5,9 +5,22 @@
   "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "render:proof": "remotion render src/entry.tsx BDA038TenSecondProof out/038-proof.mp4 --codec=h264 --pixel-format=yuv420p --concurrency=1 --disallow-parallel-encoding",
+    "studio": "remotion studio src/entry.tsx"
   },
   "exports": {
     ".": "./dist/index.js"
+  },
+  "dependencies": {
+    "@remotion/media": "4.0.545",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "remotion": "4.0.545"
+  },
+  "devDependencies": {
+    "@remotion/cli": "4.0.545",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0"
   }
 }
