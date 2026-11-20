@@ -1,0 +1,100 @@
+name: M02 033 required CI quality gate
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, edited, ready_for_review]
+  merge_group:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  required-ci:
+    name: 033 Required CI
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: bda_test
+          POSTGRES_PASSWORD: bda_test_only
+          POSTGRES_DB: bda_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U bda_test -d bda_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    steps:
+      - name: Checkout PR merge ref with no persisted credentials
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Frozen dependency install
+        run: pnpm install --frozen-lockfile
+      - name: Self-test CI gate and deliberate broken-input canaries
+        run: |
+          node --test scripts/check-ci-033.test.mjs
+          node scripts/check-ci-033.mjs
+      - name: Shared monorepo and core unit tests
+        run: pnpm test
+      - name: ESLint
+        run: pnpm lint
+      - name: Prettier
+        run: pnpm format:check
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Secret-free production build
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+        run: |
+          set -eu
+          if [ -n "${DATABASE_URL:-}" ] || [ -n "${BDA_ADMIN_EMAIL:-}" ] || [ -n "${BDA_ADMIN_PASSWORD_HASH:-}" ]; then
+            echo 'Build must not depend on DB credentials or an active administrator' >&2
+            exit 1
+          fi
+          pnpm build
+      - name: Drizzle schema check and migration drift
+        env:
+          DATABASE_URL: postgresql://bda_test:bda_test_only@localhost:5432/bda_test
+          BDA_DB_TEST: '1'
+        run: |
+          set -eu
+          pnpm --filter @bluedotatlas/db db:check
+          pnpm --filter @bluedotatlas/db db:generate
+          if [ -n "$(git status --porcelain -- packages/db/drizzle)" ]; then
+            echo 'Schema migration or snapshot drift detected' >&2
+            exit 1
+          fi
+          pnpm --filter @bluedotatlas/db db:migrate
+          pnpm --filter @bluedotatlas/db db:migrate
+      - name: Local PostgreSQL domain integration and step CAS smoke
+        env:
+          DATABASE_URL: postgresql://bda_test:bda_test_only@localhost:5432/bda_test
+          BDA_DB_TEST: '1'
+        run: pnpm --filter @bluedotatlas/db test:integration
+      - name: Production-mode HTTP API smoke with synthetic CI administrator
+        env:
+          DATABASE_URL: postgresql://bda_test:bda_test_only@localhost:5432/bda_test
+          BDA_DB_TEST: '1'
+          BDA_ADMIN_EMAIL: admin-ci@bluedotatlas.invalid
+          BDA_TEST_ADMIN_PASSWORD: 'SYNTHETIC-Only-Passphrase-033-for-CI!'
+          NEXT_TELEMETRY_DISABLED: '1'
+        run: |
+          set -eu
+          hash="$(printf '%s' "$BDA_TEST_ADMIN_PASSWORD" | node packages/db/scripts/hash-admin-password.mjs)"
+          export BDA_ADMIN_PASSWORD_HASH="$hash"
+          node scripts/check-api-v1.mjs
