@@ -8,6 +8,8 @@ on:
       - 'packages/storage/**'
       - 'render/**'
       - 'scripts/check-render-046.py'
+      - 'scripts/check-render-046-http.mjs'
+      - 'apps/web/**'
       - 'scripts/check-export-045.py'
       - 'docs/pilot/60s-script.json'
       - 'docs/pilot/pilot-timeline.json'
@@ -45,6 +47,9 @@ jobs:
       BDA_WORKER_SYNTHETIC_TEST: '1'
       BDA_STORAGE_TEST: '1'
       BDA_RENDER_046_SYNTHETIC_PROOF: 'TRUE'
+      BDA_ADMIN_EMAIL: admin-ci@bluedotatlas.invalid
+      BDA_TEST_ADMIN_PASSWORD: 'SYNTHETIC-Only-Passphrase-046-for-CI!'
+      NEXT_TELEMETRY_DISABLED: '1'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -79,6 +84,25 @@ jobs:
           fi
       - name: Real queued render, full MP4 decoder QA, DB artifact/reference and negative lease tests
         run: pnpm --filter @bluedotatlas/db test:render-046
+      - name: Create disposable synthetic admin password hash for HTTP + Chromium proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          hash="$(printf '%s' "$BDA_TEST_ADMIN_PASSWORD" | node packages/db/scripts/hash-admin-password.mjs)"
+          echo "BDA_ADMIN_PASSWORD_HASH=$hash" >> "$GITHUB_ENV"
+      - name: Authenticated Next.js HTTP, live worker liveness, Chromium UI and closed gate
+        run: |
+          google-chrome --version
+          node scripts/check-render-046-http.mjs
+      - name: Upload private test-only HTTP and browser QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: render-046-admin-http-chrome-qa
+          path: .tmp-render-046/http-ui/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 5
       - name: Extract actual motion sample frames from completed queued MP4
         run: |
           set -eu
