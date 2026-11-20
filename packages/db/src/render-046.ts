@@ -82,9 +82,9 @@ export async function enqueueRender046(
 }
 
 /** Separate queue from 027: its old synthetic executor never claims 046 jobs. */
-export async function claimRender046(
-  { pool }: ReturnTypeOfOpenDatabase,
-): Promise<Render046Claim | null> {
+export async function claimRender046({
+  pool,
+}: ReturnTypeOfOpenDatabase): Promise<Render046Claim | null> {
   assertRender046TestEnvironment();
   const client = await pool.connect();
   try {

@@ -22,7 +22,11 @@ export async function postSynthetic046(request: NextRequest) {
   if (denied) return denied;
   if (!sameOrigin(request)) return problem(403, 'forbidden_origin', 'Same-origin request required');
   if (!syntheticTestGate()) {
-    return problem(403, 'render_not_authorized', 'Real and synthetic render endpoints are disabled');
+    return problem(
+      403,
+      'render_not_authorized',
+      'Real and synthetic render endpoints are disabled',
+    );
   }
   if (request.nextUrl.searchParams.size !== 0) {
     return problem(400, 'invalid_input', 'Render request does not accept query parameters');
@@ -49,7 +53,11 @@ export async function postSynthetic046(request: NextRequest) {
   }
   let projectId: string;
   try {
-    projectId = parseApiUuid((json as { projectId: unknown }).projectId);
+    const inputProjectId = (json as { projectId: unknown }).projectId;
+    if (typeof inputProjectId !== 'string') {
+      return problem(400, 'invalid_input', 'Invalid project identifier');
+    }
+    projectId = parseApiUuid(inputProjectId);
   } catch {
     return problem(400, 'invalid_input', 'Invalid project identifier');
   }
@@ -71,10 +79,7 @@ export async function postSynthetic046(request: NextRequest) {
   });
 }
 
-export async function getProjectRender046(
-  request: NextRequest,
-  params: Promise<{ id: string }>,
-) {
+export async function getProjectRender046(request: NextRequest, params: Promise<{ id: string }>) {
   const denied = await adminGate();
   if (denied) return denied;
   if (!syntheticTestGate()) {

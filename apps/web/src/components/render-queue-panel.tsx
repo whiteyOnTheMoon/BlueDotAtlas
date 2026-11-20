@@ -71,14 +71,18 @@ export function RenderQueuePanel({ projectId }: { projectId: string }) {
     <section className="project-wizard-note" aria-label="Isolated render queue proof">
       <h3>1080p synthetic render QA</h3>
       <p className="muted">
-        CI test only: original generated 8-second video and tone. Not the pilot film;
-        publication and VPS rendering remain disabled.
+        CI test only: original generated 8-second video and tone. Not the pilot film; publication
+        and VPS rendering remain disabled.
       </p>
       <button className="button button-secondary" type="button" onClick={startTest} disabled={busy}>
         {busy ? 'Queueing…' : 'Queue synthetic 1080p test'}
       </button>
       {notice ? <p role="status">{notice}</p> : null}
-      {error ? <p className="auth-error" role="alert">{error}</p> : null}
+      {error ? (
+        <p className="auth-error" role="alert">
+          {error}
+        </p>
+      ) : null}
       <h4>Persistent render jobs</h4>
       {jobs.length === 0 ? <p className="muted">No synthetic render jobs yet.</p> : null}
       <ul>
