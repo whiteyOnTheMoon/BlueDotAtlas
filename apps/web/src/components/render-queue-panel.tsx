@@ -71,9 +71,8 @@ export function RenderQueuePanel({ projectId }: { projectId: string }) {
     <section className="project-wizard-note" aria-label="Isolated render queue proof">
       <h3>1080p synthetic render QA</h3>
       <p className="muted">
-        Isolated 8-second synthetic QA in CI or on an explicitly enabled VPS worker. Only
-        generated test video and tone are used; the real 60-second pilot film and publication
-        remain disabled.
+        Synthetic 8-second video and tone QA runs in CI or on an explicitly enabled VPS. Real pilot
+        rendering and publication remain disabled.
       </p>
       <button className="button button-secondary" type="button" onClick={startTest} disabled={busy}>
         {busy ? 'Queueing…' : 'Queue synthetic 1080p test'}
