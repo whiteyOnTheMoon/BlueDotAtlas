@@ -17,7 +17,7 @@ test('046 private-film runner is opt-in, bounded and offline (no publishing)', (
     '--media-cache-size-in-bytes=268435456', '--color-space=bt709',
     '--ulimit fsize=838860800:838860800',
     '--overwrite=false', '--codec=h264', '--audio-codec=aac',
-    'BDA_PILOT_046_PRIVATE_FILM', '046-private-rough-cut.mp4',
+    'BDA_PILOT_046_PRIVATE_FILM', '046-private-rough-cut-attempt-02.mp4',
     '--signal=TERM', '7200s', 'scripts/check-pilot-preview-046.mjs --check',
     '-lt 2883584', '<2.75 GiB (2816 MiB) MemAvailable',
     '046-S06-helene.png', '046-S08-outro.png',
@@ -28,7 +28,7 @@ test('046 private-film runner is opt-in, bounded and offline (no publishing)', (
   assert.match(sh, /out="\$HOME\/\.bda-pilot-film-046-attempt-02"/);
   assert.match(sh, /name="bluedotatlas-046-private-film-diagnostic-02"/);
   assert.doesNotMatch(sh, /out="\$HOME\/\.bda-pilot-film-046"\s/);
-    assert.doesNotMatch(sh, /docker compose|docker system prune|--privileged|--network host|docker rm|git push|--disallow-parallel-encoding/);
+  assert.doesNotMatch(sh, /docker compose|docker system prune|--privileged|--network host|docker rm|git push|--disallow-parallel-encoding/);
   assert.match(sh, /if \[ "\$mode" = "--check" \]; then/);
   assert.match(sh, /if \[ -e "\$out" \] \|\| \[ -L "\$out" \]; then/);
 });
