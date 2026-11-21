@@ -1,0 +1,38 @@
+name: M03 046 real 042 voice alignment plan and independent synthetic PCM QA
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/stage-pilot-voice-046.py'
+      - 'packages/video/src/compositions/PilotPrivateVisual046.tsx'
+      - 'packages/video/src/compositions/pilot-private-046-plan.js'
+      - 'scripts/check-pilot-private-046.test.mjs'
+      - '.github/workflows/pilot-private-046-voice-check.yml'
+      - 'docs/pilot/pilot-timeline.json'
+      - 'docs/pilot/tts-timing-evidence-042.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  private-voice-046:
+    name: 046 Seven measured speech ranges and fail-closed PCM alignment
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify PCM sample alignment with synthetic-only bytes
+        run: python3 scripts/stage-pilot-voice-046.py --self-test
+      - name: Verify explicit operator flag required for private staging
+        run: |
+          if python3 scripts/stage-pilot-voice-046.py --stage; then
+            echo "FAIL: unauthorized staging succeeded" >&2
+            exit 1
+          fi
+          echo "046 private voice gate: PASS"
