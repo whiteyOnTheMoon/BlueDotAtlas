@@ -54,12 +54,12 @@ test('046 alternate ffmpeg runner is offline, memory-limited, owner-only and no 
     assert.ok(js.includes(k),'missing media operation: '+k);
   }
 
-  // Both read-only preflight AND last-moment render admission must use the
-  // same 3840MiB total: 1536MiB container + 2048MiB reserve + 256MiB margin.
-  assert.equal((sh.match(/if \\[ "\\$mem_kib" -lt "\\$min_mem_kib" \\]; then/g)??[]).length,2);
-  assert.match(sh, /1536MiB hard container cap \\+ 2048MiB host reserve/);
-  assert.match(js, /args=\\['-ss',sec\\(offset\\),'-i',source\\(shot\\)\\]/);
-  assert.doesNotMatch(js, /args=\\['-i',source\\(shot\\),'-ss'/);
+  // Both read-only preflight and last-moment render admission need
+  // 1536MiB container + 2048MiB host reserve + 256MiB margin.
+  assert.equal(sh.split('if [ "$mem_kib" -lt "$min_mem_kib" ]; then').length-1,2);
+  assert.ok(sh.includes('1536MiB hard container cap + 2048MiB host reserve'));
+  assert.ok(js.includes("args=['-ss',sec(offset),'-i',source(shot)]"));
+  assert.ok(!js.includes("args=['-i',source(shot),'-ss'"));
   assert.ok(js.includes('SYNTHETIC SOURCE SEEK PASS'));
   assert.ok(js.includes('S01 body replayed red source frame zero'));
 
