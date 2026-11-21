@@ -55,8 +55,7 @@ test('046 HD proxy conversion is one-shot, original read-only, no network and <=
     '--read-only', '--cap-drop ALL', '--security-opt no-new-privileges',
     '--pids-limit 120', '--ulimit fsize=268435456:268435456',
     'type=bind,source=$stage,target=/source,readonly',
-    '--map',
-  ].filter((x) => x !== '--map')) assert.ok(sh.includes(required), 'missing proxy guard: ' + required);
+  ]) assert.ok(sh.includes(required), 'missing proxy guard: ' + required);
   assert.match(sh, /-map 0:v:0/);
   assert.match(sh, /scale=1920:1080/);
   assert.match(sh, /-c:v libx264/);
