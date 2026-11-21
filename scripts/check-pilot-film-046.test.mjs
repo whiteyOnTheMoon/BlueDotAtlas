@@ -80,3 +80,33 @@ test('046 ffprobe metadata contract rejects wrong frames, codecs and duration', 
     assert.notEqual(check(copy).status, 0);
   }
 });
+
+
+const singlePath = new URL('./run-pilot-film-single-hd-046.sh', import.meta.url).pathname;
+
+test('046 attempt-05 is exactly one full-HD 1800f render with bounded 4GiB and host watchdog', () => {
+  execFileSync('bash', ['-n', singlePath]);
+  const sh = readFileSync(singlePath, 'utf8');
+  for (const flag of [
+    'BDA_PILOT_046_PRIVATE_SINGLE_HD_FILM', 'scripts/check-pilot-preview-046.mjs --check',
+    '046-private-rough-cut-attempt-05.mp4', 'bluedotatlas-046-private-film-diagnostic-05-single',
+    '--network none', '--cpus 0.5', '--memory 4096m', '--memory-swap 4096m',
+    '--pids-limit 200', '--read-only', '--cap-drop ALL', '--security-opt no-new-privileges',
+    '--ulimit fsize=838860800:838860800', '--concurrency=1',
+    '--offthreadvideo-video-threads=1', '--offthreadvideo-cache-size-in-bytes=268435456',
+    '--media-cache-size-in-bytes=268435456', '--bundle-cache=false',
+    '--codec=h264', '--audio-codec=aac', '--color-space=bt709',
+    '--overwrite=false', '7200s', '--signal=TERM',
+    '-lt 3145728', '-lt 2097152', 'docker stop --time 10 "$name"',
+    '046 SINGLE HD HOST PRESSURE STOP', 'scripts/check-pilot-film-046-probe.py',
+  ]) assert.ok(sh.includes(flag), 'missing single-pass gate: ' + flag);
+  assert.match(sh, /out="\$HOME\/\.bda-pilot-film-046-attempt-05"/);
+  assert.match(sh, /if \[ "\$mode" = "--check" \]; then/);
+  assert.match(sh, /if \[ -e "\$out" \] \|\| \[ -L "\$out" \]; then/);
+  assert.equal((sh.match(/"\$image" render src\/entry-pilot-private-046\.tsx/g) ?? []).length, 1,
+    'exactly one full composition render');
+  assert.doesNotMatch(sh, /--frames=|render_chunk|--for-seamless-aac-concatenation/);
+  assert.doesNotMatch(sh, /-f concat|-c copy -movflags|docker compose|docker system prune|docker rm|--privileged|--network host/);
+  assert.doesNotMatch(sh, /--memory-swap -1|--memory 8192m|--overwrite=true/);
+  assert.doesNotMatch(sh, /046-late-04\.mp4|046-early-04\.mp4|attempt-04"/);
+});
