@@ -226,6 +226,8 @@ try {
   await page.goto(browserOrigin + '/admin/projects/' + projectId);
   const button = page.getByRole('button', { name: 'Queue synthetic 1080p test' });
   await button.waitFor();
+  await page.getByText('Isolated 8-second synthetic QA in CI or on an explicitly enabled VPS worker.', { exact: false }).waitFor();
+  assert.equal(await page.getByText('CI test only:', { exact: false }).count(), 0);
   await page.screenshot({ path: resolve(output, '046-admin-queued-button-1440.png'), fullPage: true });
 
   const clickStarted = Date.now();

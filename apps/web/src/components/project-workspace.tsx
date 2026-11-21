@@ -181,7 +181,8 @@ export function ProjectWorkspace({
         <p className="eyebrow">Production workspace</p>
         <h1>{projectId ? 'Project details' : 'Projects'}</h1>
         <p className="muted">
-          Manage drafts without starting rendering, voice generation or publication.
+          Manage drafts and editorial notes. Only the explicitly enabled synthetic QA button
+          starts a test render; real pilot production and publication stay disabled.
         </p>
         <div className="project-navigation">
           <nav aria-label="Studio navigation">
