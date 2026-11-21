@@ -16,9 +16,7 @@ const SyntheticStill046 = () => (
       fontSize: 68,
     }}
   >
-    <div style={{ border: '12px solid #37d6c4', padding: 80 }}>
-      046 SYNTHETIC OFFLINE STILL
-    </div>
+    <div style={{ border: '12px solid #37d6c4', padding: 80 }}>046 SYNTHETIC OFFLINE STILL</div>
   </div>
 );
 
