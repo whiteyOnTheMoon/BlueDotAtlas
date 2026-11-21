@@ -200,3 +200,8 @@ Grundlage: *BlueDotAtlas Master Roadmap V0.1* (13. November 2026), 14 Meilenstei
 - Inhalt: geprüfte wissenschaftliche Quellen, lizenziertes Original-Footage, TTS und redaktionelle Prüfungen
 
 **Hinweis:** Diese README wurde als einmalige initiale Repository-Datei angelegt, da das GitHub-Repository zuvor leer war. Die weiteren Aufgabenänderungen laufen regulär über Issue und Pull Request.
+
+
+### 046 – Separater privater 60s-Renderentwurf (noch nicht ausgeführt)
+
+Der Betreiber hat alle sechs echten privaten Standbild-Stichproben der 046-Komposition mit strikter Hostisolation und 1–1,5 GiB Render-Limit technisch bestätigt; S00/S01 wurden auch visuell für den Test angesehen. Ein optionales, **noch nicht zum Ausführen freigegebenes** `scripts/run-pilot-film-046.sh` bereitet einen einmaligen 60s/1080p-H.264/AAC-Rough-Cut mit vorhandener Kokoro-Stimme vor. Start nur nach **gesonderter Betreiberfreigabe**, Revision-Match, überprüften privaten Originalen und mindestens 3 GiB Host-`MemAvailable`; höchstens 2 GiB Container-RAM, 0,5 CPU, kein Netzwerk, kein zusätzlicher Swap. Ausgabe ausschließlich privat; keine Queue-/Admin-/DB-/Compose-Änderung, kein Upload/Publish. Siehe [046-Pilot-Rough-Cut](docs/development/pilot-private-046.md) und [Issue #70](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/70). Das eigentliche 046-Queue-/Admin-/Film-Gate bleibt offen.
