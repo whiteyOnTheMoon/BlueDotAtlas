@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { test } from 'node:test';
 import {
   PRIVATE_STILLS_046, validateHostBudget, validatePreviewFrames,
@@ -20,6 +21,7 @@ test('046 host preflight rejects insufficient memory, disk and CPU', () => {
 });
 test('046 operator-only stills runner cannot invoke a full film render or change existing service', () => {
   const shell = readFileSync(new URL('./run-pilot-stills-046.sh', import.meta.url), 'utf8');
+  execFileSync('bash', ['-n', new URL('./run-pilot-stills-046.sh', import.meta.url).pathname]);
   const docker = readFileSync(new URL('../deploy/Dockerfile', import.meta.url), 'utf8');
   assert.match(shell, /BDA_PILOT_046_PRIVATE_STILLS/);
   assert.match(shell, /--network none/);

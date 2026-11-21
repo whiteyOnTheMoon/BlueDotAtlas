@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { lstatSync, readFileSync, realpathSync, statfsSync, statSync } from 'node:fs';
-import { homedir, loadavg } from 'node:os';
+import { cpus, homedir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -89,7 +89,7 @@ export function readOnlyPreflight() {
   const memText = readFileSync('/proc/meminfo', 'utf8');
   const memKiB = Number(memText.match(/^MemAvailable:\s+(\d+)\s+kB/m)?.[1]);
   const freeDiskGiB = statfsSync(stage).bavail * statfsSync(stage).bsize / 1024 ** 3;
-  validateHostBudget(memKiB / 1024, freeDiskGiB, 4);
+  validateHostBudget(memKiB / 1024, freeDiskGiB, cpus().length);
   assert.equal(process.getuid(), 1000, 'operator UID differs from isolated container UID');
 
   privateDir(stage);
