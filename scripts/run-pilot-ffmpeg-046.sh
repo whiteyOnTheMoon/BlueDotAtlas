@@ -16,11 +16,14 @@ git diff --quiet
 git diff --cached --quiet
 # Existing private 046 source, rights, HD proxy, voice SHA and disk gate.
 node scripts/check-pilot-preview-046.mjs --check
+# Admission: 1536MiB hard container cap + 2048MiB host reserve
+# + 256MiB margin for cohosted workloads.
+min_mem_kib=3932160  # (1536 + 2048 + 256) MiB
 mem_kib="$(awk '/^MemAvailable:/ {print $2}' /proc/meminfo)"
 test -n "$mem_kib"
 echo "046 FFMPEG host MemAvailable: $((mem_kib / 1024)) MiB"
-if [ "$mem_kib" -lt 3145728 ]; then
-  echo "046 FFMPEG NO-GO: host MemAvailable below 3072 MiB" >&2
+if [ "$mem_kib" -lt "$min_mem_kib" ]; then
+  echo "046 FFMPEG NO-GO: need >=3840 MiB MemAvailable (1536 MiB container + 2048 MiB reserve + 256 MiB margin)" >&2
   exit 1
 fi
 command -v docker >/dev/null
@@ -57,8 +60,8 @@ if [ "$(printenv BDA_PILOT_046_FFMPEG_PRIVATE 2>/dev/null || true)" != "TRUE" ];
 fi
 mem_kib="$(awk '/^MemAvailable:/ {print $2}' /proc/meminfo)"
 test -n "$mem_kib"
-if [ "$mem_kib" -lt 3145728 ]; then
-  echo "046 FFMPEG NO-GO: insufficient host RAM immediately before render" >&2
+if [ "$mem_kib" -lt "$min_mem_kib" ]; then
+  echo "046 FFMPEG NO-GO: need >=3840 MiB MemAvailable immediately before render" >&2
   exit 1
 fi
 mkdir -m 700 "$out"
