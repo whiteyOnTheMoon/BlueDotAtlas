@@ -80,7 +80,8 @@ echo "046 PRIVATE FILM: one offline Remotion 1800f/30fps 1080p MP4; no publishin
 if timeout --signal=TERM --kill-after=30s 7200s docker run \
   --name "$name" --pull never --init \
   --network none --cpus 0.5 --memory 2048m --memory-swap 2048m \
-  --pids-limit 200 --read-only --cap-drop ALL \
+  --pids-limit 200 --ulimit fsize=838860800:838860800 \
+  --read-only --cap-drop ALL \
   --security-opt no-new-privileges --shm-size 128m \
   --tmpfs /tmp:rw,nosuid,size=512m,uid=1000,gid=1000 \
   -e HOME=/home/node -e REMOTION_DISABLE_TELEMETRY=1 \
@@ -94,8 +95,10 @@ if timeout --signal=TERM --kill-after=30s 7200s docker run \
   "$image" render src/entry-pilot-private-046.tsx \
   BDA046PrivateVisualRoughCut /review/046-private-rough-cut.mp4 \
   --codec=h264 --audio-codec=aac --audio-bitrate=192k \
-  --pixel-format=yuv420p --crf=23 --concurrency=1 \
-  --disallow-parallel-encoding --offthreadvideo-video-threads=1 \
+  --pixel-format=yuv420p --color-space=bt709 --crf=23 --concurrency=1 \
+  --offthreadvideo-video-threads=1 \
+  --offthreadvideo-cache-size-in-bytes=268435456 \
+  --media-cache-size-in-bytes=134217728 \
   --browser-executable=/usr/bin/chromium \
   --chrome-mode=chrome-for-testing --bundle-cache=false \
   --overwrite=false --log=info
