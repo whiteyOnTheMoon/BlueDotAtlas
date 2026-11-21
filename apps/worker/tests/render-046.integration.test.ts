@@ -15,7 +15,7 @@ import {
   recoverRender046,
   requeueRender046,
 } from '@bluedotatlas/db/queue-046';
-import { runRender046Once } from '../src/render-046.js';
+import { completeSyntheticAudio046, runRender046Once } from '../src/render-046.js';
 import { LocalStorage } from '@bluedotatlas/storage';
 
 assertRender046TestEnvironment();
@@ -23,6 +23,15 @@ const testRoot = await mkdtemp(join(tmpdir(), 'bda-storage-028-046-'));
 process.env.BDA_046_TEST_STORAGE_ROOT = testRoot;
 after(async () => {
   await rm(testRoot, { recursive: true, force: true });
+});
+
+test('046 avoids premature AAC cutoff without weakening the 8s/240f QA contract', () => {
+  const original = ['-t', '8', '-frames:v', '240', '-movflags', '+faststart'];
+  const actual = completeSyntheticAudio046(original);
+  assert.deepEqual(actual, ['-t', '8', '-movflags', '+faststart']);
+  assert.deepEqual(original, ['-t', '8', '-frames:v', '240', '-movflags', '+faststart']);
+  assert.throws(() => completeSyntheticAudio046(['-t', '60', '-frames:v', '1800']));
+  assert.throws(() => completeSyntheticAudio046(['-t', '8']));
 });
 
 test('046 real queued synthetic H264/AAC export, singleton artifact, reload and same-version submit', async () => {

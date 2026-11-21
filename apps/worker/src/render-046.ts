@@ -141,6 +141,26 @@ export async function runRender046Once(externalSignal?: AbortSignal) {
   }
 }
 
+/**
+ * The frame-count stop can terminate FFmpeg before the separately encoded AAC
+ * stream drains on a CPU-throttled VPS (observed 7.402s audio vs 8.000s video).
+ * Both lavfi inputs are exactly 8s and -t remains 8; independent QA still
+ * enforces precisely 240 video frames and 8s of audio.
+ */
+export function completeSyntheticAudio046(argv: string[]): string[] {
+  const index = argv.indexOf('-frames:v');
+  const durationIndex = argv.indexOf('-t');
+  if (
+    index < 0 ||
+    argv[index + 1] !== '240' ||
+    durationIndex < 0 ||
+    argv[durationIndex + 1] !== '8'
+  ) {
+    throw new Error('046 locked 8s/240f export bounds missing');
+  }
+  return [...argv.slice(0, index), ...argv.slice(index + 2)];
+}
+
 /** Build the locked 045 synthetic argv, changing only its per-job *private* output path. */
 async function exportAndCheckOriginalSynthetic046(
   claim: Render046Claim,
@@ -155,7 +175,9 @@ async function exportAndCheckOriginalSynthetic046(
     readAndCheckInputs: () => unknown;
     syntheticFfmpegArgs: (preset: unknown, output: string) => string[];
   };
-  const argv = syntheticFfmpegArgs(readAndCheckInputs(), STATIC_045_OUTPUT);
+  const argv = completeSyntheticAudio046(
+    syntheticFfmpegArgs(readAndCheckInputs(), STATIC_045_OUTPUT),
+  );
   argv[argv.length - 1] = output; // Fixed generated UUID output; no manifest path or URL.
   await processCommand('ffmpeg', argv, signal);
   await processCommand('python3', ['scripts/check-render-046.py', claim.id], signal);
