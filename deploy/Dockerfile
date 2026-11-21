@@ -58,3 +58,18 @@ ENV HOME=/home/node
 USER node
 WORKDIR /app/packages/video
 CMD ["/usr/bin/false"]
+
+# Optional 046 FFmpeg/SVG private prototype: no Chromium, no default Compose service.
+# Offline source-only proof built separately; actual VPS use has an owner gate.
+FROM worker046 AS pilot046ffmpeg
+USER root
+RUN apt-get update -qq \
+    && apt-get install -y --no-install-recommends librsvg2-bin fonts-dejavu-core \
+    && rm -rf /var/lib/apt/lists/*
+ARG BDA_PILOT_046_GIT_SHA
+RUN test -n "$BDA_PILOT_046_GIT_SHA" && test -x /usr/bin/ffmpeg && test -x /usr/bin/rsvg-convert
+LABEL org.opencontainers.image.revision="$BDA_PILOT_046_GIT_SHA"
+ENV HOME=/home/node
+USER node
+WORKDIR /app
+CMD ["/usr/bin/false"]
