@@ -61,3 +61,29 @@ jobs:
               /app/packages/video/node_modules/.bin/remotion versions
               echo "046 preview image: offline tooling smoke PASS (no media rendered)"
             '
+      - name: Render one original synthetic still in read-only offline container
+        run: |
+          set -eu
+          docker run --rm --init --network none --read-only --cap-drop ALL \
+            --security-opt no-new-privileges --pids-limit 200 \
+            --cpus 0.5 --memory 1024m --memory-swap 1024m \
+            --shm-size 128m \
+            --tmpfs /tmp:rw,nosuid,size=256m,uid=1000,gid=1000 \
+            -e HOME=/home/node \
+            -e XDG_CACHE_HOME=/tmp \
+            -e XDG_CONFIG_HOME=/tmp \
+            -e REMOTION_DISABLE_TELEMETRY=1 \
+            --entrypoint /bin/sh bluedotatlas-private-preview046:ci \
+            -ec '
+              cd /app/packages/video
+              ./node_modules/.bin/remotion still \
+                src/entry-preview-smoke-046.tsx BDA046SyntheticStillSmoke \
+                /tmp/046-synthetic-smoke.png --frame=0 \
+                --browser-executable=/usr/bin/chromium \
+                --chrome-mode=chrome-for-testing --bundle-cache=false --log=info
+              test -s /tmp/046-synthetic-smoke.png
+              bytes="$(stat -c %s /tmp/046-synthetic-smoke.png)"
+              test "$bytes" -gt 2000
+              test "$(od -An -tx1 -N8 /tmp/046-synthetic-smoke.png | xargs)" = "89 50 4e 47 0d 0a 1a 0a"
+              echo "046 synthetic offline PNG PASS: $bytes bytes"
+            '

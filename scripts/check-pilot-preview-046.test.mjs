@@ -28,6 +28,10 @@ test('046 operator-only stills runner cannot invoke a full film render or change
   assert.match(shell, /--memory 1024m/);
   assert.match(shell, /--cpus 0\.5/);
   assert.match(shell, /--read-only/);
+  assert.match(shell, /--bundle-cache=false/);
+  assert.match(shell, /--log=info/);
+  assert.match(shell, /find "\$out" -mindepth 1 -maxdepth 1 -print -quit/);
+  assert.match(shell, /046 NO-GO: Private review directory is not empty/);
   assert.match(shell, /--cap-drop ALL/);
   assert.match(shell, /still src\/entry-pilot-private-046\.tsx/);
   assert.doesNotMatch(shell, /--remove-orphans|docker compose|docker exec/);
