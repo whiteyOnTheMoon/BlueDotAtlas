@@ -1,0 +1,44 @@
+name: M03 046 bounded FFmpeg SVG synthetic private prototype
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/pilot-ffmpeg-046-plan.mjs'
+      - 'scripts/render-pilot-ffmpeg-046.mjs'
+      - 'scripts/run-pilot-ffmpeg-046.sh'
+      - 'scripts/check-pilot-ffmpeg-046.test.mjs'
+      - 'deploy/Dockerfile'
+      - 'package.json'
+      - '.github/workflows/pilot-ffmpeg-046-synthetic-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ffmpeg-046-synthetic:
+    name: 046 Offline synthetic SVG+H264+AAC frame-and-fade proof
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify strict HD 1800-frame scene contract and offline gates
+        run: node --test scripts/check-pilot-ffmpeg-046.test.mjs
+      - name: Install offline encoder and vector rasterizer (CI only)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg librsvg2-bin
+      - name: Synthetic-only bounded render with frame-accurate brand crossfades and AAC
+        env:
+          CI: 'true'
+        run: node scripts/render-pilot-ffmpeg-046.mjs --synthetic
+      - name: Assert no private media or permanent MP4 artifact is shipped by the workflow
+        run: |
+          test ! -d .bda-pilot-stage-046
+          test -z "$(find . -maxdepth 2 -name 'synthetic-046.mp4' -print -quit)"
+          echo '046 FFMPEG SYNTHETIC CI PASS (no private source files)'
