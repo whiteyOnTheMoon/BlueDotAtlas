@@ -3,7 +3,8 @@ import { readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { test } from 'node:test';
 import {
-  PRIVATE_STILLS_046, validateHostBudget, validatePreviewFrames,
+  PRIVATE_STILLS_046, validateHdReferencePolicy, validateHostBudget,
+  validatePrivateHdEvidence, validatePreviewFrames,
 } from './check-pilot-preview-046.mjs';
 
 test('046 private-still frame picks are fixed, within real 60s shot bounds', () => {
@@ -37,4 +38,29 @@ test('046 operator-only stills runner cannot invoke a full film render or change
   assert.doesNotMatch(shell, /--remove-orphans|docker compose|docker exec/);
   assert.match(docker, /FROM worker046 AS pilot046preview/);
   assert.match(docker, /apt-get install -y --no-install-recommends chromium/);
+});
+
+
+test('046 HD-only policy selects exactly one private proxy, not the 4K original', () => {
+  assert.equal(validateHdReferencePolicy(), true);
+  const sha = 'a'.repeat(64);
+  const source = 'b'.repeat(64);
+  const evidence = {
+    schema: 1, assetId: 'P60-VID-003', originalSha256: source,
+    proxySha256: sha, codec: 'h264', width: 1920, height: 1080,
+    pixFmt: 'yuv420p', videoStreams: 1, audioStreams: 0, durationSeconds: 34.84,
+  };
+  assert.equal(validatePrivateHdEvidence(evidence, sha, source), true);
+  for (const mutate of [
+    (v) => { v.width = 3840; },
+    (v) => { v.audioStreams = 1; },
+    (v) => { v.originalSha256 = 'c'.repeat(64); },
+    (v) => { v.proxySha256 = 'd'.repeat(64); },
+    (v) => { v.durationSeconds = 12; },
+    (v) => { v.codec = 'hevc'; },
+  ]) {
+    const copy = structuredClone(evidence);
+    mutate(copy);
+    assert.throws(() => validatePrivateHdEvidence(copy, sha, source));
+  }
 });

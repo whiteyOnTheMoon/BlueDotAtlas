@@ -8,6 +8,10 @@ import { fileURLToPath } from 'node:url';
 import {
   PILOT_PRIVATE_046,
   PILOT_PRIVATE_046_SHOTS,
+  PRIVATE_046_MEDIA,
+  PRIVATE_046_HELENE_HD_PROXY,
+  PRIVATE_046_MAX_REFERENCE_WIDTH,
+  PRIVATE_046_MAX_REFERENCE_HEIGHT,
   validatePilotPrivate046,
 } from '../packages/video/src/compositions/pilot-private-046-plan.js';
 
@@ -24,8 +28,27 @@ export const PRIVATE_STILLS_046 = Object.freeze([
   Object.freeze({ shot: 'S08', frame: 1710, name: '046-S08-outro.png' }),
 ]);
 
+export function validateHdReferencePolicy() {
+  assert.equal(PRIVATE_046_MAX_REFERENCE_WIDTH, 1920);
+  assert.equal(PRIVATE_046_MAX_REFERENCE_HEIGHT, 1080);
+  for (const id of ['P60-VID-001', 'P60-VID-003', 'P60-VID-005']) {
+    const asset = manifest.assets.find((x) => x.asset_id === id);
+    assert.ok(asset && asset.technical_original_media_probe, 'missing private source probe');
+    const { width, height } = asset.technical_original_media_probe;
+    assert.ok(Number.isInteger(width) && Number.isInteger(height));
+    if (width > PRIVATE_046_MAX_REFERENCE_WIDTH || height > PRIVATE_046_MAX_REFERENCE_HEIGHT) {
+      assert.equal(id, PRIVATE_046_HELENE_HD_PROXY.assetId, 'new over-HD source needs a separately approved proxy');
+      assert.equal(PRIVATE_046_MEDIA[id], PRIVATE_046_HELENE_HD_PROXY.path);
+    } else {
+      assert.equal(PRIVATE_046_MEDIA[id], 'pilot/.private-046/' + id + '.mp4');
+    }
+  }
+  return true;
+}
+
 export function validatePreviewFrames() {
   assert.equal(validatePilotPrivate046(), true);
+  assert.equal(validateHdReferencePolicy(), true);
   assert.equal(PILOT_PRIVATE_046.frames, 1800);
   assert.equal(PILOT_PRIVATE_046.narrationIncluded, true);
   assert.equal(PILOT_PRIVATE_046.renderAuthorized, false);
@@ -84,7 +107,24 @@ function validateVoice(raw) {
     'speaker audio intrudes into brand outro');
 }
 
-export function readOnlyPreflight() {
+export function validatePrivateHdEvidence(evidence, actualSha, originalSha) {
+  assert.equal(evidence.schema, 1);
+  assert.equal(evidence.assetId, PRIVATE_046_HELENE_HD_PROXY.assetId);
+  assert.equal(evidence.originalSha256, originalSha);
+  assert.match(actualSha, /^[0-9a-f]{64}$/);
+  assert.equal(evidence.proxySha256, actualSha);
+  assert.equal(evidence.codec, 'h264');
+  assert.equal(evidence.width, 1920);
+  assert.equal(evidence.height, 1080);
+  assert.equal(evidence.pixFmt, 'yuv420p');
+  assert.equal(evidence.videoStreams, 1);
+  assert.equal(evidence.audioStreams, 0);
+  assert.ok(Number.isFinite(evidence.durationSeconds) &&
+    evidence.durationSeconds >= 34 && evidence.durationSeconds <= 36);
+  return true;
+}
+
+export function readOnlyPreflight({ requireHdProxy = true } = {}) {
   validatePreviewFrames();
   const memText = readFileSync('/proc/meminfo', 'utf8');
   const memKiB = Number(memText.match(/^MemAvailable:\s+(\d+)\s+kB/m)?.[1]);
@@ -114,14 +154,26 @@ export function readOnlyPreflight() {
   }
   validateVoice(privateFile(join(stage, 'audio/pilot-narration-aligned.wav'),
     11_520_044, 11_520_044));
+  if (requireHdProxy) {
+    const hd = PRIVATE_046_HELENE_HD_PROXY;
+    privateDir(join(stage, 'pilot/.private-046/hd-proxy-046'));
+    const raw = privateFile(join(stage, hd.path), 100_000, 268_435_456);
+    const evidence = JSON.parse(privateFile(join(stage, hd.evidencePath), 100, 4096).toString('utf8'));
+    const source = manifest.assets.find((x) => x.asset_id === hd.assetId);
+    assert.ok(source && source.approval_scope === 'PRIVATE_INTERNAL_TEST_ONLY');
+    validatePrivateHdEvidence(evidence, sha(raw), source.technical_original_sha256);
+    console.log('046 PRIVATE HD PROXY PASS: 1920x1080, muted, source/derived SHA validated');
+  }
   console.log('046 PRIVATE STILL PREFLIGHT PASS: 3 original videos + 2 brand clips + aligned voice');
   console.log('046 HOST GATE PASS: MemAvailable >= 2 GiB; free disk >= 12 GiB');
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
-    assert.deepEqual(process.argv.slice(2), ['--check'], 'Only --check permitted');
-    readOnlyPreflight();
+    const mode = process.argv.slice(2);
+    assert.ok(mode.length === 1 && ['--check', '--check-originals'].includes(mode[0]),
+      'Only --check or --check-originals permitted');
+    readOnlyPreflight({ requireHdProxy: mode[0] === '--check' });
   } catch (error) {
     console.error('046 PRIVATE STILL NO-GO: ' + String(error).slice(0, 200));
     process.exitCode = 1;

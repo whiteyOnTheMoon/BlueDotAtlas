@@ -33,9 +33,20 @@ export const PILOT_PRIVATE_046_SHOTS = Object.freeze([
 
 export const PRIVATE_046_VOICE_PATH = 'audio/pilot-narration-aligned.wav';
 
+// Renderer reference-footage policy: HD maximum. Preserve SHA-verified originals;
+// transcode only the 3840x2160 NOAA Helene source into an owner-only 1080p proxy.
+export const PRIVATE_046_MAX_REFERENCE_WIDTH = 1920;
+export const PRIVATE_046_MAX_REFERENCE_HEIGHT = 1080;
+export const PRIVATE_046_HELENE_HD_PROXY = Object.freeze({
+  assetId: 'P60-VID-003',
+  sourcePath: 'pilot/.private-046/P60-VID-003.mp4',
+  path: 'pilot/.private-046/hd-proxy-046/P60-VID-003-hd.mp4',
+  evidencePath: 'pilot/.private-046/hd-proxy-046/evidence.json',
+});
+
 export const PRIVATE_046_MEDIA = Object.freeze({
   'P60-VID-001': 'pilot/.private-046/P60-VID-001.mp4',
-  'P60-VID-003': 'pilot/.private-046/P60-VID-003.mp4',
+  'P60-VID-003': PRIVATE_046_HELENE_HD_PROXY.path,
   'P60-VID-005': 'pilot/.private-046/P60-VID-005.mp4',
 });
 

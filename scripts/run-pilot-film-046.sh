@@ -41,11 +41,11 @@ for still in 046-S00-intro.png 046-S01-oma.png 046-S02-waves.png \
   test "$(od -An -tx1 -N8 "$file" | xargs)" = "89 50 4e 47 0d 0a 1a 0a"
 done
 
-out="$HOME/.bda-pilot-film-046-attempt-03"
-# Private attempt 03 preserves first and second failed render directories/containers.
+out="$HOME/.bda-pilot-film-046-attempt-04"
+# Private attempt 04 preserves all three failed render directories/containers.
 # Never overwrite, resume unknown output or touch six source PNGs.
 if [ -e "$out" ] || [ -L "$out" ]; then
-  echo "046 FILM NO-GO: attempt-03 private destination already exists" >&2
+  echo "046 FILM NO-GO: attempt-04 private destination already exists" >&2
   exit 1
 fi
 command -v docker >/dev/null
@@ -58,15 +58,15 @@ test "$actual" = "$expected" || {
   exit 1
 }
 
-# Split at the exact S06 boundary (frame 1223, NOAA Helene high-resolution clip).
+# Split at the exact S06 boundary (frame 1223, NOAA Helene HD-proxied clip).
 # Render the memory-intensive late section FIRST; each chunk gets fresh Chromium
 # and FFmpeg processes rather than retaining decoded frames from earlier shots.
-late_name="bluedotatlas-046-private-film-diagnostic-03-late"
-early_name="bluedotatlas-046-private-film-diagnostic-03-early"
-join_name="bluedotatlas-046-private-film-diagnostic-03-join"
+late_name="bluedotatlas-046-private-film-diagnostic-04-late"
+early_name="bluedotatlas-046-private-film-diagnostic-04-early"
+join_name="bluedotatlas-046-private-film-diagnostic-04-join"
 for name in "$late_name" "$early_name" "$join_name"; do
   if docker container inspect "$name" >/dev/null 2>&1; then
-    echo "046 FILM NO-GO: attempt-03 diagnostic container already exists: $name" >&2
+    echo "046 FILM NO-GO: attempt-04 diagnostic container already exists: $name" >&2
     exit 1
   fi
 done
@@ -76,7 +76,7 @@ if [ -n "$(docker ps -q --filter "ancestor=$image")" ]; then
 fi
 
 if [ "$mode" = "--check" ]; then
-  echo "046 PRIVATE FILM PREFLIGHT PASS: attempt-03; no render, no new files"
+  echo "046 PRIVATE FILM PREFLIGHT PASS: attempt-04; no render, no new files"
   exit 0
 fi
 test "$(printenv BDA_PILOT_046_PRIVATE_FILM 2>/dev/null || true)" = TRUE || {
@@ -87,7 +87,7 @@ test "$(printenv BDA_PILOT_046_PRIVATE_FILM 2>/dev/null || true)" = TRUE || {
 mkdir -m 700 "$out"
 test ! -L "$out" && test "$(stat -c '%a:%u' "$out")" = "700:1000"
 stage="$HOME/.bda-pilot-stage-046"
-target="$out/046-private-rough-cut-attempt-03.mp4"
+target="$out/046-private-rough-cut-attempt-04.mp4"
 
 render_chunk() {
   local label="$1" frames="$2" name="$3" filename="$4" expected_frames="$5"
@@ -135,7 +135,7 @@ render_chunk() {
     rc=$?
   fi
 
-  # On timeout or CLI SIGKILL stop only this attempt-03 chunk's own container.
+  # On timeout or CLI SIGKILL stop only this attempt-04 chunk's own container.
   if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; then
     docker stop --time 20 "$name" >/dev/null 2>&1 || true
   fi
@@ -146,7 +146,7 @@ render_chunk() {
     if [ -f "$out/$filename" ] && [ ! -L "$out/$filename" ]; then
       chmod 600 "$out/$filename"
     fi
-    echo "046 FILM STOP: preserve attempt-03 output and diagnostic container" >&2
+    echo "046 FILM STOP: preserve attempt-04 output and diagnostic container" >&2
     return 1
   fi
 
@@ -169,14 +169,14 @@ render_chunk() {
   echo "046 FILM $label: $got frames PASS"
 }
 
-# S06 standalone still at frame 1330 previously succeeded within 1.5GiB.
-# Fail early on the difficult 4K source rather than spending time on frames 0-1222.
-render_chunk "late" "1223-1799" "$late_name" "046-late-03.mp4" "577"
-render_chunk "early" "0-1222" "$early_name" "046-early-03.mp4" "1223"
+# Render late first with the SHA-verified 1080p working proxy, not the 4K original.
+# Fail closed if HD proxy/source preflight fails; fresh Chromium for each segment.
+render_chunk "late" "1223-1799" "$late_name" "046-late-04.mp4" "577"
+render_chunk "early" "0-1222" "$early_name" "046-early-04.mp4" "1223"
 
 # Concat in timeline order using FFmpeg stream copy (not a second full Remotion pass).
-printf "file '046-early-03.mp4'\nfile '046-late-03.mp4'\n" > "$out/046-parts-03.txt"
-test "$(stat -c '%a:%u' "$out/046-parts-03.txt")" = "600:1000"
+printf "file '046-early-04.mp4'\nfile '046-late-04.mp4'\n" > "$out/046-parts-04.txt"
+test "$(stat -c '%a:%u' "$out/046-parts-04.txt")" = "600:1000"
 echo "046 FILM: offline FFmpeg concat of 1223 + 577 frames"
 if timeout --signal=TERM --kill-after=30s 600s docker run \
   --name "$join_name" --pull never --init \
@@ -186,8 +186,8 @@ if timeout --signal=TERM --kill-after=30s 600s docker run \
   --mount "type=bind,source=$out,target=/review" \
   --entrypoint /usr/bin/ffmpeg "$image" \
   -nostdin -hide_banner -loglevel warning \
-  -f concat -safe 1 -i /review/046-parts-03.txt \
-  -c copy -movflags +faststart -n /review/046-private-rough-cut-attempt-03.mp4
+  -f concat -safe 1 -i /review/046-parts-04.txt \
+  -c copy -movflags +faststart -n /review/046-private-rough-cut-attempt-04.mp4
 then
   join_rc=0
 else
@@ -217,7 +217,7 @@ docker run --rm --init --pull never --network none \
   --mount "type=bind,source=$out,target=/review,readonly" \
   --entrypoint /usr/bin/ffprobe "$image" \
   -v error -show_streams -show_format -of json \
-  /review/046-private-rough-cut-attempt-03.mp4 |
+  /review/046-private-rough-cut-attempt-04.mp4 |
   python3 scripts/check-pilot-film-046-probe.py
 
 echo "046 PRIVATE MP4 METADATA PASS; full decode and human playback NOT yet verified"
