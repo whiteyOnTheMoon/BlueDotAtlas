@@ -50,7 +50,7 @@ test('046 alternate ffmpeg runner is offline, memory-limited, owner-only and no 
   assert.doesNotMatch(sh,/docker compose|docker system prune|docker rm |--network host|--privileged|kurvenfunk-staging-/);
   const js=readFileSync(film,'utf8');
   for(const k of ['--synthetic','rsvg-convert','-threads:v','libx264',
-    "'concat'","'copy'","'amix=inputs=2",'-frames:v','sourceAudioDiscarded:true']) {
+    "'concat'","'copy'","amix=inputs=2",'-frames:v','sourceAudioDiscarded:true']) {
     assert.ok(js.includes(k),'missing media operation: '+k);
   }
   assert.doesNotMatch(js,/from ['"](?:remotion|@remotion)|\bchromium\s*--/i);
