@@ -81,5 +81,9 @@ jobs:
                 /tmp/046-synthetic-smoke.png --frame=0 \
                 --browser-executable=/usr/bin/chromium \
                 --chrome-mode=chrome-for-testing --bundle-cache=false --log=info
-              node -e "const fs = require('node:fs'); const b = fs.readFileSync('/tmp/046-synthetic-smoke.png'); if (b.length < 2000 || b.subarray(0,8).toString('hex') !== '89504e470d0a1a0a') process.exit(1); console.log('046 synthetic offline PNG PASS: ' + b.length + ' bytes');"
+              test -s /tmp/046-synthetic-smoke.png
+              bytes="$(stat -c %s /tmp/046-synthetic-smoke.png)"
+              test "$bytes" -gt 2000
+              test "$(od -An -tx1 -N8 /tmp/046-synthetic-smoke.png | xargs)" = "89 50 4e 47 0d 0a 1a 0a"
+              echo "046 synthetic offline PNG PASS: $bytes bytes"
             '
