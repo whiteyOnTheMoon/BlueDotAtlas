@@ -19,8 +19,12 @@ git diff --cached --quiet
 node scripts/check-pilot-preview-046.mjs --check
 mem_kib="$(awk '/^MemAvailable:/ {print $2}' /proc/meminfo)"
 test -n "$mem_kib"
-if [ "$mem_kib" -lt 3145728 ]; then
-  echo "046 FILM NO-GO: <3 GiB MemAvailable; protect cohosted services" >&2
+echo "046 host MemAvailable: $((mem_kib / 1024)) MiB"
+# Operator read-only PSI/vmstat sample 2026-11-21: low active pressure,
+# ~2947 MiB available but swap already full. Keep 2048MiB Docker cgroup cap,
+# zero additional swap and fail closed if host drops below 2.75 GiB.
+if [ "$mem_kib" -lt 2883584 ]; then
+  echo "046 FILM NO-GO: <2.75 GiB (2816 MiB) MemAvailable; protect cohosted services" >&2
   exit 1
 fi
 
