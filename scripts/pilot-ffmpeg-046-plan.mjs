@@ -10,7 +10,7 @@ export const SHOTS046 = PILOT_PRIVATE_046_SHOTS;
 export const VOICE046 = PRIVATE_046_VOICE_PATH;
 const x = (s) => String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const n = (value) => Number(value.toFixed(3));
-const svg = (body) => '<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">' + body + '</svg>';
+const svg = (body) => '<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">' + body + '<rect x="1250" y="32" width="620" height="54" fill="#021934" opacity="0.87"/><text x="1270" y="69" font-size="19" fill="#f2f9ff" font-family="DejaVu Sans">PRIVATE NARRATED ROUGH CUT · NOT PUBLISHED</text></svg>';
 
 export function planSegments(shots) {
   assert.ok(Array.isArray(shots) && shots.length>=2 && shots.length<=12);
@@ -54,8 +54,7 @@ export function overlaySvg046(shot) {
       '<text x="180" y="866" font-size="34" fill="#f2f9ff" font-family="DejaVu Sans">'+x(shot.caption)+'</text>' +
       '<text x="180" y="916" font-size="23" fill="#d3e6f1" font-family="DejaVu Sans">'+x(shot.credit)+'</text>'
     : '';
-  return svg('<rect x="1250" y="32" width="620" height="54" fill="#021934" opacity="0.87"/>' +
-    '<text x="1270" y="69" font-size="19" fill="#f2f9ff" font-family="DejaVu Sans">PRIVATE NARRATED ROUGH CUT · NOT PUBLISHED</text>'+credit);
+  return svg(credit);
 }
 // Qualitative animation only; progress here is not measured environmental data.
 // Reuses the same frame-dependent science state and vapor particle functions.
