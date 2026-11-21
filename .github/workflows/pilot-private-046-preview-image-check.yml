@@ -1,0 +1,63 @@
+name: M03 046 private preview image build and offline tooling smoke
+
+on:
+  pull_request:
+    paths:
+      - 'deploy/Dockerfile'
+      - 'scripts/check-pilot-preview-046*'
+      - 'scripts/run-pilot-stills-046.sh'
+      - 'packages/video/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.dockerignore'
+      - '.github/workflows/pilot-private-046-preview-image-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  private-preview-image-046:
+    name: 046 Private preview Docker build and offline Chromium/Remotion check
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Checkout PR code without persisted credentials
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Build optional image target (no originals, no VPS, no live container)
+        run: |
+          set -eu
+          sha="$(git rev-parse HEAD)"
+          docker build --pull \
+            --target pilot046preview \
+            --file deploy/Dockerfile \
+            --build-arg "BDA_PILOT_046_GIT_SHA=$sha" \
+            --tag bluedotatlas-private-preview046:ci \
+            .
+          actual="$(docker image inspect bluedotatlas-private-preview046:ci --format '{{ index .Config.Labels "org.opencontainers.image.revision" }}')"
+          test "$actual" = "$sha"
+      - name: Smoke runtime tools as unprivileged user with network disabled
+        run: |
+          set -eu
+          docker run --rm --network none --read-only --cap-drop ALL \
+            --security-opt no-new-privileges --pids-limit 200 \
+            --memory 1024m --memory-swap 1024m \
+            --tmpfs /tmp:rw,nosuid,size=128m,uid=1000,gid=1000 \
+            -e HOME=/home/node \
+            -e XDG_CACHE_HOME=/tmp \
+            -e XDG_CONFIG_HOME=/tmp \
+            -e REMOTION_DISABLE_TELEMETRY=1 \
+            --entrypoint /bin/sh bluedotatlas-private-preview046:ci \
+            -ec '
+              test "$(id -u)" -eq 1000
+              test -x /usr/bin/chromium
+              test -x /app/packages/video/node_modules/.bin/remotion
+              command -v ffmpeg
+              command -v ffprobe
+              command -v python3
+              chromium --version
+              /app/packages/video/node_modules/.bin/remotion --version
+              echo "046 preview image: offline tooling smoke PASS (no media rendered)"
+            '
