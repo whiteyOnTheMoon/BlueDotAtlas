@@ -58,6 +58,6 @@ jobs:
               command -v ffprobe
               command -v python3
               chromium --version
-              /app/packages/video/node_modules/.bin/remotion --version
+              /app/packages/video/node_modules/.bin/remotion versions
               echo "046 preview image: offline tooling smoke PASS (no media rendered)"
             '
