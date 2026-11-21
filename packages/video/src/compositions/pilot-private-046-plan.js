@@ -69,7 +69,9 @@ export function validatePilotPrivate046(shots = PILOT_PRIVATE_046_SHOTS) {
       const overlap = previous.from + previous.durationInFrames - shot.from;
       if (overlap !== (i === 1 || i === 8 ? 9 : 0)) throw new Error('046 shot gap or invalid transition');
     }
-    for (let f = shot.from; f < shot.from + shot.durationInFrames; f++) coverage[f]++;
+    for (let f = shot.from; f < shot.from + shot.durationInFrames; f++) {
+      coverage[f] = (coverage[f] ?? 0) + 1;
+    }
   }
   for (let f = 0; f < 1800; f++) {
     if (coverage[f] !== ((f >= 66 && f < 75) || (f >= 1620 && f < 1629) ? 2 : 1)) {
