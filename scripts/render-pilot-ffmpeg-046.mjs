@@ -1,0 +1,204 @@
+#!/usr/bin/env node
+// FFmpeg/SVG alternative: bounded per-scene encoding, one final movie, no Chromium.
+import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import { randomBytes } from 'node:crypto';
+import { chmodSync, existsSync, lstatSync, mkdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
+import { FF046, SEGMENTS046, SHOTS046, VOICE046, overlaySvg046, planSegments, scienceSvg046, sourceFor } from './pilot-ffmpeg-046-plan.mjs';
+
+assert.equal(process.argv.length,3,'Use --synthetic or --private');
+const mode=process.argv[2];
+assert.ok(['--synthetic','--private'].includes(mode));
+const synthetic=mode==='--synthetic';
+if(!synthetic) {
+  assert.equal(process.env.BDA_PILOT_046_FFMPEG_PRIVATE,'TRUE');
+  assert.equal(process.getuid?.(),1000);
+  assert.equal(process.env.HOME,'/home/node');
+  assert.equal(process.env.BDA_PILOT_046_MEDIA_ROOT,'/source');
+  assert.equal(process.env.BDA_PILOT_046_OUTPUT_ROOT,'/review');
+}
+process.umask(0o077);
+const common=['-nostdin','-hide_banner','-loglevel','error','-threads','1','-filter_threads','1','-filter_complex_threads','1'];
+const vidopts=['-c:v','libx264','-preset','ultrafast','-crf',synthetic?'31':'28','-threads:v','1',
+  '-pix_fmt','yuv420p','-r','30','-color_primaries','bt709','-color_trc','bt709','-colorspace','bt709','-an','-movflags','+faststart'];
+const sec=(frames)=>(frames/30).toFixed(6);
+const pad=(number)=>String(number).padStart(6,'0');
+function command(bin,args,ms=600000) {
+  const p=spawnSync(bin,args,{encoding:'utf8',timeout:ms,shell:false,maxBuffer:256*1024,
+    env:{PATH:process.env.PATH??'/usr/bin:/bin'}});
+  if(p.error||p.status!==0) throw Error(bin+' failed exit='+p.status+' signal='+p.signal+
+    ' code='+(p.error?.code??'none')+' stderr='+(p.stderr??'').slice(-1100));
+  return p.stdout??'';
+}
+function probe(file) {
+  return JSON.parse(command('ffprobe',['-v','error','-show_streams','-show_format','-of','json',file],30000));
+}
+function countFrames(file) {
+  const v=probe(file).streams.filter(s=>s.codec_type==='video');
+  assert.equal(v.length,1);
+  assert.equal(v[0].codec_name,'h264');
+  return Number(v[0].nb_frames);
+}
+function refuseOverwrite(file) {assert.ok(!existsSync(file),'REFUSED overwrite: '+file);}
+function render({shots,segments,root,out,voice,intro,width,height,output}) {
+  assert.deepEqual(segments,planSegments(shots));
+  const frames=shots.at(-1).from+shots.at(-1).durationInFrames;
+  if(!synthetic) assert.deepEqual([width,height,frames],[1920,1080,1800]);
+  const byId=new Map(shots.map(s=>[s.id,s]));
+  const work=join(out,'.work-ffmpeg-046');
+  refuseOverwrite(work);mkdirSync(work,{mode:0o700});
+  const sceneCache=new Set(),overlays=new Set();
+  function source(shot) {
+    const relative=synthetic?'synthetic-'+shot.id+'.mp4':sourceFor(shot);
+    assert.ok(typeof relative==='string'&&!relative.startsWith('/')&&!relative.includes('..'));
+    const file=resolve(root,relative);
+    assert.ok(file.startsWith(resolve(root)+'/')&&lstatSync(file).isFile());
+    return file;
+  }
+  function ensureVectorFrames(shot) {
+    if(sceneCache.has(shot.id)) return;
+    const dir=join(work,shot.id);mkdirSync(dir,{mode:0o700});
+    for(let frame=0;frame<shot.durationInFrames;frame++) {
+      const name=shot.id+'-'+pad(frame);
+      const svg=join(dir,name+'.svg'),png=join(dir,name+'.png');
+      writeFileSync(svg,scienceSvg046(shot,frame),{mode:0o600,flag:'wx'});
+      command('rsvg-convert',['--width',String(width),'--height',String(height),'--output',png,svg],30000);
+      rmSync(svg);
+    }
+    sceneCache.add(shot.id);
+    console.log('046 FFMPEG VECTOR '+shot.id+': '+shot.durationInFrames+' frames');
+  }
+  function overlay(shot) {
+    const png=join(work,shot.id+'-overlay.png');
+    if(!overlays.has(shot.id)) {
+      const svg=join(work,shot.id+'-overlay.svg');
+      writeFileSync(svg,overlaySvg046(shot),{mode:0o600,flag:'wx'});
+      command('rsvg-convert',['--width',String(width),'--height',String(height),'--output',png,svg],30000);
+      rmSync(svg);overlays.add(shot.id);
+    }
+    return png;
+  }
+  function encodeSpan(shot,offset,length,dest) {
+    refuseOverwrite(dest);
+    assert.ok(Number.isInteger(offset)&&offset>=0&&Number.isInteger(length)&&length>0&&
+      offset+length<=shot.durationInFrames);
+    let args;
+    if(shot.kind==='science') {
+      ensureVectorFrames(shot);
+      args=['-framerate','30','-start_number',String(offset),'-i',
+        join(work,shot.id,shot.id+'-%06d.png'),'-vf','scale='+width+':'+height+',format=yuv420p',
+        '-frames:v',String(length)];
+    } else {
+      const crop=shot.assetId==='P60-VID-001'
+        ? 'scale='+width+':'+height+':force_original_aspect_ratio=decrease:flags=lanczos,pad='+width+':'+height+':(ow-iw)/2:(oh-ih)/2'
+        : 'scale='+width+':'+height+':force_original_aspect_ratio=increase:flags=lanczos,crop='+width+':'+height;
+      args=['-i',source(shot),'-ss',sec(offset)];
+      if(shot.kind==='footage') {
+        args.push('-loop','1','-framerate','30','-i',overlay(shot),
+          '-filter_complex','[0:v]fps=30,'+crop+',setsar=1,format=yuv420p[base];'+
+            '[base][1:v]overlay=0:0:shortest=1,format=yuv420p[out]',
+          '-map','[out]','-frames:v',String(length));
+      } else {
+        args.push('-vf','fps=30,'+crop+',setsar=1,format=yuv420p','-frames:v',String(length));
+      }
+    }
+    command('ffmpeg',[...common,...args,...vidopts,'-n',dest]);
+    assert.equal(countFrames(dest),length,'wrong frames for '+shot.id);
+    return dest;
+  }
+  const parts=[];
+  for(let i=0;i<segments.length;i++) {
+    const span=segments[i],file=join(work,'part-'+String(i).padStart(2,'0')+'.mp4');
+    if(span.kind==='body') encodeSpan(byId.get(span.shot),span.offset,span.frames,file);
+    else {
+      const first=encodeSpan(byId.get(span.left),span.leftOffset,span.frames,join(work,'fade-'+i+'-left.mp4'));
+      const second=encodeSpan(byId.get(span.right),span.rightOffset,span.frames,join(work,'fade-'+i+'-right.mp4'));
+      command('ffmpeg',[...common,'-i',first,'-i',second,'-filter_complex',
+        "[0:v][1:v]blend=all_expr='A*(1-(N+1)/"+span.frames+")+B*((N+1)/"+span.frames+")',format=yuv420p[v]",
+        '-map','[v]','-frames:v',String(span.frames),...vidopts,'-n',file],120000);
+      assert.equal(countFrames(file),span.frames);
+    }
+    parts.push(file);
+    console.log('046 FFMPEG PART '+(i+1)+'/'+segments.length+': '+span.frames+'f PASS');
+  }
+  const listing=join(work,'parts.ffconcat');
+  assert.ok(parts.every(s=>!s.includes("'")&&!s.includes('\n')));
+  writeFileSync(listing,'ffconcat version 1.0\n'+parts.map(s=>"file '"+s+"'").join('\n')+'\n',
+    {mode:0o600,flag:'wx'});
+  const joined=join(work,'joined.mp4');
+  command('ffmpeg',[...common,'-f','concat','-safe','0','-i',listing,'-map','0:v:0',
+    '-an','-c:v','copy','-movflags','+faststart','-n',joined],120000);
+  assert.equal(countFrames(joined),frames);
+  const fade=segments.find(s=>s.kind==='blend')?.frames??0;
+  const fadeAt=sec(shots[0].durationInFrames-fade);
+  const mix='[1:a]volume=0.78,atrim=duration='+sec(frames)+',asetpts=PTS-STARTPTS[voice];'+
+    '[2:a]atrim=duration='+sec(shots[0].durationInFrames)+',asetpts=PTS-STARTPTS,'+
+    'afade=t=out:st='+fadeAt+':d='+sec(fade)+',apad=pad_dur='+sec(frames)+'[intro];'+
+    '[voice][intro]amix=inputs=2:duration=first:dropout_transition=0,aresample=48000[a]';
+  const final=join(out,output);refuseOverwrite(final);
+  command('ffmpeg',[...common,'-i',joined,'-i',voice,'-i',intro,'-filter_complex',mix,
+    '-map','0:v:0','-map','[a]','-t',sec(frames),'-c:v','copy','-c:a','aac',
+    '-b:a','192k','-ar','48000','-ac','2','-movflags','+faststart','-n',final],120000);
+  chmodSync(final,0o600);
+  const info=probe(final),v=info.streams.filter(s=>s.codec_type==='video'),
+    a=info.streams.filter(s=>s.codec_type==='audio');
+  assert.equal(v.length,1);assert.equal(a.length,1);
+  assert.equal(v[0].codec_name,'h264');assert.equal(v[0].width,width);assert.equal(v[0].height,height);
+  assert.equal(Number(v[0].nb_frames),frames);assert.equal(a[0].codec_name,'aac');
+  assert.equal(a[0].channels,2);assert.equal(a[0].sample_rate,'48000');
+  assert.ok(Math.abs(Number(info.format.duration)-frames/30)<.15);
+  if(!synthetic) {
+    assert.equal(v[0].avg_frame_rate,'30/1');
+    for(const key of ['color_primaries','color_transfer','color_space']) assert.equal(v[0][key],'bt709');
+  }
+  const bytes=statSync(final).size;assert.ok(bytes>5000&&bytes<838860800);
+  const sha256=command('sha256sum',[final],30000).split(' ')[0];
+  assert.match(sha256,/^[a-f0-9]{64}$/);
+  writeFileSync(final+'.receipt.json',JSON.stringify({schema:1,method:'SEQUENTIAL_FFMPEG_SVG_NO_CHROMIUM',
+    synthetic,privateOnly:!synthetic,sourceAudioDiscarded:true,frames,width,height,fps:30,
+    sha256,bytes,parts:segments},null,2)+'\n',{mode:0o600,flag:'wx'});
+  rmSync(work,{recursive:true,force:true});
+  console.log('046 FFMPEG '+(synthetic?'SYNTHETIC':'PRIVATE')+' FILM PASS: '+frames+
+    ' frames, H264/AAC, continuous MP4, muted source video');
+}
+function syntheticInputs(root,shots) {
+  for(const shot of shots) {
+    if(shot.kind==='science') continue;
+    const seconds=sec(shot.durationInFrames+5);
+    const args=[...common,'-f','lavfi','-i','testsrc2=size=320x180:rate=30:duration='+seconds];
+    if(shot.kind==='brand_intro') args.push('-f','lavfi','-i','sine=frequency=330:sample_rate=48000:duration='+seconds);
+    args.push('-t',seconds,'-c:v','libx264','-preset','ultrafast','-threads:v','1','-crf','30','-pix_fmt','yuv420p');
+    if(shot.kind==='brand_intro') args.push('-c:a','aac','-ar','48000','-ac','2');
+    else args.push('-an');
+    command('ffmpeg',[...args,'-n',join(root,'synthetic-'+shot.id+'.mp4')],60000);
+  }
+  const voice=join(root,'synthetic-voice.wav');
+  command('ffmpeg',[...common,'-f','lavfi','-i',
+    'sine=frequency=440:sample_rate=48000:duration=1.4','-c:a','pcm_s16le','-ac','2','-n',voice],30000);
+  return voice;
+}
+if(synthetic) {
+  const root=join(tmpdir(),'ff046-synthetic-'+randomBytes(8).toString('hex'));
+  mkdirSync(root,{mode:0o700});
+  try {
+    const shots=[
+      {id:'S00',kind:'brand_intro',from:0,durationInFrames:12,assetId:null},
+      {id:'S01',kind:'footage',from:9,durationInFrames:12,assetId:'SYNTH',
+        caption:'Synthetic test footage',credit:'Generated local testsrc2'},
+      {id:'S07',kind:'science',from:21,durationInFrames:12,assetId:null},
+      {id:'S08',kind:'brand_outro',from:30,durationInFrames:12,assetId:null},
+    ];
+    const voice=syntheticInputs(root,shots);
+    render({shots,segments:planSegments(shots),root,out:root,voice,
+      intro:join(root,'synthetic-S00.mp4'),width:320,height:180,output:'synthetic-046.mp4'});
+    console.log('046 FFMPEG SYNTHETIC OFFLINE SMOKE PASS: 42f, crossfades, animated SVG and AAC');
+  } finally {rmSync(root,{recursive:true,force:true});}
+} else {
+  assert.ok(lstatSync('/review').isDirectory());
+  assert.ok(!existsSync('/review/046-private-ffmpeg-pilot-01.mp4'));
+  render({shots:SHOTS046,segments:SEGMENTS046,root:'/source',out:'/review',
+    voice:join('/source',VOICE046),intro:join('/source',sourceFor(SHOTS046[0])),
+    width:FF046.width,height:FF046.height,output:'046-private-ffmpeg-pilot-01.mp4'});
+}
