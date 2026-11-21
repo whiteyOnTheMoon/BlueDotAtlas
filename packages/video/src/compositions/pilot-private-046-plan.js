@@ -15,7 +15,7 @@ export const PILOT_PRIVATE_046 = Object.freeze({
 // Fixed 044 shot boundaries. All sources are original, SHA-verified operator-side
 // files staged privately. The two NOAA sources are deliberately muted.
 /** @type {ReadonlyArray<{
- * id: string; kind: 'brand_intro'|'footage'|'science'|'brand_outro';
+ * id: string; kind: string;
  * from: number; durationInFrames: number; assetId: string|null;
  * caption: string; credit: string;
  * }>} */
@@ -47,9 +47,9 @@ export function validatePilotPrivate046(shots = PILOT_PRIVATE_046_SHOTS) {
       PILOT_PRIVATE_046.narrationIncluded !== false ||
       shots.length !== 9) throw new Error('046 private rough cut contract changed');
   const coverage = new Uint8Array(1800);
-  let previous = null;
   for (let i = 0; i < shots.length; i++) {
     const shot = shots[i];
+    if (!shot) throw new Error('046 missing shot');
     if (shot.id !== expected[i] || !Number.isInteger(shot.from) ||
         !Number.isInteger(shot.durationInFrames) ||
         shot.from < 0 || shot.durationInFrames < 60 ||
@@ -59,15 +59,17 @@ export function validatePilotPrivate046(shots = PILOT_PRIVATE_046_SHOTS) {
     if (shot.kind !== expectedKind) throw new Error('046 shot type changed');
     if (shot.kind === 'footage') {
       const expectedAsset = i === 1 ? 'P60-VID-001' : i === 2 ? 'P60-VID-005' : 'P60-VID-003';
-      if (shot.assetId !== expectedAsset || !Object.hasOwn(PRIVATE_046_MEDIA, shot.assetId) ||
+      if (shot.assetId !== expectedAsset || typeof shot.assetId !== 'string' ||
+          !Object.hasOwn(PRIVATE_046_MEDIA, shot.assetId) ||
           !shot.caption || !shot.credit) throw new Error('046 source or credit changed');
     } else if (shot.assetId !== null) throw new Error('046 unexpected footage');
-    if (previous) {
+    if (i > 0) {
+      const previous = shots[i - 1];
+      if (!previous) throw new Error('046 prior shot missing');
       const overlap = previous.from + previous.durationInFrames - shot.from;
       if (overlap !== (i === 1 || i === 8 ? 9 : 0)) throw new Error('046 shot gap or invalid transition');
     }
     for (let f = shot.from; f < shot.from + shot.durationInFrames; f++) coverage[f]++;
-    previous = shot;
   }
   for (let f = 0; f < 1800; f++) {
     if (coverage[f] !== ((f >= 66 && f < 75) || (f >= 1620 && f < 1629) ? 2 : 1)) {
