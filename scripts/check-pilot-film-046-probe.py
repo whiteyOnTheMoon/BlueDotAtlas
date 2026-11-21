@@ -19,6 +19,7 @@ def validate_probe(data):
     require(video.get("codec_name") == "h264", "expected H.264")
     require((video.get("width"), video.get("height")) == (1920, 1080), "expected 1920x1080")
     require(video.get("pix_fmt") == "yuv420p", "expected yuv420p")
+    require(all(video.get(key) == "bt709" for key in ("color_primaries", "color_transfer", "color_space")), "expected BT.709 primaries/transfer/matrix")
     require(video.get("avg_frame_rate") == "30/1", "expected 30 fps")
     require(video.get("nb_frames") == "1800", "expected 1800 frames")
     require(audio.get("codec_name") == "aac", "expected AAC audio")
