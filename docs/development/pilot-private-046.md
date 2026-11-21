@@ -1,7 +1,7 @@
 # 046 – 60-second private visual rough cut (preparation, not render authorization)
 
 **Roadmap:** M03 / 046 · [Issue #70](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/70).
-**Status (21 Nov 2026):** The operator confirmed private SHA-/byte-verified staging of three original source videos and two own brand MP4s, plus a successful exact 042 Kokoro voice alignment (`046 PRIVATE VOICE STAGE: PASS`) to a private 60-second WAV. PRs #220 and #221 are merged; six-frame preview [draft PR #222](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/222) awaits final review. **No live VPS stills, full 60-second film render or publication has been confirmed or authorized.**
+**Current status (21 Nov 2026):** Three original source videos, two brand MP4s and a 60-second aligned Kokoro WAV are privately SHA-/size-verified. **All six live VPS private stills passed** (operator evidence); S00/S01 have also been visually viewed and accepted for the technical test. The historical preparation chronology is retained below. **No complete 60-second MP4, whole-film visual/audio review, production Queue/Admin flow or publication has been completed or authorized.** Draft PR #224 prepares a separate, consent-gated local private full-film proof only.
 
 ## Verified operator input
 
