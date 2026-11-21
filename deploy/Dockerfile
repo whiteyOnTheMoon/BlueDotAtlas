@@ -42,3 +42,19 @@ FROM build AS migrate
 ENV NODE_ENV=production
 WORKDIR /workspace
 CMD ["node", "packages/db/dist/migrate.js"]
+
+# Separate one-shot 046 private *still review only*. Existing web/worker046 targets unchanged.
+# This is built only after explicit operator approval and runs without a network.
+FROM worker046 AS pilot046preview
+USER root
+RUN apt-get update -qq \
+    && apt-get install -y --no-install-recommends chromium fonts-dejavu-core \
+    && rm -rf /var/lib/apt/lists/*
+ARG BDA_PILOT_046_GIT_SHA
+RUN test -n "$BDA_PILOT_046_GIT_SHA" \
+    && test -x /app/packages/video/node_modules/.bin/remotion
+LABEL org.opencontainers.image.revision="$BDA_PILOT_046_GIT_SHA"
+ENV HOME=/home/node
+USER node
+WORKDIR /app/packages/video
+CMD ["/usr/bin/false"]

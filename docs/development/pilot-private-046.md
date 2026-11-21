@@ -1,7 +1,7 @@
 # 046 – 60-second private visual rough cut (preparation, not render authorization)
 
 **Roadmap:** M03 / 046 · [Issue #70](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/70).
-**Status:** Video originals already privately staged on operator VPS; voice alignment is separate and opt-in; no 60-second render or public release.
+**Status (21 Nov 2026):** The operator confirmed private SHA-/byte-verified staging of three original source videos and two own brand MP4s, plus a successful exact 042 Kokoro voice alignment (`046 PRIVATE VOICE STAGE: PASS`) to a private 60-second WAV. PRs #220 and #221 are merged; six-frame preview [draft PR #222](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/222) awaits final review. **No live VPS stills, full 60-second film render or publication has been confirmed or authorized.**
 
 ## Verified operator input
 
@@ -21,7 +21,7 @@ A new **separate entrypoint** `packages/video/src/entry-pilot-private-046.tsx` r
 
 The standard 038/039/040/041 entrypoint and the existing 8s VPS 046 renderworker remain unchanged. The private composition is not registered in the ordinary proof root or web admin; **no API, job, flag, publication or database setting is changed**.
 
-## Private media staging – separate, opt-in operator action after review
+## Private media staging – opt-in process (operator reported PASS)
 
 `scripts/stage-pilot-private-046.mjs` reads only the known three originals under `~/.bda-pilot-originals`, checks their owners, 0600-style file restrictions, expected bytes and SHA-256, and requires each source to be selected for `PRIVATE_INTERNAL_TEST_ONLY` with source audio blocked. It makes an atomic **private copy** of exactly these three originals and the unchanged two brand MP4s into `~/.bda-pilot-stage-046`, protected from Git tracking, with no network access or user-selected arbitrary paths. Existing destination causes an immediate refusal instead of overwriting.
 
@@ -33,10 +33,27 @@ The script requires explicit `BDA_PILOT_046_PRIVATE_STAGE=TRUE` and `--stage`; m
 
 `scripts/check-pilot-private-046.test.mjs` compares the nine shot boundaries against the existing 044 timeline and verifies that every referenced original is one of the three scoped, allowed-but-not-publishable sources. It rejects changed source IDs, arbitrary URLs, accidental extra frames, missing scenes and broken crossfades. Required 033 CI also typechecks the new composition. None of those tests substitute for real playback review or licensing.
 
-## Private 042 narration stage after operator SHA proof
+## Private 042 narration stage (operator reported PASS)
 
 The operator confirmed the original GitHub Actions 042 narration WAV matched SHA-256 `e9a554d85f7eb10cc7f49f5ae5347eb2e0ba445c1a84f6db25b2186669b6224f`. The locally saved source is `~/.bda-pilot-voice-source-046/pilot-narration.wav` (48.593 seconds, 48kHz PCM16 stereo, 7 real speech passages).
 
 After explicit review, `scripts/stage-pilot-voice-046.py` with `BDA_PILOT_046_PRIVATE_VOICE_STAGE=TRUE` and `--stage` rechecks exact file hash, original 042 timing, script/044 release gates, and frame/sample ranges, then makes an **exactly 60-second** private PCM16 stereo WAV at `~/.bda-pilot-stage-046/audio/pilot-narration-aligned.wav`. It copies all seven spoken source sample ranges to their locked 044 start frames, with **no voice speed change** and complete silence over the 0–74 intro and 1620–1799 outro. Creation is exclusive: existing files are not overwritten. No model or network access, no music or NOAA original sound. This step does **not** render a movie.
 
 The private-only Remotion composition references this single WAV at frame zero at gain 0.78, and retains the original intro's audio in its existing interval. Independent synthetic-only negative tests in GitHub Actions verify the sample/frame mapping and reject speech entering the intro or outro. **There is no new live web button or 60-second renderer, and no publication or media rights escalation.** A separately approved, resource-limited VPS render and private viewing/listening review are still required.
+
+## 046: Isolated private still-frame smoke before any 60-second encode (Draft PR #222)
+
+The operator reported a successful exact 042 voice SHA check, `046 VOICE SELF-TEST PASS` and `046 PRIVATE VOICE STAGE: PASS`. This **does not** prove the real NASA/NOAA video frames or a 60s encoded film.
+
+A separate Docker **image target** `pilot046preview` extends the existing 046 worker image **only when intentionally built** and adds a Chromium binary; it does not change the running worker046, DB, web or tunnel. `scripts/check-pilot-preview-046.mjs --check` is a read-only fail-closed media/host preflight: at least **2 GiB MemAvailable**, **12 GiB free disk**, the private 0700 stage tree, three source originals at the 036 exact byte counts and SHA-256, unchanged brand assets and the generated, aligned **60.000s** PCM16 stereo voice with zero overlaid speech in opening/outro.
+
+`scripts/run-pilot-stills-046.sh --check` does no rendering. A separate, explicit opt-in `BDA_PILOT_046_PRIVATE_STILLS=TRUE scripts/run-pilot-stills-046.sh --stills` requires an exact-`main` image revision before producing **six individual private PNGs** for selected real frames S00/S01/S02/S04/S06/S08, never a whole MP4. Each one-shot container has **no outside network**, **0.5 CPU**, **1024 MiB RAM and no extra swap**, **200 PIDs maximum**, read-only root and source mount, one dedicated private output mount, dropped capabilities, no-new-privileges, limited tmpfs, Chromium and one source-frame thread. The output is outside the repository and public web root. Existing files are not overwritten.
+
+A browser error or a resource/rights-gate failure is a **STOP**, not permission to disable sandboxing or increase limits. The operator should first review the six frames privately; a later separate agreement is needed for a resource-budgeted 60s encode, independent media QA and editorial listening/visual checks. No film or publish rights are granted here and no new subscription is involved.
+
+
+### Isolated CI image-build boundary and operator review gate
+
+The separate workflow [046 private preview image build and offline tooling smoke](../../.github/workflows/pilot-private-046-preview-image-check.yml) is triggered by affected preview/Docker files. It builds **only** the optional `pilot046preview` target on a disposable GitHub runner, asserts the revision label, and starts a no-network/unprivileged/read-only container to check Chromium, FFmpeg/ffprobe, Python and Remotion CLI availability. It neither reads the operator's private original media nor renders a still or 60-second MP4. A passing CI image check **cannot** prove real media decode or private still-frame appearance.
+
+Even after a successful CI build and explicit PR merge approval, the operator must separately approve any VPS image build and still-frame execution. Run `scripts/run-pilot-stills-046.sh --check` **first** on the single authorized `main` checkout; inspect its read-only preflight result. The `--stills` mode also requires the separately built image with the exact current main revision label and the explicit `BDA_PILOT_046_PRIVATE_STILLS=TRUE` opt-in. No build or runtime action is automatically performed by merge. If a preflight, image, browser or resource gate fails, **STOP** and review rather than relaxing controls. Keep the resulting PNGs private; no publication and no full-film authorization.

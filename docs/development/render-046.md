@@ -1,12 +1,12 @@
 # Roadmap 046 – isolierter PostgreSQL-Queue-zu-MP4- und Admin-HTTP-Nachweis
 
-**Roadmap:** M03 / 046 · [Issue #70](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/70) · **Status:** [PR #216](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/216) als Squash `cdf43a5` nach `main` integriert (20/20 Checks bei Freigabe); VPS-Ergänzung in Draft-[PR #217](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/217) unter Review. Betreiber-VPS-Render und echte Filmabnahme weiterhin offen. **Kein produktiver VPS-/Pilotfilm-Render und keine Publikationsfreigabe.**
+**Roadmap:** M03 / 046 · [Issue #70](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/70) · **Stand 21.11.2026:** [PR #216](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/216), [#217](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/217), [#218](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/218), [#219](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/219), [#220](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/220) und [#221](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/221) nach Betreiberfreigaben in `main`. Der **synthetische 8s-VPS-Queue-Render PASS** ist vom Betreiber per Adminstatus bestätigt; 3 private NASA-/NOAA-Quellen, 2 Brandclips und die auf 60s ausgerichtete Kokoro-042-WAV sind operatorseitig staged. [PR #222](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/222) ist ein **offener Draft für sechs private Einzelbilder**. **Noch kein echter 60s-MP4 auf VPS und keine Veröffentlichungsfreigabe.** Die nachfolgenden frühen CI-/No-Go-Abschnitte dokumentieren ihren damaligen Stand; die späteren Betreiberbefunde ersetzen historische Planungsannahmen.
 
 ## Grenze und Ziel
 
 Die Roadmap verlangt einen echten, über einen Admin-Button gestarteten 60-Sekunden-Pilotfilm auf dem VPS. Dafür fehlen derzeit konkrete Original-Footage-/Brand-/Musik-Stagingfreigaben sowie eine gesonderte VPS-Render-/Restore-/Ressourcenfreigabe. **046 darf das nicht durch `CI=true` oder einen synthetischen Erfolg vortäuschen.** Der erste isolierte Implementierungsschritt beweist daher nur die Integration von PostgreSQL 16 (027), einem tatsächlichen originalsynthetischen FFmpeg-1080p-Encode (045) und einem exakt einmal referenzierten, privaten, auf SHA-256 geprüften Artefakt (028).
 
-## Technischer Prototyp (nur GitHub Actions, nicht VPS)
+## Ursprünglicher technischer Prototyp (historischer CI-only-Stand)
 
 - Manifest `original_synthetic_046` ist exakt fixiert: 8s FFmpeg-`testsrc2`/440Hz-`sine`, H.264 High 1920×1080/30fps/SDR-BT.709/yuv420p und AAC-LC 48kHz Stereo mit `+faststart`. Der 045-Validator prüft weiterhin die unveränderten Rechte- und Timeline-Sperren. Keine freien Benutzerpfade, URLs, Shell-Strings, unbekannten Quellen, Assets oder Original-TTS.
 - `packages/db/src/render-046.ts` besitzt ausdrücklich testgebundene Enqueue/Claim/Recovery/Retry/Cancel/Finish-Funktionen. Enqueue sperrt dieselbe Projektversion transaktional gegen doppelte Buttons. Claim nutzt `FOR UPDATE SKIP LOCKED` und eine frische Lease-UUID. `apps/worker/src/render-046.ts` führt **außerhalb** der DB-Transaktion einen einzigen FFmpeg-/Python-Job aus, erneuert die 30s-Lease bei laufender Arbeit, behandelt SIGTERM/Timeout und benutzt denselben unabhängigen Medienchecker wie 045.
@@ -24,7 +24,7 @@ Auf einer disposable GitHub-Actions-Ubuntu-Instanz startet eine neue PostgreSQL-
 
 **Noch nicht erfüllt:** Live-VPS-Queue, produktiver Render-Button und echter 60s-Pilotfilm. Ein **vollständiges** 046-Roadmap-DoD braucht außerdem eine eigenständig autorisierte produktive Admin-/Render-Verbindung, CPU-/RAM-/Disk-/Backup-/Crash-/Restore-Nachweis auf dem bewilligten VPS und explizite Footage-/Brand-/Musik-/Filmfreigaben. Diese Teilimplementierung ist kein vorzeitiges „DONE“. Die Entscheidung über den späteren echten VPS-Rendertest gehört in eine eigene Betreiberabnahme.
 
-## VPS-Nachtrag – optionaler 8s-Synthetik-Worker (neuer Review-PR)
+## VPS-Nachtrag – optionaler 8s-Synthetik-Worker (historischer Entwurf, PR #217 inzwischen gemergt)
 
 **Kein 60s-Pilotfilm.** Die bestehende 046-Queue bleibt bei `original_synthetic_046` mit gesperrten Drittmedien, unveränderter 045-Preset-/QA-Prüfung und `rights_status=unreviewed`. Der Admin-Testknopf wird nur bei einer expliziten, separaten VPS-Synthetic-Flagge sichtbar. Der bisherige CI-Testguard bleibt unverändert; ohne Flagge ist auch auf dem Live-VPS kein Submit möglich.
 
@@ -51,3 +51,10 @@ Nach Squash-Merge von [PR #218](https://github.com/whiteyOnTheMoon/BlueDotAtlas/
 3. **Erst danach eigene 60s-Renderfreigabe:** Ein eigenständiger, eng begrenzter 60s-VPS-Encoderpfad mit Asset-Manifest, Ressourcenlimits, privatem MP4, Remotion/FFmpeg-QA, Queue/Status und gesonderter ausdrücklicher Betreiberentscheidung. **Nicht** den `original_synthetic_046`-Testjob zum Realfilm-Job umdeuten. Release/YouTube/Website erst nach gesondertem Quellen-/TTS-/Musik-/Credits-/Rechteentscheid in 047/048. Keine neue DB, Fremdcontainer-Änderung oder Providerbuchung als Bestandteil dieses UI-Text-PR.
 
 Die Admin-Beschriftung trennt nun ausdrücklich **CI- oder explizit freigegebenen VPS-Synthetic-Test** von **noch nicht erlaubter Realfilmproduktion**; bislang stand irreführend `CI test only` / `VPS rendering remain disabled`. Die Copy-Korrektur ändert keinerlei API-/Freigabeschalter.
+
+
+## 046 – 60s-Pilot und private Einzelbilder: aktueller Zwischenstand (21.11.2026)
+
+Der Betreiber hat für die drei originalen NASA-/NOAA-Videos und die zwei eigenen Brandclips die private, SHA-/Byte-geprüfte Ablage bestätigt. Danach wurde die ursprüngliche 042-Kokoro-WAV exakt geprüft und mit sieben unveränderten Sprechranges auf eine private 60s-/48kHz-/PCM16-Stereo-Spur gelegt (ohne Sprecher über Intro/Outro). [PR #220](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/220) und [#221](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/221) sind gemergt; das bleibt eine **nur private Rohschnittplanung**, kein Filmrender.
+
+[Draft-PR #222](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/222) ergänzt ein strikt separat aktivierbares, ressourcenbegrenztes Chromium-Image und sechs festgelegte Einzelbildproben samt read-only SHA-/Medien-/Host-Preflight. Ein echtes Image-Build-/Offline-CLI-CI-Gate wird mit derselben PR nachgetragen; **CI-Build ist keine reale Einzelbildprobe** und ersetzt keine Betreiber-Sichtung der privater NASA-/NOAA-/Brand-Frames. Image-Build auf VPS, Einzelbildlauf, kompletter 60s-Encode, QA, Film-/Medienrechte und Publikation bleiben gesonderte Freigaben. Der laufende 8s-VPS-Renderworker, Admin, DB, Cloudflare und fremde Dienste werden durch diesen PR nicht verändert.
