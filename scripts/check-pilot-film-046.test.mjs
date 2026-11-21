@@ -17,16 +17,29 @@ test('046 private-film runner is opt-in, bounded and offline (no publishing)', (
     '--media-cache-size-in-bytes=268435456', '--color-space=bt709',
     '--ulimit fsize=838860800:838860800',
     '--overwrite=false', '--codec=h264', '--audio-codec=aac',
-    'BDA_PILOT_046_PRIVATE_FILM', '046-private-rough-cut-attempt-02.mp4',
+    'BDA_PILOT_046_PRIVATE_FILM', '046-private-rough-cut-attempt-03.mp4',
     '--signal=TERM', '7200s', 'scripts/check-pilot-preview-046.mjs --check',
     '-lt 2883584', '<2.75 GiB (2816 MiB) MemAvailable',
+    '046 FILM NO-GO: $label needs 2816 MiB host MemAvailable',
     '046-S06-helene.png', '046-S08-outro.png',
   ]) assert.ok(sh.includes(flag), 'missing safety gate: ' + flag);
   const mediaCache = Number(sh.match(/--media-cache-size-in-bytes=(\d+)/)?.[1]);
   assert.equal(mediaCache, 256 * 1024 * 1024);
   assert.ok(mediaCache >= 240 * 1024 * 1024, 'Remotion @remotion/media 4.0.545 needs >=240MiB');
-  assert.match(sh, /out="\$HOME\/\.bda-pilot-film-046-attempt-02"/);
-  assert.match(sh, /name="bluedotatlas-046-private-film-diagnostic-02"/);
+  assert.match(sh, /out="\$HOME\/\.bda-pilot-film-046-attempt-03"/);
+  assert.match(sh, /late_name="bluedotatlas-046-private-film-diagnostic-03-late"/);
+  assert.match(sh, /early_name="bluedotatlas-046-private-film-diagnostic-03-early"/);
+  assert.match(sh, /join_name="bluedotatlas-046-private-film-diagnostic-03-join"/);
+  assert.match(sh, /render_chunk "late" "1223-1799"/);
+  assert.match(sh, /render_chunk "early" "0-1222"/);
+  assert.match(sh, /--for-seamless-aac-concatenation/);
+  assert.match(sh, /-f concat -safe 1/);
+  assert.match(sh, /-c copy -movflags \+faststart -n/);
+  assert.match(sh, /"577"/);
+  assert.match(sh, /"1223"/);
+  assert.match(sh, /046-private-rough-cut-attempt-03\.mp4/);
+  assert.doesNotMatch(sh, /out="\$HOME\/\.bda-pilot-film-046-attempt-02"/);
+  assert.doesNotMatch(sh, /out="\$HOME\/\.bda-pilot-film-046"/);
   assert.doesNotMatch(sh, /out="\$HOME\/\.bda-pilot-film-046"\s/);
   assert.doesNotMatch(sh, /docker compose|docker system prune|--privileged|--network host|docker rm|git push|--disallow-parallel-encoding/);
   assert.match(sh, /if \[ "\$mode" = "--check" \]; then/);
