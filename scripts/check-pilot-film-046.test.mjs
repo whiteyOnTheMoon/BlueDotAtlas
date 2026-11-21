@@ -19,6 +19,7 @@ test('046 private-film runner is opt-in, bounded and offline (no publishing)', (
     '--overwrite=false', '--codec=h264', '--audio-codec=aac',
     'BDA_PILOT_046_PRIVATE_FILM', '046-private-rough-cut.mp4',
     '--signal=TERM', '7200s', 'scripts/check-pilot-preview-046.mjs --check',
+    '-lt 2883584', '<2.75 GiB (2816 MiB) MemAvailable',
     '046-S06-helene.png', '046-S08-outro.png',
   ]) assert.ok(sh.includes(flag), 'missing safety gate: ' + flag);
   assert.doesNotMatch(sh, /docker compose|docker system prune|--privileged|--network host|docker rm|git push|--disallow-parallel-encoding/);
