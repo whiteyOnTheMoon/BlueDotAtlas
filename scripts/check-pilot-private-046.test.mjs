@@ -5,6 +5,7 @@ import {
   PILOT_PRIVATE_046,
   PILOT_PRIVATE_046_SHOTS,
   PRIVATE_046_MEDIA,
+  PRIVATE_046_VOICE_PATH,
   validatePilotPrivate046,
 } from '../packages/video/src/compositions/pilot-private-046-plan.js';
 
@@ -53,7 +54,8 @@ test('046 admits only three operator-approved INTERNAL TEST original sources, wi
   assert.equal(script.render_authorized, false);
   assert.equal(script.publish_authorized, false);
   assert.equal(timeline.release.productionRenderAuthorized, false);
-  assert.equal(PILOT_PRIVATE_046.narrationIncluded, false);
+  assert.equal(PILOT_PRIVATE_046.narrationIncluded, true);
+  assert.equal(PRIVATE_046_VOICE_PATH, 'audio/pilot-narration-aligned.wav');
   assert.equal(PILOT_PRIVATE_046.thirdPartyAudioIncluded, false);
   assert.equal(PILOT_PRIVATE_046.publicationAuthorized, false);
   assert.equal(PILOT_PRIVATE_046.renderAuthorized, false);

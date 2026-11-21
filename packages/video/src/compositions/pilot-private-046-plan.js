@@ -6,7 +6,7 @@ export const PILOT_PRIVATE_046 = Object.freeze({
   fps: VIDEO_PROFILE.fps,
   width: VIDEO_PROFILE.width,
   height: VIDEO_PROFILE.height,
-  narrationIncluded: false,
+  narrationIncluded: true,
   thirdPartyAudioIncluded: false,
   renderAuthorized: false,
   publicationAuthorized: false,
@@ -31,6 +31,8 @@ export const PILOT_PRIVATE_046_SHOTS = Object.freeze([
   { id: 'S08', kind: 'brand_outro', from: 1620, durationInFrames: 180, assetId: null, caption: '', credit: '' },
 ].map((shot) => Object.freeze(shot)));
 
+export const PRIVATE_046_VOICE_PATH = 'audio/pilot-narration-aligned.wav';
+
 export const PRIVATE_046_MEDIA = Object.freeze({
   'P60-VID-001': 'pilot/.private-046/P60-VID-001.mp4',
   'P60-VID-003': 'pilot/.private-046/P60-VID-003.mp4',
@@ -44,7 +46,7 @@ export function validatePilotPrivate046(shots = PILOT_PRIVATE_046_SHOTS) {
       PILOT_PRIVATE_046.renderAuthorized !== false ||
       PILOT_PRIVATE_046.publicationAuthorized !== false ||
       PILOT_PRIVATE_046.thirdPartyAudioIncluded !== false ||
-      PILOT_PRIVATE_046.narrationIncluded !== false ||
+      PILOT_PRIVATE_046.narrationIncluded !== true ||
       shots.length !== 9) throw new Error('046 private rough cut contract changed');
   const coverage = new Uint8Array(1800);
   for (let i = 0; i < shots.length; i++) {

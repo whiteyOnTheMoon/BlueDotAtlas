@@ -5,6 +5,7 @@ import { BRAND_SOURCES, layerOpacity, VIDEO_PROFILE } from './profile.js';
 import {
   PILOT_PRIVATE_046_SHOTS,
   PRIVATE_046_MEDIA,
+  PRIVATE_046_VOICE_PATH,
   validatePilotPrivate046,
 } from './pilot-private-046-plan.js';
 
@@ -137,16 +138,17 @@ const ShotContent = ({ shot }: { shot: Shot }) => {
             padding: '11px 17px',
           }}
         >
-          PRIVATE VISUAL ROUGH CUT · VOICE PENDING
+          PRIVATE NARRATED ROUGH CUT · NOT PUBLISHED
         </div>
       ) : null}
     </AbsoluteFill>
   );
 };
 
-/** Visual assembly only. Real narration, licensed music, publishing and 046 job API are NOT wired. */
+/** Private 042 narration with original images; music, publishing and 046 job API remain disabled. */
 export const PilotPrivateVisual046 = () => (
   <AbsoluteFill style={{ backgroundColor: '#071522' }}>
+    <Audio src={staticFile(PRIVATE_046_VOICE_PATH)} volume={0.78} />
     {PILOT_PRIVATE_046_SHOTS.map((shot) => (
       <Sequence
         key={shot.id}

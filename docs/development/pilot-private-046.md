@@ -1,7 +1,7 @@
 # 046 – 60-second private visual rough cut (preparation, not render authorization)
 
 **Roadmap:** M03 / 046 · [Issue #70](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/70).
-**Status:** In review; no actual 60-second film rendered; no public release.
+**Status:** Video originals already privately staged on operator VPS; voice alignment is separate and opt-in; no 60-second render or public release.
 
 ## Verified operator input
 
@@ -17,7 +17,7 @@ The original files are private under `~/.bda-pilot-originals`, outside the publi
 
 ## Visual-only Remotion assembly
 
-A new **separate entrypoint** `packages/video/src/entry-pilot-private-046.tsx` registers `BDA046PrivateVisualRoughCut`, an original **1800-frame / 30fps / 1920×1080** rough cut. It uses the locked nine 044 shot boundaries, genuine clips S01/S02/S06, original brand intro/outro (both nine-frame fades), the existing original scientific motion schematic (S03–S05) and a new schematic about reduced ocean energy (S07). It mutes **all outside media**; only the already-owned intro audio remains. The seven-segment actual Kokoro voice, precise voice alignment and music are **not yet integrated**. A visible label makes it clear that the result would be an unfinished private visual rough cut, not a finished narrated film. Do not claim this is the full issue 046 definition of done.
+A new **separate entrypoint** `packages/video/src/entry-pilot-private-046.tsx` registers `BDA046PrivateVisualRoughCut`, an original **1800-frame / 30fps / 1920×1080** rough cut. It uses the locked nine 044 shot boundaries, genuine clips S01/S02/S06, original brand intro/outro (both nine-frame fades), the existing original scientific motion schematic (S03–S05) and a new schematic about reduced ocean energy (S07). It mutes **all outside media**; only the already-owned intro audio remains. The seven-segment Kokoro voice is now integrated **only when a verified and explicitly staged 60-second PCM WAV is present**. Unlicensed music remains excluded. A visible label makes it clear that the result would be an unfinished private narrated rough cut, not a finished narrated film. Do not claim this is the full issue 046 definition of done.
 
 The standard 038/039/040/041 entrypoint and the existing 8s VPS 046 renderworker remain unchanged. The private composition is not registered in the ordinary proof root or web admin; **no API, job, flag, publication or database setting is changed**.
 
@@ -32,3 +32,11 @@ The script requires explicit `BDA_PILOT_046_PRIVATE_STAGE=TRUE` and `--stage`; m
 ## Automated proof
 
 `scripts/check-pilot-private-046.test.mjs` compares the nine shot boundaries against the existing 044 timeline and verifies that every referenced original is one of the three scoped, allowed-but-not-publishable sources. It rejects changed source IDs, arbitrary URLs, accidental extra frames, missing scenes and broken crossfades. Required 033 CI also typechecks the new composition. None of those tests substitute for real playback review or licensing.
+
+## Private 042 narration stage after operator SHA proof
+
+The operator confirmed the original GitHub Actions 042 narration WAV matched SHA-256 `e9a554d85f7eb10cc7f49f5ae5347eb2e0ba445c1a84f6db25b2186669b6224f`. The locally saved source is `~/.bda-pilot-voice-source-046/pilot-narration.wav` (48.593 seconds, 48kHz PCM16 stereo, 7 real speech passages).
+
+After explicit review, `scripts/stage-pilot-voice-046.py` with `BDA_PILOT_046_PRIVATE_VOICE_STAGE=TRUE` and `--stage` rechecks exact file hash, original 042 timing, script/044 release gates, and frame/sample ranges, then makes an **exactly 60-second** private PCM16 stereo WAV at `~/.bda-pilot-stage-046/audio/pilot-narration-aligned.wav`. It copies all seven spoken source sample ranges to their locked 044 start frames, with **no voice speed change** and complete silence over the 0–74 intro and 1620–1799 outro. Creation is exclusive: existing files are not overwritten. No model or network access, no music or NOAA original sound. This step does **not** render a movie.
+
+The private-only Remotion composition references this single WAV at frame zero at gain 0.78, and retains the original intro's audio in its existing interval. Independent synthetic-only negative tests in GitHub Actions verify the sample/frame mapping and reject speech entering the intro or outro. **There is no new live web button or 60-second renderer, and no publication or media rights escalation.** A separately approved, resource-limited VPS render and private viewing/listening review are still required.
