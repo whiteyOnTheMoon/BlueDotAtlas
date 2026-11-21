@@ -1,6 +1,6 @@
 # 046 – VPS-Render-Freigabeprüfung (Entwurf, keine Ausführungsfreigabe)
 
-**Zuordnung:** M03 / 046 · [Issue #70](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/70) · [Draft-PR #216](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/216) · 20.11.2026. **Status: NO-GO für produktive Jobs und den echten 60s-Film.** Diese Prüfliste ist ein Vorschlag; keine Betreiberentscheidung ist damit erteilt.
+**Zuordnung:** M03 / 046 · [Issue #70](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/70). **Ursprüngliche Prüfliste vom 20.11.2026 (historische Ausgangsrisiken).** PR #216 ist inzwischen gemergt und der Betreiber hat nach PR #217/#218 einen **erfolgreichen, bewusst begrenzten synthetischen 8s-VPS-Queue-Job** (`succeeded`, `100 %`) bestätigt. Die drei ausgewählten Originalvideos und die 042-Stimme liegen nach Betreiberprüfungen privat gestaged vor. [Draft-PR #222](https://github.com/whiteyOnTheMoon/BlueDotAtlas/pull/222) bereitet isolierte Einzelbilder vor, die **noch nicht live geprüft** sind. Der ursprüngliche NO-GO-Status für den **echten 60s-VPS-Film**, einen realen Film-Queue-Job, Full-Render-QA, Veröffentlichung und Rechteeskalation gilt **weiter**. Einzelne historische Zeilen unten (z. B. fehlender 046-Worker oder ungestagte Medien) beschreiben nur den damaligen Zustand, nicht mehr den aktuellen synthetischen Teilnachweis.
 
 ## Tatsächlich belegt
 
