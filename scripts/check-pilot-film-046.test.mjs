@@ -14,7 +14,7 @@ test('046 private-film runner is opt-in, bounded and offline (no publishing)', (
     '--pids-limit 200', '--read-only', '--cap-drop ALL', '--security-opt no-new-privileges',
     '--concurrency=1', '--offthreadvideo-video-threads=1', '--bundle-cache=false',
     '--offthreadvideo-cache-size-in-bytes=268435456',
-    '--media-cache-size-in-bytes=134217728', '--color-space=bt709',
+    '--media-cache-size-in-bytes=268435456', '--color-space=bt709',
     '--ulimit fsize=838860800:838860800',
     '--overwrite=false', '--codec=h264', '--audio-codec=aac',
     'BDA_PILOT_046_PRIVATE_FILM', '046-private-rough-cut.mp4',
@@ -22,7 +22,13 @@ test('046 private-film runner is opt-in, bounded and offline (no publishing)', (
     '-lt 2883584', '<2.75 GiB (2816 MiB) MemAvailable',
     '046-S06-helene.png', '046-S08-outro.png',
   ]) assert.ok(sh.includes(flag), 'missing safety gate: ' + flag);
-  assert.doesNotMatch(sh, /docker compose|docker system prune|--privileged|--network host|docker rm|git push|--disallow-parallel-encoding/);
+  const mediaCache = Number(sh.match(/--media-cache-size-in-bytes=(\d+)/)?.[1]);
+  assert.equal(mediaCache, 256 * 1024 * 1024);
+  assert.ok(mediaCache >= 240 * 1024 * 1024, 'Remotion @remotion/media 4.0.545 needs >=240MiB');
+  assert.match(sh, /out="\$HOME\/\.bda-pilot-film-046-attempt-02"/);
+  assert.match(sh, /name="bluedotatlas-046-private-film-diagnostic-02"/);
+  assert.doesNotMatch(sh, /out="\$HOME\/\.bda-pilot-film-046"\s/);
+    assert.doesNotMatch(sh, /docker compose|docker system prune|--privileged|--network host|docker rm|git push|--disallow-parallel-encoding/);
   assert.match(sh, /if \[ "\$mode" = "--check" \]; then/);
   assert.match(sh, /if \[ -e "\$out" \] \|\| \[ -L "\$out" \]; then/);
 });
