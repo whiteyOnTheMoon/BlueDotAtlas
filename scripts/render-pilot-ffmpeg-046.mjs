@@ -94,7 +94,9 @@ function render({shots,segments,root,out,voice,intro,width,height,output}) {
       const crop=shot.assetId==='P60-VID-001'
         ? 'scale='+width+':'+height+':force_original_aspect_ratio=decrease:flags=lanczos,pad='+width+':'+height+':(ow-iw)/2:(oh-ih)/2'
         : 'scale='+width+':'+height+':force_original_aspect_ratio=increase:flags=lanczos,crop='+width+':'+height;
-      args=['-i',source(shot),'-ss',sec(offset)];
+      // Seek the REAL source input, not the following looping PNG overlay.
+      // Input seeking stays frame-accurate after FFmpeg decode on H.264.
+      args=['-ss',sec(offset),'-i',source(shot)];
       if(shot.kind==='footage') {
         args.push('-loop','1','-framerate','30','-i',overlay(shot),
           '-filter_complex','[0:v]fps=30,'+crop+',setsar=1,format=yuv420p[base];'+
@@ -169,6 +171,12 @@ function syntheticInputs(root,shots) {
     const seconds=sec(shot.durationInFrames+5);
     const args=[...common,'-f','lavfi','-i','testsrc2=size=320x180:rate=30:duration='+seconds];
     if(shot.kind==='brand_intro') args.push('-f','lavfi','-i','sine=frequency=330:sample_rate=48000:duration='+seconds);
+    if(shot.id==='S01') {
+      // Three RED frames followed by BLUE; first non-blended frame must be BLUE
+      // because S01's preceding 3-frame crossfade consumes input frames 0..2.
+      args.push('-vf',"drawbox=x=0:y=0:w=iw:h=ih:color=red:t=fill:enable='lt(t,0.1)',"+
+        "drawbox=x=0:y=0:w=iw:h=ih:color=blue:t=fill:enable='gte(t,0.1)'");
+    }
     args.push('-t',seconds,'-c:v','libx264','-preset','ultrafast','-threads:v','1','-crf','30','-pix_fmt','yuv420p');
     if(shot.kind==='brand_intro') args.push('-c:a','aac','-ar','48000','-ac','2');
     else args.push('-an');
@@ -193,6 +201,23 @@ if(synthetic) {
     const voice=syntheticInputs(root,shots);
     render({shots,segments:planSegments(shots),root,out:root,voice,
       intro:join(root,'synthetic-S00.mp4'),width:320,height:180,output:'synthetic-046.mp4'});
+    // Decode actual frame 12. It is the first S01 BODY frame (offset 3),
+    // and therefore must be BLUE rather than source frame zero (RED).
+    // Probe a patch outside both caption and private watermark overlays.
+    const sample=spawnSync('ffmpeg',['-nostdin','-hide_banner','-loglevel','error',
+      '-i',join(root,'synthetic-046.mp4'),'-vf',
+      'select=eq(n\\,12),crop=16:16:48:48,format=rgb24',
+      '-frames:v','1','-f','rawvideo','pipe:1'],
+      {encoding:null,timeout:30000,maxBuffer:1024*1024});
+    assert.equal(sample.status,0,'synthetic first body frame decode failed');
+    assert.equal(sample.stdout?.length,16*16*3);
+    let red=0,blue=0;
+    for(let i=0;i<sample.stdout.length;i+=3) {
+      red+=sample.stdout[i];blue+=sample.stdout[i+2];
+    }
+    assert.ok((blue-red)/(16*16)>80,
+      '046 FFMPEG seek regression: S01 body replayed red source frame zero');
+    console.log('046 FFMPEG SYNTHETIC SOURCE SEEK PASS: S01 body begins at input frame 3');
     console.log('046 FFMPEG SYNTHETIC OFFLINE SMOKE PASS: 42f, crossfades, animated SVG and AAC');
   } finally {rmSync(root,{recursive:true,force:true});}
 } else {

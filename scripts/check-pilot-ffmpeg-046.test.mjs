@@ -41,7 +41,7 @@ test('046 alternate ffmpeg runner is offline, memory-limited, owner-only and no 
     'BDA_PILOT_046_FFMPEG_PRIVATE','--network none','--cpus 0.5',
     '--memory 1536m','--memory-swap 1536m','--read-only',
     '--cap-drop ALL','--security-opt no-new-privileges',
-    '--pids-limit 120','-lt 3145728','-lt 2097152',
+    '--pids-limit 120','min_mem_kib=3932160', '-lt "$min_mem_kib"', '-lt 2097152',
     'docker stop --timeout 10 "$name"',
     '046 FFMPEG PRIVATE PREFLIGHT PASS',
     'scripts/check-pilot-film-046-probe.py']) {
@@ -53,5 +53,15 @@ test('046 alternate ffmpeg runner is offline, memory-limited, owner-only and no 
     "'concat'","'copy'","amix=inputs=2",'-frames:v','sourceAudioDiscarded:true']) {
     assert.ok(js.includes(k),'missing media operation: '+k);
   }
+
+  // Both read-only preflight and last-moment render admission need
+  // 1536MiB container + 2048MiB host reserve + 256MiB margin.
+  assert.equal(sh.split('if [ "$mem_kib" -lt "$min_mem_kib" ]; then').length-1,2);
+  assert.ok(sh.includes('1536MiB hard container cap + 2048MiB host reserve'));
+  assert.ok(js.includes("args=['-ss',sec(offset),'-i',source(shot)]"));
+  assert.ok(!js.includes("args=['-i',source(shot),'-ss'"));
+  assert.ok(js.includes('SYNTHETIC SOURCE SEEK PASS'));
+  assert.ok(js.includes('S01 body replayed red source frame zero'));
+
   assert.doesNotMatch(js,/from ['"](?:remotion|@remotion)|\bchromium\s*--/i);
 });

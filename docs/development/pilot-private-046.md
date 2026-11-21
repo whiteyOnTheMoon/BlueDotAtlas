@@ -136,3 +136,13 @@ The change needs successful PR CI, **separate explicit owner merge approval**, l
 - `node scripts/render-pilot-ffmpeg-046.mjs --synthetic` exercises an independent **42-frame/320×180** fixture with synthesized video+tones, SVG animated graphic, two three-frame crossfades and final AAC mix; output stays in disposable private CI scratch and is deleted after success. Unit tests additionally assert the full original 1800-frame plan. **Synthetic proof does not establish that the real 60-second Full-HD film fits the VPS.**
 
 **Next gates:** CI green, separate owner squash-merge decision, VPS revision-matched optional image build, read-only private preflight, separate one-shot real-render approval, full decode and human playback inspection. Issue #70 remains OPEN for original live Queue→Admin→MP4 DoD. Footage scope remains PRIVATE_INTERNAL_TEST_ONLY; no publication clearance is implied.
+
+
+### 046 FFmpeg follow-up: frame-accurate source seek and host RAM gate
+
+The initial FFmpeg alternative passed its synthetic 42-frame codec/fade smoke, but an audit found two pre-real-render defects:
+
+1. In footage sequences with a looping image credit/watermark overlay, FFmpeg input option `-ss` must appear **before the first source video `-i`**, not between that input and the second overlay image `-i`. Otherwise the seek applies to the overlay input rather than to the underlying source and can replay the first few source frames at brand crossfades. The synthetic fixture now paints the first three source frames red and subsequent source frames blue, then **decodes the first non-blended S01 body frame (timeline frame 12)** and verifies it is blue. Frame-count-only assertions were insufficient.
+2. The old 3072MiB admission check allowed a potential 1536MiB container maximum with only 3072MiB host MemAvailable even though the host watchdog reserves 2048MiB for cohosted projects. Both read-only `--check` and last-moment `--render` admission now require **3840MiB MemAvailable = 1536MiB container cap + 2048MiB host reserve + 256MiB margin**. The existing watchdog remains unchanged and stops only the named private attempt when MemAvailable falls below 2048MiB. A preflight pass is not proof of real peak-RAM suitability.
+
+Operator VPS evidence before this correction: private image build PASS and all media SHA/source checks PASS, `MemAvailable=3507MiB` at preflight. **At that value the new 3840MiB gate must intentionally return NO-GO.** This change does not grant a real FFmpeg render, VPS update, Compose/service restart or publication; attempts 01–05 remain preserved. A revised image build and read-only preflight need separate approval after squash merge; real rendering needs another explicit operator decision.
