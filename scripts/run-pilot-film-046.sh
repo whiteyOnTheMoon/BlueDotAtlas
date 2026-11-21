@@ -41,7 +41,8 @@ for still in 046-S00-intro.png 046-S01-oma.png 046-S02-waves.png \
   test "$(od -An -tx1 -N8 "$file" | xargs)" = "89 50 4e 47 0d 0a 1a 0a"
 done
 
-out="$HOME/.bda-pilot-film-046"
+out="$HOME/.bda-pilot-film-046-attempt-02"
+# Separate attempt-02 path; preserve the failed first-run directory/container verbatim.
 # Never overwrite, resume unknown output or touch six source PNGs.
 if [ -e "$out" ] || [ -L "$out" ]; then
   echo "046 FILM NO-GO: private film destination already exists; inspect first" >&2
@@ -56,7 +57,7 @@ test "$actual" = "$expected" || {
   echo "046 FILM NO-GO: image revision differs from current main" >&2
   exit 1
 }
-name="bluedotatlas-046-private-film-diagnostic"
+name="bluedotatlas-046-private-film-diagnostic-02"
 if docker container inspect "$name" >/dev/null 2>&1; then
   echo "046 FILM NO-GO: diagnostic container already exists" >&2
   exit 1
@@ -78,7 +79,7 @@ test "$(printenv BDA_PILOT_046_PRIVATE_FILM 2>/dev/null || true)" = TRUE || {
 mkdir -m 700 "$out"
 test ! -L "$out" && test "$(stat -c '%a:%u' "$out")" = "700:1000"
 stage="$HOME/.bda-pilot-stage-046"
-target="$out/046-private-rough-cut.mp4"
+target="$out/046-private-rough-cut-attempt-02.mp4"
 
 echo "046 PRIVATE FILM: one offline Remotion 1800f/30fps 1080p MP4; no publishing"
 if timeout --signal=TERM --kill-after=30s 7200s docker run \
@@ -97,12 +98,12 @@ if timeout --signal=TERM --kill-after=30s 7200s docker run \
   --workdir /app/packages/video \
   --entrypoint /app/packages/video/node_modules/.bin/remotion \
   "$image" render src/entry-pilot-private-046.tsx \
-  BDA046PrivateVisualRoughCut /review/046-private-rough-cut.mp4 \
+  BDA046PrivateVisualRoughCut /review/046-private-rough-cut-attempt-02.mp4 \
   --codec=h264 --audio-codec=aac --audio-bitrate=192k \
   --pixel-format=yuv420p --color-space=bt709 --crf=23 --concurrency=1 \
   --offthreadvideo-video-threads=1 \
   --offthreadvideo-cache-size-in-bytes=268435456 \
-  --media-cache-size-in-bytes=134217728 \
+  --media-cache-size-in-bytes=268435456 \
   --browser-executable=/usr/bin/chromium \
   --chrome-mode=chrome-for-testing --bundle-cache=false \
   --overwrite=false --log=info
@@ -138,7 +139,7 @@ docker run --rm --init --pull never --network none \
   --mount "type=bind,source=$out,target=/review,readonly" \
   --entrypoint /usr/bin/ffprobe "$image" \
   -v error -show_streams -show_format -of json \
-  /review/046-private-rough-cut.mp4 |
+  /review/046-private-rough-cut-attempt-02.mp4 |
   python3 scripts/check-pilot-film-046-probe.py
 
 echo "046 PRIVATE MP4 METADATA PASS; full decode and human playback NOT yet verified"
