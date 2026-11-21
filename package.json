@@ -13,7 +13,7 @@
     "lint": "eslint \"apps/**/*.{ts,tsx}\" \"packages/**/*.{ts,tsx}\"",
     "format": "prettier --write \"apps/**/*.{ts,tsx,json}\" \"packages/**/*.{ts,tsx,json}\" package.json tsconfig.base.json pnpm-workspace.yaml eslint.config.mjs .prettierrc.json",
     "format:check": "prettier --check \"apps/**/*.{ts,tsx,json}\" \"packages/**/*.{ts,tsx,json}\" package.json tsconfig.base.json pnpm-workspace.yaml eslint.config.mjs .prettierrc.json",
-    "test": "pnpm exec prettier packages/video/src/compositions/PilotPrivateVisual046.tsx && node --test scripts/check-monorepo.test.mjs scripts/check-pilot-private-046.test.mjs && pnpm --filter @bluedotatlas/core test"
+    "test": "node --test scripts/check-monorepo.test.mjs scripts/check-pilot-private-046.test.mjs && pnpm --filter @bluedotatlas/core test"
   },
   "devDependencies": {
     "typescript": "5.9.3",

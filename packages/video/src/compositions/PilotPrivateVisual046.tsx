@@ -51,12 +51,7 @@ const WeakeningDiagram = () => {
         <rect width="1920" height="1080" fill="#071522" />
         <rect y="565" width="1120" height="515" fill="#063b64" />
         <path d="M1120 565 L1920 495 L1920 1080 L1120 1080 Z" fill="#567a6b" />
-        <path
-          d="M0 580 Q280 535 560 580 T1120 580"
-          fill="none"
-          stroke="#19b7f4"
-          strokeWidth="15"
-        />
+        <path d="M0 580 Q280 535 560 580 T1120 580" fill="none" stroke="#19b7f4" strokeWidth="15" />
         <text x="160" y="174" fontSize="68" fill="#f2f9ff" fontWeight="700">
           Ocean energy helps sustain storms
         </text>
