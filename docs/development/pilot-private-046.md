@@ -159,3 +159,14 @@ Correction:
 3. The offline synthetic CI render decodes 0.5–1.3 s of the final AAC (after the intro) and requires a mean level of about −26.3 dB (accepted window −28…−24.5 dB). The previous normalizing mix fails this check.
 
 No real media, VPS action, image build or render is part of this change. All previous gates (separate approval for VPS update/build/`--check` and for a one-shot private `--render`, ≥3840 MiB MemAvailable, 2048 MiB watchdog, private-only output) remain unchanged. Human listening QA of the real film is still required.
+
+
+### 046 FFmpeg follow-up: measured memory cap 512 MiB, admission 2816 MiB (22 Nov 2026)
+
+**Operator VPS evidence (22 Nov 2026), on `main` `f5d8430`:** fast-forward PASS; image `bluedotatlas-private-ffmpeg046:local` rebuilt, revision label = `f5d8430a39fde5286425b6f6c4a169a99059ed0e`; `run-pilot-ffmpeg-046.sh --check`: HD proxy, media/rights/SHA, brand and voice preflight PASS, but **NO-GO: MemAvailable 3049 MiB < 3840 MiB**. No render, no container, nothing stopped (MemTotal ≈ 7964 MiB, swap ≈ 450 of 2048 MiB free).
+
+The 1536 MiB container cap was an estimate. Measured peak RSS of the actual per-part operations at full 1920×1080 with the renderer's single-thread options (synthetic sources): footage seek + Lanczos scale/crop + PNG overlay + x264 ultrafast **≈ 180–185 MiB**, 9-frame blend ≈ 152 MiB, science PNG sequence encode ≈ 104 MiB, rsvg 1080p ≈ 30–37 MiB, final copy-concat AAC mux ≈ 57 MiB, node parent ≈ 40 MiB. Parts run strictly sequentially (`spawnSync`), so the worst concurrent set is node + one FFmpeg ≈ 225–250 MiB.
+
+Change: Docker `--memory 512m --memory-swap 512m` (≈ 2× measured worst case, still no swap) and admission `MemAvailable ≥ 2816 MiB = 512 MiB cap + 2048 MiB host reserve + 256 MiB margin` at both `--check` and immediately before `--render`. The 2048 MiB host watchdog, offline/read-only/private-only flags, 0.5 CPU and no-retry behaviour are unchanged. Exceeding 512 MiB would cgroup-OOM only this private container; the attempt then stops and is preserved. New CI step `scripts/check-pilot-ffmpeg-046-memory.py` re-measures the 1080p footage/blend/rsvg peaks and fails at ≥ 320 MiB.
+
+Covered by the operator's blanket approval for task 046 (22 Nov 2026). Still required afterwards: VPS fast-forward, image rebuild, `--check`, one private `--render`, full decode and human watch/listen QA.
