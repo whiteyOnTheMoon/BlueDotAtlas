@@ -7,6 +7,7 @@ on:
       - 'scripts/render-pilot-ffmpeg-046.mjs'
       - 'scripts/run-pilot-ffmpeg-046.sh'
       - 'scripts/check-pilot-ffmpeg-046.test.mjs'
+      - 'scripts/check-pilot-ffmpeg-046-memory.py'
       - 'deploy/Dockerfile'
       - 'package.json'
       - '.github/workflows/pilot-ffmpeg-046-synthetic-check.yml'
@@ -37,6 +38,8 @@ jobs:
         env:
           CI: 'true'
         run: node scripts/render-pilot-ffmpeg-046.mjs --synthetic
+      - name: Measured 1080p peak RSS stays within the 512 MiB container cap
+        run: python3 -I scripts/check-pilot-ffmpeg-046-memory.py
       - name: Assert no private media or permanent MP4 artifact is shipped by the workflow
         run: |
           test ! -d .bda-pilot-stage-046

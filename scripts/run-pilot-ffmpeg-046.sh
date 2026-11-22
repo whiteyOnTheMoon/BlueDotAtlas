@@ -16,14 +16,14 @@ git diff --quiet
 git diff --cached --quiet
 # Existing private 046 source, rights, HD proxy, voice SHA and disk gate.
 node scripts/check-pilot-preview-046.mjs --check
-# Admission: 1536MiB hard container cap + 2048MiB host reserve
+# Admission: 512MiB hard container cap + 2048MiB host reserve
 # + 256MiB margin for cohosted workloads.
-min_mem_kib=3932160  # (1536 + 2048 + 256) MiB
+min_mem_kib=2883584  # (512 + 2048 + 256) MiB; measured 1080p peak ~250MiB
 mem_kib="$(awk '/^MemAvailable:/ {print $2}' /proc/meminfo)"
 test -n "$mem_kib"
 echo "046 FFMPEG host MemAvailable: $((mem_kib / 1024)) MiB"
 if [ "$mem_kib" -lt "$min_mem_kib" ]; then
-  echo "046 FFMPEG NO-GO: need >=3840 MiB MemAvailable (1536 MiB container + 2048 MiB reserve + 256 MiB margin)" >&2
+  echo "046 FFMPEG NO-GO: need >=2816 MiB MemAvailable (512 MiB container + 2048 MiB reserve + 256 MiB margin)" >&2
   exit 1
 fi
 command -v docker >/dev/null
@@ -61,7 +61,7 @@ fi
 mem_kib="$(awk '/^MemAvailable:/ {print $2}' /proc/meminfo)"
 test -n "$mem_kib"
 if [ "$mem_kib" -lt "$min_mem_kib" ]; then
-  echo "046 FFMPEG NO-GO: need >=3840 MiB MemAvailable immediately before render" >&2
+  echo "046 FFMPEG NO-GO: need >=2816 MiB MemAvailable immediately before render" >&2
   exit 1
 fi
 mkdir -m 700 "$out"
@@ -100,7 +100,7 @@ watchdog_pid="$!"
 echo "046 FFMPEG: private sequential 1080p SVG/HD encoding, no Chromium"
 if timeout --signal=TERM --kill-after=30s 7200s docker run \
   --name "$name" --pull never --init --network none \
-  --cpus 0.5 --memory 1536m --memory-swap 1536m --pids-limit 120 \
+  --cpus 0.5 --memory 512m --memory-swap 512m --pids-limit 120 \
   --ulimit fsize=838860800:838860800 \
   --read-only --cap-drop ALL --security-opt no-new-privileges \
   --tmpfs /tmp:rw,nosuid,size=64m,uid=1000,gid=1000 \
