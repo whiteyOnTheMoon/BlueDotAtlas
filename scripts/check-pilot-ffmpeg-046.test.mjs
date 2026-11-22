@@ -63,5 +63,10 @@ test('046 alternate ffmpeg runner is offline, memory-limited, owner-only and no 
   assert.ok(js.includes('SYNTHETIC SOURCE SEEK PASS'));
   assert.ok(js.includes('S01 body replayed red source frame zero'));
 
+  // Remotion layers add up; FFmpeg amix must not halve the 0.78 narration.
+  assert.ok(js.includes('dropout_transition=0:normalize=0'));
+  assert.ok(js.includes("'[1:a]volume=0.78,apad=whole_dur='"));
+  assert.ok(js.includes('SYNTHETIC VOICE LEVEL PASS'));
+
   assert.doesNotMatch(js,/from ['"](?:remotion|@remotion)|\bchromium\s*--/i);
 });

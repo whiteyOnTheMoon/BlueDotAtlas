@@ -135,10 +135,13 @@ function render({shots,segments,root,out,voice,intro,width,height,output}) {
   assert.equal(countFrames(joined),frames);
   const fade=segments.find(s=>s.kind==='blend')?.frames??0;
   const fadeAt=sec(shots[0].durationInFrames-fade);
-  const mix='[1:a]volume=0.78,atrim=duration='+sec(frames)+',asetpts=PTS-STARTPTS[voice];'+
+  // Match Remotion's additive <Audio> layers: voice at 0.78 plus faded intro.
+  // amix normalizes by default (1/inputs => about -6 dB on the narration);
+  // normalize=0 keeps the 043/046 voice level. apad guarantees a full-length track.
+  const mix='[1:a]volume=0.78,apad=whole_dur='+sec(frames)+',atrim=duration='+sec(frames)+',asetpts=PTS-STARTPTS[voice];'+
     '[2:a]atrim=duration='+sec(shots[0].durationInFrames)+',asetpts=PTS-STARTPTS,'+
     'afade=t=out:st='+fadeAt+':d='+sec(fade)+',apad=pad_dur='+sec(frames)+'[intro];'+
-    '[voice][intro]amix=inputs=2:duration=first:dropout_transition=0,aresample=48000[a]';
+    '[voice][intro]amix=inputs=2:duration=first:dropout_transition=0:normalize=0,aresample=48000[a]';
   const final=join(out,output);refuseOverwrite(final);
   command('ffmpeg',[...common,'-i',joined,'-i',voice,'-i',intro,'-filter_complex',mix,
     '-map','0:v:0','-map','[a]','-t',sec(frames),'-c:v','copy','-c:a','aac',
@@ -151,6 +154,7 @@ function render({shots,segments,root,out,voice,intro,width,height,output}) {
   assert.equal(Number(v[0].nb_frames),frames);assert.equal(a[0].codec_name,'aac');
   assert.equal(a[0].channels,2);assert.equal(a[0].sample_rate,'48000');
   assert.ok(Math.abs(Number(info.format.duration)-frames/30)<.15);
+  assert.ok(Math.abs(Number(a[0].duration)-frames/30)<.15,'audio track must span the full film');
   if(!synthetic) {
     assert.equal(v[0].avg_frame_rate,'30/1');
     for(const key of ['color_primaries','color_transfer','color_space']) assert.equal(v[0][key],'bt709');
@@ -218,6 +222,17 @@ if(synthetic) {
     assert.ok((blue-red)/(16*16)>80,
       '046 FFMPEG seek regression: S01 body replayed red source frame zero');
     console.log('046 FFMPEG SYNTHETIC SOURCE SEEK PASS: S01 body begins at input frame 3');
+    // After the intro (0.4s) only the 0.78-scaled narration remains. The
+    // synthetic stereo voice WAV measures -24.1 dB mean, so x0.78 gives about
+    // -26.3 dB; the former normalizing amix produced -32.3 dB (6 dB too quiet).
+    const level=spawnSync('ffmpeg',['-nostdin','-hide_banner','-i',join(root,'synthetic-046.mp4'),
+      '-vn','-af','atrim=start=0.5:end=1.3,volumedetect','-f','null','-'],
+      {encoding:'utf8',timeout:30000,maxBuffer:1024*1024});
+    assert.equal(level.status,0,'synthetic narration level decode failed');
+    const mean=Number(/mean_volume:\s*(-?[\d.]+) dB/.exec(level.stderr??'')?.[1]);
+    assert.ok(Number.isFinite(mean)&&mean>-28&&mean<-24.5,
+      '046 FFMPEG voice level regression: mean '+mean+' dB, expected about -26.3 dB');
+    console.log('046 FFMPEG SYNTHETIC VOICE LEVEL PASS: '+mean+' dB (unnormalized mix)');
     console.log('046 FFMPEG SYNTHETIC OFFLINE SMOKE PASS: 42f, crossfades, animated SVG and AAC');
   } finally {rmSync(root,{recursive:true,force:true});}
 } else {

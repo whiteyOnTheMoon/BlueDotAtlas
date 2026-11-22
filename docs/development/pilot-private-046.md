@@ -146,3 +146,16 @@ The initial FFmpeg alternative passed its synthetic 42-frame codec/fade smoke, b
 2. The old 3072MiB admission check allowed a potential 1536MiB container maximum with only 3072MiB host MemAvailable even though the host watchdog reserves 2048MiB for cohosted projects. Both read-only `--check` and last-moment `--render` admission now require **3840MiB MemAvailable = 1536MiB container cap + 2048MiB host reserve + 256MiB margin**. The existing watchdog remains unchanged and stops only the named private attempt when MemAvailable falls below 2048MiB. A preflight pass is not proof of real peak-RAM suitability.
 
 Operator VPS evidence before this correction: private image build PASS and all media SHA/source checks PASS, `MemAvailable=3507MiB` at preflight. **At that value the new 3840MiB gate must intentionally return NO-GO.** This change does not grant a real FFmpeg render, VPS update, Compose/service restart or publication; attempts 01–05 remain preserved. A revised image build and read-only preflight need separate approval after squash merge; real rendering needs another explicit operator decision.
+
+
+### 046 FFmpeg follow-up: narration level parity with Remotion (22 Nov 2026)
+
+Code review before the first real FFmpeg render found an audio-level defect in the final mux of `scripts/render-pilot-ffmpeg-046.mjs`. The Remotion reference (`PilotPrivateVisual046.tsx`) **adds** its `<Audio>` layers: narration at `volume=0.78` plus the intro soundtrack faded out over the last 9 intro frames. FFmpeg's `amix` filter, however, **normalizes by default** (each input scaled by 1/number of inputs). Because the intro track is padded with silence to the full film length, both inputs stay active for all 60 s, so the narration would have been about **−6 dB quieter** for the entire film (measured: −29.3 dB vs −23.2 dB on a 440 Hz test tone; in the synthetic pipeline −32.3 dB vs −26.3 dB).
+
+Correction:
+
+1. `amix=…:dropout_transition=0:normalize=0` — additive mix like Remotion.
+2. The narration input is padded with `apad=whole_dur=60s` before trimming, so a marginally short WAV cannot shorten the AAC track; the final probe now also asserts that the **audio stream** duration matches 1800 frames (±0.15 s), not only the container duration.
+3. The offline synthetic CI render decodes 0.5–1.3 s of the final AAC (after the intro) and requires a mean level of about −26.3 dB (accepted window −28…−24.5 dB). The previous normalizing mix fails this check.
+
+No real media, VPS action, image build or render is part of this change. All previous gates (separate approval for VPS update/build/`--check` and for a one-shot private `--render`, ≥3840 MiB MemAvailable, 2048 MiB watchdog, private-only output) remain unchanged. Human listening QA of the real film is still required.
