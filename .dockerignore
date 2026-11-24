@@ -29,3 +29,6 @@
 *.manifest.tar
 bda-*.sha256
 **/.ops-backups
+
+# 046 private pilot media/renders inside the project folder: NEVER commit or bake into images
+**/.private-046

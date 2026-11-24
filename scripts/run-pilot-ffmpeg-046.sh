@@ -14,8 +14,21 @@ test "$(id -u)" = 1000
 test "$(git branch --show-current)" = main
 git diff --quiet
 git diff --cached --quiet
+# All private 046 FFmpeg inputs/outputs stay INSIDE the project folder in the
+# git- and docker-ignored .private-046/ (owner-only 0700; never committed).
+private_root="$root/.private-046"
+stage="$private_root/stage"
+out="$private_root/ffmpeg-pilot-02"
+name="bluedotatlas-046-private-ffmpeg-diagnostic-pilot-02"
+if [ ! -d "$stage" ] || [ -L "$private_root" ] || [ -L "$stage" ]; then
+  echo "046 FFMPEG NO-GO: project-local stage $stage missing (one-time move from ~/.bda-pilot-stage-046 needed)" >&2
+  exit 1
+fi
+test "$(stat -c '%a:%u' "$private_root")" = "700:1000"
+git check-ignore -q "$private_root/stage" || { echo "046 FFMPEG NO-GO: .private-046 not git-ignored" >&2; exit 1; }
+test -z "$(git ls-files -- .private-046)"
 # Existing private 046 source, rights, HD proxy, voice SHA and disk gate.
-node scripts/check-pilot-preview-046.mjs --check
+BDA_PILOT_046_STAGE="$stage" node scripts/check-pilot-preview-046.mjs --check
 # Admission: 512MiB hard container cap + 2048MiB host reserve
 # + 256MiB margin for cohosted workloads.
 min_mem_kib=2883584  # (512 + 2048 + 256) MiB; measured 1080p peak ~250MiB
@@ -35,9 +48,6 @@ if [ "$actual" != "$expected" ]; then
   echo "046 FFMPEG NO-GO: image revision does not match current main" >&2
   exit 1
 fi
-stage="$HOME/.bda-pilot-stage-046"
-out="$HOME/.bda-pilot-film-046-ffmpeg-pilot-01"
-name="bluedotatlas-046-private-ffmpeg-diagnostic-pilot-01"
 if [ -e "$out" ] || [ -L "$out" ]; then
   echo "046 FFMPEG NO-GO: private output exists; refuse overwrite" >&2
   exit 1
@@ -125,7 +135,7 @@ if [ "$rc" -ne 0 ] || [ "$state" != "exited 0 false" ]; then
   echo "046 FFMPEG STOP: preserve prototype files and diagnostic container" >&2
   exit 1
 fi
-file="$out/046-private-ffmpeg-pilot-01.mp4"
+file="$out/046-private-ffmpeg-pilot-02.mp4"
 receipt="$file.receipt.json"
 test -f "$file" && test ! -L "$file"
 test -f "$receipt" && test ! -L "$receipt"
@@ -137,7 +147,7 @@ docker run --rm --init --pull never --network none \
   --mount "type=bind,source=$out,target=/review,readonly" \
   --entrypoint /usr/bin/ffprobe "$image" \
   -v error -show_streams -show_format -of json \
-  /review/046-private-ffmpeg-pilot-01.mp4 |
+  /review/046-private-ffmpeg-pilot-02.mp4 |
   python3 scripts/check-pilot-film-046-probe.py
 echo "046 FFMPEG PRIVATE MP4 METADATA PASS; full decode and human QA still needed"
 echo "046 FFMPEG PRIVATE: $file (owner-only); no publication or Queue/Admin changes"

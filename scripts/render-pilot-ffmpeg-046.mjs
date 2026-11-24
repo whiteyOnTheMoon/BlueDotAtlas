@@ -6,7 +6,7 @@ import { randomBytes } from 'node:crypto';
 import { chmodSync, existsSync, lstatSync, mkdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
-import { FF046, SEGMENTS046, SHOTS046, VOICE046, overlaySvg046, planSegments, scienceSvg046, sourceFor } from './pilot-ffmpeg-046-plan.mjs';
+import { FF046, JOIN_TIMESTAMPS046, SEGMENTS046, SHOTS046, VOICE046, overlaySvg046, planSegments, scienceSvg046, sourceFor } from './pilot-ffmpeg-046-plan.mjs';
 
 assert.equal(process.argv.length,3,'Use --synthetic or --private');
 const mode=process.argv[2];
@@ -130,9 +130,16 @@ function render({shots,segments,root,out,voice,intro,width,height,output}) {
   writeFileSync(listing,'ffconcat version 1.0\n'+parts.map(s=>"file '"+s+"'").join('\n')+'\n',
     {mode:0o600,flag:'wx'});
   const joined=join(work,'joined.mp4');
+  // Rewrite PTS/DTS to exact frame index while stream-copying: some FFmpeg
+  // builds (bookworm 5.1) accumulated tick drift across 11 copy-concatenated
+  // parts (VPS: avg_frame_rate 27648000/921631 = 60.002 s instead of 30/1).
+  // ultrafast x264 has no B-frames, so PTS == DTS == N frames.
   command('ffmpeg',[...common,'-f','concat','-safe','0','-i',listing,'-map','0:v:0',
-    '-an','-c:v','copy','-movflags','+faststart','-n',joined],120000);
+    '-an','-c:v','copy',...JOIN_TIMESTAMPS046,'-movflags','+faststart','-n',joined],120000);
   assert.equal(countFrames(joined),frames);
+  const joinedVideo=probe(joined).streams.find(s=>s.codec_type==='video');
+  assert.equal(joinedVideo.avg_frame_rate,'30/1','joined video must be exactly 30/1');
+  assert.ok(Math.abs(Number(joinedVideo.duration)-frames/30)<0.0005,'joined video duration drift');
   const fade=segments.find(s=>s.kind==='blend')?.frames??0;
   const fadeAt=sec(shots[0].durationInFrames-fade);
   // Match Remotion's additive <Audio> layers: voice at 0.78 plus faded intro.
@@ -155,8 +162,8 @@ function render({shots,segments,root,out,voice,intro,width,height,output}) {
   assert.equal(a[0].channels,2);assert.equal(a[0].sample_rate,'48000');
   assert.ok(Math.abs(Number(info.format.duration)-frames/30)<.15);
   assert.ok(Math.abs(Number(a[0].duration)-frames/30)<.15,'audio track must span the full film');
+  assert.equal(v[0].avg_frame_rate,'30/1');
   if(!synthetic) {
-    assert.equal(v[0].avg_frame_rate,'30/1');
     for(const key of ['color_primaries','color_transfer','color_space']) assert.equal(v[0][key],'bt709');
   }
   const bytes=statSync(final).size;assert.ok(bytes>5000&&bytes<838860800);
@@ -173,7 +180,8 @@ function syntheticInputs(root,shots) {
   for(const shot of shots) {
     if(shot.kind==='science') continue;
     const seconds=sec(shot.durationInFrames+5);
-    const args=[...common,'-f','lavfi','-i','testsrc2=size=320x180:rate=30:duration='+seconds];
+    // 30000/1001 like real NASA/NOAA sources: exercises fps conversion + timestamps.
+    const args=[...common,'-f','lavfi','-i','testsrc2=size=320x180:rate=30000/1001:duration='+seconds];
     if(shot.kind==='brand_intro') args.push('-f','lavfi','-i','sine=frequency=330:sample_rate=48000:duration='+seconds);
     if(shot.id==='S01') {
       // Three RED frames followed by BLUE; first non-blended frame must be BLUE
@@ -237,8 +245,8 @@ if(synthetic) {
   } finally {rmSync(root,{recursive:true,force:true});}
 } else {
   assert.ok(lstatSync('/review').isDirectory());
-  assert.ok(!existsSync('/review/046-private-ffmpeg-pilot-01.mp4'));
+  assert.ok(!existsSync('/review/046-private-ffmpeg-pilot-02.mp4'));
   render({shots:SHOTS046,segments:SEGMENTS046,root:'/source',out:'/review',
     voice:join('/source',VOICE046),intro:join('/source',sourceFor(SHOTS046[0])),
-    width:FF046.width,height:FF046.height,output:'046-private-ffmpeg-pilot-01.mp4'});
+    width:FF046.width,height:FF046.height,output:'046-private-ffmpeg-pilot-02.mp4'});
 }

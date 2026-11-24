@@ -8,6 +8,10 @@ on:
       - 'scripts/run-pilot-ffmpeg-046.sh'
       - 'scripts/check-pilot-ffmpeg-046.test.mjs'
       - 'scripts/check-pilot-ffmpeg-046-memory.py'
+      - 'scripts/check-pilot-ffmpeg-046-join.mjs'
+      - 'scripts/check-pilot-preview-046.mjs'
+      - '.gitignore'
+      - '.dockerignore'
       - 'deploy/Dockerfile'
       - 'package.json'
       - '.github/workflows/pilot-ffmpeg-046-synthetic-check.yml'
@@ -38,6 +42,8 @@ jobs:
         env:
           CI: 'true'
         run: node scripts/render-pilot-ffmpeg-046.mjs --synthetic
+      - name: Copy-concat join keeps exact 30/1 timestamps (mixed timescales)
+        run: node scripts/check-pilot-ffmpeg-046-join.mjs
       - name: Measured 1080p peak RSS stays within the 512 MiB container cap
         run: python3 -I scripts/check-pilot-ffmpeg-046-memory.py
       - name: Assert no private media or permanent MP4 artifact is shipped by the workflow
@@ -45,3 +51,26 @@ jobs:
           test ! -d .bda-pilot-stage-046
           test -z "$(find . -maxdepth 2 -name 'synthetic-046.mp4' -print -quit)"
           echo '046 FFMPEG SYNTHETIC CI PASS (no private source files)'
+
+  ffmpeg-046-bookworm:
+    # Same Debian bookworm FFmpeg (5.1) as the VPS pilot046ffmpeg image.
+    name: 046 FFmpeg/SVG proof on bookworm FFmpeg 5.1 (VPS image parity)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    container:
+      image: node:22-bookworm-slim
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install bookworm FFmpeg, rsvg and fonts (as in deploy/Dockerfile)
+        run: |
+          apt-get update -qq
+          apt-get install -y --no-install-recommends ffmpeg librsvg2-bin fonts-dejavu-core python3
+          ffmpeg -hide_banner -version | head -n 1
+      - name: Join timestamps exact on bookworm FFmpeg
+        run: node scripts/check-pilot-ffmpeg-046-join.mjs
+      - name: Synthetic render incl. 30/1, seek and voice-level gates
+        run: node scripts/render-pilot-ffmpeg-046.mjs --synthetic
+      - name: Peak RSS within 512 MiB cap on bookworm FFmpeg
+        run: python3 -I scripts/check-pilot-ffmpeg-046-memory.py

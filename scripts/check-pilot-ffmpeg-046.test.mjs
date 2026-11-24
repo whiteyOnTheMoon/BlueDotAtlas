@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
-import { FF046, SHOTS046, SEGMENTS046, VOICE046,
+import { FF046, JOIN_TIMESTAMPS046, SHOTS046, SEGMENTS046, VOICE046,
   sourceFor, planSegments, scienceSvg046, overlaySvg046 } from './pilot-ffmpeg-046-plan.mjs';
 
 const runner = new URL('./run-pilot-ffmpeg-046.sh', import.meta.url).pathname;
@@ -70,4 +70,29 @@ test('046 alternate ffmpeg runner is offline, memory-limited, owner-only and no 
   assert.ok(js.includes('SYNTHETIC VOICE LEVEL PASS'));
 
   assert.doesNotMatch(js,/from ['"](?:remotion|@remotion)|\bchromium\s*--/i);
+});
+test('046 private files stay inside the project folder (.private-046), never in Git or images',async()=>{
+  const sh=readFileSync(runner,'utf8'),js=readFileSync(film,'utf8');
+  for(const k of ['private_root="$root/.private-046"','stage="$private_root/stage"',
+    'out="$private_root/ffmpeg-pilot-02"','git check-ignore -q "$private_root/stage"',
+    'test -z "$(git ls-files -- .private-046)"','BDA_PILOT_046_STAGE="$stage" node scripts/check-pilot-preview-046.mjs --check',
+    '/review/046-private-ffmpeg-pilot-02.mp4']) assert.ok(sh.includes(k),'missing: '+k);
+  assert.doesNotMatch(sh,/\$HOME\/\.bda-pilot/);
+  assert.ok(js.includes("output:'046-private-ffmpeg-pilot-02.mp4'"));
+  for(const f of ['.gitignore','.dockerignore'])
+    assert.match(readFileSync(new URL('../'+f,import.meta.url),'utf8'),/^(\*\*\/)?\.private-046\/?$/m);
+  const { stageFor, PROJECT_STAGE_046 } = await import('./check-pilot-preview-046.mjs');
+  assert.equal(stageFor({BDA_PILOT_046_STAGE:PROJECT_STAGE_046}),PROJECT_STAGE_046);
+  assert.throws(()=>stageFor({BDA_PILOT_046_STAGE:'/tmp/elsewhere'}));
+  assert.ok(PROJECT_STAGE_046.endsWith('/.private-046/stage'));
+});
+test('046 join rewrites timestamps to exact 30fps in the input time base (FFmpeg 5.1 safe)',()=>{
+  const js=readFileSync(film,'utf8');
+  assert.deepEqual([...JOIN_TIMESTAMPS046],['-bsf:v','setts=pts=N/(30*TB):dts=N/(30*TB):duration=1/(30*TB)',
+    '-video_track_timescale','15360']);
+  assert.ok(js.includes("'-c:v','copy',...JOIN_TIMESTAMPS046"));
+  assert.doesNotMatch(JOIN_TIMESTAMPS046.join(' '),/time_base=/);
+  assert.ok(js.includes("joined video must be exactly 30/1"));
+  // 30/1 is asserted for synthetic AND private output, not only private.
+  assert.match(js,/assert\.equal\(v\[0\]\.avg_frame_rate,'30\/1'\);\n  if\(!synthetic\)/);
 });

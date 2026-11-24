@@ -8,6 +8,10 @@ import { SCIENCE_LABELS, scienceStateAt, scienceVaporParticle } from '../package
 export const FF046 = Object.freeze({width:1920,height:1080,fps:30,frames:1800});
 export const SHOTS046 = PILOT_PRIVATE_046_SHOTS;
 export const VOICE046 = PRIVATE_046_VOICE_PATH;
+// Exact 30fps timestamps for the copy-concat join, in the input time base
+// (no setts time_base option: unavailable in bookworm FFmpeg 5.1).
+export const JOIN_TIMESTAMPS046 = Object.freeze(['-bsf:v','setts=pts=N/(30*TB):dts=N/(30*TB):duration=1/(30*TB)',
+  '-video_track_timescale','15360']);
 const x = (s) => String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const n = (value) => Number(value.toFixed(3));
 const svg = (body) => '<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">' + body + '<rect x="1250" y="32" width="620" height="54" fill="#021934" opacity="0.87"/><text x="1270" y="69" font-size="19" fill="#f2f9ff" font-family="DejaVu Sans">PRIVATE NARRATED ROUGH CUT · NOT PUBLISHED</text></svg>';

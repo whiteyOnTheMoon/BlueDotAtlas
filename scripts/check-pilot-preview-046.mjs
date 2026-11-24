@@ -16,7 +16,18 @@ import {
 } from '../packages/video/src/compositions/pilot-private-046-plan.js';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const stage = resolve(homedir(), '.bda-pilot-stage-046');
+// 046 FFmpeg path keeps all private media INSIDE the project folder
+// (git- and docker-ignored `.private-046/`). Legacy Remotion runners keep
+// the old home stage unless they opt in via BDA_PILOT_046_STAGE.
+export const PROJECT_PRIVATE_046 = resolve(root, '.private-046');
+export const PROJECT_STAGE_046 = resolve(PROJECT_PRIVATE_046, 'stage');
+export function stageFor(env = process.env) {
+  if (env.BDA_PILOT_046_STAGE === undefined) return resolve(homedir(), '.bda-pilot-stage-046');
+  assert.equal(resolve(env.BDA_PILOT_046_STAGE), PROJECT_STAGE_046,
+    'BDA_PILOT_046_STAGE must be the project-local .private-046/stage');
+  return PROJECT_STAGE_046;
+}
+const stage = stageFor();
 const manifest = JSON.parse(readFileSync(join(root, 'assets/pilot/rights-manifest.json'), 'utf8'));
 
 export const PRIVATE_STILLS_046 = Object.freeze([
@@ -132,6 +143,7 @@ export function readOnlyPreflight({ requireHdProxy = true } = {}) {
   validateHostBudget(memKiB / 1024, freeDiskGiB, cpus().length);
   assert.equal(process.getuid(), 1000, 'operator UID differs from isolated container UID');
 
+  if (stage === PROJECT_STAGE_046) privateDir(PROJECT_PRIVATE_046);
   privateDir(stage);
   for (const folder of ['pilot', 'pilot/.private-046', 'brand', 'brand/motion',
     'brand/motion/final', 'audio']) privateDir(join(stage, folder));
