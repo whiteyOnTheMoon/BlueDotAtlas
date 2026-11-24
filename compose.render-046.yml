@@ -35,3 +35,57 @@ services:
       - no-new-privileges:true
     networks:
       - private_db
+
+  # M03 / 046 – private 60s pilot film worker for admin-queued jobs (FFmpeg/SVG, no Chromium).
+  # Separate profile; consumes ONLY `private_pilot_film_046` jobs, one at a time, no retry.
+  # Inputs read-only from the project-local, git-/docker-ignored .private-046/stage.
+  renderer046film:
+    profiles: [vps-pilot-film-render]
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile
+      target: pilot046ffmpeg
+      args:
+        BDA_PILOT_046_GIT_SHA: ${BDA_PILOT_046_GIT_SHA:?Set to the checked-out main commit}
+    image: bluedotatlas-renderer046film:local
+    command: ["node", "apps/worker/dist/run-046-film.js"]
+    env_file:
+      - ${BDA_WORKER_ENV_FILE:?Specify existing private BlueDotAtlas worker DB configuration}
+    environment:
+      BDA_RENDER_046_VPS_PILOT_FILM: "TRUE"
+      BDA_046_VPS_STORAGE_ROOT: /bda-media
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    cpus: 0.5
+    # Measured 1080p peak ≈ 250 MiB renderer + ≈ 60 MiB worker; no swap.
+    mem_limit: 768m
+    memswap_limit: 768m
+    pids_limit: 200
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,noexec,size=32m
+    volumes:
+      - type: bind
+        source: ${BDA_046_MEDIA_HOST:?Specify existing private operator-owned media directory}
+        target: /bda-media
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./.private-046/stage
+        target: /source
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./.private-046/queue-work
+        target: /work
+        bind:
+          create_host_path: false
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - private_db

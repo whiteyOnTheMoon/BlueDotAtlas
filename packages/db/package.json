@@ -12,7 +12,7 @@
     "db:check": "drizzle-kit check",
     "test:integration": "pnpm --filter @bluedotatlas/core build && tsx --test --test-concurrency=1 tests/db.integration.test.ts tests/project-model.integration.test.ts tests/admin-auth.integration.test.ts tests/project-dashboard.integration.test.ts tests/step-progress.integration.test.ts",
     "test:queue": "pnpm --filter @bluedotatlas/core build && tsx --test --test-concurrency=1 tests/worker-queue.integration.test.ts",
-    "test:render-046": "pnpm --filter @bluedotatlas/core build && tsx --test --test-concurrency=1 ../../apps/worker/tests/render-046.integration.test.ts"
+    "test:render-046": "pnpm --filter @bluedotatlas/core build && tsx --test --test-concurrency=1 ../../apps/worker/tests/render-046.integration.test.ts ../../apps/worker/tests/film-046.integration.test.ts"
   },
   "exports": {
     ".": "./dist/index.js",

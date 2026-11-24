@@ -7,7 +7,8 @@
     "build": "pnpm --filter @bluedotatlas/core build && pnpm --filter @bluedotatlas/db build && pnpm --filter @bluedotatlas/storage build && tsc -p tsconfig.json",
     "typecheck": "pnpm --filter @bluedotatlas/core build && pnpm --filter @bluedotatlas/db build && pnpm --filter @bluedotatlas/storage build && tsc -p tsconfig.json --noEmit",
     "start:test": "node dist/run.js",
-    "start:render-046": "node dist/run-046.js"
+    "start:render-046": "node dist/run-046.js",
+    "start:render-046-film": "node dist/run-046-film.js"
   },
   "dependencies": {
     "@bluedotatlas/db": "workspace:*",

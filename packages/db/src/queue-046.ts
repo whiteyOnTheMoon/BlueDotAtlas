@@ -10,7 +10,10 @@ export {
   cancelRender046,
   finishRender046,
   RENDER_046_MANIFEST,
+  RENDER_046_FILM_MANIFEST,
+  RENDER_046_FILM_KIND,
+  RENDER_046_FILM_ERROR_CODES,
 } from './render-046.js';
-export type { Render046Claim } from './render-046.js';
+export type { Render046Claim, Render046Kind, Render046FilmErrorCode } from './render-046.js';
 export { heartbeatJob } from './queue-service.js';
 export { openDatabase } from './client.js';

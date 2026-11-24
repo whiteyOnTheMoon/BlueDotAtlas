@@ -2,26 +2,38 @@ import type { NextRequest } from 'next/server';
 import {
   assertRender046ExecutionEnvironment,
   enqueueRender046,
+  RENDER_046_FILM_MANIFEST,
   RENDER_046_MANIFEST,
+  type Render046Kind,
 } from '@bluedotatlas/db/queue-046';
 import { parseApiUuid } from '@bluedotatlas/db/api';
 import { sameOrigin } from './admin-auth';
 import { adminGate, boundedBody, databaseAction, methodDenied, problem, result } from './api-v1';
 
-function syntheticTestGate() {
+export function render046Enabled(kind: Render046Kind = 'synthetic') {
   try {
-    assertRender046ExecutionEnvironment();
+    assertRender046ExecutionEnvironment(kind);
     return true;
   } catch {
     return false;
   }
 }
+const syntheticTestGate = () => render046Enabled('synthetic');
 
-export async function postSynthetic046(request: NextRequest) {
+export function postSynthetic046(request: NextRequest) {
+  return postRender046(request, 'synthetic');
+}
+
+/** Private 60s pilot film: same guarded body contract, separate enable flag and manifest. */
+export function postPilotFilm046(request: NextRequest) {
+  return postRender046(request, 'pilot_film');
+}
+
+async function postRender046(request: NextRequest, kind: Render046Kind) {
   const denied = await adminGate();
   if (denied) return denied;
   if (!sameOrigin(request)) return problem(403, 'forbidden_origin', 'Same-origin request required');
-  if (!syntheticTestGate()) {
+  if (!render046Enabled(kind)) {
     return problem(
       403,
       'render_not_authorized',
@@ -72,18 +84,24 @@ export async function postSynthetic046(request: NextRequest) {
       [projectId],
     );
     if (!found.rows[0]) return problem(404, 'not_found', 'Project revision not found');
-    const { jobId, videoId } = await enqueueRender046(connection, found.rows[0].id);
-    return result({ jobId, videoId, syntheticOnly: true }, 202, {
-      Location: '/api/v1/jobs/' + jobId,
-    });
+    const { jobId, videoId } = await enqueueRender046(connection, found.rows[0].id, kind);
+    return result(
+      kind === 'synthetic'
+        ? { jobId, videoId, syntheticOnly: true }
+        : { jobId, videoId, privateOnly: true, publicationAuthorized: false },
+      202,
+      {
+        Location: '/api/v1/jobs/' + jobId,
+      },
+    );
   });
 }
 
 export async function getProjectRender046(request: NextRequest, params: Promise<{ id: string }>) {
   const denied = await adminGate();
   if (denied) return denied;
-  if (!syntheticTestGate()) {
-    return problem(403, 'render_not_authorized', 'Synthetic job review is disabled');
+  if (!syntheticTestGate() && !render046Enabled('pilot_film')) {
+    return problem(403, 'render_not_authorized', 'Render job review is disabled');
   }
   if (request.nextUrl.searchParams.size) {
     return problem(400, 'invalid_input', 'Unexpected query parameters');
@@ -97,6 +115,7 @@ export async function getProjectRender046(request: NextRequest, params: Promise<
   return databaseAction(async (connection) => {
     const rows = await connection.pool.query<{
       id: string;
+      kind: string;
       status: string;
       progressPct: number;
       attempt: number;
@@ -105,16 +124,16 @@ export async function getProjectRender046(request: NextRequest, params: Promise<
       createdAt: Date;
       updatedAt: Date;
     }>(
-      `SELECT r.id, r.status, r.progress_pct AS "progressPct",
+      `SELECT r.id, r.manifest->>'kind' AS kind, r.status, r.progress_pct AS "progressPct",
               r.attempt, r.max_attempts AS "maxAttempts", r.error_code AS "errorCode",
               r.created_at AS "createdAt", r.updated_at AS "updatedAt"
        FROM render_jobs r
        JOIN project_versions v ON v.id = r.project_version_id
        JOIN video_projects p ON p.id = v.project_id
-       WHERE p.id = $1::uuid AND r.manifest = $2::jsonb
+       WHERE p.id = $1::uuid AND (r.manifest = $2::jsonb OR r.manifest = $3::jsonb)
          AND r.deleted_at IS NULL AND v.deleted_at IS NULL AND p.deleted_at IS NULL
        ORDER BY r.created_at DESC, r.id DESC LIMIT 5`,
-      [projectId, JSON.stringify(RENDER_046_MANIFEST)],
+      [projectId, JSON.stringify(RENDER_046_MANIFEST), JSON.stringify(RENDER_046_FILM_MANIFEST)],
     );
     return result({ items: rows.rows });
   });

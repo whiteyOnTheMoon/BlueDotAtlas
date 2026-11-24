@@ -240,9 +240,10 @@ try {
   const { id: jobId } = queued.body.items[0];
   assert.equal(queued.body.items[0].status, 'queued');
   assert.deepEqual(Object.keys(queued.body.items[0]).sort(), [
-    'attempt', 'createdAt', 'errorCode', 'id', 'maxAttempts',
+    'attempt', 'createdAt', 'errorCode', 'id', 'kind', 'maxAttempts',
     'progressPct', 'status', 'updatedAt',
   ]);
+  assert.equal(queued.body.items[0].kind, 'original_synthetic_046');
   const second = await request(post, {
     method: 'POST', headers, body: JSON.stringify({ projectId }),
   });
@@ -294,6 +295,56 @@ try {
   assert.deepEqual(errors, []);
   report.checks.push('Worker outside HTTP, running liveness, real FFmpeg, succeeded after reload, no publish');
 
+  // Private 60s pilot film path: same admin page, separate button/manifest/worker.
+  const filmPost = '/api/v1/render-046/pilot-film';
+  await reject(filmPost, {
+    method: 'POST', headers: { ...headers, origin: 'https://untrusted.invalid' },
+    body: JSON.stringify({ projectId }),
+  }, 403, 'forbidden_origin');
+  await reject(filmPost, {
+    method: 'POST', headers, body: JSON.stringify({ projectId, sourcePath: '/etc/passwd' }),
+  }, 400, 'invalid_input');
+  await reject(filmPost, { method: 'GET', headers: auth }, 405, 'method_not_allowed');
+  const filmButton = page.getByRole('button', { name: 'Render private 60s pilot film' });
+  await filmButton.waitFor();
+  const filmClick = Date.now();
+  await filmButton.click();
+  await page.getByText('Private 60-second pilot film queued', { exact: false }).waitFor();
+  assert.ok(Date.now() - filmClick < 5000, 'film button must not block on rendering');
+  const withFilm = await request(statusRoute, { headers: auth });
+  const filmJob = withFilm.body.items.find((item) => item.kind === 'private_pilot_film_046');
+  assert.ok(filmJob, 'film job listed with its kind');
+  assert.equal(filmJob.status, 'queued');
+  assert.equal(filmJob.maxAttempts, 1);
+  const filmAgain = await request(filmPost, { method: 'POST', headers, body: JSON.stringify({ projectId }) });
+  assert.equal(filmAgain.status, 202);
+  assert.equal(filmAgain.body.jobId, filmJob.id);
+  assert.equal(filmAgain.body.publicationAuthorized, false);
+  const scratch = mkdtempSync(join(tmpdir(), 'bda-046-film-http-'));
+  const filmWorker = start(process.execPath, ['apps/worker/dist/run-046-film.js'], {
+    BDA_046_TEST_STORAGE_ROOT: root,
+    BDA_046_FILM_TEST_SCRATCH: scratch,
+  });
+  assert.equal((await waitExit(filmWorker, 180_000)).code, 0, '046 film worker failed');
+  await waitJob(filmJob.id, 'succeeded');
+  await page.reload();
+  await page.getByText('Private 60s pilot film', { exact: true }).waitFor();
+  await page.screenshot({ path: resolve(output, '046-admin-pilot-film-succeeded-1440.png'), fullPage: true });
+  const filmState = await dbRows(
+    `SELECT v.status AS video_status, a.rights_status, a.storage_key
+     FROM render_jobs r JOIN videos v ON v.id=r.video_id
+     JOIN artifacts a ON a.id=v.final_artifact_id WHERE r.id=$1::uuid`,
+    [filmJob.id],
+  );
+  assert.deepEqual(filmState[0], {
+    video_status: 'rendered', rights_status: 'unreviewed',
+    storage_key: 'rendered/jobs/' + filmJob.id + '.mp4',
+  });
+  assert.equal((await dbRows("SELECT count(*)::int AS n FROM videos WHERE status='published'"))[0].n, 0);
+  rmSync(scratch, { recursive: true, force: true });
+  assert.deepEqual(errors, []);
+  report.checks.push('Film button queues one private film job; separate worker renders it; succeeded after reload; unreviewed, never published');
+
   await context.close();
   await stop(server);
   server = start('pnpm', [
@@ -305,6 +356,9 @@ try {
     method: 'POST', headers, body: JSON.stringify({ projectId }),
   }, 403, 'render_not_authorized');
   await reject(statusRoute, { headers: auth }, 403, 'render_not_authorized');
+  await reject('/api/v1/render-046/pilot-film', {
+    method: 'POST', headers, body: JSON.stringify({ projectId }),
+  }, 403, 'render_not_authorized');
   const disabledContext = await browser.newContext({
     viewport: { width: 1440, height: 900 },
     colorScheme: 'dark', reducedMotion: 'reduce',
@@ -318,6 +372,7 @@ try {
   await disabledPage.goto(browserOrigin + '/admin/projects/' + projectId);
   await disabledPage.getByRole('heading', { name: '046 original synthetic browser QA' }).waitFor();
   assert.equal(await disabledPage.getByRole('button', { name: 'Queue synthetic 1080p test' }).count(), 0);
+  assert.equal(await disabledPage.getByRole('button', { name: 'Render private 60s pilot film' }).count(), 0);
   await disabledPage.screenshot({ path: resolve(output, '046-disabled-gate-1440.png'), fullPage: true });
   await disabledContext.close();
   assert.equal((await request('/api/v1/jobs/' + jobId, { headers: auth })).body.status, 'succeeded');
