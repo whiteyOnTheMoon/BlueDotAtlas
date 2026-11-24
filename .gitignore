@@ -58,3 +58,6 @@ assets/pilot/.private-039/
 
 # Roadmap 046: disposable original-synthetic queue export (never track review MP4)
 .tmp-render-046/
+
+# 046 private pilot media/renders inside the project folder: NEVER commit or bake into images
+.private-046/

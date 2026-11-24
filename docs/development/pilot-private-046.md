@@ -170,3 +170,27 @@ The 1536 MiB container cap was an estimate. Measured peak RSS of the actual per-
 Change: Docker `--memory 512m --memory-swap 512m` (≈ 2× measured worst case, still no swap) and admission `MemAvailable ≥ 2816 MiB = 512 MiB cap + 2048 MiB host reserve + 256 MiB margin` at both `--check` and immediately before `--render`. The 2048 MiB host watchdog, offline/read-only/private-only flags, 0.5 CPU and no-retry behaviour are unchanged. Exceeding 512 MiB would cgroup-OOM only this private container; the attempt then stops and is preserved. New CI step `scripts/check-pilot-ffmpeg-046-memory.py` re-measures the 1080p footage/blend/rsvg peaks and fails at ≥ 320 MiB.
 
 Covered by the operator's blanket approval for task 046 (22 Nov 2026). Still required afterwards: VPS fast-forward, image rebuild, `--check`, one private `--render`, full decode and human watch/listen QA.
+
+
+### 046 FFmpeg attempt pilot-01 (24 Nov 2026): 30/1 timestamp drift; fix and project-local private files
+
+**Operator VPS evidence (b42a984, run via Claude Code on the VPS, each command approved):** `--check` PASS, then `--render`. All **11/11 parts PASS** with exact frame counts (66, 9, 204, 222, 223, 260, 239, 207, 190, 9, 171); copy-concat, 1800-frame join and final AAC mux completed. The final gate then stopped with `AssertionError: '27648000/921631' !== '30/1'` (avg_frame_rate ≈ 29.9993 fps, i.e. 921631 instead of 921600 ticks at 1/15360 ≈ **+2 ms**). Runner: `invocation=1 container=exited 1 false`, STOP, files and diagnostic container preserved. A 16.8 MB unverified MP4 exists in `~/.bda-pilot-film-046-ffmpeg-pilot-01/`; it is **not** an accepted result.
+
+**Cause:** the copy-concat kept per-part packet timestamps/durations; on the image's Debian bookworm FFmpeg 5.1 these accumulated tick drift across 11 parts. Not reproducible on FFmpeg 6.1, and the synthetic CI did not assert `30/1` (it was gated `if(!synthetic)`).
+
+**Fix:**
+- Join step rewrites PTS/DTS/duration to exact frame index in the input time base: `-bsf:v setts=pts=N/(30*TB):dts=N/(30*TB):duration=1/(30*TB) -video_track_timescale 15360` (no `time_base` option, which bookworm FFmpeg 5.1 lacks). ultrafast x264 has no B-frames, so PTS = DTS = N.
+- The joined video is now asserted `30/1` with ≤ 0.5 ms duration error; the final `30/1` gate applies to synthetic **and** private output.
+- New `scripts/check-pilot-ffmpeg-046-join.mjs`: 11 parts with mixed MP4 timescales (15360/30000/90000) and odd seeks must join to exactly 1800f/30/1/60.000 s (plain concat demonstrably drifts). Synthetic sources now use 30000/1001 like the real NASA/NOAA files.
+- New CI job on `node:22-bookworm-slim` with Debian FFmpeg 5.1 (same as the VPS image) runs the join check, the synthetic render and the memory guard.
+
+**All private 046 FFmpeg files now stay inside the project folder** (operator requirement 24 Nov 2026): `~/www/blueDotAtlas/.private-046/` (0700, owner 1000), git-ignored and docker-ignored; the runner refuses to start unless `.private-046/stage` is git-ignored and nothing under `.private-046` is tracked. Input stage `.private-046/stage` (selected via `BDA_PILOT_046_STAGE`, which only accepts exactly this path), output `.private-046/ffmpeg-pilot-02/046-private-ffmpeg-pilot-02.mp4`, diagnostic container `…-pilot-02`. One-time operator move on the VPS (same filesystem, instant):
+
+```bash
+( cd "$HOME/www/blueDotAtlas" || exit 1
+  test ! -e .private-046 || { echo "STOP: .private-046 exists"; exit 1; }
+  mkdir -m 700 .private-046 && mv "$HOME/.bda-pilot-stage-046" .private-046/stage
+  git check-ignore -q .private-046/stage && git status --short && ls -la .private-046 )
+```
+
+The legacy Remotion runners (attempts 01–05) and stage/voice/proxy helpers still refer to `~/.bda-pilot-stage-046` and are **superseded** for 046; they are not to be re-run after the move. Pilot-01 output stays where it is as evidence. Still required: one private `--render` (pilot-02), full decode and human watch/listen QA. Issue #70 remains OPEN.
