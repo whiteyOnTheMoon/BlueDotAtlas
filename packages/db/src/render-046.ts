@@ -9,6 +9,46 @@ export const RENDER_046_MANIFEST = Object.freeze({
   scope: 'SYNTHETIC_EXPORT_QA_ONLY',
 });
 
+// Separate private 60s pilot film job (FFmpeg/SVG renderer). Same queue table,
+// different fixed manifest, so the 8s synthetic consumer never claims it.
+export const RENDER_046_FILM_KIND = 'private_pilot_film_046';
+export const RENDER_046_FILM_MANIFEST = Object.freeze({
+  kind: RENDER_046_FILM_KIND,
+  profile: '1080p30-h264-aac-60s-ffmpeg-svg',
+  scope: 'PRIVATE_PILOT_FILM_ONLY',
+});
+export type Render046Kind = 'synthetic' | 'pilot_film';
+export const RENDER_046_FILM_ERROR_CODES = Object.freeze([
+  'pilot_film_render_failed',
+  'pilot_film_qa_failed',
+  'pilot_film_timeout',
+  'host_memory_pressure',
+] as const);
+export type Render046FilmErrorCode = (typeof RENDER_046_FILM_ERROR_CODES)[number];
+
+const SPEC = Object.freeze({
+  synthetic: Object.freeze({
+    manifest: RENDER_046_MANIFEST,
+    vpsFlag: 'BDA_RENDER_046_VPS_SYNTHETIC',
+    title: '046 original synthetic 8s QA only',
+    maxAttempts: 2,
+    minBytes: 100_000,
+    maxBytes: 8_000_000,
+    failCode: 'synthetic_render_failed',
+  }),
+  pilot_film: Object.freeze({
+    manifest: RENDER_046_FILM_MANIFEST,
+    vpsFlag: 'BDA_RENDER_046_VPS_PILOT_FILM',
+    title: '046 private 60s pilot film (not for publication)',
+    // One private attempt per job: a failed film render is diagnosed, never auto-retried.
+    maxAttempts: 1,
+    minBytes: 5_000,
+    maxBytes: 400_000_000,
+    failCode: 'pilot_film_render_failed',
+  }),
+});
+const manifestJson = (kind: Render046Kind) => JSON.stringify(SPEC[kind].manifest);
+
 export type Render046Claim = {
   id: string;
   videoId: string;
@@ -31,8 +71,8 @@ export function assertRender046TestEnvironment(): void {
  * An explicitly enabled VPS profile may process ONLY the same fixed 8s synthetic
  * manifest. Never infer film/publication authorization from this technical gate.
  */
-export function assertRender046ExecutionEnvironment(): void {
-  if (process.env.BDA_RENDER_046_VPS_SYNTHETIC === 'TRUE') {
+export function assertRender046ExecutionEnvironment(kind: Render046Kind = 'synthetic'): void {
+  if (process.env[SPEC[kind].vpsFlag] === 'TRUE') {
     let url: URL;
     try {
       url = new URL(process.env.DATABASE_URL ?? '');
@@ -65,13 +105,15 @@ export function assertRender046ExecutionEnvironment(): void {
 export async function enqueueRender046(
   { pool }: ReturnTypeOfOpenDatabase,
   projectVersionId: string,
+  kind: Render046Kind = 'synthetic',
 ): Promise<{ jobId: string; videoId: string }> {
-  assertRender046ExecutionEnvironment();
+  assertRender046ExecutionEnvironment(kind);
+  const spec = SPEC[kind];
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
     await client.query('SELECT pg_advisory_xact_lock(hashtextextended($1::text, 46))', [
-      projectVersionId,
+      projectVersionId + ':' + kind,
     ]);
     const project = await client.query<{ project_id: string }>(
       `SELECT v.project_id FROM project_versions v
@@ -86,7 +128,7 @@ export async function enqueueRender046(
        WHERE project_version_id = $1::uuid AND manifest = $2::jsonb
          AND deleted_at IS NULL AND status <> 'cancelled'
        ORDER BY created_at ASC, id ASC LIMIT 1`,
-      [projectVersionId, JSON.stringify(RENDER_046_MANIFEST)],
+      [projectVersionId, manifestJson(kind)],
     );
     if (prior.rows[0]?.video_id) {
       await client.query('COMMIT');
@@ -94,15 +136,15 @@ export async function enqueueRender046(
     }
     const video = await client.query<{ id: string }>(
       `INSERT INTO videos (project_id, project_version_id, title, status)
-       VALUES ($1::uuid, $2::uuid, '046 original synthetic 8s QA only', 'draft')
+       VALUES ($1::uuid, $2::uuid, $3, 'draft')
        RETURNING id`,
-      [project.rows[0].project_id, projectVersionId],
+      [project.rows[0].project_id, projectVersionId, spec.title],
     );
     if (!video.rows[0]) throw new Error('046 video row not created');
     const job = await client.query<{ id: string }>(
       `INSERT INTO render_jobs (project_version_id, video_id, manifest, max_attempts)
-       VALUES ($1::uuid, $2::uuid, $3::jsonb, 2) RETURNING id`,
-      [projectVersionId, video.rows[0].id, JSON.stringify(RENDER_046_MANIFEST)],
+       VALUES ($1::uuid, $2::uuid, $3::jsonb, $4) RETURNING id`,
+      [projectVersionId, video.rows[0].id, manifestJson(kind), spec.maxAttempts],
     );
     if (!job.rows[0]) throw new Error('046 job row not created');
     await client.query('COMMIT');
@@ -116,10 +158,11 @@ export async function enqueueRender046(
 }
 
 /** Separate queue from 027: its old synthetic executor never claims 046 jobs. */
-export async function claimRender046({
-  pool,
-}: ReturnTypeOfOpenDatabase): Promise<Render046Claim | null> {
-  assertRender046ExecutionEnvironment();
+export async function claimRender046(
+  { pool }: ReturnTypeOfOpenDatabase,
+  kind: Render046Kind = 'synthetic',
+): Promise<Render046Claim | null> {
+  assertRender046ExecutionEnvironment(kind);
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
@@ -132,7 +175,7 @@ export async function claimRender046({
          AND r.deleted_at IS NULL AND v.deleted_at IS NULL AND p.deleted_at IS NULL
        ORDER BY r.created_at ASC, r.id ASC
        FOR UPDATE OF r SKIP LOCKED LIMIT 1`,
-      [JSON.stringify(RENDER_046_MANIFEST)],
+      [manifestJson(kind)],
     );
     if (!rows.rows[0]) {
       await client.query('COMMIT');
@@ -166,8 +209,11 @@ export async function claimRender046({
 }
 
 /** Expired owners cannot commit an artifact; retry may reuse an identical immutable file. */
-export async function recoverRender046({ pool }: ReturnTypeOfOpenDatabase): Promise<number> {
-  assertRender046ExecutionEnvironment();
+export async function recoverRender046(
+  { pool }: ReturnTypeOfOpenDatabase,
+  kind: Render046Kind = 'synthetic',
+): Promise<number> {
+  assertRender046ExecutionEnvironment(kind);
   const result = await pool.query(
     `UPDATE render_jobs
      SET status = 'failed', error_code = 'lease_expired',
@@ -176,13 +222,16 @@ export async function recoverRender046({ pool }: ReturnTypeOfOpenDatabase): Prom
          updated_at = NOW()
      WHERE status = 'running' AND lease_expires_at <= NOW()
        AND manifest = $1::jsonb RETURNING id`,
-    [JSON.stringify(RENDER_046_MANIFEST)],
+    [manifestJson(kind)],
   );
   return result.rowCount ?? 0;
 }
 
-export async function requeueRender046({ pool }: ReturnTypeOfOpenDatabase): Promise<number> {
-  assertRender046ExecutionEnvironment();
+export async function requeueRender046(
+  { pool }: ReturnTypeOfOpenDatabase,
+  kind: Render046Kind = 'synthetic',
+): Promise<number> {
+  assertRender046ExecutionEnvironment(kind);
   const result = await pool.query(
     `UPDATE render_jobs SET status = 'queued', finished_at = NULL, updated_at = NOW()
      WHERE status = 'failed' AND attempt < max_attempts
@@ -192,7 +241,7 @@ export async function requeueRender046({ pool }: ReturnTypeOfOpenDatabase): Prom
          WHERE v.id = render_jobs.project_version_id
            AND v.deleted_at IS NULL AND p.deleted_at IS NULL
        ) RETURNING id`,
-    [JSON.stringify(RENDER_046_MANIFEST)],
+    [manifestJson(kind)],
   );
   return result.rowCount ?? 0;
 }
@@ -200,17 +249,27 @@ export async function requeueRender046({ pool }: ReturnTypeOfOpenDatabase): Prom
 export async function failRender046(
   { pool }: ReturnTypeOfOpenDatabase,
   claim: Render046Claim,
+  kind: Render046Kind = 'synthetic',
+  errorCode?: Render046FilmErrorCode,
 ): Promise<boolean> {
-  assertRender046ExecutionEnvironment();
+  assertRender046ExecutionEnvironment(kind);
+  const code = errorCode ?? SPEC[kind].failCode;
+  if (
+    kind === 'synthetic'
+      ? code !== SPEC.synthetic.failCode
+      : !(RENDER_046_FILM_ERROR_CODES as readonly string[]).includes(code)
+  ) {
+    throw new Error('046 invalid error code');
+  }
   const result = await pool.query(
     `UPDATE render_jobs
-     SET status = 'failed', error_code = 'synthetic_render_failed',
+     SET status = 'failed', error_code = $4,
          lease_token = NULL, lease_expires_at = NULL, finished_at = NOW(),
          available_at = NOW() + INTERVAL '300 milliseconds', updated_at = NOW()
      WHERE id = $1::uuid AND lease_token = $2::uuid
        AND status = 'running' AND lease_expires_at > NOW()
        AND manifest = $3::jsonb RETURNING id`,
-    [claim.id, claim.leaseToken, JSON.stringify(RENDER_046_MANIFEST)],
+    [claim.id, claim.leaseToken, manifestJson(kind), code],
   );
   return result.rowCount === 1;
 }
@@ -218,14 +277,15 @@ export async function failRender046(
 export async function cancelRender046(
   { pool }: ReturnTypeOfOpenDatabase,
   id: string,
+  kind: Render046Kind = 'synthetic',
 ): Promise<boolean> {
-  assertRender046ExecutionEnvironment();
+  assertRender046ExecutionEnvironment(kind);
   const result = await pool.query(
     `UPDATE render_jobs SET status = 'cancelled', lease_token = NULL,
        lease_expires_at = NULL, finished_at = NOW(), updated_at = NOW()
      WHERE id = $1::uuid AND status IN ('queued', 'running', 'failed')
        AND manifest = $2::jsonb RETURNING id`,
-    [id, JSON.stringify(RENDER_046_MANIFEST)],
+    [id, manifestJson(kind)],
   );
   return result.rowCount === 1;
 }
@@ -234,15 +294,21 @@ export async function cancelRender046(
 export async function finishRender046(
   { pool }: ReturnTypeOfOpenDatabase,
   claim: Render046Claim,
-  file: { storageKey: string; sha256: string; sizeBytes: number },
+  file: { storageKey: string; sha256: string; sizeBytes: number; durationMs?: number },
+  kind: Render046Kind = 'synthetic',
 ): Promise<boolean> {
-  assertRender046ExecutionEnvironment();
+  assertRender046ExecutionEnvironment(kind);
+  const spec = SPEC[kind];
+  const durationMs = kind === 'synthetic' ? 8000 : file.durationMs;
   if (
     file.storageKey !== `rendered/jobs/${claim.id}.mp4` ||
     !/^[a-f0-9]{64}$/.test(file.sha256) ||
     !Number.isSafeInteger(file.sizeBytes) ||
-    file.sizeBytes < 100_000 ||
-    file.sizeBytes > 8_000_000
+    file.sizeBytes < spec.minBytes ||
+    file.sizeBytes > spec.maxBytes ||
+    !Number.isSafeInteger(durationMs) ||
+    (durationMs as number) < 1000 ||
+    (durationMs as number) > 60_150
   ) {
     throw new Error('046 invalid committed output');
   }
@@ -254,7 +320,7 @@ export async function finishRender046(
        WHERE id = $1::uuid AND lease_token = $2::uuid
          AND status = 'running' AND lease_expires_at > NOW()
          AND manifest = $3::jsonb FOR UPDATE`,
-      [claim.id, claim.leaseToken, JSON.stringify(RENDER_046_MANIFEST)],
+      [claim.id, claim.leaseToken, manifestJson(kind)],
     );
     if (!current.rows[0] || current.rows[0].video_id !== claim.videoId) {
       await client.query('ROLLBACK');
@@ -268,10 +334,10 @@ export async function finishRender046(
     if (!artifact.rows[0]) throw new Error('046 artifact not inserted');
     const video = await client.query(
       `UPDATE videos SET status = 'rendered', final_artifact_id = $2::uuid,
-         duration_ms = 8000, updated_at = NOW()
+         duration_ms = $3, updated_at = NOW()
        WHERE id = $1::uuid AND status = 'draft' AND final_artifact_id IS NULL
        RETURNING id`,
-      [claim.videoId, artifact.rows[0].id],
+      [claim.videoId, artifact.rows[0].id, durationMs],
     );
     if (video.rowCount !== 1) throw new Error('046 video already finalized');
     const job = await client.query(

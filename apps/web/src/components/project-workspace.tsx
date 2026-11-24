@@ -56,9 +56,11 @@ async function requestJson(path: string, options?: RequestInit) {
 export function ProjectWorkspace({
   projectId,
   syntheticRenderEnabled = false,
+  pilotFilmEnabled = false,
 }: {
   projectId?: string;
   syntheticRenderEnabled?: boolean;
+  pilotFilmEnabled?: boolean;
 }) {
   const router = useRouter();
   const [filter, setFilter] = useState('');
@@ -283,7 +285,13 @@ export function ProjectWorkspace({
                     Editorial step notes autosave in your private project. No render job is started.
                   </p>
                 </div>
-                {syntheticRenderEnabled ? <RenderQueuePanel projectId={project.id} /> : null}
+                {syntheticRenderEnabled || pilotFilmEnabled ? (
+                  <RenderQueuePanel
+                    projectId={project.id}
+                    syntheticEnabled={syntheticRenderEnabled}
+                    pilotFilmEnabled={pilotFilmEnabled}
+                  />
+                ) : null}
               </>
             ) : null}
           </section>

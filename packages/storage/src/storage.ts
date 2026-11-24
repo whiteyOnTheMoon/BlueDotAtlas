@@ -162,7 +162,8 @@ export class LocalStorage {
    */
   static async openRender046VpsRoot(path: string): Promise<LocalStorage> {
     if (
-      process.env.BDA_RENDER_046_VPS_SYNTHETIC !== 'TRUE' ||
+      (process.env.BDA_RENDER_046_VPS_SYNTHETIC !== 'TRUE' &&
+        process.env.BDA_RENDER_046_VPS_PILOT_FILM !== 'TRUE') ||
       process.env.CI === 'true' ||
       process.env.NODE_ENV !== 'production' ||
       process.env.BDA_STORAGE_TEST === '1' ||

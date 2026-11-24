@@ -9,6 +9,9 @@ on:
       - 'render/**'
       - 'scripts/check-render-046.py'
       - 'scripts/check-render-046-http.mjs'
+      - 'scripts/render-pilot-ffmpeg-046.mjs'
+      - 'scripts/pilot-ffmpeg-046-plan.mjs'
+      - 'compose.render-046.yml'
       - 'apps/web/**'
       - 'scripts/check-export-045.py'
       - 'docs/pilot/60s-script.json'
@@ -76,11 +79,11 @@ jobs:
           if [ -n "$(git status --porcelain -- packages/db/drizzle)" ]; then exit 1; fi
           pnpm --filter @bluedotatlas/db db:migrate
           pnpm --filter @bluedotatlas/db db:migrate
-      - name: Require FFmpeg and FFprobe on disposable runner only
+      - name: Require FFmpeg, FFprobe and rsvg-convert on disposable runner only
         run: |
-          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null || ! command -v rsvg-convert >/dev/null; then
             timeout 180 sudo apt-get update -qq
-            timeout 180 sudo apt-get install -y --no-install-recommends ffmpeg
+            timeout 180 sudo apt-get install -y --no-install-recommends ffmpeg librsvg2-bin fonts-dejavu-core
           fi
       - name: Real queued render, full MP4 decoder QA, DB artifact/reference and negative lease tests
         run: pnpm --filter @bluedotatlas/db test:render-046

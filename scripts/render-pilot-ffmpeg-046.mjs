@@ -8,16 +8,40 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { FF046, JOIN_TIMESTAMPS046, SEGMENTS046, SHOTS046, VOICE046, overlaySvg046, planSegments, scienceSvg046, sourceFor } from './pilot-ffmpeg-046-plan.mjs';
 
-assert.equal(process.argv.length,3,'Use --synthetic or --private');
+// Modes: --synthetic (CI smoke) | --private (owner script) |
+// --queue-job <uuid> (046 queue worker, private media) |
+// --queue-job-synthetic <uuid> (CI queue proof, synthetic media, kept output).
 const mode=process.argv[2];
-assert.ok(['--synthetic','--private'].includes(mode));
-const synthetic=mode==='--synthetic';
-if(!synthetic) {
+const UUID=/^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/;
+const queueJob=['--queue-job','--queue-job-synthetic'].includes(mode);
+if(queueJob) {
+  assert.equal(process.argv.length,4,'Use --queue-job <uuid>');
+  assert.match(process.argv[3],UUID,'invalid queue job id');
+  assert.equal(process.env.BDA_PILOT_046_FILM_QUEUE,'TRUE');
+} else {
+  assert.equal(process.argv.length,3,'Use --synthetic or --private');
+  assert.ok(['--synthetic','--private'].includes(mode));
+}
+const jobId=queueJob?process.argv[3]:null;
+const synthetic=mode==='--synthetic'||mode==='--queue-job-synthetic';
+if(mode==='--private') {
   assert.equal(process.env.BDA_PILOT_046_FFMPEG_PRIVATE,'TRUE');
   assert.equal(process.getuid?.(),1000);
   assert.equal(process.env.HOME,'/home/node');
   assert.equal(process.env.BDA_PILOT_046_MEDIA_ROOT,'/source');
   assert.equal(process.env.BDA_PILOT_046_OUTPUT_ROOT,'/review');
+}
+if(mode==='--queue-job') {
+  assert.equal(process.getuid?.(),1000);
+  assert.equal(process.env.HOME,'/home/node');
+  assert.equal(process.env.BDA_PILOT_046_MEDIA_ROOT,'/source');
+  assert.equal(process.env.BDA_PILOT_046_OUTPUT_ROOT,'/work/jobs/'+jobId);
+}
+if(queueJob) {
+  const out=process.env.BDA_PILOT_046_OUTPUT_ROOT??'';
+  assert.ok(out.startsWith('/')&&out.endsWith('/'+jobId)&&!out.includes('..'),'queue output root invalid');
+  const st=lstatSync(out);
+  assert.ok(st.isDirectory()&&!st.isSymbolicLink()&&(st.mode&0o077)===0,'queue output dir must be private');
 }
 process.umask(0o077);
 const common=['-nostdin','-hide_banner','-loglevel','error','-threads','1','-filter_threads','1','-filter_complex_threads','1'];
@@ -199,17 +223,32 @@ function syntheticInputs(root,shots) {
     'sine=frequency=440:sample_rate=48000:duration=1.4','-c:a','pcm_s16le','-ac','2','-n',voice],30000);
   return voice;
 }
-if(synthetic) {
-  const root=join(tmpdir(),'ff046-synthetic-'+randomBytes(8).toString('hex'));
-  mkdirSync(root,{mode:0o700});
-  try {
-    const shots=[
+const SYNTHETIC_SHOTS=[
       {id:'S00',kind:'brand_intro',from:0,durationInFrames:12,assetId:null},
       {id:'S01',kind:'footage',from:9,durationInFrames:12,assetId:'SYNTH',
         caption:'Synthetic test footage',credit:'Generated local testsrc2'},
       {id:'S07',kind:'science',from:21,durationInFrames:12,assetId:null},
       {id:'S08',kind:'brand_outro',from:30,durationInFrames:12,assetId:null},
     ];
+if(mode==='--queue-job-synthetic') {
+  const out=process.env.BDA_PILOT_046_OUTPUT_ROOT;
+  const root=join(tmpdir(),'ff046-queue-synthetic-'+randomBytes(8).toString('hex'));
+  mkdirSync(root,{mode:0o700});
+  try {
+    const voice=syntheticInputs(root,SYNTHETIC_SHOTS);
+    render({shots:SYNTHETIC_SHOTS,segments:planSegments(SYNTHETIC_SHOTS),root,out,voice,
+      intro:join(root,'synthetic-S00.mp4'),width:320,height:180,output:'046-private-film-'+jobId+'.mp4'});
+  } finally {rmSync(root,{recursive:true,force:true});}
+} else if(mode==='--queue-job') {
+  const out=process.env.BDA_PILOT_046_OUTPUT_ROOT;
+  render({shots:SHOTS046,segments:SEGMENTS046,root:'/source',out,
+    voice:join('/source',VOICE046),intro:join('/source',sourceFor(SHOTS046[0])),
+    width:FF046.width,height:FF046.height,output:'046-private-film-'+jobId+'.mp4'});
+} else if(synthetic) {
+  const root=join(tmpdir(),'ff046-synthetic-'+randomBytes(8).toString('hex'));
+  mkdirSync(root,{mode:0o700});
+  try {
+    const shots=SYNTHETIC_SHOTS;
     const voice=syntheticInputs(root,shots);
     render({shots,segments:planSegments(shots),root,out:root,voice,
       intro:join(root,'synthetic-S00.mp4'),width:320,height:180,output:'synthetic-046.mp4'});
