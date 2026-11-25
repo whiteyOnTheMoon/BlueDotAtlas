@@ -1,0 +1,73 @@
+{
+  "scope": "048_V2_PRIVATE_NARRATION",
+  "published": false,
+  "provider": "kokoro-onnx-local",
+  "model": "kokoro-v1.0",
+  "voice": "bm_george",
+  "language": "en-gb",
+  "speed": 0.9,
+  "sampleRate": 48000,
+  "channels": 2,
+  "frames": 1800,
+  "durationSeconds": 60.0,
+  "wavSha256": "db49e3d83425de51b997d361d0185a2351b6a8345c050e06e8841330cfa414a8",
+  "ownerAuditoryReviewRequired": true,
+  "segments": [
+    {
+      "id": "N1",
+      "scene": "context",
+      "startFrame": 210,
+      "endFrame": 359,
+      "speechSeconds": 4.958,
+      "words": 10,
+      "wordsPerSecond": 2.02
+    },
+    {
+      "id": "N2",
+      "scene": "news",
+      "startFrame": 555,
+      "endFrame": 683,
+      "speechSeconds": 4.266,
+      "words": 10,
+      "wordsPerSecond": 2.34
+    },
+    {
+      "id": "N3",
+      "scene": "news",
+      "startFrame": 715,
+      "endFrame": 830,
+      "speechSeconds": 3.806,
+      "words": 10,
+      "wordsPerSecond": 2.63
+    },
+    {
+      "id": "N4",
+      "scene": "meaning",
+      "startFrame": 890,
+      "endFrame": 1154,
+      "speechSeconds": 8.793,
+      "words": 19,
+      "wordsPerSecond": 2.16
+    },
+    {
+      "id": "N5",
+      "scene": "future",
+      "startFrame": 1186,
+      "endFrame": 1392,
+      "speechSeconds": 6.848,
+      "words": 16,
+      "wordsPerSecond": 2.34
+    },
+    {
+      "id": "N6",
+      "scene": "takeaway",
+      "startFrame": 1477,
+      "endFrame": 1601,
+      "speechSeconds": 4.1,
+      "words": 10,
+      "wordsPerSecond": 2.44
+    }
+  ],
+  "averageWordsPerSecond": 2.29,
+  "note": "Measured on 2026-11-25 with pinned Kokoro v1.0 (042 SHA). Frames are scene-absolute; the scene document windows were set to these measured ends (Roadmap 053). WAV SHA is informational: ONNX output may differ across CPUs, the VPS regenerates and records its own SHA."
+}

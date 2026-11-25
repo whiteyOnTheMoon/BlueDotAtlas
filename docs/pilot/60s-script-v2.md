@@ -63,7 +63,12 @@ Alle drei Dateien wurden am 25.11.2026 einmal in einen privaten, temporären Arb
    - Es überschreibt nichts.
 
    Erst prüfen, ohne etwas herunterzuladen: `node scripts/stage-pilot-v2-media.mjs --check`. Dann ausführen: `BDA_PILOT_V2_STAGE=TRUE node scripts/stage-pilot-v2-media.mjs --stage`.
-2. **Sprachaufnahme V2:** Kokoro lokal, 0 €; die echte Audiodauer wird Master-Timeline (053), die Frame-Fenster oben sind Planwerte.
+2. **Sprachaufnahme V2:** erstellt mit `scripts/generate-tts-v2.py`. Das Skript nutzt dasselbe gepinnte lokale Kokoro-Modell wie 042, Stimme `bm_george`, Tempo 0,9, 0 €.
+   - Jeder Satz liegt an seinem Szenen-Startframe in einer exakt 60 s langen 48-kHz-Stereo-Spur.
+   - Gemessen: 32,8 s Sprechzeit, **im Mittel 2,29 Wörter/s**.
+   - Die Fenster im Szenendokument sind auf die gemessenen Enden gesetzt (053: Audio ist Master); Nachweis in [60s-script-v2.narration-timing.json](60s-script-v2.narration-timing.json).
+   - Erzeugt wird mit `BDA_TTS_V2_PRIVATE=TRUE BDA_TTS_V2_SPEED=0.9 python3 scripts/generate-tts-v2.py <privater Ordner>`.
+   - Die Hörprüfung durch den Betreiber steht aus.
 3. **Musikbett:** aus einer geklärten Quelle, z. B. CC0, Rechte geprüft; mit Ducking nach 043.
 4. **Renderer für den Vertrag:** Der heutige FFmpeg/SVG-Renderer kennt nur den alten 9-Shot-Plan. Für V2 braucht er Karten- und Infografik-Szenen (055/056), weiche Übergänge und Kamerabewegung (057) sowie Infobox-Overlays (058). Er rendert dann direkt aus dem Szenendokument.
 5. **Erneute 048-Abnahme** am großen Bildschirm und am Handy.
