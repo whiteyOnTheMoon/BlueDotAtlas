@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "id": "pilot-v2-structure",
+  "title": "Hurricanes: Powered by the Ocean – V2 structure (048 target dramaturgy, narration pending Script V2)",
+  "language": "en",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "durationFrames": 1800,
+  "sources": [
+    {
+      "id": "noaa-how-hurricanes-form",
+      "kind": "web",
+      "publisher": "NOAA National Ocean Service",
+      "title": "How do hurricanes form?",
+      "url": "https://oceanservice.noaa.gov/facts/how-hurricanes-form.html",
+      "checkedAt": "2026-11-20"
+    },
+    {
+      "id": "noaa-jetstream-tc",
+      "kind": "web",
+      "publisher": "NOAA JetStream",
+      "title": "Introduction to Tropical Cyclones",
+      "url": "https://www.noaa.gov/jetstream/tropical/tropical-cyclone-introduction",
+      "checkedAt": "2026-11-20"
+    }
+  ],
+  "assets": [
+    {
+      "id": "brand-intro",
+      "kind": "brand",
+      "path": "assets/brand/motion/final/BlueDotAtlas Intro.mp4",
+      "rightsStatus": "cleared",
+      "credit": "BlueDotAtlas original"
+    },
+    {
+      "id": "brand-outro",
+      "kind": "brand",
+      "path": "assets/brand/motion/final/BlueDotAtlas_Outro.mp4",
+      "rightsStatus": "cleared",
+      "credit": "BlueDotAtlas original"
+    },
+    {
+      "id": "P60-VID-001",
+      "kind": "footage",
+      "rightsStatus": "unreviewed",
+      "credit": "NASA JSC · ISS Expedition 58"
+    },
+    {
+      "id": "P60-VID-005",
+      "kind": "footage",
+      "rightsStatus": "unreviewed",
+      "credit": "NOAA Ocean Exploration"
+    },
+    {
+      "id": "P60-VID-003",
+      "kind": "footage",
+      "rightsStatus": "unreviewed",
+      "credit": "Nick Underwood / NOAA OMAO"
+    }
+  ],
+  "dataRefs": [],
+  "scenes": [
+    {
+      "id": "intro",
+      "beat": "intro",
+      "title": "Brand intro",
+      "shots": [
+        {
+          "id": "S00",
+          "kind": "brand_intro",
+          "duration": {
+            "frames": 75
+          },
+          "assetIds": ["brand-intro"],
+          "transitionIn": {
+            "type": "cut",
+            "frames": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "arrival",
+      "beat": "arrival",
+      "title": "Full-screen arrival, no text",
+      "shots": [
+        {
+          "id": "S01",
+          "kind": "footage_fullscreen",
+          "duration": {
+            "frames": 135
+          },
+          "assetIds": ["P60-VID-001"],
+          "transitionIn": {
+            "type": "crossfade",
+            "frames": 15
+          },
+          "animation": {
+            "type": "push_in",
+            "fromScale": 1,
+            "toScale": 1.08,
+            "easing": "ease_in_out"
+          }
+        }
+      ]
+    },
+    {
+      "id": "context",
+      "beat": "context",
+      "title": "What a hurricane is (general context)",
+      "shots": [
+        {
+          "id": "S02",
+          "kind": "footage_with_overlay",
+          "duration": {
+            "frames": 300
+          },
+          "assetIds": ["P60-VID-001"],
+          "transitionIn": {
+            "type": "cut",
+            "frames": 0
+          },
+          "animation": {
+            "type": "push_in",
+            "fromScale": 1,
+            "toScale": 1.08,
+            "easing": "ease_in_out"
+          },
+          "overlays": [
+            {
+              "style": "info_box",
+              "text": "Warm oceans supply heat and moisture",
+              "startFrame": 60,
+              "endFrame": 240,
+              "sourceIds": ["noaa-how-hurricanes-form"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pause-1",
+      "beat": "pause",
+      "title": "Breathing pause",
+      "shots": [
+        {
+          "id": "S03",
+          "kind": "breathing_video",
+          "duration": {
+            "frames": 90
+          },
+          "assetIds": ["P60-VID-005"],
+          "transitionIn": {
+            "type": "crossfade",
+            "frames": 18
+          }
+        }
+      ]
+    },
+    {
+      "id": "news",
+      "beat": "news",
+      "title": "The news (event footage)",
+      "shots": [
+        {
+          "id": "S04",
+          "kind": "footage_with_overlay",
+          "duration": {
+            "frames": 330
+          },
+          "assetIds": ["P60-VID-003"],
+          "transitionIn": {
+            "type": "dip_to_black",
+            "frames": 12
+          },
+          "overlays": [
+            {
+              "style": "source_credit",
+              "text": "Hurricane Helene · NOAA Hurricane Hunter · 2024",
+              "startFrame": 30,
+              "endFrame": 150
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meaning",
+      "beat": "meaning",
+      "title": "What it means (one focused infographic)",
+      "shots": [
+        {
+          "id": "S05",
+          "kind": "infographic",
+          "duration": {
+            "frames": 270
+          },
+          "assetIds": [],
+          "transitionIn": {
+            "type": "crossfade",
+            "frames": 15
+          },
+          "animation": {
+            "type": "diagram_build",
+            "fromScale": 1,
+            "toScale": 1,
+            "easing": "ease_out"
+          }
+        }
+      ]
+    },
+    {
+      "id": "future",
+      "beat": "future",
+      "title": "What it means for the future",
+      "shots": [
+        {
+          "id": "S06",
+          "kind": "footage_with_overlay",
+          "duration": {
+            "frames": 240
+          },
+          "assetIds": ["P60-VID-005"],
+          "transitionIn": {
+            "type": "crossfade",
+            "frames": 15
+          },
+          "animation": {
+            "type": "push_in",
+            "fromScale": 1,
+            "toScale": 1.08,
+            "easing": "ease_in_out"
+          },
+          "overlays": [
+            {
+              "style": "info_box",
+              "text": "Over land or cooler seas, storms often weaken",
+              "startFrame": 30,
+              "endFrame": 180,
+              "sourceIds": ["noaa-jetstream-tc"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pause-2",
+      "beat": "pause",
+      "title": "Breathing pause",
+      "shots": [
+        {
+          "id": "S07",
+          "kind": "breathing_video",
+          "duration": {
+            "frames": 90
+          },
+          "assetIds": ["P60-VID-003"],
+          "transitionIn": {
+            "type": "crossfade",
+            "frames": 18
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "beat": "takeaway",
+      "title": "What to take away",
+      "shots": [
+        {
+          "id": "S08",
+          "kind": "text_card",
+          "duration": {
+            "frames": 120
+          },
+          "assetIds": [],
+          "transitionIn": {
+            "type": "crossfade",
+            "frames": 15
+          },
+          "overlays": [
+            {
+              "style": "title",
+              "text": "Key takeaway (Skript V2)",
+              "startFrame": 10,
+              "endFrame": 110
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outro",
+      "beat": "outro",
+      "title": "Brand outro",
+      "shots": [
+        {
+          "id": "S09",
+          "kind": "brand_outro",
+          "duration": {
+            "frames": 150
+          },
+          "assetIds": ["brand-outro"],
+          "transitionIn": {
+            "type": "crossfade",
+            "frames": 12
+          }
+        }
+      ]
+    }
+  ],
+  "publicationAuthorized": false
+}

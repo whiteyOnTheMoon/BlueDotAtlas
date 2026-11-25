@@ -9,6 +9,10 @@
     "test": "pnpm build && node --test tests/*.test.mjs"
   },
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./scene-schema/v1": "./dist/scene-schema/v1.js"
+  },
+  "dependencies": {
+    "zod": "4.6.7"
   }
 }
