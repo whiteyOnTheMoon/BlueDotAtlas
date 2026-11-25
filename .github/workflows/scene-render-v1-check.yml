@@ -1,0 +1,69 @@
+name: M04 057/058 Scene-Director V1 renderer (synthetic 1080p proof)
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/render-scene-v1.mjs'
+      - 'scripts/scene-render-v1-plan.mjs'
+      - 'scripts/check-scene-render-v1.test.mjs'
+      - 'scripts/pilot-ffmpeg-046-plan.mjs'
+      - 'packages/core/src/scene-schema/**'
+      - 'docs/pilot/60s-script-v2.scene.json'
+      - '.github/workflows/scene-render-v1-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scene-v1-ubuntu:
+    name: Scene V1 renderer synthetic 1080p (transitions, camera, overlays, infographic)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.12
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies and build the scene contract
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm --filter @bluedotatlas/core build
+      - name: Plan unit tests
+        run: node --test scripts/check-scene-render-v1.test.mjs
+      - name: Install FFmpeg, rsvg and fonts (CI only)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg librsvg2-bin fonts-dejavu-core
+      - name: Synthetic 1080p scene render with pixel-level checks
+        run: node scripts/render-scene-v1.mjs --synthetic
+
+  scene-v1-bookworm:
+    # Same Debian bookworm FFmpeg 5.1 as the VPS pilot046ffmpeg image.
+    name: Scene V1 renderer on bookworm FFmpeg 5.1 (VPS parity)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    container:
+      image: node:22-bookworm-slim
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install FFmpeg, rsvg and fonts (as in deploy/Dockerfile)
+        run: |
+          apt-get update -qq
+          apt-get install -y --no-install-recommends ffmpeg librsvg2-bin fonts-dejavu-core
+          ffmpeg -hide_banner -version | head -n 1
+      - name: Install dependencies and build the scene contract
+        run: |
+          corepack enable
+          corepack pnpm install --frozen-lockfile
+          corepack pnpm --filter @bluedotatlas/core build
+      - name: Synthetic 1080p scene render with pixel-level checks
+        run: node scripts/render-scene-v1.mjs --synthetic

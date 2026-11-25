@@ -98,7 +98,7 @@
 | **054** | Medien-Auswahlalgorithmus entwickeln | [#78](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/78) | Backlog |
 | **055** | Animierte Wissenschaftsdiagramme erstellen | [#79](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/79) | Backlog |
 | **056** | Earth-/Karten-Prototyp bauen | [#80](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/80) | Backlog |
-| **057** | Filmische Übergänge und Farbkorrektur standardisieren | [#81](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/81) | Backlog |
+| **057** | Filmische Übergänge und Farbkorrektur standardisieren | [#81](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/81) | Im Review: [Scene-Renderer V1](../video/scene-renderer-v1.md) mit Crossfade/Dip und Kamerafahrten (Farbkorrektur offen); enthält Infobox-Overlays (058) und `diagram_build`-Infografik (055) |
 | **058** | Textgrafiken und Legenden begrenzen | [#82](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/82) | Backlog |
 | **059** | Scene-Director-QA-Linter hinzufügen | [#83](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/83) | Backlog |
 | **060** | Timeline-Preview und Render-Manifest erstellen | [#84](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/84) | Backlog |
