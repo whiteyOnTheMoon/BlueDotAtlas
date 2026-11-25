@@ -73,3 +73,23 @@ ENV HOME=/home/node
 USER node
 WORKDIR /app
 CMD ["/usr/bin/false"]
+
+# 048 Script V2 narration: pinned local Kokoro TTS (no cloud speech service).
+# Standalone Python image; the pinned model is SHA-verified at build time and
+# baked in so the private run needs no network. Never in the default Compose profile.
+FROM python:3.12-slim-bookworm AS pilotv2tts
+RUN pip install --no-cache-dir --disable-pip-version-check \
+      "kokoro-onnx==0.6.1" "onnxruntime==1.29.0" "phonemizer==3.6.0" "espeakng-loader==0.2.4" \
+      "numpy==2.2.6" "scipy==1.16.3" \
+    && useradd --uid 1000 --create-home bda
+WORKDIR /app
+COPY scripts/generate-tts-042.py scripts/generate-tts-v2.py scripts/
+RUN python3 -I scripts/generate-tts-v2.py --fetch-model /opt/kokoro-v1.0 \
+    && chmod -R a=rX /opt/kokoro-v1.0
+COPY docs/pilot/60s-script-v2.scene.json docs/pilot/
+ARG BDA_PILOT_046_GIT_SHA
+RUN test -n "$BDA_PILOT_046_GIT_SHA"
+LABEL org.opencontainers.image.revision="$BDA_PILOT_046_GIT_SHA"
+ENV BDA_TTS_V2_MODEL_DIR=/opt/kokoro-v1.0 OMP_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 HOME=/home/bda
+USER bda
+CMD ["/usr/bin/false"]

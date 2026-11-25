@@ -6,6 +6,11 @@ on:
       - 'scripts/render-scene-v1.mjs'
       - 'scripts/scene-render-v1-plan.mjs'
       - 'scripts/check-scene-render-v1.test.mjs'
+      - 'scripts/render-pilot-v2.mjs'
+      - 'scripts/check-pilot-v2-film.test.mjs'
+      - 'scripts/run-pilot-v2-film.sh'
+      - 'scripts/generate-tts-v2.py'
+      - 'deploy/Dockerfile'
       - 'scripts/pilot-ffmpeg-046-plan.mjs'
       - 'packages/core/src/scene-schema/**'
       - 'docs/pilot/60s-script-v2.scene.json'
@@ -67,3 +72,33 @@ jobs:
           corepack pnpm --filter @bluedotatlas/core build
       - name: Synthetic 1080p scene render with pixel-level checks
         run: node scripts/render-scene-v1.mjs --synthetic
+
+  pilot-v2-tts-image:
+    # Same image and container limits as run-pilot-v2-film.sh --tts on the VPS.
+    name: V2 TTS image (pinned Kokoro, offline run, 1024 MiB)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Build pilotv2tts with revision label
+        run: |
+          git archive --format=tar HEAD | docker build -f deploy/Dockerfile --target pilotv2tts \
+            --build-arg BDA_PILOT_046_GIT_SHA="$(git rev-parse HEAD)" -t bda-v2tts:ci -
+          test "$(docker image inspect bda-v2tts:ci --format '{{ index .Config.Labels "org.opencontainers.image.revision" }}')" = "$(git rev-parse HEAD)"
+      - name: Offline narration run with VPS limits
+        run: |
+          mkdir -m 700 .tmp-v2-voice && sudo chown 1000:1000 .tmp-v2-voice
+          docker run --rm --pull never --init --network none --cpus 0.5 --memory 1024m --memory-swap 1024m \
+            --pids-limit 64 --read-only --cap-drop ALL --security-opt no-new-privileges \
+            --tmpfs /tmp:rw,nosuid,exec,size=64m,uid=1000,gid=1000 \
+            -e BDA_TTS_V2_PRIVATE=TRUE -e BDA_TTS_V2_SPEED=0.9 \
+            --mount type=bind,source="$PWD/.tmp-v2-voice",target=/voice \
+            bda-v2tts:ci python3 -I scripts/generate-tts-v2.py /voice
+          # Output is owner-only for uid 1000 (the VPS operator); the CI runner user reads it via sudo.
+          test "$(sudo stat -c %s .tmp-v2-voice/pilot-v2-narration-60s.wav)" = 11520044
+          sudo python3 -I -c "import json;r=json.load(open('.tmp-v2-voice/pilot-v2-narration-timing.json'));assert r['published'] is False and len(r['segments'])==6;print([(s['id'],s['startFrame'],s['endFrame']) for s in r['segments']])"
+      - name: Remove generated audio
+        if: always()
+        run: sudo rm -rf -- .tmp-v2-voice
