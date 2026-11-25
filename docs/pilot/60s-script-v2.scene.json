@@ -55,6 +55,30 @@
       "title": "Global Warming and Hurricanes",
       "url": "https://www.gfdl.noaa.gov/global-warming-and-hurricanes/",
       "checkedAt": "2026-11-25"
+    },
+    {
+      "id": "nasa-svs-5683",
+      "kind": "web",
+      "publisher": "NASA Scientific Visualization Studio",
+      "title": "Signs of El Niño in 2026",
+      "url": "https://svs.gsfc.nasa.gov/5683/",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "id": "nasa-svs-5681",
+      "kind": "web",
+      "publisher": "NASA Scientific Visualization Studio",
+      "title": "Hurricane Polo Makes Landfall in Baja California",
+      "url": "https://svs.gsfc.nasa.gov/5681/",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "id": "cira-polo",
+      "kind": "web",
+      "publisher": "CIRA Satellite Library",
+      "title": "Hurricane Polo",
+      "url": "https://satlib.cira.colostate.edu/event/hurricane-polo/",
+      "checkedAt": "2026-11-25"
     }
   ],
   "assets": [
@@ -91,21 +115,33 @@
       "credit": "Nick Underwood / NOAA OMAO"
     },
     {
-      "id": "V2-NEW-POLO-SAT",
-      "kind": "footage",
+      "id": "V2-VID-SVS5683-ELNINO-SSTA",
+      "kind": "map",
+      "sha256": "5ae6bb05a11cf1ce32dd9a4aedce235857caf507b72e1fd9fd8ed2916a5e7133",
       "rightsStatus": "unreviewed",
-      "credit": "NOAA/NASA satellite imagery of Hurricane Polo, Sept 2026 (to be sourced)",
+      "credit": "NASA's Scientific Visualization Studio",
       "sourceIds": [
-        "nasa-polo"
+        "nasa-svs-5683"
       ]
     },
     {
-      "id": "V2-NEW-ELNINO-SST",
-      "kind": "map",
+      "id": "V2-VID-CIRA-POLO-RI",
+      "kind": "footage",
+      "sha256": "6abd058c5c93469535ee6bfdec9ad90238bb2aaf5a144fd6699f405cf0e17651",
       "rightsStatus": "unreviewed",
-      "credit": "NOAA sea surface temperature anomaly, 2026 El Niño (to be sourced)",
+      "credit": "CSU/CIRA & NOAA",
       "sourceIds": [
-        "noaa-2026-wrapup"
+        "cira-polo"
+      ]
+    },
+    {
+      "id": "V2-VID-SVS5681-POLO-GPM",
+      "kind": "footage",
+      "sha256": "4bc61ec69595ec925ad92c2be62c85848bd624b65403340027c62b21341572c9",
+      "rightsStatus": "unreviewed",
+      "credit": "NASA SVS · NASA/JAXA GPM",
+      "sourceIds": [
+        "nasa-svs-5681"
       ]
     }
   ],
@@ -264,7 +300,7 @@
             "frames": 150
           },
           "assetIds": [
-            "V2-NEW-ELNINO-SST"
+            "V2-VID-SVS5683-ELNINO-SSTA"
           ],
           "transitionIn": {
             "type": "dip_to_black",
@@ -273,11 +309,11 @@
           "overlays": [
             {
               "style": "source_credit",
-              "text": "Sea surface temperature anomaly · NOAA · 2026",
+              "text": "Sea surface temperature anomaly · NASA SVS · 2026",
               "startFrame": 30,
               "endFrame": 120,
               "sourceIds": [
-                "noaa-2026-wrapup"
+                "nasa-svs-5683"
               ]
             }
           ]
@@ -289,7 +325,7 @@
             "frames": 180
           },
           "assetIds": [
-            "V2-NEW-POLO-SAT"
+            "V2-VID-CIRA-POLO-RI"
           ],
           "transitionIn": {
             "type": "crossfade",
@@ -312,6 +348,15 @@
               ],
               "dataRefIds": [
                 "pacific-ace-2026"
+              ]
+            },
+            {
+              "style": "source_credit",
+              "text": "Hurricane Polo · GOES-18 · CSU/CIRA & NOAA · Sept 2026",
+              "startFrame": 30,
+              "endFrame": 110,
+              "sourceIds": [
+                "cira-polo"
               ]
             }
           ]
@@ -457,13 +502,13 @@
             "frames": 60
           },
           "assetIds": [
-            "V2-NEW-POLO-SAT"
+            "V2-VID-SVS5681-POLO-GPM"
           ],
           "transitionIn": {
             "type": "crossfade",
             "frames": 18
           },
-          "assetInFrame": 200
+          "assetInFrame": 1500
         }
       ]
     },

@@ -97,3 +97,26 @@ test('Script V2 overlays: <= 12 words, readable duration, not in the first secon
     }
   }
 });
+
+test('Script V2 media are listed in the V2 rights manifest with matching SHA-256 and credits', () => {
+  const manifest = JSON.parse(
+    readFileSync(new URL('../../../assets/pilot/rights-manifest-v2.json', import.meta.url), 'utf8'),
+  );
+  assert.equal(manifest.publication_authorized, false);
+  const byId = new Map(manifest.assets.map((a) => [a.asset_id, a]));
+  for (const asset of doc.assets.filter((a) => a.id.startsWith('V2-'))) {
+    const entry = byId.get(asset.id);
+    assert.ok(entry, `${asset.id} missing from rights-manifest-v2.json`);
+    assert.equal(asset.sha256, entry.technical.sha256, `${asset.id} SHA-256 differs`);
+    assert.match(entry.technical.sha256, /^[a-f0-9]{64}$/);
+    assert.equal(entry.technical.audio_streams, 0);
+    assert.ok(entry.credits && entry.rights_evidence_urls.length > 0);
+    assert.equal(asset.rightsStatus, 'unreviewed', 'unreviewed until the operator approves');
+    assert.ok(['UNREVIEWED', 'APPROVED'].includes(entry.rights_status));
+  }
+  // An asset with an open publication blocker can never be marked publishable.
+  for (const entry of manifest.assets) {
+    if (entry.publication_blocker)
+      assert.equal(entry.proposed_status, 'PRIVATE_INTERNAL_TEST_ONLY');
+  }
+});

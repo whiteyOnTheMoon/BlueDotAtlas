@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "roadmap_id": "048",
+  "github_issue": 72,
+  "film_title": "Hurricanes: Powered by the Ocean – Script V2",
+  "as_of_utc": "2026-11-25",
+  "decision_policy": "Same as 036: UNREVIEWED until the operator has viewed each clip and approved its scope; provider licence is not an individual approval; publication separately gated",
+  "local_media_acquired": "Downloaded once into a disposable private scratch only to measure bytes/SHA-256/streams and contact sheets; never committed to Git",
+  "assets": [
+    {
+      "asset_id": "V2-VID-SVS5683-ELNINO-SSTA",
+      "type": "video",
+      "priority": "primary",
+      "title": "El Niño 2026 – sea surface temperature anomaly, 2026 vs 2025 (no labels)",
+      "shot_role": "News beat (S04): El Niño heat in the eastern Pacific",
+      "origin_category": "satellite_data_visualization",
+      "is_cgi": true,
+      "observed_at_utc": "2025-01-29/2026-10-10",
+      "source_page_url": "https://svs.gsfc.nasa.gov/5683/",
+      "download_url": "https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005683/elnino_2026_ssta_1010_nolabels_1080p60.mp4",
+      "provider": "NASA Scientific Visualization Studio",
+      "creator": "Data visualizer: Kel Elkins (NASA SVS)",
+      "rights_basis": "NASA SVS FAQ: 'All of our content is in the public domain (unless otherwise noted)'; no licensed-music note on this page",
+      "rights_evidence_urls": [
+        "https://svs.gsfc.nasa.gov/help/",
+        "https://svs.gsfc.nasa.gov/5683/"
+      ],
+      "credits": "NASA's Scientific Visualization Studio (svs.gsfc.nasa.gov/5683)",
+      "technical": {
+        "bytes": 44819889,
+        "sha256": "5ae6bb05a11cf1ce32dd9a4aedce235857caf507b72e1fd9fd8ed2916a5e7133",
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080,
+        "fps": "60/1",
+        "duration_s": 20.016667,
+        "audio_streams": 0
+      },
+      "visual_check": "Two stacked SST-anomaly maps of the tropical Pacific (2026 top, 2025 bottom); strong warm anomaly off South America in 2026; no logos or text burned in",
+      "conditions": [
+        "Do not imply NASA/NOAA/CIRA endorsement",
+        "Keep event, date and source context; label data visualizations as such",
+        "No source audio exists in this file; music is added separately",
+        "Use only the SHA-256-identical original file; re-encode only inside the private render",
+        "Add on-screen labels '2026' / '2025' and a colour key as our own overlays"
+      ],
+      "rights_status": "UNREVIEWED",
+      "proposed_status": "APPROVED_PUBLIC_DOMAIN_WITH_CREDIT",
+      "publication_blocker": null,
+      "checked_source_date_utc": "2026-11-25"
+    },
+    {
+      "asset_id": "V2-VID-SVS5681-POLO-GPM",
+      "type": "video",
+      "priority": "primary",
+      "title": "Hurricane Polo makes landfall in Baja California – GPM 3D precipitation (no dates)",
+      "shot_role": "Breathing pause / structure of Polo (S08); globe opener alternative",
+      "origin_category": "satellite_data_visualization",
+      "is_cgi": true,
+      "observed_at_utc": "2026-09-20/2026-09-29",
+      "source_page_url": "https://svs.gsfc.nasa.gov/5681/",
+      "download_url": "https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005681/Polo_v07_stutter.mp4",
+      "provider": "NASA Scientific Visualization Studio; data NASA/JAXA GPM",
+      "creator": "Data visualizers: Alex Kekesi, Greg Shirah (NASA SVS)",
+      "rights_basis": "NASA SVS FAQ: 'All of our content is in the public domain (unless otherwise noted)'; no licensed-music note on this page",
+      "rights_evidence_urls": [
+        "https://svs.gsfc.nasa.gov/help/",
+        "https://svs.gsfc.nasa.gov/5681/"
+      ],
+      "credits": "NASA's Scientific Visualization Studio. Data provided by the joint NASA/JAXA GPM mission (svs.gsfc.nasa.gov/5681)",
+      "technical": {
+        "bytes": 77302020,
+        "sha256": "4bc61ec69595ec925ad92c2be62c85848bd624b65403340027c62b21341572c9",
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080,
+        "fps": "30/1",
+        "duration_s": 103.366667,
+        "audio_streams": 0
+      },
+      "visual_check": "Globe with precipitation, then 3D GPM rain structure of Polo near Baja California; scale bars burned in, no logos",
+      "conditions": [
+        "Do not imply NASA/NOAA/CIRA endorsement",
+        "Keep event, date and source context; label data visualizations as such",
+        "No source audio exists in this file; music is added separately",
+        "Use only the SHA-256-identical original file; re-encode only inside the private render",
+        "Caption as visualization of measured rainfall (GPM), not a camera image"
+      ],
+      "rights_status": "UNREVIEWED",
+      "proposed_status": "APPROVED_PUBLIC_DOMAIN_WITH_CREDIT",
+      "publication_blocker": null,
+      "checked_source_date_utc": "2026-11-25"
+    },
+    {
+      "asset_id": "V2-VID-CIRA-POLO-RI",
+      "type": "video",
+      "priority": "private_test_only",
+      "title": "Hurricane Polo rapid intensification – GOES-18 GeoColor/IR, 20–22 Sept 2026 (no labels)",
+      "shot_role": "News beat (S05): Polo explodes in strength",
+      "origin_category": "actual_satellite_observation",
+      "is_cgi": false,
+      "observed_at_utc": "2026-09-20T21:00Z/2026-09-22T09:40Z",
+      "source_page_url": "https://satlib.cira.colostate.edu/event/hurricane-polo/",
+      "download_url": "https://satlib.cira.colostate.edu/wp-content/uploads/sites/23/2026/09/20260920210021-20260922094021_g18_abi_fd_geocolor-ir13_Polos-RI_nolabels.mp4",
+      "provider": "CIRA Satellite Library (Colorado State University) with NOAA GOES-18 data",
+      "creator": "CIRA staff",
+      "rights_basis": "CIRA 'How to credit media': GOES imagery credit 'CSU/CIRA & NOAA'. No explicit licence or public-domain statement; site footer '© 2026 CIRA Satellite Library'",
+      "rights_evidence_urls": [
+        "https://satlib.cira.colostate.edu/credit-media/",
+        "https://satlib.cira.colostate.edu/event/hurricane-polo/"
+      ],
+      "credits": "CSU/CIRA & NOAA",
+      "technical": {
+        "bytes": 18508414,
+        "sha256": "6abd058c5c93469535ee6bfdec9ad90238bb2aaf5a144fd6699f405cf0e17651",
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080,
+        "fps": "30000/1001",
+        "duration_s": 7.6076,
+        "audio_streams": 0
+      },
+      "visual_check": "GOES-18 GeoColor + IR enhancement; eye forms over the loop; CIRA and NOAA logos burned in bottom right",
+      "conditions": [
+        "Do not imply NASA/NOAA/CIRA endorsement",
+        "Keep event, date and source context; label data visualizations as such",
+        "No source audio exists in this file; music is added separately",
+        "Use only the SHA-256-identical original file; re-encode only inside the private render",
+        "Burned-in CIRA/NOAA logos must not be cropped to hide credit nor imply endorsement"
+      ],
+      "rights_status": "UNREVIEWED",
+      "proposed_status": "PRIVATE_INTERNAL_TEST_ONLY",
+      "publication_blocker": "No explicit licence for publication; request permission via CIRA 'Request Media' or replace with NOAA/NESDIS-hosted GOES imagery before any public release",
+      "checked_source_date_utc": "2026-11-25"
+    }
+  ],
+  "publication_authorized": false
+}
