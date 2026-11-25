@@ -253,7 +253,7 @@
           "id": "N1",
           "text": "Hurricanes are giant heat engines, powered by warm ocean water.",
           "startFrame": 30,
-          "endFrame": 166,
+          "endFrame": 179,
           "sourceIds": [
             "noaa-how-hurricanes-form",
             "noaa-jetstream-tc"
@@ -367,7 +367,7 @@
           "id": "N2",
           "text": "This year, a strong El Niño heated the eastern Pacific.",
           "startFrame": 15,
-          "endFrame": 151,
+          "endFrame": 143,
           "sourceIds": [
             "noaa-2026-wrapup"
           ]
@@ -376,7 +376,7 @@
           "id": "N3",
           "text": "It brought the most active hurricane season on record there.",
           "startFrame": 175,
-          "endFrame": 311,
+          "endFrame": 290,
           "sourceIds": [
             "noaa-2026-wrapup"
           ]
@@ -426,7 +426,7 @@
           "id": "N4",
           "text": "With warm water, moist air and calm winds aloft, storms can explode in strength – sometimes faster than forecasts expect.",
           "startFrame": 20,
-          "endFrame": 279,
+          "endFrame": 284,
           "sourceIds": [
             "nasa-polo",
             "aoml-ri"
@@ -482,8 +482,8 @@
         {
           "id": "N5",
           "text": "As the planet warms, models project a larger share of the strongest hurricanes – with heavier rain.",
-          "startFrame": 12,
-          "endFrame": 230,
+          "startFrame": 16,
+          "endFrame": 222,
           "sourceIds": [
             "gfdl-warming"
           ]
@@ -552,7 +552,7 @@
           "id": "N6",
           "text": "The ocean powers the storm. And the ocean is changing.",
           "startFrame": 7,
-          "endFrame": 143,
+          "endFrame": 131,
           "sourceIds": [
             "noaa-how-hurricanes-form",
             "gfdl-warming"
