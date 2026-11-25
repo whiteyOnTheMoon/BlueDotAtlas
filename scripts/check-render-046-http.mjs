@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
@@ -136,7 +136,7 @@ try {
   server = start('pnpm', [
     '--filter', '@bluedotatlas/web', 'start',
     '--hostname', '127.0.0.1', '--port', '3146',
-  ], { NODE_ENV: 'production' });
+  ], { NODE_ENV: 'production', BDA_046_TEST_STORAGE_ROOT: root });
   await serverReady(server);
 
   const baselineJobCount = (await dbRows('SELECT count(*)::int AS n FROM render_jobs'))[0].n;
@@ -345,6 +345,71 @@ try {
   assert.deepEqual(errors, []);
   report.checks.push('Film button queues one private film job; separate worker renders it; succeeded after reload; unreviewed, never published');
 
+  // Roadmap 047: protected preview page, HTML5 playback with Range, original download, metadata.
+  const videosRoute = '/api/v1/projects/' + projectId + '/videos';
+  const listed = await request(videosRoute, { headers: auth });
+  assert.equal(listed.status, 200);
+  assert.equal(listed.body.items.length, 2, 'synthetic QA and private film both listed');
+  const filmVideo = listed.body.items.find((item) => item.kind === 'private_pilot_film_046');
+  assert.ok(filmVideo && filmVideo.available === true && filmVideo.published === false);
+  assert.equal(filmVideo.rightsStatus, 'unreviewed');
+  assert.equal(filmVideo.durationMs, 1400);
+  assert.match(filmVideo.sha256, /^[a-f0-9]{64}$/);
+  assert.ok(Number.isInteger(filmVideo.sizeBytes) && filmVideo.sizeBytes > 1000);
+  assert.ok(!JSON.stringify(listed.body).includes('rendered/jobs'), 'no storage keys exposed');
+  const fileUrl = origin + filmVideo.mediaUrl;
+  for (const [url, init] of [
+    [fileUrl, {}],
+    [origin + videosRoute, {}],
+  ]) {
+    const anonymous = await fetch(url, { redirect: 'manual', ...init });
+    assert.equal(anonymous.status, 401, 'anonymous access refused: ' + url);
+  }
+  const full = await fetch(fileUrl, { headers: auth });
+  assert.equal(full.status, 200);
+  assert.equal(full.headers.get('content-type'), 'video/mp4');
+  assert.equal(full.headers.get('accept-ranges'), 'bytes');
+  assert.match(full.headers.get('cache-control') ?? '', /private, no-store/);
+  assert.match(full.headers.get('content-disposition') ?? '', /^inline;/);
+  const fullBytes = Buffer.from(await full.arrayBuffer());
+  assert.equal(fullBytes.byteLength, filmVideo.sizeBytes);
+  assert.equal(createHash('sha256').update(fullBytes).digest('hex'), filmVideo.sha256);
+  const partial = await fetch(fileUrl, { headers: { ...auth, Range: 'bytes=100-199' } });
+  assert.equal(partial.status, 206);
+  assert.equal(partial.headers.get('content-range'), 'bytes 100-199/' + filmVideo.sizeBytes);
+  assert.deepEqual(Buffer.from(await partial.arrayBuffer()), fullBytes.subarray(100, 200));
+  const tail = await fetch(fileUrl, { headers: { ...auth, Range: 'bytes=-10' } });
+  assert.equal(tail.status, 206);
+  assert.deepEqual(Buffer.from(await tail.arrayBuffer()), fullBytes.subarray(-10));
+  const unsatisfiable = await fetch(fileUrl, { headers: { ...auth, Range: 'bytes=999999999-' } });
+  assert.equal(unsatisfiable.status, 416);
+  await unsatisfiable.arrayBuffer();
+  const downloadResponse = await fetch(origin + filmVideo.downloadUrl, { headers: auth });
+  assert.equal(downloadResponse.status, 200);
+  assert.match(downloadResponse.headers.get('content-disposition') ?? '',
+    /^attachment; filename="bluedotatlas-[0-9a-f-]{36}\.mp4"$/);
+  assert.equal(createHash('sha256').update(Buffer.from(await downloadResponse.arrayBuffer())).digest('hex'), filmVideo.sha256);
+  await reject(filmVideo.mediaUrl + '?path=/etc/passwd', { headers: auth }, 400, 'invalid_input');
+  await reject('/api/v1/videos/' + randomUUID() + '/file', { headers: auth }, 404, 'not_found');
+  await reject('/api/v1/videos/not-a-uuid/file', { headers: auth }, 400, 'invalid_input');
+  await reject(filmVideo.mediaUrl, { method: 'DELETE', headers }, 405, 'method_not_allowed');
+  await page.goto(browserOrigin + '/admin/projects/' + projectId + '/video');
+  await page.getByRole('heading', { name: 'Private video preview' }).waitFor();
+  await page.getByRole('heading', { name: 'Private 60s pilot film' }).waitFor();
+  const playerDuration = await page.locator('video').first().evaluate((video) =>
+    new Promise((resolvePromise, rejectPromise) => {
+      if (video.readyState >= 1) resolvePromise(video.duration);
+      video.addEventListener('loadedmetadata', () => resolvePromise(video.duration), { once: true });
+      video.addEventListener('error', () => rejectPromise(new Error('player error')), { once: true });
+      setTimeout(() => rejectPromise(new Error('player timeout')), 15000);
+    }));
+  assert.ok(Math.abs(playerDuration - 1.4) < 0.1, 'HTML5 player reads the private MP4: ' + playerDuration);
+  await page.getByRole('link', { name: 'Download original MP4' }).first().waitFor();
+  await page.getByText(filmVideo.sha256, { exact: true }).waitFor();
+  await page.screenshot({ path: resolve(output, '047-admin-video-preview-1440.png'), fullPage: true });
+  assert.deepEqual(errors, []);
+  report.checks.push('047 protected preview: HTML5 player loads MP4, Range 206/416, attachment download SHA-identical, metadata, 401/404/400/405');
+
   await context.close();
   await stop(server);
   server = start('pnpm', [
@@ -359,6 +424,7 @@ try {
   await reject('/api/v1/render-046/pilot-film', {
     method: 'POST', headers, body: JSON.stringify({ projectId }),
   }, 403, 'render_not_authorized');
+  await reject('/api/v1/projects/' + projectId + '/videos', { headers: auth }, 403, 'preview_not_authorized');
   const disabledContext = await browser.newContext({
     viewport: { width: 1440, height: 900 },
     colorScheme: 'dark', reducedMotion: 'reduce',

@@ -294,3 +294,25 @@ test('existing symlink destination never clobbered and no external source is mod
   );
   assert.equal((await readFile(ext)).toString(), 'external-before');
 });
+
+test('047 bounded range streaming of a private stored file; refuses bad ranges and reuse', async () => {
+  const { storage } = await fixture();
+  const bytes = Buffer.from(Array.from({ length: 1000 }, (_, i) => i % 251));
+  const stored = await storage.put('rendered', 'jobs/a.mp4', bytes);
+  const opened = await storage.openForStreaming(stored.storageKey);
+  assert.equal(opened.size, 1000);
+  const chunks = [];
+  for await (const chunk of opened.stream(100, 199)) chunks.push(chunk);
+  assert.deepEqual(Buffer.concat(chunks), bytes.subarray(100, 200));
+  assert.throws(() => opened.stream(0, 1), StorageError, 'one stream per open');
+  const bad = await storage.openForStreaming(stored.storageKey);
+  assert.throws(() => bad.stream(10, 1000), StorageError);
+  assert.throws(() => bad.stream(-1, 5), StorageError);
+  await bad.close();
+  await assert.rejects(storage.openForStreaming('rendered/../etc/passwd'), StorageError);
+  await assert.rejects(storage.openForStreaming('rendered/jobs/missing.mp4'));
+});
+
+test('047 VPS read-only media root is refused outside the explicit production gate', async () => {
+  await assert.rejects(LocalStorage.openRender046VpsReadRoot('/bda-media'), StorageError);
+});
