@@ -4,7 +4,7 @@
   "github_issue": 72,
   "film_title": "Hurricanes: Powered by the Ocean – Script V2",
   "as_of_utc": "2026-11-25",
-  "decision_policy": "Same as 036: UNREVIEWED until the operator has viewed each clip and approved its scope; provider licence is not an individual approval; publication separately gated",
+  "decision_policy": "Same as 036: UNREVIEWED until the operator has viewed each clip and approved its scope; provider licence is not an individual approval; publication separately gated; operator viewing approval for PRIVATE_INTERNAL_TEST_ONLY granted 2026-11-25 for all three clips",
   "local_media_acquired": "Downloaded once into a disposable private scratch only to measure bytes/SHA-256/streams and contact sheets; never committed to Git",
   "assets": [
     {
@@ -44,10 +44,18 @@
         "Use only the SHA-256-identical original file; re-encode only inside the private render",
         "Add on-screen labels '2026' / '2025' and a colour key as our own overlays"
       ],
-      "rights_status": "UNREVIEWED",
+      "rights_status": "APPROVED",
       "proposed_status": "APPROVED_PUBLIC_DOMAIN_WITH_CREDIT",
       "publication_blocker": null,
-      "checked_source_date_utc": "2026-11-25"
+      "checked_source_date_utc": "2026-11-25",
+      "approval_scope": "PRIVATE_INTERNAL_TEST_ONLY",
+      "operator_viewing_approval": {
+        "date_utc": "2026-11-25",
+        "quote": "clips passen vorerst, ok zu cira, ok zu merge",
+        "basis": "contact sheets of three frames per clip shown in the project chat"
+      },
+      "approved_for_timeline": false,
+      "source_audio_allowed": false
     },
     {
       "asset_id": "V2-VID-SVS5681-POLO-GPM",
@@ -86,10 +94,18 @@
         "Use only the SHA-256-identical original file; re-encode only inside the private render",
         "Caption as visualization of measured rainfall (GPM), not a camera image"
       ],
-      "rights_status": "UNREVIEWED",
+      "rights_status": "APPROVED",
       "proposed_status": "APPROVED_PUBLIC_DOMAIN_WITH_CREDIT",
       "publication_blocker": null,
-      "checked_source_date_utc": "2026-11-25"
+      "checked_source_date_utc": "2026-11-25",
+      "approval_scope": "PRIVATE_INTERNAL_TEST_ONLY",
+      "operator_viewing_approval": {
+        "date_utc": "2026-11-25",
+        "quote": "clips passen vorerst, ok zu cira, ok zu merge",
+        "basis": "contact sheets of three frames per clip shown in the project chat"
+      },
+      "approved_for_timeline": false,
+      "source_audio_allowed": false
     },
     {
       "asset_id": "V2-VID-CIRA-POLO-RI",
@@ -128,10 +144,18 @@
         "Use only the SHA-256-identical original file; re-encode only inside the private render",
         "Burned-in CIRA/NOAA logos must not be cropped to hide credit nor imply endorsement"
       ],
-      "rights_status": "UNREVIEWED",
+      "rights_status": "APPROVED",
       "proposed_status": "PRIVATE_INTERNAL_TEST_ONLY",
       "publication_blocker": "No explicit licence for publication; request permission via CIRA 'Request Media' or replace with NOAA/NESDIS-hosted GOES imagery before any public release",
-      "checked_source_date_utc": "2026-11-25"
+      "checked_source_date_utc": "2026-11-25",
+      "approval_scope": "PRIVATE_INTERNAL_TEST_ONLY",
+      "operator_viewing_approval": {
+        "date_utc": "2026-11-25",
+        "quote": "clips passen vorerst, ok zu cira, ok zu merge",
+        "basis": "contact sheets of three frames per clip shown in the project chat"
+      },
+      "approved_for_timeline": false,
+      "source_audio_allowed": false
     }
   ],
   "publication_authorized": false
