@@ -189,6 +189,82 @@ export class LocalStorage {
     return storage;
   }
 
+  /**
+   * Read-only view of the same private 046 media root for the protected admin
+   * video preview/download (Roadmap 047). Never creates folders or writes.
+   */
+  static async openRender046VpsReadRoot(path: string): Promise<LocalStorage> {
+    if (
+      (process.env.BDA_RENDER_046_VPS_SYNTHETIC !== 'TRUE' &&
+        process.env.BDA_RENDER_046_VPS_PILOT_FILM !== 'TRUE') ||
+      process.env.CI === 'true' ||
+      process.env.NODE_ENV !== 'production' ||
+      process.env.BDA_STORAGE_TEST === '1' ||
+      process.platform !== 'linux' ||
+      path !== '/bda-media'
+    ) {
+      throw new StorageError('invalid_root');
+    }
+    const rootStat = await lstat(path);
+    assertPrivateDirectory(rootStat);
+    if ((await realpath(path)) !== path) throw new StorageError('invalid_root');
+    const storage = new LocalStorage(path, rootStat.dev, rootStat.ino, STORAGE_BUDGETS);
+    await storage.checkRoot();
+    return storage;
+  }
+
+  /**
+   * Open one private stored file for bounded streaming (HTTP Range / download).
+   * Same key validation, private-file and no-symlink checks as read(); the
+   * caller must either stream once or call close().
+   */
+  async openForStreaming(storageKey: string): Promise<{
+    size: number;
+    stream: (start: number, end: number) => NodeJS.ReadableStream;
+    close: () => Promise<void>;
+  }> {
+    const { area, parts } = parseStorageKey(storageKey);
+    const folder = await this.parentFor(area, parts.slice(0, -1), false);
+    const filePath = join(folder, parts[parts.length - 1] ?? '');
+    const handle = await open(
+      filePath,
+      constants.O_RDONLY | constants.O_NOFOLLOW | constants.O_NONBLOCK,
+    );
+    let stat: Stats;
+    try {
+      stat = await handle.stat();
+      assertPrivateFile(stat);
+      if (stat.size > MAX_SINGLE_WRITE_BYTES) throw new StorageError('file_too_large');
+    } catch (error) {
+      await handle.close();
+      throw error;
+    }
+    let used = false;
+    return {
+      size: stat.size,
+      stream: (start: number, end: number) => {
+        if (used) throw new StorageError('invalid_limit');
+        if (
+          !Number.isSafeInteger(start) ||
+          !Number.isSafeInteger(end) ||
+          start < 0 ||
+          end < start ||
+          end >= stat.size
+        ) {
+          throw new StorageError('invalid_limit');
+        }
+        used = true;
+        return handle.createReadStream({ start, end, autoClose: true });
+      },
+      close: async () => {
+        if (!used) {
+          used = true;
+          await handle.close();
+        }
+      },
+    };
+  }
+
   private async checkRoot() {
     const stat = await lstat(this.root);
     assertPrivateDirectory(stat);

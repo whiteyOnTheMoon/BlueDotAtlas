@@ -137,6 +137,13 @@ export function RenderQueuePanel({
           {error}
         </p>
       ) : null}
+      {jobs.some((job) => job.status === 'succeeded') ? (
+        <p>
+          <a className="button button-secondary" href={'/admin/projects/' + projectId + '/video'}>
+            Open private video preview
+          </a>
+        </p>
+      ) : null}
       <h4>Persistent render jobs</h4>
       {jobs.length === 0 ? <p className="muted">No render jobs yet.</p> : null}
       <ul>

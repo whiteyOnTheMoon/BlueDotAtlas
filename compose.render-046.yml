@@ -1,6 +1,18 @@
 # M03 / 046 – opt-in original-synthetic 8-second renderer, NOT a product-film release.
 # Include only when specifically authorizing the one VPS synthetic proof.
 services:
+  # Roadmap 047: the protected admin preview/download reads the same private
+  # media root READ-ONLY. Only effective when this file is included; the web
+  # gate still requires BDA_RENDER_046_VPS_PILOT_FILM/_SYNTHETIC=TRUE.
+  web:
+    volumes:
+      - type: bind
+        source: ${BDA_046_MEDIA_HOST:?Specify existing private operator-owned media directory}
+        target: /bda-media
+        read_only: true
+        bind:
+          create_host_path: false
+
   renderer046:
     profiles: [vps-synthetic-render]
     build:
