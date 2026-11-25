@@ -96,8 +96,9 @@ jobs:
             -e BDA_TTS_V2_PRIVATE=TRUE -e BDA_TTS_V2_SPEED=0.9 \
             --mount type=bind,source="$PWD/.tmp-v2-voice",target=/voice \
             bda-v2tts:ci python3 -I scripts/generate-tts-v2.py /voice
-          test "$(stat -c %s .tmp-v2-voice/pilot-v2-narration-60s.wav)" = 11520044
-          python3 -c "import json;r=json.load(open('.tmp-v2-voice/pilot-v2-narration-timing.json'));assert r['published'] is False and len(r['segments'])==6;print([(s['id'],s['startFrame'],s['endFrame']) for s in r['segments']])"
+          # Output is owner-only for uid 1000 (the VPS operator); the CI runner user reads it via sudo.
+          test "$(sudo stat -c %s .tmp-v2-voice/pilot-v2-narration-60s.wav)" = 11520044
+          sudo python3 -I -c "import json;r=json.load(open('.tmp-v2-voice/pilot-v2-narration-timing.json'));assert r['published'] is False and len(r['segments'])==6;print([(s['id'],s['startFrame'],s['endFrame']) for s in r['segments']])"
       - name: Remove generated audio
         if: always()
         run: sudo rm -rf -- .tmp-v2-voice
