@@ -40,13 +40,13 @@ Inhaltlicher Bogen: **Kontext → Nachricht → Bedeutung → Zukunft → Mitneh
 | 17–20 s | **Atempause** | Nur Video, Schnitt auf neue Einstellung per weicher Blende | Musik hoch, keine Stimme |
 | 20–31 s | **Die Nachricht** | Aktuelles Ereignis-Footage (z. B. Helene) + Infobox mit Datum/Quelle | Stimme |
 | 31–40 s | **Was es bedeutet** | **Eine** fokussierte, animierte Infografik (keine Folie, wenig Text) | Stimme |
-| 40–48 s | **Was es für die Zukunft bringt** | Video oder Karte mit kurzem Overlay | Stimme |
-| 48–51 s | **Atempause** | Nur Video | Musik |
-| 51–55 s | **Was man mitnehmen sollte** | Ruhiges Schlussbild, ein kurzer Kernsatz als Textkarte | Stimme, ein Satz |
-| 55–60 s | Outro | Original-Brand-Outro | Musik läuft aus |
+| 40–47 s | **Was es für die Zukunft bringt** | Video oder Karte mit kurzem Overlay | Stimme |
+| 47–50 s | **Atempause** | Nur Video | Musik |
+| 50–54 s | **Was man mitnehmen sollte** | Ruhiges Schlussbild, ein kurzer Kernsatz als Textkarte | Stimme, ein Satz |
+| 54–60 s | Outro | Original-Brand-Outro (6 s, V15) | Musik läuft durch den ganzen Outro-Bereich (V15) |
 
 **Regeln:**
-- Zwischen den Beats weiche Übergänge (Crossfade bzw. Dip-to-Black, 12–20 Frames) statt harter Schnitte.
+- Zwischen den Beats weiche Übergänge (Crossfade bzw. Dip-to-Black, 12–20 Frames) statt harter Schnitte; die beiden Brand-Übergänge bleiben fest 9 Frames (V14/V15).
 - Sprechpausen von mindestens 0,6–1,0 s zwischen den Beats.
 - Höchstens etwa 110–120 gesprochene Wörter in 60 s.
 - Kein Grafik-Block länger als 10 s.

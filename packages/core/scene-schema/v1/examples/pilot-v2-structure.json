@@ -94,7 +94,7 @@
           "assetIds": ["P60-VID-001"],
           "transitionIn": {
             "type": "crossfade",
-            "frames": 15
+            "frames": 9
           },
           "animation": {
             "type": "push_in",
@@ -219,7 +219,7 @@
           "id": "S06",
           "kind": "footage_with_overlay",
           "duration": {
-            "frames": 240
+            "frames": 210
           },
           "assetIds": ["P60-VID-005"],
           "transitionIn": {
@@ -299,12 +299,12 @@
           "id": "S09",
           "kind": "brand_outro",
           "duration": {
-            "frames": 150
+            "frames": 180
           },
           "assetIds": ["brand-outro"],
           "transitionIn": {
             "type": "crossfade",
-            "frames": 12
+            "frames": 9
           }
         }
       ]
