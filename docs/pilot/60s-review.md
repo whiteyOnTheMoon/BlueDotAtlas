@@ -66,6 +66,10 @@ Inhaltlicher Bogen: **Kontext → Nachricht → Bedeutung → Zukunft → Mitneh
 | 7 | **Mehr Bewegtbild**: für 60 s mit Atempausen werden ca. 6–8 verschiedene Clips gebraucht; zusätzliche NASA/NOAA-Quellen mit Einzelrechteprüfung | 054 Medien-Auswahl ([#78](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/78)), Rechte-Workflow 036 |
 | 8 | **Automatische Prüfung** gegen Diashow-Wirkung (Grafikanteil, Blocklänge, harte Schnitte, Sprechpausen) | 059 QA-Linter ([#83](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/83)) |
 
+## Stand der Nacharbeit
+
+- **Skript V2** (Nacharbeit 1) ist erstellt und vom Betreiber freigegeben: aktueller Aufhänger NOAA-Saisonbilanz 2026 (El Niño, Rekordsaison im Pazifik, Hurrikan Polo). Siehe [60s-script-v2.md](60s-script-v2.md) und [60s-script-v2.scene.json](60s-script-v2.scene.json); 75 Wörter, gültig nach 049, regelkonform nach 050.
+
 ## Wiederholung der Abnahme
 
 Die 048-Abnahme wird mit einem nach V2 überarbeiteten Pilotfilm wiederholt: Ansicht am großen Bildschirm und am Handy, dieselbe Prüfmatrix, ausdrückliches Betreiberurteil. Erst ein **„bestanden“** schließt M03. Veröffentlichung bleibt ein eigenes Rechte- und Freigabe-Gate.

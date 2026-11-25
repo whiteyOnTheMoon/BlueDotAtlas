@@ -91,7 +91,7 @@
 | Roadmap-ID | Original-Aufgabe | GitHub-Issue | Umsetzungsstatus |
 | --- | --- | --- | --- |
 | **049** | Scene-Director-Vertrag als Version-1-Schema definieren | [#73](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/73) | **Abgeschlossen** (PR #238, Squash `66168ac`): Zod-Vertrag `@bluedotatlas/core/scene-schema/v1`, JSON Schema, V2-Strukturbeispiel und Negativtests ([README](../../packages/core/scene-schema/v1/README.md)); Issue geschlossen |
-| **050** | Visuelle Story-Regeln schriftlich festhalten | [#74](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/74) | Im Review: [Story-Regeln V1](../video/scene-director-rules.md) (Footage-Vorrang, Abwechslung, Blocklängen, weiche Übergänge, Sprechpausen, Informationstest, Overlay-Dichte, Ausnahmen) |
+| **050** | Visuelle Story-Regeln schriftlich festhalten | [#74](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/74) | **Abgeschlossen** (PR #239, Squash `ad073b2`): [Story-Regeln V1](../video/scene-director-rules.md) (Footage-Vorrang, Abwechslung, Blocklängen, weiche Übergänge, Sprechpausen, Informationstest, Overlay-Dichte, Ausnahmen) |
 | **051** | Szenentypen und Fallback-Hierarchie festlegen | [#75](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/75) | Backlog |
 | **052** | Shot-Planner mit Rhythmusregeln implementieren | [#76](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/76) | Backlog |
 | **053** | Tatsächliche Audiodauer als Master-Timeline nutzen | [#77](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/77) | Backlog |
