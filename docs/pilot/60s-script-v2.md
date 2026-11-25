@@ -48,12 +48,15 @@
 | P60-VID-001 NASA ISS „Oma“ | Ankommen, Kontext | privat testfreigegeben (036) | – |
 | P60-VID-005 NOAA offenes Meer | Atempause 1, Mitnehmen | privat testfreigegeben (036) | – |
 | P60-VID-003 NOAA Hurricane Hunter (Helene 2024) | Zukunft, mit Credit „Helene 2024“ | privat testfreigegeben (036) | – |
-| **V2-NEW-POLO-SAT** Satellitenbild/-loop Hurrikan Polo (Sept. 2026) | Nachricht, Atempause 2 | **neu, ungeprüft** | NOAA-GOES- bzw. NASA-Quelle finden, Original-SHA, Rechte/Credit nach 036 prüfen |
-| **V2-NEW-ELNINO-SST** Karte der Meerestemperatur-Anomalie 2026 | Nachricht | **neu, ungeprüft** | NOAA-Datenprodukt finden, Rechte/Credit prüfen; ggf. als eigene Karte aus offenen NOAA-Daten (056) |
+| **V2-VID-SVS5683-ELNINO-SSTA** NASA SVS 5683: Meerestemperatur-Anomalie 2026 vs. 2025, ohne Beschriftung, 1920×1080, 60 fps, 20 s | Nachricht (S04) | **gemeinfrei** laut NASA-SVS-FAQ, Credit „NASA's Scientific Visualization Studio“; SHA-256 `5ae6bb05…7133` | Sichtfreigabe durch den Betreiber; Beschriftung „2026/2025“ und Farbskala als eigene Overlays |
+| **V2-VID-CIRA-POLO-RI** CIRA: GOES-18 GeoColor/IR, rasche Intensivierung 20.–22.09.2026, 1920×1080, 7,6 s | Nachricht (S05) | **nur privater Test:** Credit „CSU/CIRA & NOAA“ verlangt, aber keine Lizenz genannt; CIRA- und NOAA-Logo eingebrannt; SHA-256 `6abd058c…7651` | Sichtfreigabe für den privaten Test; vor einer Veröffentlichung CIRA-Erlaubnis einholen oder durch NOAA/NESDIS-GOES-Bild ersetzen |
+| **V2-VID-SVS5681-POLO-GPM** NASA SVS 5681: Polo, GPM-3D-Niederschlag, ohne Datum, 1920×1080, 30 fps, 103 s | Atempause 2 (S08) | **gemeinfrei** laut NASA-SVS-FAQ, Credit „NASA SVS · NASA/JAXA GPM“; SHA-256 `4bc61ec6…72c9` | Sichtfreigabe durch den Betreiber |
+
+Alle drei Dateien wurden am 25.11.2026 einmal in einen privaten, temporären Arbeitsordner geladen, um Bytes, SHA-256, Streams (keine Tonspur) und Kontaktabzüge zu prüfen. Nichts davon liegt im Git-Repository. Details stehen im [Rechte-Manifest V2](../../assets/pilot/rights-manifest-v2.json).
 
 ## Was noch fehlt, bis der Film neu gerendert werden kann
 
-1. **Neue Medien:** die beiden neuen Assets beschaffen und einzeln rechtlich prüfen (036-Verfahren, Roadmap 054).
+1. **Neue Medien:** gefunden und technisch geprüft (siehe oben); es fehlen noch die Sichtfreigabe durch den Betreiber und das private Staging auf dem VPS mit SHA-Prüfung (wie 036/046).
 2. **Sprachaufnahme V2:** Kokoro lokal, 0 €; die echte Audiodauer wird Master-Timeline (053), die Frame-Fenster oben sind Planwerte.
 3. **Musikbett:** aus einer geklärten Quelle, z. B. CC0, Rechte geprüft; mit Ducking nach 043.
 4. **Renderer für den Vertrag:** Der heutige FFmpeg/SVG-Renderer kennt nur den alten 9-Shot-Plan. Für V2 braucht er Karten- und Infografik-Szenen (055/056), weiche Übergänge und Kamerabewegung (057) sowie Infobox-Overlays (058). Er rendert dann direkt aus dem Szenendokument.
