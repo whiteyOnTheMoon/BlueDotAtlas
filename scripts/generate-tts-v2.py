@@ -9,6 +9,9 @@ Fails if any real utterance does not fit its planned window. Writes a timing
 report with the measured frame windows; never publishes.
 
 Usage: BDA_TTS_V2_PRIVATE=TRUE python3 scripts/generate-tts-v2.py OUTPUT_DIR
+       python3 scripts/generate-tts-v2.py --fetch-model MODEL_DIR   (image build only)
+With BDA_TTS_V2_MODEL_DIR set, the pinned model is read from that (read-only)
+directory and re-verified by SHA-256; nothing is downloaded (offline container).
 """
 
 import hashlib
@@ -65,27 +68,53 @@ def plan_from_scene(scene: dict) -> list:
     return segments
 
 
+def load_tts042():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("tts042", ROOT / "scripts/generate-tts-042.py")
+    tts042 = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(tts042)
+    return tts042
+
+
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1 << 20), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def ensure_model(model_dir: Path, allow_download: bool) -> tuple:
+    """Pinned Kokoro model + voices, SHA-verified; downloads only if allowed."""
+    tts042 = load_tts042()
+    tts042.MODEL_DIR = model_dir
+    paths = []
+    for name in ("kokoro-v1.0.onnx", "voices-v1.0.bin"):
+        path = model_dir / name
+        if path.exists():
+            if file_sha256(path) != tts042.ASSETS[name][0]:
+                fail("model checksum mismatch " + name)
+        elif allow_download:
+            tts042.download_pinned(name)
+        else:
+            fail("pinned model file missing (offline): " + name)
+        paths.append(path)
+    return tuple(paths)
+
+
 def generate(out_dir: Path) -> dict:
     if os.environ.get("BDA_TTS_V2_PRIVATE") != "TRUE":
         fail("explicit BDA_TTS_V2_PRIVATE=TRUE opt-in required")
     scene_bytes = SCENE.read_bytes()
     segments = plan_from_scene(json.loads(scene_bytes))
 
-    import importlib.util
-    spec = importlib.util.spec_from_file_location("tts042", ROOT / "scripts/generate-tts-042.py")
-    tts042 = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(tts042)
-    model_dir = out_dir / "model"
-    model_dir.mkdir(parents=True, exist_ok=True)
-    tts042.MODEL_DIR = model_dir
-    model = model_dir / "kokoro-v1.0.onnx"
-    voices = model_dir / "voices-v1.0.bin"
-    for name, path in (("kokoro-v1.0.onnx", model), ("voices-v1.0.bin", voices)):
-        if path.exists():
-            if hashlib.sha256(path.read_bytes()).hexdigest() != tts042.ASSETS[name][0]:
-                fail("cached model checksum mismatch " + name)
-        else:
-            tts042.download_pinned(name)
+    fixed = os.environ.get("BDA_TTS_V2_MODEL_DIR")
+    if fixed:
+        model, voices = ensure_model(Path(fixed), allow_download=False)
+    else:
+        model_dir = out_dir / "model"
+        model_dir.mkdir(parents=True, exist_ok=True)
+        model, voices = ensure_model(model_dir, allow_download=True)
 
     import numpy as np
     from scipy.signal import resample_poly
@@ -154,9 +183,15 @@ def generate(out_dir: Path) -> dict:
 
 if __name__ == "__main__":
     try:
-        if len(sys.argv) != 2:
-            fail("usage: generate-tts-v2.py OUTPUT_DIR")
-        generate(Path(sys.argv[1]).resolve())
+        if len(sys.argv) == 3 and sys.argv[1] == "--fetch-model":
+            target = Path(sys.argv[2]).resolve()
+            target.mkdir(parents=True, exist_ok=True)
+            ensure_model(target, allow_download=True)
+            print("V2 TTS MODEL PINNED: " + str(target))
+        elif len(sys.argv) == 2:
+            generate(Path(sys.argv[1]).resolve())
+        else:
+            fail("usage: generate-tts-v2.py OUTPUT_DIR | --fetch-model MODEL_DIR")
     except Exception as exc:
         print("V2 TTS FAILED: " + type(exc).__name__ + ": " + str(exc)[:240], file=sys.stderr)
         sys.exit(1)

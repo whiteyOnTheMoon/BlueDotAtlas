@@ -66,7 +66,10 @@ export function renderScene({ doc, assets, narration, introAudio, out, delivery:
         inputs.push('-ss', sec(shot.assetInFrame ?? 0), '-i', asset.file);
         const fit = `fps=${FPS},scale=${W}:${H}:force_original_aspect_ratio=increase:flags=lanczos,crop=${W}:${H},setsar=1`;
         const camera = shot.kind.startsWith('brand_') ? '' : ',' + cameraFilter(shot.animation, n);
-        chain = `[0:v]${fit}${camera},format=yuv420p[base]`;
+        // The brand intro is exactly its own length (V14); its outgoing blend
+        // frames hold the final logo frame instead of needing extra source.
+        const hold = shot.kind === 'brand_intro' && shot.tail ? `,tpad=stop_mode=clone:stop=${shot.tail}` : '';
+        chain = `[0:v]${fit}${hold}${camera},format=yuv420p[base]`;
       }
       let last = 'base';
       (shot.overlays ?? []).forEach((overlay, oi) => {
@@ -191,7 +194,7 @@ function syntheticMedia(dir) {
     return file;
   };
   const files = {
-    'brand-intro': { file: make('intro.mp4', 'color=c=0x021934', 2, true) },
+    'brand-intro': { file: make('intro.mp4', 'color=c=0x021934', 1, true) },
     'clip-a': { file: make('a.mp4', 'testsrc2', 4) },
     'clip-b': { file: make('b.mp4', 'smptehdbars', 4) },
     'brand-outro': { file: make('outro.mp4', 'color=c=0x10aaec', 2) },
