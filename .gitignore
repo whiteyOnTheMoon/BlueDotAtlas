@@ -61,3 +61,6 @@ assets/pilot/.private-039/
 
 # 046 private pilot media/renders inside the project folder: NEVER commit or bake into images
 .private-046/
+
+# Python bytecode caches
+__pycache__/
