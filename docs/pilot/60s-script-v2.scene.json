@@ -1,0 +1,541 @@
+{
+  "schemaVersion": 1,
+  "id": "pilot-v2-script",
+  "title": "Hurricanes: Powered by the Ocean – Script V2 (2026 news: El Niño, record Pacific season, Hurricane Polo)",
+  "language": "en",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "durationFrames": 1800,
+  "sources": [
+    {
+      "id": "noaa-how-hurricanes-form",
+      "kind": "web",
+      "publisher": "NOAA National Ocean Service",
+      "title": "How do hurricanes form?",
+      "url": "https://oceanservice.noaa.gov/facts/how-hurricanes-form.html",
+      "checkedAt": "2026-11-20"
+    },
+    {
+      "id": "noaa-jetstream-tc",
+      "kind": "web",
+      "publisher": "NOAA JetStream",
+      "title": "Introduction to Tropical Cyclones",
+      "url": "https://www.noaa.gov/jetstream/tropical/tropical-cyclone-introduction",
+      "checkedAt": "2026-11-20"
+    },
+    {
+      "id": "noaa-2026-wrapup",
+      "kind": "agency_release",
+      "publisher": "NOAA",
+      "title": "Hurricane season wrap-up: El Niño fueled record number of Pacific storms but calmed Atlantic",
+      "url": "https://www.noaa.gov/news-release/hurricane-season-wrap-up-el-nino-fueled-record-number-of-pacific-storms-but-calmed-atlantic",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "id": "nasa-polo",
+      "kind": "web",
+      "publisher": "NASA Earth Observatory",
+      "title": "Explosive Intensification for Hurricane Polo",
+      "url": "https://science.nasa.gov/earth/earth-observatory/explosive-intensification-for-hurricane-polo/",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "id": "aoml-ri",
+      "kind": "web",
+      "publisher": "NOAA AOML",
+      "title": "Hurricane Modeling and Prediction Program",
+      "url": "https://www.aoml.noaa.gov/hurricane-modeling-prediction/",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "id": "gfdl-warming",
+      "kind": "web",
+      "publisher": "NOAA GFDL",
+      "title": "Global Warming and Hurricanes",
+      "url": "https://www.gfdl.noaa.gov/global-warming-and-hurricanes/",
+      "checkedAt": "2026-11-25"
+    }
+  ],
+  "assets": [
+    {
+      "id": "brand-intro",
+      "kind": "brand",
+      "path": "assets/brand/motion/final/BlueDotAtlas Intro.mp4",
+      "rightsStatus": "cleared",
+      "credit": "BlueDotAtlas original"
+    },
+    {
+      "id": "brand-outro",
+      "kind": "brand",
+      "path": "assets/brand/motion/final/BlueDotAtlas_Outro.mp4",
+      "rightsStatus": "cleared",
+      "credit": "BlueDotAtlas original"
+    },
+    {
+      "id": "P60-VID-001",
+      "kind": "footage",
+      "rightsStatus": "unreviewed",
+      "credit": "NASA JSC · ISS Expedition 58"
+    },
+    {
+      "id": "P60-VID-005",
+      "kind": "footage",
+      "rightsStatus": "unreviewed",
+      "credit": "NOAA Ocean Exploration"
+    },
+    {
+      "id": "P60-VID-003",
+      "kind": "footage",
+      "rightsStatus": "unreviewed",
+      "credit": "Nick Underwood / NOAA OMAO"
+    },
+    {
+      "id": "V2-NEW-POLO-SAT",
+      "kind": "footage",
+      "rightsStatus": "unreviewed",
+      "credit": "NOAA/NASA satellite imagery of Hurricane Polo, Sept 2026 (to be sourced)",
+      "sourceIds": [
+        "nasa-polo"
+      ]
+    },
+    {
+      "id": "V2-NEW-ELNINO-SST",
+      "kind": "map",
+      "rightsStatus": "unreviewed",
+      "credit": "NOAA sea surface temperature anomaly, 2026 El Niño (to be sourced)",
+      "sourceIds": [
+        "noaa-2026-wrapup"
+      ]
+    }
+  ],
+  "dataRefs": [
+    {
+      "id": "polo-plus-90kt",
+      "sourceId": "nasa-polo",
+      "description": "Hurricane Polo: maximum sustained wind rose by 90 knots within 24 hours (Sept 2026)",
+      "value": 90,
+      "unit": "kt"
+    },
+    {
+      "id": "pacific-ace-2026",
+      "sourceId": "noaa-2026-wrapup",
+      "description": "Central + eastern Pacific 2026 accumulated cyclone energy, record (old record 318 in 2018)",
+      "value": 359.5,
+      "unit": "ACE"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "intro",
+      "beat": "intro",
+      "title": "Brand intro",
+      "shots": [
+        {
+          "id": "S00",
+          "kind": "brand_intro",
+          "duration": {
+            "frames": 75
+          },
+          "assetIds": [
+            "brand-intro"
+          ],
+          "transitionIn": {
+            "type": "cut",
+            "frames": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "arrival",
+      "beat": "arrival",
+      "title": "Arrival: Earth from orbit, no text, music only",
+      "shots": [
+        {
+          "id": "S01",
+          "kind": "footage_fullscreen",
+          "duration": {
+            "frames": 105
+          },
+          "assetIds": [
+            "P60-VID-001"
+          ],
+          "transitionIn": {
+            "type": "crossfade",
+            "frames": 9
+          },
+          "animation": {
+            "type": "push_in",
+            "fromScale": 1,
+            "toScale": 1.08,
+            "easing": "ease_in_out"
+          }
+        }
+      ]
+    },
+    {
+      "id": "context",
+      "beat": "context",
+      "title": "Context: hurricanes are heat engines",
+      "shots": [
+        {
+          "id": "S02",
+          "kind": "footage_with_overlay",
+          "duration": {
+            "frames": 270
+          },
+          "assetIds": [
+            "P60-VID-001"
+          ],
+          "transitionIn": {
+            "type": "cut",
+            "frames": 0
+          },
+          "assetInFrame": 105,
+          "animation": {
+            "type": "push_in",
+            "fromScale": 1,
+            "toScale": 1.08,
+            "easing": "ease_in_out"
+          },
+          "overlays": [
+            {
+              "style": "info_box",
+              "text": "Warm oceans supply heat and moisture",
+              "startFrame": 60,
+              "endFrame": 210,
+              "sourceIds": [
+                "noaa-how-hurricanes-form"
+              ]
+            }
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "N1",
+          "text": "Hurricanes are giant heat engines, powered by warm ocean water.",
+          "startFrame": 30,
+          "endFrame": 166,
+          "sourceIds": [
+            "noaa-how-hurricanes-form",
+            "noaa-jetstream-tc"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pause-1",
+      "beat": "pause",
+      "title": "Breathing pause: open ocean",
+      "shots": [
+        {
+          "id": "S03",
+          "kind": "breathing_video",
+          "duration": {
+            "frames": 90
+          },
+          "assetIds": [
+            "P60-VID-005"
+          ],
+          "transitionIn": {
+            "type": "crossfade",
+            "frames": 18
+          },
+          "animation": {
+            "type": "pan_right",
+            "fromScale": 1.05,
+            "toScale": 1.05,
+            "easing": "ease_in_out"
+          }
+        }
+      ]
+    },
+    {
+      "id": "news",
+      "beat": "news",
+      "title": "The news: El Niño and a record Pacific season (NOAA, 24 Nov 2026)",
+      "shots": [
+        {
+          "id": "S04",
+          "kind": "map",
+          "duration": {
+            "frames": 150
+          },
+          "assetIds": [
+            "V2-NEW-ELNINO-SST"
+          ],
+          "transitionIn": {
+            "type": "dip_to_black",
+            "frames": 12
+          },
+          "overlays": [
+            {
+              "style": "source_credit",
+              "text": "Sea surface temperature anomaly · NOAA · 2026",
+              "startFrame": 30,
+              "endFrame": 120,
+              "sourceIds": [
+                "noaa-2026-wrapup"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "S05",
+          "kind": "footage_with_overlay",
+          "duration": {
+            "frames": 180
+          },
+          "assetIds": [
+            "V2-NEW-POLO-SAT"
+          ],
+          "transitionIn": {
+            "type": "crossfade",
+            "frames": 12
+          },
+          "animation": {
+            "type": "push_in",
+            "fromScale": 1,
+            "toScale": 1.08,
+            "easing": "ease_in_out"
+          },
+          "overlays": [
+            {
+              "style": "info_box",
+              "text": "2026: record season in the central & eastern Pacific",
+              "startFrame": 30,
+              "endFrame": 170,
+              "sourceIds": [
+                "noaa-2026-wrapup"
+              ],
+              "dataRefIds": [
+                "pacific-ace-2026"
+              ]
+            }
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "N2",
+          "text": "This year, a strong El Niño heated the eastern Pacific.",
+          "startFrame": 15,
+          "endFrame": 151,
+          "sourceIds": [
+            "noaa-2026-wrapup"
+          ]
+        },
+        {
+          "id": "N3",
+          "text": "It brought the most active hurricane season on record there.",
+          "startFrame": 175,
+          "endFrame": 311,
+          "sourceIds": [
+            "noaa-2026-wrapup"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meaning",
+      "beat": "meaning",
+      "title": "What it means: explosive intensification (Hurricane Polo)",
+      "shots": [
+        {
+          "id": "S06",
+          "kind": "infographic",
+          "duration": {
+            "frames": 300
+          },
+          "assetIds": [],
+          "transitionIn": {
+            "type": "crossfade",
+            "frames": 15
+          },
+          "animation": {
+            "type": "diagram_build",
+            "fromScale": 1,
+            "toScale": 1,
+            "easing": "ease_out"
+          },
+          "overlays": [
+            {
+              "style": "info_box",
+              "text": "Hurricane Polo: +90 knots in 24 hours",
+              "startFrame": 40,
+              "endFrame": 220,
+              "sourceIds": [
+                "nasa-polo"
+              ],
+              "dataRefIds": [
+                "polo-plus-90kt"
+              ]
+            }
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "N4",
+          "text": "With warm water, moist air and calm winds aloft, storms can explode in strength – sometimes faster than forecasts expect.",
+          "startFrame": 20,
+          "endFrame": 279,
+          "sourceIds": [
+            "nasa-polo",
+            "aoml-ri"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "future",
+      "beat": "future",
+      "title": "What it means for the future (model projections)",
+      "shots": [
+        {
+          "id": "S07",
+          "kind": "footage_with_overlay",
+          "duration": {
+            "frames": 240
+          },
+          "assetIds": [
+            "P60-VID-003"
+          ],
+          "transitionIn": {
+            "type": "crossfade",
+            "frames": 15
+          },
+          "animation": {
+            "type": "push_in",
+            "fromScale": 1,
+            "toScale": 1.08,
+            "easing": "ease_in_out"
+          },
+          "overlays": [
+            {
+              "style": "info_box",
+              "text": "Projected: a larger share of Category 4–5 storms",
+              "startFrame": 40,
+              "endFrame": 200,
+              "sourceIds": [
+                "gfdl-warming"
+              ]
+            },
+            {
+              "style": "source_credit",
+              "text": "Hurricane Helene 2024 · NOAA Hurricane Hunter",
+              "startFrame": 30,
+              "endFrame": 100,
+              "sourceIds": []
+            }
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "N5",
+          "text": "As the planet warms, models project a larger share of the strongest hurricanes – with heavier rain.",
+          "startFrame": 12,
+          "endFrame": 230,
+          "sourceIds": [
+            "gfdl-warming"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pause-2",
+      "beat": "pause",
+      "title": "Breathing pause",
+      "shots": [
+        {
+          "id": "S08",
+          "kind": "breathing_video",
+          "duration": {
+            "frames": 60
+          },
+          "assetIds": [
+            "V2-NEW-POLO-SAT"
+          ],
+          "transitionIn": {
+            "type": "crossfade",
+            "frames": 18
+          },
+          "assetInFrame": 200
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "beat": "takeaway",
+      "title": "Takeaway: calm ocean with one line",
+      "shots": [
+        {
+          "id": "S09",
+          "kind": "footage_with_overlay",
+          "duration": {
+            "frames": 150
+          },
+          "assetIds": [
+            "P60-VID-005"
+          ],
+          "transitionIn": {
+            "type": "crossfade",
+            "frames": 15
+          },
+          "assetInFrame": 300,
+          "animation": {
+            "type": "push_in",
+            "fromScale": 1,
+            "toScale": 1.08,
+            "easing": "ease_in_out"
+          },
+          "overlays": [
+            {
+              "style": "title",
+              "text": "The ocean powers the storm.",
+              "startFrame": 30,
+              "endFrame": 140
+            }
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "N6",
+          "text": "The ocean powers the storm. And the ocean is changing.",
+          "startFrame": 7,
+          "endFrame": 143,
+          "sourceIds": [
+            "noaa-how-hurricanes-form",
+            "gfdl-warming"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outro",
+      "beat": "outro",
+      "title": "Brand outro (6 s, music through)",
+      "shots": [
+        {
+          "id": "S10",
+          "kind": "brand_outro",
+          "duration": {
+            "frames": 180
+          },
+          "assetIds": [
+            "brand-outro"
+          ],
+          "transitionIn": {
+            "type": "crossfade",
+            "frames": 9
+          }
+        }
+      ]
+    }
+  ],
+  "publicationAuthorized": false
+}
