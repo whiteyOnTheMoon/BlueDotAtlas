@@ -27,7 +27,7 @@ Die Ausgaben landen ausschließlich im git- und docker-ignorierten Projektordner
 
 | Schritt | Container-Limit | Zulassung | Ausgabe |
 | --- | --- | --- | --- |
-| `--tts` | 1024 MiB (gemessen ≈ 800 MiB) | ≥ 3328 MiB | `.private-046/v2-tts-01/` (WAV + Timing-Report) |
+| `--tts` | 800 MiB (gemessen: Spitze 728 MiB, besteht auch bei 768 MiB) | ≥ 3104 MiB | `.private-046/v2-tts-01/` (WAV + Timing-Report) |
 | `--film` | 512 MiB | ≥ 2816 MiB | `.private-046/scene-v2-01/scene-v1.mp4` + Receipt |
 
 ## Ablauf auf dem VPS (jeder Schritt einzeln freigeben)
@@ -50,6 +50,7 @@ Schlägt ein Schritt fehl, gilt: **STOP**. Ausgabe und Diagnose-Container bleibe
 ## Generalprobe in der Cloud-Sandbox (25.11.2026)
 
 - **TTS-Image** gebaut. Lauf ohne Netz bei 1024 MiB und 0,5 CPU: **PASS** in ≈ 1,5 min, kein OOM. Die sechs Sätze liegen in denselben Frame-Fenstern wie im Szenendokument.
+- **TTS-Limit nachgemessen (26.11.2026):** Der VPS-`--check` meldete 3201 MiB frei, die alte Zulassung verlangte 3328 MiB (1024 MiB Limit). Nachmessung im Container: Spitze 728 MiB, PASS auch mit 768 MiB Limit, kein OOM. Das Limit ist jetzt 800 MiB, die Zulassung 3104 MiB; Hostreserve (2048 MiB) und Watchdog bleiben unverändert. Mit den gepinnten Versionen ist die Sprachspur bitgleich reproduzierbar (SHA-256 `db49e3d8…`).
 - **Brand-Intro:** Die Generalprobe hat einen echten Fehler gefunden. Das Intro ist 2,5 s lang, für die 9-Frame-Blende braucht der Renderer aber 2,8 s Material. Jetzt hält das Intro während der Blende sein letztes Bild (`tpad`), seine Länge bleibt unverändert (V14). Der CI-Synthetiktest deckt das jetzt ab: Sein Intro ist genau so lang wie der Shot.
 - **Film:** echte V2-Clips (über `stage-pilot-v2-media.mjs` geladen, SHA geprüft) und echte V2-Sprachspur. Die drei 036-Originale sind dabei durch synthetische Platzhalter gleicher Auflösung und Länge ersetzt, weil sie in der Sandbox nicht erreichbar sind.
   - **Vorabprüfung PASS:** Alle Quellen sind lang genug, die V2-SHAs stimmen, die Sprachspur passt zum Szenendokument.
