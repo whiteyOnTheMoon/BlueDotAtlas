@@ -7,6 +7,10 @@ on:
       - 'scripts/scene-render-v1-plan.mjs'
       - 'scripts/check-scene-render-v1.test.mjs'
       - 'scripts/render-pilot-v2.mjs'
+      - 'scripts/bench-061-plan.mjs'
+      - 'scripts/render-bench-061.mjs'
+      - 'scripts/run-bench-061.sh'
+      - 'scripts/check-bench-061.test.mjs'
       - 'scripts/check-pilot-v2-film.test.mjs'
       - 'scripts/run-pilot-v2-film.sh'
       - 'scripts/generate-tts-v2.py'
@@ -22,7 +26,7 @@ permissions:
 
 jobs:
   scene-v1-ubuntu:
-    name: Scene V1 renderer synthetic 1080p (transitions, camera, overlays, infographic)
+    name: Scene V1 renderer synthetic 1080p (transitions, camera, overlays, infographic, resume)
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -40,8 +44,8 @@ jobs:
         run: |
           pnpm install --frozen-lockfile
           pnpm --filter @bluedotatlas/core build
-      - name: Plan unit tests
-        run: node --test scripts/check-scene-render-v1.test.mjs
+      - name: Plan unit tests (incl. 061 benchmark plan and 062 resume planning)
+        run: node --test scripts/check-scene-render-v1.test.mjs scripts/check-bench-061.test.mjs
       - name: Install FFmpeg, rsvg and fonts (CI only)
         run: |
           sudo apt-get update -qq
