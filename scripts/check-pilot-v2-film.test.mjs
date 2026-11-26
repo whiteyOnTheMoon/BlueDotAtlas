@@ -56,8 +56,8 @@ test('VPS runner keeps the private, offline, bounded boundary', () => {
     'test "$root" = "$HOME/www/blueDotAtlas"', 'git check-ignore -q "$private_root/stage"',
     'voice="$private_root/v2-tts-01"', 'out="$private_root/scene-v2-01"',
     'BDA_PILOT_V2_TTS_PRIVATE=TRUE', 'BDA_PILOT_V2_FILM_PRIVATE=TRUE', 'refuse overwrite',
-    '--memory 1024m --memory-swap 1024m', '--memory 512m --memory-swap 512m',
-    'need_tts=3328', 'need_film=2816', 'below 2048 MiB MemAvailable', 'org.opencontainers.image.revision',
+    '--memory 800m --memory-swap 800m', '--memory 512m --memory-swap 512m',
+    'need_tts=3104', 'need_film=2816', 'below 2048 MiB MemAvailable', 'org.opencontainers.image.revision',
   ]) assert.ok(sh.includes(needle), 'runner lost: ' + needle);
   const runs = sh.match(/docker run[^\n]*\n(?:[^\n]*\\\n)*/g) ?? [];
   assert.ok(runs.length >= 4);

@@ -56,7 +56,7 @@ fi
 
 mem_mib() { awk '/^MemAvailable:/ {print int($2 / 1024)}' /proc/meminfo; }
 # Admission = container cap + 2048 MiB host reserve + 256 MiB margin (as 046).
-need_tts=3328   # 1024 MiB cap; measured Kokoro peak ~800 MiB
+need_tts=3104   # 800 MiB cap; measured container peak RSS 728 MiB (passes at 768m)
 need_film=2816  # 512 MiB cap; single-thread FFmpeg/rsvg steps
 echo "V2 FILM host MemAvailable: $(mem_mib) MiB (TTS needs $need_tts, film needs $need_film)"
 
@@ -131,10 +131,10 @@ case "$mode" in
   [ "$(mem_mib)" -ge "$need_tts" ] || no_go "need >= $need_tts MiB MemAvailable for TTS"
   mkdir -m 700 "$voice"
   watch_container "$tts_name"
-  echo "V2 TTS: local pinned Kokoro (bm_george, speed 0.9), offline, 1024 MiB cap"
+  echo "V2 TTS: local pinned Kokoro (bm_george, speed 0.9), offline, 800 MiB cap"
   if timeout --signal=TERM --kill-after=30s 1800s docker run \
     --name "$tts_name" --pull never --init --network none \
-    --cpus 0.5 --memory 1024m --memory-swap 1024m --pids-limit 64 \
+    --cpus 0.5 --memory 800m --memory-swap 800m --pids-limit 64 \
     --read-only --cap-drop ALL --security-opt no-new-privileges \
     --tmpfs /tmp:rw,nosuid,exec,size=64m,uid=1000,gid=1000 \
     -e BDA_TTS_V2_PRIVATE=TRUE -e BDA_TTS_V2_SPEED=0.9 \

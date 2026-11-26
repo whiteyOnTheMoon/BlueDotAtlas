@@ -75,7 +75,7 @@ jobs:
 
   pilot-v2-tts-image:
     # Same image and container limits as run-pilot-v2-film.sh --tts on the VPS.
-    name: V2 TTS image (pinned Kokoro, offline run, 1024 MiB)
+    name: V2 TTS image (pinned Kokoro, offline run, 800 MiB)
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -90,7 +90,7 @@ jobs:
       - name: Offline narration run with VPS limits
         run: |
           mkdir -m 700 .tmp-v2-voice && sudo chown 1000:1000 .tmp-v2-voice
-          docker run --rm --pull never --init --network none --cpus 0.5 --memory 1024m --memory-swap 1024m \
+          docker run --rm --pull never --init --network none --cpus 0.5 --memory 800m --memory-swap 800m \
             --pids-limit 64 --read-only --cap-drop ALL --security-opt no-new-privileges \
             --tmpfs /tmp:rw,nosuid,exec,size=64m,uid=1000,gid=1000 \
             -e BDA_TTS_V2_PRIVATE=TRUE -e BDA_TTS_V2_SPEED=0.9 \
