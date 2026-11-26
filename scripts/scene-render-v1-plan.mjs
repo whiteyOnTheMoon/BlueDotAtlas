@@ -152,3 +152,14 @@ export function blendExpr(type, n) {
   // First half fades A to black/white, second half fades B in from it.
   return `if(lt(${k},0.5),A*(1-2*${k})+${black}*2*${k},B*(2*${k}-1)+${black}*(2-2*${k}))`;
 }
+
+/** Which parts still need shot i (062 resume planning). Pure. */
+export function shotsStillNeeded(parts, done) {
+  const need = new Set();
+  parts.forEach((part, k) => {
+    if (done.has(k)) return;
+    if (part.kind === 'body') need.add(part.shot);
+    else { need.add(part.from); need.add(part.to); }
+  });
+  return need;
+}

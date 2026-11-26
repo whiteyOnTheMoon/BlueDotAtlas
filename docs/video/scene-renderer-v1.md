@@ -26,6 +26,28 @@ Der Renderer erzeugt einen Film direkt aus einem gültigen [Szenendokument V1](.
    - Volldecode ohne Fehlermeldung.
    - Receipt mit SHA-256; `publicationAuthorized: false`.
 
+## Streaming und Wiederaufnahme (062)
+
+Für lange Filme (8–10 Minuten, Roadmap 061) rendert der Renderer gestreamt und kann nach einem Abbruch fortsetzen.
+
+- **Begrenzter Plattenplatz:**
+  - Ein verlustfreies Shot-Zwischenvideo braucht 24–33 MiB pro Sekunde, bei 9 Minuten wären das rund 15 GB.
+  - Deshalb rendert der Renderer Shot für Shot und löscht jedes Zwischenvideo, sobald seine Teile (Body und ausgehende Blende) fertig sind.
+  - Auf der Platte liegen höchstens **zwei** Zwischenvideos gleichzeitig, dazu die fertigen Teile im Auslieferungsprofil.
+- **Wiederaufnahme:**
+  - Fertige Teile liegen in `<out>/.work-scene-v1/` und werden atomar geschrieben: erst als `.tmp`, dann Framezahl prüfen, dann umbenennen.
+  - Ein erneuter Aufruf mit **denselben Eingaben** macht beim ersten fehlenden Teil weiter und rendert nur die dafür nötigen Shots neu.
+  - Ein Fingerabdruck aus Szenendokument, Profil, Renderer-Version sowie Größe und Zeitstempel aller Eingabedateien verhindert, dass Teile einer anderen Fassung verwendet werden. Bei Abweichung wird abgebrochen und nichts gelöscht.
+  - Der Arbeitsordner wird erst nach einem bestandenen Film entfernt.
+- **Speicher:** Die SHA-256 des fertigen Films wird gestreamt berechnet, weil ein 9-Minuten-Film größer sein kann als das Containerlimit.
+- **Fortschritt:** `onProgress(fertig, gesamt)` liefert den Stand nach jedem Teil, für den späteren Worker bzw. Admin.
+- **Nachweis** (synthetischer CI-Lauf):
+  - Gezielter Abbruch nach Teil 5.
+  - Mit geänderten Eingaben wird die Fortsetzung abgelehnt.
+  - Die Fortsetzung übernimmt genau die 5 fertigen Teile und ist **bitgleich** zu einem Lauf ohne Abbruch.
+  - Es liegen nie mehr als zwei Zwischenvideos gleichzeitig auf der Platte.
+  - Der Film ist bitgleich zur Fassung vor dem Umbau.
+
 ## Aufruf
 
 ```bash
@@ -34,7 +56,7 @@ node scripts/render-scene-v1.mjs --scene docs/pilot/60s-script-v2.scene.json \
 ```
 
 - **Asset-Zuordnung:** `asset-map.json` ordnet jede `assetId` ihrer privaten Datei zu (`{"ID": {"file": "/abs/pfad.mp4"}}`). Steht im Szenendokument ein SHA-256, prüft der Renderer ihn vor dem Rendern.
-- **Ausgabe:** `scene-v1.mp4` und `scene-v1.mp4.receipt.json`. Es wird nichts überschrieben.
+- **Ausgabe:** `scene-v1.mp4` und `scene-v1.mp4.receipt.json`. Es wird nichts überschrieben. Nach einem Abbruch denselben Befehl erneut ausführen, dann setzt er fort (062).
 
 ## Nachweise
 

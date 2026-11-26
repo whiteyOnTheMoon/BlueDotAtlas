@@ -102,8 +102,8 @@
 | **058** | Textgrafiken und Legenden begrenzen | [#82](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/82) | Backlog |
 | **059** | Scene-Director-QA-Linter hinzufügen | [#83](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/83) | Backlog |
 | **060** | Timeline-Preview und Render-Manifest erstellen | [#84](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/84) | Backlog |
-| **061** | 8–10-Minuten-Benchmark auf VPS fahren | [#85](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/85) | **Nächster Schritt** (DEC-067): technischer ~9-min-Probelauf auf dem VPS, zusammen mit 062 |
-| **062** | Render-Fehlerkorrektur und Wiederaufnahme implementieren | [#86](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/86) | **Nächster Schritt** (DEC-067): szenenweise, wiederaufnehmbare Renders für lange Filme |
+| **061** | 8–10-Minuten-Benchmark auf VPS fahren | [#85](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/85) | **In Arbeit:** 9,68-min-Benchmark mit gestreamtem, wiederaufnehmbarem Rendern; Sandbox-Generalprobe PASS, VPS-Lauf offen ([Benchmark](../video/vps-benchmark-061.md)) |
+| **062** | Render-Fehlerkorrektur und Wiederaufnahme implementieren | [#86](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/86) | **In Arbeit:** Streaming-Renderer (≤ 2 Zwischenvideos), atomare Teile, Fingerabdruck-geschützte Wiederaufnahme; CI-Nachweis bitgleich nach Abbruch ([Renderer](../video/scene-renderer-v1.md)) |
 | **063** | Video-Engine-Qualitätsgate abnehmen | [#87](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/87) | Backlog |
 
 ## M05 – Öffentliche Videothek und Admin-Grundoberfläche (064–074)

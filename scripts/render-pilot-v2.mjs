@@ -96,10 +96,8 @@ function probeSeconds(file) {
   return Number(j.streams?.[0]?.duration ?? j.format?.duration);
 }
 
-export function preflight({ stageRoot, voiceDir, requireNarration = true }) {
-  const sceneBytes = readFileSync(SCENE_V2);
-  const doc = JSON.parse(sceneBytes);
-  assert.equal(doc.publicationAuthorized, false);
+/** Rights-manifest SHA/size for V2 clips and source length for every used asset. */
+export function checkAssets(doc, stageRoot, label = 'V2 FILM') {
   const assets = assetMap(doc, stageRoot);
   const v2 = JSON.parse(readFileSync(join(repo, 'assets/pilot/rights-manifest-v2.json'), 'utf8'));
   const needs = sourceNeeds(doc);
@@ -113,8 +111,16 @@ export function preflight({ stageRoot, voiceDir, requireNarration = true }) {
     }
     const have = probeSeconds(file);
     assert.ok(have + 1e-3 >= needs[id], `${id}: source has ${have.toFixed(2)} s, scene needs ${needs[id].toFixed(2)} s`);
-    console.log(`V2 FILM ASSET OK: ${id} ${have.toFixed(2)} s >= ${needs[id].toFixed(2)} s${entry ? ' + SHA' : ''}`);
+    console.log(`${label} ASSET OK: ${id} ${have.toFixed(2)} s >= ${needs[id].toFixed(2)} s${entry ? ' + SHA' : ''}`);
   }
+  return assets;
+}
+
+export function preflight({ stageRoot, voiceDir, requireNarration = true }) {
+  const sceneBytes = readFileSync(SCENE_V2);
+  const doc = JSON.parse(sceneBytes);
+  assert.equal(doc.publicationAuthorized, false);
+  const assets = checkAssets(doc, stageRoot);
   const wav = join(voiceDir, 'pilot-v2-narration-60s.wav');
   if (!requireNarration && !existsSync(wav)) {
     console.log('V2 FILM NARRATION: not generated yet (run --tts after approval)');
