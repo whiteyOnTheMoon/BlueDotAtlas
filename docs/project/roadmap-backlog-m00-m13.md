@@ -82,7 +82,7 @@
 | **045** | FFmpeg-Exportprofil und Medienprüfung ergänzen | [#69](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/69) | `render/preset-1080p.json`: 1920×1080/30fps/yuv420p/BT709/H264 High/AAC-LC 48kHz stereo/MP4 `+faststart`; isolierter tatsächlicher 8s-Original-Testsrc2/Sinus-Encode und unabhängiger ffprobe-/MP4-Atom-/Volldecode-Check, negative Rechte-/Profiltests. Keine echte 60s-Filmproduktion, kein Originalfootage, kein VPS. 7/7 final grüne CI-Checks, PR #215 Squash `baa1d63` gemergt, Issue #69 nach Betreiberfreigabe abgeschlossen. |
 | **046** | Renderauftrag auf VPS über Queue ausführen | [#70](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/70) | **Abgeschlossen (25.11.2026):** privater 60s-Pilotfilm per Admin-Button → PostgreSQL-Queue → Worker `renderer046film` auf dem VPS `succeeded` (PR #230–#235; FFmpeg/SVG-Renderer, 1800 f/30/1/60,000 s); Issue geschlossen |
 | **047** | Video-Vorschau, Download und Archivierung bereitstellen | [#71](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/71) | **Abgeschlossen (25.11.2026):** `/admin/projects/:id/video` mit HTML5-Player, Original-Download und Metadaten, unveröffentlicht (PR #236); Issue geschlossen |
-| **048** | Filmische Abnahme des ersten Clips durchführen | [#72](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/72) | **Erste Abnahme: NICHT BESTANDEN – Diashow-Wirkung** ([60s-review.md](../pilot/60s-review.md)); Ziel-Dramaturgie V2 und Nacharbeiten den M04-Aufgaben zugeordnet; M03 bleibt offen |
+| **048** | Filmische Abnahme des ersten Clips durchführen | [#72](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/72) | **Abgeschlossen (26.11.2026): Wiederholung BESTANDEN** mit dem privaten V2-Film (DEC-066, [60s-review.md](../pilot/60s-review.md)); erste Abnahme war „nicht bestanden – Diashow-Wirkung“. **M03 geschlossen** |
 
 ## M04 – Scene Director und professionelle Video Engine (049–063)
 
@@ -98,12 +98,12 @@
 | **054** | Medien-Auswahlalgorithmus entwickeln | [#78](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/78) | Backlog |
 | **055** | Animierte Wissenschaftsdiagramme erstellen | [#79](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/79) | Backlog |
 | **056** | Earth-/Karten-Prototyp bauen | [#80](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/80) | Backlog |
-| **057** | Filmische Übergänge und Farbkorrektur standardisieren | [#81](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/81) | Im Review: [Scene-Renderer V1](../video/scene-renderer-v1.md) mit Crossfade/Dip und Kamerafahrten (Farbkorrektur offen); enthält Infobox-Overlays (058) und `diagram_build`-Infografik (055) |
+| **057** | Filmische Übergänge und Farbkorrektur standardisieren | [#81](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/81) | In Arbeit: [Scene-Renderer V1](../video/scene-renderer-v1.md) mit Crossfade/Dip und Kamerafahrten gemergt (PR #244), damit der private V2-Film gerendert (PR #245/#246); Farbkorrektur offen; enthält Infobox-Overlays (058) und `diagram_build`-Infografik (055) |
 | **058** | Textgrafiken und Legenden begrenzen | [#82](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/82) | Backlog |
 | **059** | Scene-Director-QA-Linter hinzufügen | [#83](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/83) | Backlog |
 | **060** | Timeline-Preview und Render-Manifest erstellen | [#84](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/84) | Backlog |
-| **061** | 8–10-Minuten-Benchmark auf VPS fahren | [#85](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/85) | Backlog |
-| **062** | Render-Fehlerkorrektur und Wiederaufnahme implementieren | [#86](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/86) | Backlog |
+| **061** | 8–10-Minuten-Benchmark auf VPS fahren | [#85](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/85) | **Nächster Schritt** (DEC-067): technischer ~9-min-Probelauf auf dem VPS, zusammen mit 062 |
+| **062** | Render-Fehlerkorrektur und Wiederaufnahme implementieren | [#86](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/86) | **Nächster Schritt** (DEC-067): szenenweise, wiederaufnehmbare Renders für lange Filme |
 | **063** | Video-Engine-Qualitätsgate abnehmen | [#87](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/87) | Backlog |
 
 ## M05 – Öffentliche Videothek und Admin-Grundoberfläche (064–074)

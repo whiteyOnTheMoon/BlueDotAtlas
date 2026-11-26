@@ -5,7 +5,9 @@
 
 ## Urteil
 
-> **NICHT BESTANDEN – Diashow-Wirkung.** Technisch ist der Film einwandfrei (Volldecode fehlerfrei, exakt 30/1, Stimmpegel −23,8 dB). Filmisch überzeugt er laut Betreiber nicht. Nach dem Roadmap-Abnahmetor („bei Diashow-Wirkung wird M03 nicht geschlossen“) bleibt **M03 offen**. Der Film wird mit den M04-Aufgaben überarbeitet und danach erneut nach diesem Dokument abgenommen.
+> **Wiederholung am 26.11.2026: BESTANDEN** mit dem privaten V2-Film (Scene-Renderer V1, `9f2bba3c…`). Betreiber: „es wirkt schon eher wie eine doku, weniger powerpoint. es ist aber alles sehr schnell.“ und ausdrücklich „bestanden“. **M03 ist damit geschlossen.** Die Tempo-Rückmeldung fließt in den 8–10-Minuten-Film (M04, 061) ein: längere Szenen, ruhigerer Schnitt.
+>
+> Erste Abnahme (24./25.11.2026): **NICHT BESTANDEN – Diashow-Wirkung.** Technisch ist der Film einwandfrei (Volldecode fehlerfrei, exakt 30/1, Stimmpegel −23,8 dB). Filmisch überzeugt er laut Betreiber nicht. Nach dem Roadmap-Abnahmetor („bei Diashow-Wirkung wird M03 nicht geschlossen“) bleibt **M03 offen**. Der Film wird mit den M04-Aufgaben überarbeitet und danach erneut nach diesem Dokument abgenommen.
 
 ## Betreiber-Eindruck (wörtlich, 24./25.11.2026)
 
@@ -71,5 +73,18 @@ Inhaltlicher Bogen: **Kontext → Nachricht → Bedeutung → Zukunft → Mitneh
 - **Skript V2** (Nacharbeit 1) ist erstellt und vom Betreiber freigegeben: aktueller Aufhänger NOAA-Saisonbilanz 2026 (El Niño, Rekordsaison im Pazifik, Hurrikan Polo). Siehe [60s-script-v2.md](60s-script-v2.md) und [60s-script-v2.scene.json](60s-script-v2.scene.json); 75 Wörter, gültig nach 049, regelkonform nach 050.
 
 ## Wiederholung der Abnahme
+
+**Ergebnis 26.11.2026: BESTANDEN.** Geprüft wurde der private V2-Film vom VPS:
+- `.private-046/scene-v2-01/scene-v1.mp4`, 1800 Frames, Volldecode fehlerfrei, SHA-256 `9f2bba3c2ea67d8f12904ed9e92101c52f3ce75bce1faeefb8caa03296bc5b9d`.
+- Erzeugt mit [run-pilot-v2-film.sh](../../scripts/run-pilot-v2-film.sh) auf `9417ebd`; siehe [v2-film-vps.md](v2-film-vps.md).
+
+| Kriterium | Befund V2 (Betreiber) |
+| --- | --- |
+| Bildrhythmus / Diashow-Wirkung | „wirkt schon eher wie eine doku, weniger powerpoint“ → behoben |
+| Tempo | „es ist aber alles sehr schnell“ → Lehre für den Langfilm: längere Szenen |
+
+**Bekannte offene Gestaltungspunkte** (kein Abnahmehindernis): Jahresbeschriftung auf der El-Niño-Karte, Infografik mit nur einem Balken, kein Musikbett, Farbkorrektur (057).
+
+**Ursprüngliche Vorgabe:**
 
 Die 048-Abnahme wird mit einem nach V2 überarbeiteten Pilotfilm wiederholt: Ansicht am großen Bildschirm und am Handy, dieselbe Prüfmatrix, ausdrückliches Betreiberurteil. Erst ein **„bestanden“** schließt M03. Veröffentlichung bleibt ein eigenes Rechte- und Freigabe-Gate.
