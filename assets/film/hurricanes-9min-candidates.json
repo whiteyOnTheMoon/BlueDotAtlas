@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "roadmap_id": "063",
+  "github_issue": 87,
+  "purpose": "Private staging of media CANDIDATES for owner viewing only (contact sheets). Not approved for any timeline or publication.",
+  "approval_scope": "PRIVATE_CANDIDATE_REVIEW_ONLY",
+  "publication_authorized": false,
+  "rights_basis": "NASA SVS FAQ: content is in the public domain unless otherwise noted (https://svs.gsfc.nasa.gov/help/); per-page credits/third-party notes checked 2026-11-27 via the SVS API",
+  "candidates": [
+    { "id": "K1-SVS5131-IAN", "chapter": 2, "page": "https://svs.gsfc.nasa.gov/5131/", "url": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005131/Hurricane_Ian_comp_noOverlay_v03_30p_1080p30.mp4", "note": "Opening uses CIRA/NOAA cloud imagery (courtesy) - only the NASA volume part after it may be used" },
+    { "id": "K2-SVS5401-MILTON", "chapter": 2, "page": "https://svs.gsfc.nasa.gov/5401/", "url": "https://svs.gsfc.nasa.gov/vis/a000000/a005400/a005401/milton_v02_1080p30.mp4", "note": "GPM rain structure" },
+    { "id": "K3-SVS4933-IDA", "chapter": 2, "page": "https://svs.gsfc.nasa.gov/4933/", "url": "https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004933/ida2001_1080p30.mp4", "note": "GPM eye, 3D precipitation" },
+    { "id": "K4-SVS5575-ERIN", "chapter": 5, "page": "https://svs.gsfc.nasa.gov/5575/", "url": "https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005575/Erin_v01_2025-08-18_141507.mp4", "note": "Rapid intensification; label as Erin 2025, never as Polo" },
+    { "id": "K5-SVS5425-OCEANTEMP", "chapter": 3, "page": "https://svs.gsfc.nasa.gov/5425/", "url": "https://svs.gsfc.nasa.gov/vis/a000000/a005400/a005425/perpetual_ocean2_CLOSE_096_temperature_1080p30.mp4", "note": "Ocean temperature, currents, eddies; Blue Marble courtesy Reto Stockli (NASA/GSFC)" },
+    { "id": "K6-SVS5538-SWOT", "chapter": 3, "page": "https://svs.gsfc.nasa.gov/5538/", "url": "https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005538/SWOT_ssha_31_1080p60.mp4", "note": "Sea surface height eddies; music note on the page applies to the produced version only" },
+    { "id": "K7-SVS5688-ELNINO", "chapter": 4, "page": "https://svs.gsfc.nasa.gov/5688/", "url": "https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005688/elnino_eic_ssta_globes_3340x1670_latest.mp4", "note": "Updated daily - SHA pinned at staging; 2:1, crop to 16:9" },
+    { "id": "K8-SVS4456-GLOBALHAWK", "chapter": 5, "page": "https://svs.gsfc.nasa.gov/4456/", "url": "https://svs.gsfc.nasa.gov/vis/a000000/a004400/a004456/hs3_Eduardo_1080p30.mp4", "note": "NASA Global Hawk with dropsondes over Edouard; label as NASA, not NOAA" },
+    { "id": "K9-SVS5181-OTIS", "chapter": 5, "page": "https://svs.gsfc.nasa.gov/5181/", "url": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005181/Otis_001_1080p30.mp4", "note": "Label as Otis 2023" },
+    { "id": "K10-SVS5611-SEALEVEL", "chapter": 6, "page": "https://svs.gsfc.nasa.gov/5611/", "url": "https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005611/seaLevelRise_2025_English_HD.mp4", "note": "English labels burned in" },
+    { "id": "K11-SVS5377-TRACKS", "chapter": 6, "page": "https://svs.gsfc.nasa.gov/5377/", "url": "https://svs.gsfc.nasa.gov/vis/a000000/a005300/a005377/hurricane_tracks_by_year_close_all_1080p30.mp4", "note": "Hurricane tracks by decade" }
+  ]
+}

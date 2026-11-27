@@ -1,7 +1,23 @@
 # Medienkandidaten für den 9-Minuten-Hurrikanfilm (Entwurf)
 
 **BlueDotAtlas · Roadmap 063 ([Issue #87](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/87)) · zum [Skript V1](hurricanes-9min-script-v1.md) · Stand 27.11.2026**
-**Status:** **Vorschlag zur Sichtung.** Nichts davon ist geladen, freigegeben oder im Repository. Bitte jeden Kandidaten über den Link auf der NASA-Seite ansehen und mit „passt“ oder „passt nicht“ bewerten.
+**Status:** **Vorschlag zur Sichtung.** Nichts davon ist geladen, freigegeben oder im Repository.
+
+**Sichtung über den VPS:** Seit dem 27.11.2026 liefert der NASA-Server die Video- und Bilddateien (`/vis/…`) mit **403 Forbidden** aus, sowohl an den Browser des Betreibers als auch an die Cloud-Sandbox. Die Infoseiten selbst laden. Deshalb staged der VPS die Kandidaten privat und erzeugt Kontaktabzüge:
+
+1. `bash scripts/run-film-063-candidates.sh --check` (nur lesen).
+2. `BDA_FILM_063_STAGE=TRUE bash scripts/run-film-063-candidates.sh --stage`:
+   - lädt nur die Kandidaten-URLs ([`assets/film/hurricanes-9min-candidates.json`](../../assets/film/hurricanes-9min-candidates.json)) von `svs.gsfc.nasa.gov`;
+   - streamt mit einer Obergrenze von 700 MB pro Datei;
+   - pinnt SHA-256 und Größe beim ersten Laden;
+   - ein 403 wird je Clip notiert und bricht nicht alles ab;
+   - Ziel ist `.private-046/stage/film/.candidates-063/`.
+3. `bash scripts/run-film-063-candidates.sh --review`:
+   - läuft offline im FFmpeg-Container;
+   - prüft die SHA erneut sowie Länge, Auflösung und Tonspuren;
+   - erzeugt pro Kandidat einen Kontaktabzug (12 Bilder mit Zeitstempel);
+   - schreibt alles nach `.private-046/review-063/` (`review-063.md`, PNGs).
+4. Der Betreiber lädt die PNGs herunter und bewertet jeden Kandidaten mit „passt“ oder „passt nicht“.
 
 ## Rechtsgrundlage
 
