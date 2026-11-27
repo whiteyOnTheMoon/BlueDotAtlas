@@ -104,7 +104,7 @@
 | **060** | Timeline-Preview und Render-Manifest erstellen | [#84](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/84) | Backlog |
 | **061** | 8–10-Minuten-Benchmark auf VPS fahren | [#85](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/85) | **Abgeschlossen (27.11.2026):** 9,68-min-Benchmark auf dem VPS im ersten Durchlauf PASS – 115 min bei 0,5 CPU, MemAvailable min. 2771 MiB, 519 MB, kein OOM (PR #248; [Benchmark](../video/vps-benchmark-061.md)) |
 | **062** | Render-Fehlerkorrektur und Wiederaufnahme implementieren | [#86](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/86) | **Teilweise (PR #248):** Streaming-Renderer (≤ 2 Zwischenvideos), atomare Teile, Fingerabdruck-geschützte Wiederaufnahme; CI-Nachweis bitgleich nach Abbruch ([Renderer](../video/scene-renderer-v1.md)). Offen: Wiederaufnahme im Queue/Worker-Betrieb |
-| **063** | Video-Engine-Qualitätsgate abnehmen | [#87](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/87) | Backlog |
+| **063** | Video-Engine-Qualitätsgate abnehmen | [#87](https://github.com/whiteyOnTheMoon/BlueDotAtlas/issues/87) | **In Arbeit:** 9-Minuten-Hurrikanfilm als Langfilm-Nachweis; Kapitelbogen entschieden (DEC-068), [Skript V1](../film/hurricanes-9min-script-v1.md) zur Freigabe |
 
 ## M05 – Öffentliche Videothek und Admin-Grundoberfläche (064–074)
 
