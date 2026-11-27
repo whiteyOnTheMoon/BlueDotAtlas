@@ -28,6 +28,21 @@ Die Rahmenbedingungen entsprechen dem V2-Film:
 - Der Watchdog stoppt nur den eigenen Container, wenn MemAvailable unter 2048 MiB fällt.
 - Ausgabe ausschließlich in `.private-046/bench-061-01/`, mit `scene-v1.mp4`, Receipt und `bench-061-report.json` (Zeit, minimaler RAM, Größe, SHA).
 
+## Ergebnis auf dem VPS (26./27.11.2026) – BESTANDEN
+
+Stand `db109ac`, Image neu gebaut (Revisionslabel = HEAD). Vor dem Lauf: MemAvailable 3481 MiB, 23 GiB Platte frei.
+
+| Messgröße | VPS-Ergebnis |
+| --- | --- |
+| Ergebnis | **PASS im ersten Durchlauf**: 17.415 Frames, 1920×1080, `30/1`; Volldecode fehlerfrei (Teil des Renderer-Gates vor `FILM PASS`); Container `exited 0`, kein OOM |
+| Rechenzeit | **115 min** (6888 s) für 9,68 Filmminuten, also **≈ 11,9 min pro Filmminute** bei 0,5 CPU |
+| Host-RAM | niedrigstes gemessenes MemAvailable **2771 MiB**; Watchdog-Grenze 2048 MiB nie erreicht |
+| Dateigröße | **519 MB** (≈ 54 MB pro Filmminute) |
+| SHA-256 | `9425878bf19752b9ec0940f6da9b172da4402b024d494a57b16cadb24b26b835` |
+| Wiederaufnahme | auf dem VPS nicht nötig (`resumedParts: 0`); nachgewiesen in CI und in der Sandbox (harter Abbruch bei 25/76) |
+
+**Folgerung für den Langfilm:** Ein 8–10-Minuten-Film ist auf dem geteilten VPS in rund 2 Stunden machbar, ohne andere Dienste zu gefährden. Für Iterationen am Langfilm lohnt es sich, die Renderzeit zu senken, z. B. mit leichterem Oversampling bei Kamerafahrten oder einer Kapitel-Vorschau in niedrigerer Auflösung. Das kommt mit 060 (Timeline-Preview).
+
 ## Generalprobe in der Cloud-Sandbox (26.11.2026)
 
 Material: echte V2-Clips (SHA geprüft); die drei 036-Originale sind durch synthetische Platzhalter gleicher Länge ersetzt.
